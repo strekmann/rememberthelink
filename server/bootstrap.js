@@ -1,10 +1,10 @@
 // -- module dependencies
 var express = require('express'),
-    path    = require('path');
+    path    = require('path'),
+    hbs = require('express-hbs');
 
 module.exports.boot = function(app) {
     app.configure(function(){
-
         // -- Parses x-www-form-urlencoded request bodies (and json)
         app.use(express.bodyParser());
         app.use(express.methodOverride());
@@ -18,6 +18,17 @@ module.exports.boot = function(app) {
         app.use(app.router);
 
         app.use(express.static(path.join(__dirname, 'public')));
+
+        app.engine('hbs', hbs.express3({
+            partialsDir: path.join(__dirname, 'views', 'partials'),
+            layoutsDir: path.join(__dirname, 'views', 'layouts'),
+            contentHelperName: 'content'
+        }));
+        app.set('view engine', 'hbs');
+        app.set('views', path.join(__dirname, 'views'));
+
+        require('./lib/helpers').register(hbs);
+
         
         // -- 500 status
         app.use(function(err, req, res, next) {

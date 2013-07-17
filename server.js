@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 var app = require('./server/app'),
-	http = require('http');
+	http = require('http'),
+    mongoose = require('mongoose');
+
+// -- database
+app.db = mongoose.connect('mongodb://localhost/' + app.conf.db_name);
 
 // -- handle node exceptions
 process.on('uncaughtException', function(err){

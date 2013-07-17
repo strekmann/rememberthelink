@@ -22,7 +22,8 @@
     "mongoose": "> 3.0",
     "async": "",
     "uslug": "> 1.0",
-    "moment": ""
+    "moment": "",
+    "express-hbs": ""
   },
   "devDependencies": {
     "uglify-js": "",
