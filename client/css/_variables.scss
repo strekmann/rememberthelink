@@ -1234,9 +1234,9 @@ $topbar-link-color-hover:              #000;
 $topbar-link-color-active:             #faaa4b;
 // $topbar-link-weight:                   bold;
 // $topbar-link-font-size:                emCalc(13px);
-$topbar-link-hover-lightness:          -5%; // Darken by 30%
+$topbar-link-hover-lightness:          -3%; // Darken by 30%
 // $topbar-link-bg-hover:                 darken($topbar-bg, 3%);
-$topbar-link-bg-active:                #fff;
+$topbar-link-bg-active:                #fafafa;
 
 $topbar-dropdown-label-color:          darken($topbar-bg, 3%);
 // $topbar-dropdown-label-text-transform: uppercase;

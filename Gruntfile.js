@@ -1,12 +1,13 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
 		jshint: {
-			files: ['client/js/**/*.js'],
+			files: ['client/js/**/*.js', 'server/**/*.js'],
 			options: {
 				curly: true,
 				eqeqeq: true,
 				eqnull: true,
 				browser: true,
+				ignores: ['server/public/**/*.js'],
 				globals: {
 					jQuery: true
 				}
@@ -55,6 +56,16 @@ module.exports = function(grunt) {
 					'server/public/js/site.js': ['server/public/js/site.js']
 				}
 			}
+		},
+		watch: {
+			clientjs: {
+				files: ['client/js/**/*.js'],
+				tasks: ['jshint', 'concat:client']
+			},
+			scss: {
+				files: ['client/css/**/*.scss'],
+				tasks: ['sass', 'concat:css']
+			}
 		}
 	});
 
@@ -62,6 +73,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('default', ['jshint', 'sass', 'concat']);
 	grunt.registerTask('prod', ['jshint', 'sass', 'concat', 'uglify']);

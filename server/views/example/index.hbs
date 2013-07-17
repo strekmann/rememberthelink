@@ -1,12 +1,17 @@
 {{!< main}}
 {{> nav}}
 
-<p>{{{ message }}}</p>
-<p>{{{example message}}}</p>
-
+<section class="main">
+	<div class="row">
+		<div class="large-12 columns">
+			<p>{{{ message }}}</p>
+			<p>{{{example message}}}</p>
+		</div>
+	</div>
+</section>
 
 {{#content "footer"}}
 <script>
-	console.log("footer block works");
+	$(document).foundation();
 </script>
 {{/content}}
