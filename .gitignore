@@ -1,3 +1,5 @@
 node_modules
 server/settings.js
 mongo/
+.sass-cache
+tmp

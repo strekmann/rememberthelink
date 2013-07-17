@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+// our variables
+@import "variables";
+
+// normalize lib
+@import "../vendor/foundation/normalize";
+
+// foundation 4 lib
+@import "../vendor/foundation/foundation";
+
+// our styles
+.button {
+	-webkit-box-shadow: none;
+	   -moz-box-shadow: none;
+	    -ie-box-shadow: none;
+	     -o-box-shadow: none;
+	        box-shadow: none;
+	border: none;
+}
+.button:hover {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+
+html {
+	min-height: 100%;
+	background: #f7f7f7;
+}
+
+#nav {
+	box-shadow: 0px 0px 3px rgba(#000, .35);
+}
+
+.contentbox {
+	background: rgba(#fff, .8);
+	padding: $column-gutter / 2;
+}
+
+.sidebarbox {
+	padding: $column-gutter / 2;
+}
+
+li {
+	list-style: none;
+}
+
+#applications {
+	background: #fff;
+
+	.applications {
+		margin: 1.25em;
+	}
+}
