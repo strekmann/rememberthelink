@@ -16,7 +16,7 @@ app.conf = conf.settings;
 require('./bootstrap').boot(app);
 
 // -- routes
-require('./routes/index')(app);
+require('./routes/example')(app);
 
 
 // -- exports

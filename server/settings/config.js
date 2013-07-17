@@ -5,10 +5,10 @@ var settings = {
     siteName        : 'strekmann',
     sessionSecret   : localsettings.sessionSecret,
     uri             : 'http://localhost',
-    port            : process.env.PORT || 3100,
+    port            : process.env.PORT || 3000,
+    db_name         : process.env.DB_NAME || 'node-app',
     debug           : 0,
-    profile         : 0,
-    auth            : localsettings.auth
+    profile         : 0
 };
 
 module.exports = function(app, express, env){

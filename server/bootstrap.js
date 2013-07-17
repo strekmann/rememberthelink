@@ -3,8 +3,6 @@ var express = require('express'),
     path    = require('path');
 
 module.exports.boot = function(app) {
-    app.passport = require('./modules/passport')(app);
-
     app.configure(function(){
 
         // -- Parses x-www-form-urlencoded request bodies (and json)
@@ -15,9 +13,6 @@ module.exports.boot = function(app) {
         app.use(express.session({
             secret: app.conf.sessionSecret
         }));
-
-        app.use(app.passport.initialize());
-        app.use(app.passport.session());
 
         // -- Express routing
         app.use(app.router);
@@ -30,6 +25,15 @@ module.exports.boot = function(app) {
             res.json('500', {
                 status: err.status || 500,
                 error: err.message
+            });
+        });
+
+         // -- 404 status
+        app.use(function(req, res, next) {
+            res.json('404', {
+                status: 404,
+                error: 'file not found',
+                url: req.url
             });
         });
     });

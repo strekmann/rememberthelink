@@ -4,6 +4,7 @@
   "description": "project",
   "version": "0.0.1",
   "homepage": "",
+  "private": true,
   "repository": {
     "type": "git",
     "url": ""
@@ -12,14 +13,13 @@
     "node": "0.8 || 0.10"
   },
   "scripts": {
-    "start": "node server",
+    "start": "node server.js",
     "test": "./node_modules/mocha/bin/mocha",
     "build": "./build.sh"
   },
   "dependencies": {
     "express": "> 3.0",
     "mongoose": "> 3.0",
-    "mongodb": ">= 1.2.0",
     "async": "",
     "uslug": "> 1.0",
     "moment": ""
@@ -27,6 +27,7 @@
   "devDependencies": {
     "uglify-js": "",
     "mocha": "",
+    "chai": "",
     "supertest": ""
   }
 }
