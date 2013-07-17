@@ -1,6 +1,12 @@
 {{!< main}}
-
 {{> nav}}
 
 <p>{{{ message }}}</p>
 <p>{{{example message}}}</p>
+
+
+{{#content "footer"}}
+<script>
+	console.log("footer block works");
+</script>
+{{/content}}
