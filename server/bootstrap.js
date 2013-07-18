@@ -4,6 +4,8 @@ var express = require('express'),
     hbs = require('express-hbs');
 
 module.exports.boot = function(app) {
+    app.passport = require('./lib/passport')(app);
+
     app.configure(function(){
         // -- Parses x-www-form-urlencoded request bodies (and json)
         app.use(express.bodyParser());
@@ -13,6 +15,9 @@ module.exports.boot = function(app) {
         app.use(express.session({
             secret: app.conf.sessionSecret
         }));
+
+        app.use(app.passport.initialize());
+        app.use(app.passport.session());
 
         // -- Express routing
         app.use(app.router);

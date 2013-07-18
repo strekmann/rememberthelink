@@ -8,7 +8,8 @@ var settings = {
     port            : process.env.PORT || 3000,
     db_name         : process.env.DB_NAME || 'node-app',
     debug           : 0,
-    profile         : 0
+    profile         : 0,
+    auth            : localsettings.auth
 };
 
 module.exports = function(app, express, env){
