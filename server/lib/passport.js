@@ -26,15 +26,13 @@ module.exports = function(app){
         },
         function(accessToken, refreshToken, profile, done) {
             process.nextTick(function () {
-                console.log('passport google callback ' + profile);
                 User.findOne({google_id: profile.id}, function(err, user){
                     if (err) {
                         return done(err.message, null);
                     }
                     if (!user) {
-                        console.log('no user, create one');
                         user = new User({
-                            _id: profile._json.last_name + "." + profile.id,
+                            _id: profile._json.family_name + "." + profile.id,
                             name: profile.displayName,
                             email: profile._json.email,
                             google_id: profile.id,
