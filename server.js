@@ -3,8 +3,8 @@ var app = require('./server/app'),
 	http = require('http');
 
 // -- database
-//var mongoose = require('mongoose');
-//app.db = mongoose.connect('mongodb://localhost/' + app.conf.db_name);
+var mongoose = require('mongoose');
+app.db = mongoose.connect('mongodb://localhost/' + app.conf.db_name);
 
 // -- handle node exceptions
 process.on('uncaughtException', function(err){
