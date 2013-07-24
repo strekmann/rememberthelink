@@ -38,7 +38,7 @@ module.exports.boot = function(app) {
         // -- 500 status
         app.use(function(err, req, res, next) {
             console.error(err.stack);
-            res.json('500', {
+            res.render('500', {
                 status: err.status || 500,
                 error: err.message
             });
@@ -46,7 +46,7 @@ module.exports.boot = function(app) {
 
          // -- 404 status
         app.use(function(req, res, next) {
-            res.json('404', {
+            res.render('404', {
                 status: 404,
                 error: 'file not found',
                 url: req.url

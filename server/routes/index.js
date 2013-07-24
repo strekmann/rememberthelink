@@ -1,5 +1,6 @@
 var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated;
 
+// core routes - base is /
 module.exports = function(app) {
 	app.get('/', function(req, res){
 		res.render('index', {
