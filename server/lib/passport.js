@@ -4,7 +4,7 @@ var User = require('../models').User,
 
 module.exports = function(app){
     passport.serializeUser(function(user, done) {
-        done(null, user.username);
+        done(null, user._id);
     });
 
     passport.deserializeUser(function(id, done) {
@@ -33,6 +33,7 @@ module.exports = function(app){
                     if (!user) {
                         user = new User({
                             _id: profile._json.family_name + "." + profile.id,
+                            username: profile._json.family_name + "." + profile.id,
                             name: profile.displayName,
                             email: profile._json.email,
                             google_id: profile.id,

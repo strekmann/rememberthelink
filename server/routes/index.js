@@ -1,4 +1,5 @@
-var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated;
+var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
+    User = require('../models').User;
 
 // core routes - base is /
 module.exports = function(app) {
@@ -11,6 +12,41 @@ module.exports = function(app) {
     app.get('/account', ensureAuthenticated, function(req, res){
         res.render('account', {
             user: req.user
+        });
+    });
+
+    app.post('/account', ensureAuthenticated, function(req, res){
+        return User.findById(req.user._id, function(err, user){
+            if (err) {
+                return res.json('200', {
+                    error: 'Could not find user'
+                });
+            }
+
+            req.assert('username', 'required').notEmpty();
+            req.assert('name', 'required').notEmpty();
+            req.assert('email', 'valid email required').notEmpty().isEmail();
+
+            var errors = req.validationErrors();
+            if (errors) {
+                return res.json('200', {
+                    errors: errors
+                });
+            }
+
+            user.username = req.body.username;
+            user.name = req.body.name;
+            user.email = req.body.email;
+            return user.save(function(err){
+                if (err) {
+                    return res.json('200', {
+                        error: err.message
+                    });
+                }
+                return res.json('200', {
+                    message: 'Changes saved'
+                });
+            });
         });
     });
 

@@ -1,6 +1,7 @@
 // -- module dependencies
 var express = require('express'),
     path    = require('path'),
+    expressValidator = require('express-validator'),
     hbs = require('express-hbs');
 
 module.exports.boot = function(app) {
@@ -9,6 +10,22 @@ module.exports.boot = function(app) {
     app.configure(function(){
         // -- Parses x-www-form-urlencoded request bodies (and json)
         app.use(express.bodyParser());
+        app.use(expressValidator({
+            errorFormatter: function(param, msg, value) {
+                var namespace = param.split('.'),
+                    root = namespace.shift(),
+                    formParam = root;
+
+                while(namespace.length) {
+                    formParam += '[' + namespace.shift() + ']';
+                }
+                return {
+                    param: formParam,
+                    msg: msg,
+                    value: value
+                };
+            }
+        }));
         app.use(express.methodOverride());
         
         app.use(express.cookieParser());

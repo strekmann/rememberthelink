@@ -25,7 +25,8 @@
     "express-hbs": "",
     "requester": "",
     "passport": "",
-    "passport-google-oauth": ""
+    "passport-google-oauth": "",
+    "express-validator":""
   },
   "devDependencies": {
     "uglify-js": "",

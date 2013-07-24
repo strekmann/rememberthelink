@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
     _id: {type: String, lowercase: true, trim: true, required: true, unique: true},
+    username: {type: String, lowercase: true, trim: true, required: true, unique: true},
     name: {type: String, required: true},
     email: {type: String},
     password: {type: String},
@@ -12,12 +13,6 @@ var UserSchema = new mongoose.Schema({
     google_email: {type: String},
     google_link: {type: String},
     google_picture: {type: String}
-});
-UserSchema.virtual('username').get(function() {
-    return this._id;
-});
-UserSchema.virtual('username').set(function(username) {
-    this._id = username;
 });
 
 var User = mongoose.model('User', UserSchema);
