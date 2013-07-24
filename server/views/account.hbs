@@ -1,5 +1,42 @@
 {{!< main}}
-<div class="large-12 columns">
-  <p>{{user.id}}</p>
-  <p>{{user.name}}</p>
+<div class="large-12 columns userinfo">
+  <h3>User data</h3>
+  <div class="row">
+    <div class="small-3 columns">Username:</div>
+    <div class="small-9 columns">{{user.username}}</div>
+  </div>
+  <div class="row">
+    <div class="small-3 columns">Name:</div>
+    <div class="small-9 columns">{{user.name}}</div>
+  </div>
+  <div class="row">
+    <div class="small-3 columns">Email:</div>
+    <div class="small-9 columns">{{user.email}}</div>
+  </div>
+  <div class="row">
+    <div class="small-3 columns">Active:</div>
+    <div class="small-9 columns">{{user.is_active}}</div>
+  </div>
+  <div class="row">
+    <div class="small-3 columns">Admin:</div>
+    <div class="small-9 columns">{{user.is_admin}}</div>
+  </div>
+  <div class="row">
+    <div class="small-3 columns">Created:</div>
+    <div class="small-9 columns">{{user.created}}</div>
+  </div>
+
+  <h3>Google data</h3>
+  <div class="row">
+    <div class="small-3 columns">Google ID:</div>
+    <div class="small-9 columns"><a href="{{user.google_link}}">{{user.google_id}}</a></div>
+  </div>
+  <div class="row">
+    <div class="small-3 columns">Google email:</div>
+    <div class="small-9 columns">{{user.google_email}}</div>
+  </div>
+  <div class="row">
+    <div class="small-3 columns">Google picture:</div>
+    <div class="small-9 columns"><img src="{{user.google_picture}}" /></div>
+  </div>
 </div>

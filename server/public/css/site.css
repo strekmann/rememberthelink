@@ -4686,3 +4686,6 @@ table.vask td.app {
   height: 220px;
   border: 1px solid #dddddd;
   padding: 1em; }
+
+.userinfo .row {
+  line-height: 1.6em; }
