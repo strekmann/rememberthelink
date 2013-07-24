@@ -38,6 +38,10 @@ nav {
 	box-shadow: 0px 0px 3px rgba(#000, .35);
 }
 
+.listair {
+	padding: 0.625em 0;
+}
+
 .contentbox {
 	background: rgba(#fff, .8);
 	padding: $column-gutter / 2;
@@ -99,6 +103,3 @@ table.vask {
 	}
 }
 
-.userinfo .row {
-	line-height: 1.6em;
-}

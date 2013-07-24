@@ -34,7 +34,7 @@ module.exports = function(app){
                     if (!user) {
                         console.log('no user, create one');
                         user = new User({
-                            _id: profile._json.given_name + "-" + profile.id,
+                            _id: profile._json.last_name + "." + profile.id,
                             name: profile.displayName,
                             email: profile._json.email,
                             google_id: profile.id,
