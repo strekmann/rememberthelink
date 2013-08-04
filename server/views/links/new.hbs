@@ -1,0 +1,36 @@
+{{!< main}}
+<div class="large-12 columns">
+    <h1>New link</h1>
+    {{#if link}}
+    <form class="" method="post">
+        <div id="errors"></div>
+        <input id="body" type="hidden" name="body" value="{{link.body}}"></div>
+        <div class="row">
+            <div class="large-2 small-3 columns"><label class="right">URL</label></div>
+            <div class="large-10 small-9 columns"><input id="url" type="text" name="url" value="{{link.url}}"></div>
+        </div>
+        <div class="row">
+            <div class="large-2 small-3 columns"><label class="right">Title</label></div>
+            <div class="large-10 small-9 columns"><input id="title" type="text" name="title" value="{{link.title}}"></div>
+        </div>
+        <div class="row">
+            <div class="large-2 small-3 columns"><label class="right">Description</label></div>
+            <div class="large-10 small-9 columns"><input id="description" type="text" name="description"></div>
+        </div>
+        <div class="row">
+            <div class="large-10 large-offset-2 small-9 small-offset-3 columns"><button id="savebtn">Save</button></div>
+        </div>
+    </form>
+    {{else}}
+    <form class="">
+        <div id="errors"></div>
+        <div class="row">
+            <div class="large-2 small-3 columns"><label class="right">URL</label></div>
+            <div class="large-10 small-9 columns"><input id="url" type="text" name="url"></div>
+        </div>
+        <div class="row">
+            <div class="large-10 large-offset-2 small-9 small-offset-3 columns"><button id="savebtn">Save</button></div>
+        </div>
+    </form>
+    {{/if}}
+</div>

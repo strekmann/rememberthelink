@@ -1,0 +1,30 @@
+{{!< main}}
+<div class="large-12 columns">
+    <form action="new">
+        <div id="errors"></div>
+        <div class="row collapse">
+            <div class="small-10 columns">
+                <input id="url" type="text" name="url" placeholder="http://new.link.now/">
+            </div>
+            <div class="small-2 columns">
+                <button class="button prefix">Save</button>
+            </div>
+        </div>
+    </form>
+
+    {{#each links}}
+    <a href="{{url}}">
+        <h2>{{title}}</h2>
+        <span>{{url}}</span> — <span>{{username}}</span>: {{created}}
+        {{#if description}}
+        <p>{{description}}<p>
+        {{/if}}
+    </a>
+    {{/each}}
+</div>
+
+{{#content "footer"}}
+<script>
+  $(document).foundation();
+</script>
+{{/content}}

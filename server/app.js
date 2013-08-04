@@ -17,7 +17,7 @@ require('./bootstrap').boot(app);
 
 // -- routes
 require('./routes/index')(app);
-require('./routes/example')(app, '/example');
+require('./routes/links')(app, '/links');
 
 
 // -- exports
