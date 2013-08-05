@@ -53,7 +53,7 @@ module.exports.boot = function(app) {
 
         require('./lib/helpers').register(hbs);
 
-        
+
         // -- 500 status
         app.use(function(err, req, res, next) {
             console.error(err.stack);
