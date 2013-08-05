@@ -26,7 +26,10 @@
     "requester": "",
     "passport": "",
     "passport-google-oauth": "",
-    "express-validator":""
+    "express-validator":"",
+    "request": "",
+    "cheerio": "",
+    "connect-redis": ""
   },
   "devDependencies": {
     "uglify-js": "",
