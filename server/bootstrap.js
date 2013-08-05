@@ -2,7 +2,8 @@
 var express = require('express'),
     path    = require('path'),
     expressValidator = require('express-validator'),
-    hbs = require('express-hbs');
+    hbs = require('express-hbs'),
+    RedisStore = require('connect-redis')(express);;
 
 module.exports.boot = function(app) {
     app.passport = require('./lib/passport')(app);
@@ -27,9 +28,10 @@ module.exports.boot = function(app) {
             }
         }));
         app.use(express.methodOverride());
-        
+
         app.use(express.cookieParser());
         app.use(express.session({
+            store: new RedisStore(),
             secret: app.conf.sessionSecret
         }));
 
