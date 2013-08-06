@@ -10,7 +10,9 @@ module.exports = function(app, prefix) {
 
     // recent links
     app.get(prefix + '', function(req, res){
-        Link.find(function (err, links) {
+        Link.find()
+        .populate('creator')
+        .exec(function (err, links) {
             if (err) {
                 return res.json('200', {
                     error: 'No links'
@@ -51,7 +53,7 @@ module.exports = function(app, prefix) {
         link.title = req.body.title;
         link.content = req.body.content;
         link.description = req.body.description;
-        link.username = req.user.username;
+        link.creator = req.user;
         return link.save(function (err) {
             if (err) {
                 return res.json('200', {

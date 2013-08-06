@@ -8,11 +8,11 @@ var LinkSchema = new mongoose.Schema({
     description: {type: String},
     'private': {type: Boolean, 'default': false},
     tags: [TagSchema],
-    username: {type: String, required: true},
+    creator: {type: String, required: true, ref: 'User'},
     created: {type: Date, required: true, 'default': Date.now}
 });
 
-LinkSchema.index({url: 1, username: 1}, {unique: true});
+LinkSchema.index({url: 1, creator: 1}, {unique: true});
 
 var Link = mongoose.model('Link', LinkSchema);
 
