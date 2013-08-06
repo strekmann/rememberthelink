@@ -15,7 +15,7 @@
     {{#each links}}
     <a href="{{url}}">
         <h2>{{title}}</h2>
-        <span>{{url}}</span> — <span>{{creator.name}}</span>: {{created}}
+        <span>{{url}}</span> — <span>{{creator.name}}</span> <span>{{dateformat created}}</span>
         {{#if description}}
         <p>{{description}}<p>
         {{/if}}
