@@ -37,18 +37,16 @@ module.exports = function(app, prefix) {
                     link.url = req.query.url;
                     link.content = body;
                     link.title = ch('html head title').text() || null;
-                    console.log(link);
                     res.render('links/new', {link: link});
                 }
             });
         } else {
-            console.log(req);
             res.render('links/new');
         }
     });
 
     app.post(prefix + 'new', ensureAuthenticated, function (req, res) {
-        link = new Link();
+        var link = new Link();
         link.url = req.body.url;
         link.title = req.body.title;
         link.content = req.body.content;
