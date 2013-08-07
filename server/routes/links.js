@@ -26,15 +26,21 @@ module.exports = function(app, prefix) {
 
     app.get(prefix + 'new', ensureAuthenticated, function (req, res) {
         if (req.query.url) {
+            // prepend http:// if no protocol
+            var url = req.query.url;
+            if (!url.indexOf("://") > -1) {
+                url = "http://" + url;
+            }
+
             // fetch url and populate object
-            request(req.query.url, function (error, response, body) {
+            request(url, function (error, response, body) {
                 if (error) {
                     console.log(error);
                 }
                 if (!error && response.statusCode == 200) {
                     var ch = cheerio.load(body);
                     var link = new Link();
-                    link.url = req.query.url;
+                    link.url = url;
                     link.content = body;
                     link.title = ch('html head title').text() || null;
                     res.render('links/new', {link: link});
