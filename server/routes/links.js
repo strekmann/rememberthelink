@@ -31,7 +31,7 @@ module.exports = function(app, prefix) {
         if (req.query.url) {
             // prepend http:// if no protocol
             var url = req.query.url;
-            if (!(url.indexOf("://") > -1)) {
+            if (url.indexOf("://") === -1) {
                 url = "http://" + url;
             }
 
@@ -40,7 +40,7 @@ module.exports = function(app, prefix) {
                 if (error) {
                     console.log(error);
                 }
-                if (!error && response.statusCode == 200) {
+                if (!error && response.statusCode === 200) {
                     var ch = cheerio.load(body);
                     var link = new Link();
                     link.url = url;

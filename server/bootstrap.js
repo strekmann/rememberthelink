@@ -3,7 +3,7 @@ var express = require('express'),
     path    = require('path'),
     expressValidator = require('express-validator'),
     hbs = require('express-hbs'),
-    RedisStore = require('connect-redis')(express);;
+    RedisStore = require('connect-redis')(express);
 
 module.exports.boot = function(app) {
     app.passport = require('./lib/passport')(app);
