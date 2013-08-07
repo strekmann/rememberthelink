@@ -7,9 +7,9 @@ module.exports.register = function(hbs) {
 	});
 
     //  http://momentjs.com/
-    //  usage: {{date creation_date format="MMMM YYYY"}}
+    //  usage: {{dateformat creation_date format="MMMM YYYY"}}
     hbs.registerHelper('dateformat', function(context, block) {
         var f = block.hash.format || "YYYY-MM-DD HH:mm";
-        return moment(Date(context)).format(f);
+        return moment(context).format(f);
     });
 };
