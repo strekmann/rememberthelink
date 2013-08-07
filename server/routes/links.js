@@ -12,6 +12,7 @@ module.exports = function(app, prefix) {
     app.get(prefix + '', function(req, res){
         Link.find()
         .populate('creator')
+        .sort('-created')
         .exec(function (err, links) {
             if (err) {
                 return res.json('200', {
