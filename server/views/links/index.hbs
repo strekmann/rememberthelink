@@ -13,18 +13,72 @@
     </form>
 
     {{#each links}}
-    <a href="{{url}}">
-        <h2>{{title}}</h2>
-        <span>{{url}}</span> — <span>{{creator.name}}</span> <span>{{dateformat created}}</span>
-        {{#if description}}
-        <p>{{description}}<p>
-        {{/if}}
-    </a>
+    <div class="" style="position: relative;">
+        <a class="edit" style="right: 0; top: 0; position: absolute;">Edit</a>
+            <form action="edit" method="post" style="display:none" class="editform">
+                <input type="text" class="title" name="title" value="{{title}}">
+                <input type="text" class="description" name="description" value="{{description}}">
+                <input type="hidden" name="url" value="{{url}}">
+                <div class="right">
+                    <a href="" class="cancel_edit button secondary">Cancel</a>
+                    <button class="submit">Send</button>
+                </div>
+            </form>
+        <a href="{{url}}" class="link">
+            <h2 class="title">{{title}}</h2>
+            <span>{{url}}</span> — <span>{{creator.name}}</span> <span>{{dateformat created}}</span>
+            <p class="description">{{description}}<p>
+        </a>
+    </div>
     {{/each}}
 </div>
 
 {{#content "footer"}}
 <script>
-  $(document).foundation();
+$(document).foundation();
+$('a.edit').on('click', function (ev) {
+    ev.preventDefault();
+    var block = $(this).parent();
+    var form = block.find('form');
+    var link = block.find('.link');
+    form.show();
+    link.hide();
+    $(this).hide();
+});
+
+$('a.cancel_edit').on('click', function (ev) {
+    ev.preventDefault();
+    var block = $(this).parent().parent().parent();
+    var link = block.find('.link');
+    var form = block.find('form');
+    var edit_link = block.find('.edit');
+    $(form).hide();
+    $(link).show();
+    edit_link.show();
+});
+
+$('form.editform').on('submit', function() {
+    var form = $(this);
+    var block = form.parent();
+    var link = block.find('.link');
+    var edit_link = block.find('.edit');
+    var title = form.find('input.title').val();
+    var description = form.find('input.description').val();
+    $(link.find('.title')).text(title);
+    $(link.find('.description')).text(description);
+    form.hide();
+    link.show();
+    edit_link.show();
+
+    $.post($(this).attr('action'), $(this).serialize(), function(data, status, xhr) {
+        if (status !== "success") {
+            alert("Could not update");
+            form.show();
+            link.hide();
+            edit_link.hide();
+        }
+    });
+    return false;
+});
 </script>
 {{/content}}

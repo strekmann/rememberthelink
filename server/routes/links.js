@@ -61,4 +61,20 @@ module.exports = function(app, prefix) {
             return res.redirect(prefix);
         });
     });
+
+    app.post(prefix + 'edit', ensureAuthenticated, function (req, res) {
+        var url = req.body.url;
+        Link.findOne({url: url, creator: req.user})
+        .exec(function (err, link) {
+            if (err) {
+                return res.json('200', {
+                    error: err.message
+                });
+            }
+            link.title = req.body.title;
+            link.description = req.body.description;
+            link.save();
+            return res.json('200', {status: true});
+        });
+    });
 };
