@@ -8,7 +8,7 @@ module.exports.register = function(hbs) {
 
     //  http://momentjs.com/
     //  usage: {{dateformat creation_date format="MMMM YYYY"}}
-    hbs.registerHelper('dateformat', function(context, block) {
+    hbs.registerHelper('datetimeformat', function(context, block) {
         var f = block.hash.format || "YYYY-MM-DD HH:mm";
         return moment(context).format(f);
     });
