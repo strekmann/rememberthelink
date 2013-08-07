@@ -4614,6 +4614,11 @@ a.th {
   .f-dropdown.large {
     max-width: 800px; }
 
+.clearfix:after {
+  clear: both;
+  content: "";
+  display: block; }
+
 .button {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -4689,3 +4694,6 @@ table.vask td.app {
   height: 220px;
   border: 1px solid #dddddd;
   padding: 1em; }
+
+form.editform {
+  margin-top: 2em; }

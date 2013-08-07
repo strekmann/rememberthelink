@@ -10,6 +10,13 @@
 @import "../vendor/foundation/foundation";
 
 // our styles
+
+.clearfix:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
 .button {
 	-webkit-box-shadow: none;
 	   -moz-box-shadow: none;
@@ -103,3 +110,6 @@ table.vask {
 	}
 }
 
+form.editform {
+    margin-top: 2em;
+}
