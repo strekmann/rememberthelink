@@ -19,7 +19,9 @@ module.exports = function(app, prefix) {
                 });
             }
             res.render('links/index', {
-                links: links, user: req.user
+                links: links,
+                user: req.user,
+                url: "http://"+req.headers.host + req.url
             });
         });
     });
@@ -28,7 +30,7 @@ module.exports = function(app, prefix) {
         if (req.query.url) {
             // prepend http:// if no protocol
             var url = req.query.url;
-            if (!url.indexOf("://") > -1) {
+            if (!(url.indexOf("://") > -1)) {
                 url = "http://" + url;
             }
 
