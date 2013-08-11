@@ -60,6 +60,7 @@ module.exports = function(app, prefix) {
         link.title = req.body.title;
         link.content = req.body.content;
         link.description = req.body.description;
+        link.private = req.body.private;
         link.creator = req.user;
         return link.save(function (err) {
             if (err) {
@@ -82,6 +83,11 @@ module.exports = function(app, prefix) {
             }
             link.title = req.body.title;
             link.description = req.body.description;
+            if(typeof req.body.private !== 'undefined'){
+                link.private = true;
+            } else {
+                link.private = false;
+            }
             link.save();
             return res.json('200', {status: true});
         });

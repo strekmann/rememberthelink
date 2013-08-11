@@ -16,7 +16,7 @@ module.exports.register = function(hbs) {
         return moment(context).fromNow();
     });
     hbs.registerHelper('canRead', function(user, options) {
-        if (!this['private'] || user === this.creator) {
+        if (!this.private || user._id === this.creator._id) {
             return options.fn(this);
         }
     });

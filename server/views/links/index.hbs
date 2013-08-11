@@ -19,6 +19,7 @@
         <form action="edit" method="post" style="display:none" class="editform">
             <input type="text" class="title" name="title" value="{{title}}">
             <input type="text" class="description" name="description" value="{{description}}">
+            <input type="checkbox" class="private" name="private"{{#if private}} checked{{/if}}>
             <input type="hidden" name="url" value="{{url}}">
             <div class="right">
                 <a href="" class="cancel_edit button secondary">Cancel</a>
@@ -35,6 +36,7 @@
             <a class="delete">delete</a>
             <a class="sure" style="display:none">Sure?</a>
             {{/canChange}}
+            <span class="private"{{#unless private}} style="display: none"{{/unless}}>private</span>
             <br>
             <span>{{url}}</span> —
             <span class="description">{{description}}</span>

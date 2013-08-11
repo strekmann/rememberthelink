@@ -47,6 +47,9 @@
     $.fn.s7n = $.fn.s7n || {};
 
     $.fn.s7n.initLinks = function(options) {
+        $('input.private').on('click', function (ev) {
+            $(this).parent().parent().find('span.private').toggle();
+        });
         $('a.delete').on('click', function (ev) {
             ev.preventDefault();
             var sure = $(this).parent().find('.sure').first();
