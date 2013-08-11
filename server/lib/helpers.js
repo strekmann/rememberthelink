@@ -15,4 +15,14 @@ module.exports.register = function(hbs) {
     hbs.registerHelper('ago', function(context) {
         return moment(context).fromNow();
     });
+    hbs.registerHelper('canRead', function(user, options) {
+        if (!this['private'] || user === this.creator) {
+            return options.fn(this);
+        }
+    });
+    hbs.registerHelper('canChange', function(user, options) {
+        if (user && this.creator && user._id === this.creator._id) {
+            return options.fn(this);
+        }
+    });
 };

@@ -13,7 +13,9 @@
     </form>
 
     {{#each links}}
+    {{#canRead ../user}}
     <div class="clearfix">
+        {{#canChange ../../user}}
         <form action="edit" method="post" style="display:none" class="editform">
             <input type="text" class="title" name="title" value="{{title}}">
             <input type="text" class="description" name="description" value="{{description}}">
@@ -23,18 +25,22 @@
                 <button class="submit">Send</button>
             </div>
         </form>
+        {{/canChange}}
         <div class="link">
             <a href="{{url}}" class="title" style="font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">{{title}}</a>
             <span>{{ago created}}</span>,
             by <span>{{creator.name}}</span>
+            {{#canChange ../../user}}
             <a class="edit">edit</a>
             <a class="delete">delete</a>
             <a class="sure" style="display:none">Sure?</a>
+            {{/canChange}}
             <br>
             <span>{{url}}</span> —
             <span class="description">{{description}}</span>
         </div>
     </div>
+    {{/canRead}}
     {{/each}}
     <hr>
     <h1>Bookmarklet</h1>
