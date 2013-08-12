@@ -28,8 +28,8 @@
             </div>
         </form>
         {{/canChange}}
-        <div class="link">
-            <a href="{{url}}" class="title" style="font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">{{title}}</a>
+        <div class="link" title="{{description}}">
+            <a href="{{url}}" class="title" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">{{title}}</a>
             <span>{{ago created}}</span>,
             by <span>{{creator.name}}</span>
             {{#canChange ../../user}}
@@ -40,7 +40,6 @@
             <span class="private"{{#unless private}} style="display: none"{{/unless}}>private</span>
             <br>
             <span>{{url}}</span> —
-            <span class="description">{{description}}</span>
             <span class="tags">{{tags}}</span>
         </div>
     </div>
