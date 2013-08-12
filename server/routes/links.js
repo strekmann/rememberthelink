@@ -45,7 +45,7 @@ module.exports = function(app, prefix) {
                     var link = new Link();
                     link.url = url;
                     link.content = body;
-                    link.title = ch('html head title').text() || null;
+                    link.title = ch('html head title').text().replace(/^(\s+)|(\s+)$/g, '') || null;
                     res.render('links/new', {link: link});
                 }
             });
