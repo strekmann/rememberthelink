@@ -60,6 +60,7 @@ module.exports = function(app, prefix) {
         link.title = req.body.title;
         link.content = req.body.content;
         link.description = req.body.description;
+        link.tags = req.body.tags;
         link.private = req.body.private;
         link.creator = req.user;
         return link.save(function (err) {
@@ -83,6 +84,7 @@ module.exports = function(app, prefix) {
             }
             link.title = req.body.title;
             link.description = req.body.description;
+            link.tags = req.body.tags;
             if(typeof req.body.private !== 'undefined'){
                 link.private = true;
             } else {

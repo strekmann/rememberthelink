@@ -100,8 +100,10 @@
             var link = block.find('.link').first();
             var title = form.find('input.title').first().val();
             var description = form.find('input.description').first().val();
+            var tags = form.find('input.tags').first().val();
             link.find('.title').first().text(title);
             link.find('.description').first().text(description);
+            link.find('.tags').first().text(tags);
             form.hide();
             link.show();
 

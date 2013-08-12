@@ -19,6 +19,7 @@
         <form action="edit" method="post" style="display:none" class="editform">
             <input type="text" class="title" name="title" value="{{title}}">
             <input type="text" class="description" name="description" value="{{description}}">
+            <input type="text" class="tags" name="tags" value="{{tags}}">
             <input type="checkbox" class="private" name="private"{{#if private}} checked{{/if}}>
             <input type="hidden" name="url" value="{{url}}">
             <div class="right">
@@ -40,6 +41,7 @@
             <br>
             <span>{{url}}</span> —
             <span class="description">{{description}}</span>
+            <span class="tags">{{tags}}</span>
         </div>
     </div>
     {{/canRead}}
