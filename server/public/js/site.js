@@ -104,7 +104,7 @@
             link.find('.title').first().text(title);
             link.find('.description').first().text(description);
             link.find('.tags').first().html(_.reduce(tags.split(','), function(memo, tag) {
-                return memo + '<a href="">' + tag.replace(/^(\s+)|(\s+)$/g, '') + '</a>';
+                return memo + '<a href="">' + $.trim(tag) + '</a>';
             }, ""));
             form.hide();
             link.show();

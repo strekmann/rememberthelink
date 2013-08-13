@@ -56,7 +56,7 @@ module.exports = function(app, prefix) {
                     var link = new Link();
                     link.url = url;
                     link.content = body;
-                    link.title = ch('html head title').text().replace(/^(\s+)|(\s+)$/g, '') || null;
+                    link.title = ch('html head title').text().trim() || null;
                     res.render('links/new', {link: link});
                 }
             });
@@ -72,7 +72,7 @@ module.exports = function(app, prefix) {
         link.content = req.body.content;
         link.description = req.body.description;
         link.tags = _.map(req.body.tags.split(","), function(tag) {
-            return new Tag({_id: tag.replace(/^(\s+)|(\s+)$/g, '')});
+            return new Tag({_id: tag.trim()});
         });
         link.private = req.body.private;
         link.creator = req.user;
@@ -99,7 +99,7 @@ module.exports = function(app, prefix) {
             link.description = req.body.description;
             //link.tags = req.body.tags;
             link.tags = _.map(req.body.tags.split(","), function(tag) {
-                return new Tag({_id: tag.replace(/^(\s+)|(\s+)$/g, '')});
+                return new Tag({_id: tag.trim()});
             });
             if(typeof req.body.private !== 'undefined'){
                 link.private = true;
