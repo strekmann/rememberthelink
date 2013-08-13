@@ -123,4 +123,36 @@ module.exports = function(app, prefix) {
             return res.json('200', {status: true});
         });
     });
+
+    app.get(prefix + 'tags/*', function (req, res) {
+        var query = [];
+        var params = "" + req.params;
+        _.each(params.split("/"), function (tag) {
+            query.push({'tags._id':tag});
+        });
+        Link.find({$and: query})
+        .populate('creator')
+        .sort('-created')
+        .exec(function (err, links) {
+            if (err) {
+                return res.json('200', {
+                    error: 'No links'
+                });
+            }
+            _.each(links, function(link) {
+                link.joined_tags = _.reduce(link.tags, function (memo, tag, index) {
+                    if (index > 0) {
+                        return memo + ", " + tag._id;
+                    } else {
+                        return tag._id;
+                    }
+                }, "");
+            });
+            res.render('links/index', {
+                links: links,
+                user: req.user,
+                url: "http://"+req.headers.host + req.url
+            });
+        });
+    });
 };
