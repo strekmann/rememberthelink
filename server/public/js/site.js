@@ -103,7 +103,9 @@
             var tags = form.find('input.tags').first().val();
             link.find('.title').first().text(title);
             link.find('.description').first().text(description);
-            link.find('.tags').first().text(tags);
+            link.find('.tags').first().html(_.reduce(tags.split(','), function(memo, tag) {
+                return memo + '<a href="">' + tag.replace(/^(\s+)|(\s+)$/g, '') + '</a>';
+            }, ""));
             form.hide();
             link.show();
 

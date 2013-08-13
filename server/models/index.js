@@ -15,8 +15,15 @@ var UserSchema = new mongoose.Schema({
     google_picture: {type: String}
 });
 
+var TagSchema = new mongoose.Schema({
+    _id: {type: String, lowercase: true, trim: true, required: true, unique: true}
+});
+
 var User = mongoose.model('User', UserSchema);
+var Tag = mongoose.model('Tag', TagSchema);
 
 module.exports = {
-    User: User
+    User: User,
+    Tag: Tag,
+    TagSchema: TagSchema
 };

@@ -1,7 +1,9 @@
+var _ = require('underscore');
 var request = require('request');
 var cheerio = require('cheerio');
 var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
     User = require('../models').User,
+    Tag = require('../models').Tag,
     Link = require('../models/links').Link;
 
 // links routes
@@ -19,6 +21,15 @@ module.exports = function(app, prefix) {
                     error: 'No links'
                 });
             }
+            _.each(links, function(link) {
+                link.joined_tags = _.reduce(link.tags, function (memo, tag, index) {
+                    if (index > 0) {
+                        return memo + ", " + tag._id;
+                    } else {
+                        return tag._id;
+                    }
+                }, "");
+            });
             res.render('links/index', {
                 links: links,
                 user: req.user,
@@ -60,7 +71,12 @@ module.exports = function(app, prefix) {
         link.title = req.body.title;
         link.content = req.body.content;
         link.description = req.body.description;
-        link.tags = req.body.tags;
+        console.log(req.body.tags);
+        console.log(req.body.tags.split(","));
+        link.tags = _.map(req.body.tags.split(","), function(tag) {
+            return new Tag({_id: tag.replace(/^(\s+)|(\s+)$/g, '')});
+        });
+        console.log(link.tags);
         link.private = req.body.private;
         link.creator = req.user;
         return link.save(function (err) {
@@ -84,7 +100,10 @@ module.exports = function(app, prefix) {
             }
             link.title = req.body.title;
             link.description = req.body.description;
-            link.tags = req.body.tags;
+            //link.tags = req.body.tags;
+            link.tags = _.map(req.body.tags.split(","), function(tag) {
+                return new Tag({_id: tag.replace(/^(\s+)|(\s+)$/g, '')});
+            });
             if(typeof req.body.private !== 'undefined'){
                 link.private = true;
             } else {
