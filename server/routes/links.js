@@ -71,12 +71,9 @@ module.exports = function(app, prefix) {
         link.title = req.body.title;
         link.content = req.body.content;
         link.description = req.body.description;
-        console.log(req.body.tags);
-        console.log(req.body.tags.split(","));
         link.tags = _.map(req.body.tags.split(","), function(tag) {
             return new Tag({_id: tag.replace(/^(\s+)|(\s+)$/g, '')});
         });
-        console.log(link.tags);
         link.private = req.body.private;
         link.creator = req.user;
         return link.save(function (err) {
