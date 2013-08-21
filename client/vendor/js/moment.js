@@ -1661,50 +1661,53 @@
     }
 }).call(this);
 
+// moment.js language configuration
+// language : norwegian bokmål (nb)
+// author : Espen Hovlandsdal : https://github.com/rexxars
 
-// language : norwegian (nb)
-// author : Finn Johnsen : http://github.com/finnjohnsen
 (function () {
     var lang = {
-            months : "Januar_Februar_Mars_April_Mai_Juni_Juli_August_September_Oktober_November_Desember".split("_"),
-            monthsShort : "Jan_Feb_Mar_Apr_Mai_Jun_Jul_Aug_Sep_Okt_Nov_Des".split("_"),
-            weekdays : "Søndag_Mandag_Tirsdag_Onsdag_Torsdag_Fredag_Lørdag".split("_"),
-            weekdaysShort : "Søn_Man_Tir_Ons_Tor_Fre_Lør".split("_"),
-            weekdaysMin : "Sø_Ma_Ti_On_To_Fr_Lø".split("_"),
-            longDateFormat : {
-                LT : "HH:mm",
-                L : "DD.MM.YYYY",
-                LL : "D. MMMM YYYY",
-                LLL : "D. MMMM YYYY HH:mm",
-                LLLL : "dddd D. MMMM, YYYY HH:mm"
-            },
-            calendar : {
-                sameDay : '[I dag kl.] LT',
-                nextDay : '[I morgen kl.] LT',
-                nextWeek : 'dddd [kl.] LT',
-                lastDay : '[I går kl.] LT',
-                lastWeek : '[forrige] dddd [kl.] LT',
-                sameElse : 'L'
-            },
-            relativeTime : {
-                future : "om %s",
-                past : "%s siden",
-                s : "få sekunder",
-                m : "minutter",
-                mm : "%d minutter",
-                h : "time",
-                hh : "%d timer",
-                d : "dag",
-                dd : "%d dager",
-                M : "måneder",
-                MM : "%d måneder",
-                y : "år",
-                yy : "%d år"
-            },
-            ordinal : function (number) {
-                return '.';
-            }
-        };
+        months : "januar_februar_mars_april_mai_juni_juli_august_september_oktober_november_desember".split("_"),
+        monthsShort : "jan_feb_mar_apr_mai_jun_jul_aug_sep_okt_nov_des".split("_"),
+        weekdays : "søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag".split("_"),
+        weekdaysShort : "søn_man_tir_ons_tor_fre_lør".split("_"),
+        weekdaysMin : "sø_ma_ti_on_to_fr_lø".split("_"),
+        longDateFormat : {
+            LT : "HH:mm",
+            L : "DD.MM.YYYY",
+            LL : "D. MMMM YYYY",
+            LLL : "D. MMMM YYYY LT",
+            LLLL : "dddd D. MMMM YYYY LT"
+        },
+        calendar : {
+            sameDay: '[I dag] LT',
+            nextDay: '[I morgen] LT',
+            nextWeek: 'dddd LT',
+            lastDay: '[I går] LT',
+            lastWeek: '[Forrige] dddd LT',
+            sameElse: 'L'
+        },
+        relativeTime : {
+            future : "om %s",
+            past : "for %s siden",
+            s : "noen sekunder",
+            m : "ett minutt",
+            mm : "%d minutter",
+            h : "en time",
+            hh : "%d timer",
+            d : "en dag",
+            dd : "%d dager",
+            M : "en måned",
+            MM : "%d måneder",
+            y : "ett år",
+            yy : "%d år"
+        },
+        ordinal : '%d.',
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 4 // The week that contains Jan 4th is the first week of the year.
+        }
+    };
 
     // Node
     if (typeof module !== 'undefined' && module.exports) {
