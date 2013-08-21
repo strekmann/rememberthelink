@@ -1662,7 +1662,7 @@
 }).call(this);
 
 
-// language : norwegian (no)
+// language : norwegian (nb)
 // author : Finn Johnsen : http://github.com/finnjohnsen
 (function () {
     var lang = {
@@ -1712,6 +1712,6 @@
     }
     // Browser
     if (typeof window !== 'undefined' && this.moment && this.moment.lang) {
-        this.moment.lang('no', lang);
+        this.moment.lang('nb', lang);
     }
 }());
