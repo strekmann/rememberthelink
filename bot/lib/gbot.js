@@ -1,12 +1,15 @@
 var botLogger,
-    linkLogger;
+    linkLogger,
+    settings,
+    request = require('request');
 
 
 var bot = {};
 
-bot.init = function(_botLogger, _linkLogger) {
+bot.init = function(_botLogger, _linkLogger, _settings) {
     botLogger = _botLogger;
     linkLogger = _linkLogger;
+    settings = _settings;
 };
 
 
@@ -17,7 +20,7 @@ bot.findLink  = function(message) {
     }
 
     return {
-        from: result[1],
+        to: result[1],
         url: result[2]
     };
 };
@@ -32,8 +35,12 @@ bot.onMessage = function(from, to, message) {
 
         var link = bot.findLink(message);
         if (link) {
-            // do magic
-            console.log(link);
+            request.post(settings.bot.postUrl).form({
+                from: from, 
+                to: link.to, 
+                url: link.url,
+                csrf: 'h3rpz'
+            });
         }
     }
 };

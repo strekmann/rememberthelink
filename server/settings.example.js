@@ -10,7 +10,8 @@ module.exports = {
     bot: {
         name: 'strekmann',
         server: 'irc.homelien.no',
-        channels: ['#strekmann']
+        channels: ['#strekmann'],
+        postUrl: 'http://localhost:3000/links/uwanna'
     }
 };
 

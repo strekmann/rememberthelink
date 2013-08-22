@@ -3,3 +3,4 @@ server/settings.js
 mongo/
 .sass-cache
 tmp
+bot/*.log
