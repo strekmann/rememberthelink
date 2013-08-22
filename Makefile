@@ -19,7 +19,7 @@ test-w:
 		--watch
 
 bot:
-	@/usr/bin/env node bot/gbot.js
+	@/usr/bin/env node bot/bot.js
 
 test-bot:
 	@NODE_ENV=test ./node_modules/.bin/mocha \

@@ -1,4 +1,5 @@
-var bot = require('./lib/gbot'),
+var gbot = require('./lib/gbot'),
+    irc = require('irc'),
     winston = require('winston'),
     settings = require('../server/settings');
 
@@ -27,7 +28,7 @@ var links = new (winston.Logger)({
     exitOnError: false
 });
 
-bot.init(logger, links);
+gbot.init(logger, links);
 
 var bot = new irc.Client(settings.bot.server, settings.bot.name, {
     channels: settings.bot.channels,
@@ -42,10 +43,10 @@ bot.addListener('error', function(msg){
 });
 
 // all messages
-bot.addListener('message', bot.onMessage);
+bot.addListener('message', gbot.onMessage);
 
 // private message
-bot.addListener('pm', bot.onPrivate);
+bot.addListener('pm', gbot.onPrivate);
 
 bot.addListener('join', function(channel, who){
     logger.log('info', '%s joined %s', who, channel);

@@ -1,13 +1,16 @@
 var botLogger,
     linkLogger;
 
-module.exports.init = function(_botLogger, _linkLogger) {
+
+var bot = {};
+
+bot.init = function(_botLogger, _linkLogger) {
     botLogger = _botLogger;
     linkLogger = _linkLogger;
 };
 
 
-var findLink  = function(message) {
+bot.findLink  = function(message) {
     var result = message.match(/(\w+):\s*(http\S+)/);
     if (result === null) {
         return null;
@@ -18,11 +21,8 @@ var findLink  = function(message) {
         url: result[2]
     };
 };
-module.exports.findLink = findLink;
 
-
-
-module.exports.onMessage = function(from, to, message) {
+bot.onMessage = function(from, to, message) {
     if (to.match(/^[#&]/)) {
         // channel message
         if (message.indexOf('http') > -1) {
@@ -30,10 +30,16 @@ module.exports.onMessage = function(from, to, message) {
             linkLogger.info(message);
         }
 
-        var link = findLink(message);
+        var link = bot.findLink(message);
+        if (link) {
+            // do magic
+            console.log(link);
+        }
     }
 };
 
-module.exports.onPrivate = function(nick, message) {
+bot.onPrivate = function(nick, message) {
     botLogger.log('info', 'Private message from %s: %s', nick, message);    
 };
+
+module.exports = bot;
