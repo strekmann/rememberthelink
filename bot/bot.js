@@ -28,7 +28,7 @@ var links = new (winston.Logger)({
     exitOnError: false
 });
 
-gbot.init(logger, links);
+gbot.init(logger, links, settings);
 
 var bot = new irc.Client(settings.bot.server, settings.bot.name, {
     channels: settings.bot.channels,
