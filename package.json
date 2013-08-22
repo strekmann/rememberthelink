@@ -22,13 +22,16 @@
     "async": "",
     "uslug": "",
     "moment": "",
+    "underscore": "",
     "express-hbs": "",
     "passport": "",
     "passport-google-oauth": "",
     "express-validator":"",
     "request": "",
     "cheerio": "",
-    "connect-redis": ""
+    "connect-redis": "",
+    "winston": "",
+    "irc": ""
   },
   "devDependencies": {
     "uglify-js": "",

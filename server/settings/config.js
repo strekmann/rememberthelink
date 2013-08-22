@@ -22,5 +22,3 @@ module.exports = function(app, express, env){
 };
 
 module.exports.settings = settings;
-
-// secret key gen: cat /dev/urandom| base64 | fold -w 64
