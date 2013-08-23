@@ -12,7 +12,9 @@ var UserSchema = new mongoose.Schema({
     google_id: {type: String},
     google_email: {type: String},
     google_link: {type: String},
-    google_picture: {type: String}
+    google_picture: {type: String},
+    following: [UserSchema],
+    followers: [UserSchema]
 });
 
 var TagSchema = new mongoose.Schema({

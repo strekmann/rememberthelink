@@ -1,0 +1,23 @@
+{{!< main}}
+<div class="large-6 columns">
+    <h1>Following</h1>
+    {{#each following}}
+    <h2>{{name}}</h2>
+    {{else}}
+    <p>You should get some friends</p>
+    {{/each}}
+</div>
+<div class="large-6 columns">
+    <h1>Followers</h1>
+    {{#each followers}}
+    <h2>{{name}}</h2>
+    {{else}}
+    <p>You should get some fans</p>
+    {{/each}}
+</div>
+
+{{#content "footer"}}
+<script>
+$(document).foundation();
+</script>
+{{/content}}
