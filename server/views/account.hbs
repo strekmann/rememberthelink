@@ -1,64 +1,68 @@
 {{!< main}}
-<div class="large-12 columns">
-  <h3>User data</h3>
-  <form class="custom">
-    <div id="errors"></div>
-    <div class="row listair">
-      <div class="large-2 small-3 columns"><label class="right">Id:</label></div>
-      <div class="large-10 small-9 columns">{{user._id}}</div>
-    </div>
+<section id="account">
     <div class="row">
-      <div class="large-2 small-3 columns"><label class="right inline">Username:</label></div>
-      <div class="large-10 small-9 columns"><input id="username" type="text" name="username" value="{{user.username}}" /></div>
-    </div>
-    <div class="row">
-      <div class="large-2 small-3 columns"><label class="right inline">Name:</label></div>
-      <div class="large-10 small-9 columns"><input type="text" name="name" value="{{user.name}}" /></div>
-    </div>
-    <div class="row">
-      <div class="large-2 small-3 columns"><label class="right inline">Email:</label></div>
-      <div class="large-10 small-9 columns"><input type="text" name="email" value="{{user.email}}" /></div>
-    </div>
-    <div class="row listair">
-      <div class="large-2 small-3 columns"><label class="right">Active:</label></div>
-      <div class="large-10 small-9 columns">
-        <input type="checkbox" name="active" value="active" {{#if user.is_active}}checked{{/if}} disabled/>
-        <span class="custom checkbox"></span>
-      </div>
-    </div>
-    <div class="row listair">
-      <div class="large-2 small-3 columns"><label class="right">Admin:</label></div>
-      <div class="large-10 small-9 columns">
-        <input type="checkbox" name="admin" value="admin" {{#if user.is_admin}}checked{{/if}} disabled/>
-        <span class="custom checkbox"></span>
-      </div>
-    </div>
-    <div class="row listair">
-      <div class="large-2 small-3 columns"><label class="right">Created:</label></div>
-      <div class="large-10 small-9 columns">{{user.created}}</div>
-    </div>
-    <div class="row listair">
-      <div class="large-10 large-offset-2 small-9 small-offset-3 columns"><a id="savebtn" class="button small">Save</a></div>
-    </div>
-  </form>
+        <div class="large-12 columns">
+            <h3>User data</h3>
+            <form class="custom">
+                <div id="errors"></div>
+                <div class="row listair">
+                    <div class="large-2 small-3 columns"><label class="right">Id:</label></div>
+                    <div class="large-10 small-9 columns">{{user._id}}</div>
+                </div>
+                <div class="row">
+                    <div class="large-2 small-3 columns"><label class="right inline">Username:</label></div>
+                    <div class="large-10 small-9 columns"><input id="username" type="text" name="username" value="{{user.username}}" /></div>
+                </div>
+                <div class="row">
+                    <div class="large-2 small-3 columns"><label class="right inline">Name:</label></div>
+                    <div class="large-10 small-9 columns"><input type="text" name="name" value="{{user.name}}" /></div>
+                </div>
+                <div class="row">
+                    <div class="large-2 small-3 columns"><label class="right inline">Email:</label></div>
+                    <div class="large-10 small-9 columns"><input type="text" name="email" value="{{user.email}}" /></div>
+                </div>
+                <div class="row listair">
+                    <div class="large-2 small-3 columns"><label class="right">Active:</label></div>
+                    <div class="large-10 small-9 columns">
+                        <input type="checkbox" name="active" value="active" {{#if user.is_active}}checked{{/if}} disabled/>
+                        <span class="custom checkbox"></span>
+                    </div>
+                </div>
+                <div class="row listair">
+                    <div class="large-2 small-3 columns"><label class="right">Admin:</label></div>
+                    <div class="large-10 small-9 columns">
+                        <input type="checkbox" name="admin" value="admin" {{#if user.is_admin}}checked{{/if}} disabled/>
+                        <span class="custom checkbox"></span>
+                    </div>
+                </div>
+                <div class="row listair">
+                    <div class="large-2 small-3 columns"><label class="right">Created:</label></div>
+                    <div class="large-10 small-9 columns">{{user.created}}</div>
+                </div>
+                <div class="row listair">
+                    <div class="large-10 large-offset-2 small-9 small-offset-3 columns"><a id="savebtn" class="button small">Save</a></div>
+                </div>
+            </form>
 
-  <h3>Google data</h3>
-  <div class="row listair">
-    <div class="large-2 small-3 columns"><label class="right">Google ID:</label></div>
-    <div class="large-10 small-9 columns"><a href="{{user.google_link}}">{{user.google_id}}</a></div>
-  </div>
-  <div class="row listair">
-    <div class="large-2 small-3 columns"><label class="right">Google email:</label></div>
-    <div class="large-10 small-9 columns">{{user.google_email}}</div>
-  </div>
-  <div class="row listair">
-    <div class="large-2 small-3 columns"><label class="right">Google picture:</label></div>
-    <div class="large-10 small-9 columns"><img src="{{user.google_picture}}" /></div>
-  </div>
-</div>
+            <h3>Google data</h3>
+            <div class="row listair">
+                <div class="large-2 small-3 columns"><label class="right">Google ID:</label></div>
+                <div class="large-10 small-9 columns"><a href="{{user.google_link}}">{{user.google_id}}</a></div>
+            </div>
+            <div class="row listair">
+                <div class="large-2 small-3 columns"><label class="right">Google email:</label></div>
+                <div class="large-10 small-9 columns">{{user.google_email}}</div>
+            </div>
+            <div class="row listair">
+                <div class="large-2 small-3 columns"><label class="right">Google picture:</label></div>
+                <div class="large-10 small-9 columns"><img src="{{user.google_picture}}" /></div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {{#content "footer"}}
 <script>
-  $(document).s7n.initAccount();
+$(document).s7n.initAccount();
 </script>
 {{/content}}

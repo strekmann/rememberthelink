@@ -1,12 +1,12 @@
 // -- module dependencies
 var express = require('express'),
-    path    = require('path'),
-    expressValidator = require('express-validator'),
-    hbs = require('express-hbs'),
-    RedisStore = require('connect-redis')(express);
+path = require('path'),
+expressValidator = require('express-validator'),
+hbs = require('express-hbs');
 
 module.exports.boot = function(app) {
     app.passport = require('./lib/passport')(app);
+    app.ensureAuthenticated = require('./lib/middleware').ensureAuthenticated;
 
     app.configure(function(){
         // -- Parses x-www-form-urlencoded request bodies (and json)
@@ -29,12 +29,6 @@ module.exports.boot = function(app) {
         }));
         app.use(express.methodOverride());
 
-        app.use(express.cookieParser());
-        app.use(express.session({
-            store: new RedisStore(),
-            secret: app.conf.sessionSecret
-        }));
-
         app.use(app.passport.initialize());
         app.use(app.passport.session());
 
@@ -53,18 +47,19 @@ module.exports.boot = function(app) {
 
         require('./lib/helpers').register(hbs);
 
-
         // -- 500 status
         app.use(function(err, req, res, next) {
             console.error(err.stack);
+            res.status(500);
             res.render('500', {
                 status: err.status || 500,
                 error: err.message
             });
         });
 
-         // -- 404 status
+        // -- 404 status
         app.use(function(req, res, next) {
+            res.status(404);
             res.render('404', {
                 status: 404,
                 error: 'file not found',

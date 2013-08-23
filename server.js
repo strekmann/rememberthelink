@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var app = require('./server/app'),
-	http = require('http');
+    http = require('http');
 
 // -- database
 var mongoose = require('mongoose');
