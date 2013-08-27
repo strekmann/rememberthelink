@@ -18,7 +18,7 @@ var UserSchema = new mongoose.Schema({
 });
 
 var TagSchema = new mongoose.Schema({
-    _id: {type: String, lowercase: true, trim: true, required: true, unique: true}
+    _id: {type: String, lowercase: true, trim: true, required: true}
 });
 
 var User = mongoose.model('User', UserSchema);
