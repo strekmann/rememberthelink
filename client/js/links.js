@@ -95,6 +95,26 @@
             $(form).hide();
             $(link).show();
         });
+        $('a.share').on('click', function (ev) {
+            ev.preventDefault();
+            var block = $(this).parent().parent();
+            var url = block.find('.link .title').first().attr('href');
+            $.ajax({
+                method: 'GET',
+                url: '/friends/followers',
+                success: function(data, status, xhr) {
+                    var followers = "";
+                    if (status !== "success") {
+                        alert("Could not get followers");
+                    } else {
+                        $.each(data.followers, function(i, follower) {
+                            followers += '<form method="post" action="/links/share"><input type="hidden" name="id" value="' + follower._id + '"><input type="hidden" name="url" value="' + url + '"><button type="submit">' + follower.username + '</button></form>';
+                        });
+                        block.append('<div class="followers">' + followers + '</div>');
+                    }
+                }
+            });
+        });
 
         $('form.editform').on('submit', function() {
             var form = $(this);

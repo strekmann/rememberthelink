@@ -39,11 +39,13 @@ app.post('/links/uwanna', link_routes.suggest);
 app.get('/links/suggestions', link_routes.suggestions);
 app.delete('/links/reject', app.ensureAuthenticated, link_routes.reject_suggestion);
 app.post('/links/accept', app.ensureAuthenticated, link_routes.accept_suggestion);
+app.post('/links/share', app.ensureAuthenticated, link_routes.share);
 
 var friend_routes = require('./routes/friends');
 app.get('/friends', app.ensureAuthenticated, friend_routes.index);
 app.get('/friends/search', app.ensureAuthenticated, friend_routes.search);
 app.post('/friends/add', app.ensureAuthenticated, friend_routes.add);
+app.get('/friends/followers', app.ensureAuthenticated, friend_routes.followers);
 
 // -- exports
 module.exports = app;

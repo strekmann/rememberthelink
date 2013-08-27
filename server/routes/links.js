@@ -183,6 +183,29 @@ module.exports.suggest = function (req, res) {
     });
 };
 
+module.exports.share = function (req, res) {
+    var url = req.body.url;
+    if (url.indexOf("://") === -1) {
+        url = "http://" + url;
+    }
+    Suggestion.findOne({
+        from: req.user._id,
+        to: req.body.id,
+        url: url
+    })
+    .exec(function (err, suggestion) {
+        if (!suggestion) {
+            suggestion = new Suggestion();
+        }
+        suggestion.url = url;
+        suggestion.to = req.body.id;
+        suggestion.from = req.user._id;
+        suggestion.save();
+        //return res.json('200', {status: true});
+        return res.redirect('/links');
+    });
+};
+
 module.exports.suggestions = function (req, res) {
     Suggestion.find({
         to: req.user.username

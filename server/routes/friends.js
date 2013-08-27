@@ -35,3 +35,13 @@ module.exports.add = function (req, res) {
         }
     });
 };
+
+module.exports.followers = function (req, res) {
+    User.findById(req.user._id)
+    .populate('followers')
+    .exec(function (err, user) {
+        if (user) {
+            res.json('200', {'followers': user.followers});
+        }
+    });
+};
