@@ -38,7 +38,8 @@ app.get('/links/suggestions', link_routes.suggestions);
 app.delete('/links/reject', app.ensureAuthenticated, link_routes.reject_suggestion);
 app.post('/links/accept', app.ensureAuthenticated, link_routes.accept_suggestion);
 
-//require('./routes/friends')(app, '/friends');
+var friend_routes = require('./routes/friends');
+app.get('/friends', friend_routes.index);
 
 // -- exports
 module.exports = app;
