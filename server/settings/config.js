@@ -1,7 +1,7 @@
 var localsettings = require('../settings.js');
 
 // -- global settings
-var settings = {
+var config = {
     siteName        : 'strekmann',
     sessionSecret   : localsettings.sessionSecret,
     uri             : 'http://localhost',
@@ -13,11 +13,15 @@ var settings = {
     redis           : {
         host        : '127.0.0.1',
         port        : 6379
+    },
+    i18n            : {
+        locales     : ['en', 'nb'],
+        defaultLocale: 'en'
     }
 };
 
 module.exports = function(app, express, env){
-    app.conf = settings;
+    app.conf = config;
 
     if (env === 'development') {
         require('./development')(app, express);
@@ -30,4 +34,4 @@ module.exports = function(app, express, env){
     }
 };
 
-module.exports.settings = settings;
+module.exports.config = config;

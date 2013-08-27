@@ -7,7 +7,8 @@ var app         = express(),
 
 // -- import configuration
     conf        = require('./settings/config'),
-    settings    = conf.settings;
+    settings    = conf.config;
+
 conf(app, express, env);
 
 // -- bootstrap config
@@ -15,7 +16,7 @@ require('./bootstrap').boot(app);
 
 // -- routes
 var core_routes = require('./routes/index');
-app.get('/', core_routes.index);
+//app.get('/', core_routes.index);
 app.get('/account', app.ensureAuthenticated, core_routes.account);
 app.post('/account', app.ensureAuthenticated, core_routes.save_account);
 app.get('/login', core_routes.login);
@@ -27,6 +28,7 @@ app.get('/auth/google', app.passport.authenticate('google', { scope: [
 app.get('/auth/google/callback', app.passport.authenticate('google', { failureRedirect: '/login' }), core_routes.google_callback);
 
 var link_routes = require('./routes/links');
+app.get('/', link_routes.index);
 app.get('/links', link_routes.index);
 app.get('/links/new', app.ensureAuthenticated, link_routes.new_link);
 app.post('/links/new', app.ensureAuthenticated, link_routes.create_link);
@@ -45,4 +47,5 @@ app.post('/friends/add', app.ensureAuthenticated, friend_routes.add);
 
 // -- exports
 module.exports = app;
-module.exports.conf = settings;
+
+//module.exports.conf = settings;

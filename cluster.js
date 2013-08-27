@@ -5,6 +5,10 @@ var app = require('./server/app'),
     numCPU = require('os').cpus().length,
     i = 0;
 
+if (app.settings.env === 'development') {
+    numCPU = 2;
+}
+
 if (cluster.isMaster){
     for (i; i<numCPU; i++){
         cluster.fork();

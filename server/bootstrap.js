@@ -1,8 +1,8 @@
 // -- module dependencies
 var express = require('express'),
-path = require('path'),
-expressValidator = require('express-validator'),
-hbs = require('express-hbs');
+    path = require('path'),
+    expressValidator = require('express-validator'),
+    hbs = require('express-hbs');
 
 module.exports.boot = function(app) {
     app.passport = require('./lib/passport')(app);
@@ -45,7 +45,7 @@ module.exports.boot = function(app) {
         app.set('view engine', 'hbs');
         app.set('views', path.join(__dirname, 'views'));
 
-        require('./lib/helpers').register(hbs);
+        require('./lib/helpers').register(app, hbs);
 
         // -- 500 status
         app.use(function(err, req, res, next) {
