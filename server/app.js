@@ -25,7 +25,15 @@ app.get('/auth/google', app.passport.authenticate('google', { scope: [
             'https://www.googleapis.com/auth/userinfo.email'
         ]}), function(req, res){});
 app.get('/auth/google/callback', app.passport.authenticate('google', { failureRedirect: '/login' }), core_routes.google_callback);
-require('./routes/links')(app, '/links');
+
+var link_routes = require('./routes/links');
+app.get('/links', link_routes.index);
+app.get('/links/new', app.ensureAuthenticated, link_routes.new_link);
+app.post('/links/new', app.ensureAuthenticated, link_routes.create_link);
+app.put('/links/edit', app.ensureAuthenticated, link_routes.update_link);
+app.delete('/links/delete', app.ensureAuthenticated, link_routes.update_link);
+app.get('/links/tags/*', link_routes.tags);
+
 require('./routes/friends')(app, '/friends');
 
 // -- exports
