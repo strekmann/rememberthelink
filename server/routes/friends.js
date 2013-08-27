@@ -3,9 +3,12 @@ var User = require('../models').User;
 
 // links routes
 module.exports.index = function(req, res){
-    console.log(req.user);
-    res.render('friends/index', {
-        user: req.user
+    User.findById(req.user._id)
+    .populate('followers following')
+    .exec(function (err, user) {
+        res.render('friends/index', {
+            user: user
+        });
     });
 };
 
@@ -24,9 +27,9 @@ module.exports.add = function (req, res) {
     User.findOne({'username': username})
     .exec(function (err, user) {
         if (user) {
-            req.user.following.push(user.username);
+            req.user.following.push(user._id);
             req.user.save();
-            user.followers.push(req.user.username);
+            user.followers.push(req.user._id);
             user.save();
             res.json('200', {'status': true});
         }
