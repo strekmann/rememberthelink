@@ -15,7 +15,7 @@ var config = {
         port        : 6379
     },
     i18n            : {
-        locales     : ['en', 'nb'],
+        locales     : ['en', 'nb', 'zh'],
         defaultLocale: 'en'
     }
 };
