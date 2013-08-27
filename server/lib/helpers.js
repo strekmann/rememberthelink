@@ -25,7 +25,7 @@ module.exports.register = function(hbs) {
         }
     });
     hbs.registerHelper('canChange', function(user, options) {
-        if (user && this.creator && user._id === this.creator._id) {
+        if (user && (this.creator && user._id === this.creator._id) || (this.to === user.username)) {
             return options.fn(this);
         }
     });

@@ -46,7 +46,6 @@ module.exports.new_link = function (req, res) {
         // fetch url and populate object
         request(url, function (error, response, body) {
                 if (error) {
-        console.log(error);
     }
     if (!error && response.statusCode === 200) {
         var ch = cheerio.load(body);
@@ -68,9 +67,12 @@ module.exports.create_link = function (req, res) {
     link.title = req.body.title;
     link.content = req.body.content;
     link.description = req.body.description;
-    link.tags = _.map(req.body.tags.split(","), function(tag) {
-        return new Tag({_id: tag.trim()});
-    });
+    var tags = req.body.tags;
+    if (tags) {
+        link.tags = _.map(tags.split(","), function(tag) {
+            return new Tag({_id: tag.trim()});
+        });
+    }
     link.private = req.body.private;
     link.creator = req.user;
     return link.save(function (err) {
@@ -79,7 +81,7 @@ module.exports.create_link = function (req, res) {
                 error: err.message
             });
         }
-        return res.redirect(prefix);
+        return res.redirect('/links/');
     });
 };
 
@@ -94,9 +96,12 @@ module.exports.update_link = function (req, res) {
         }
         link.title = req.body.title;
         link.description = req.body.description;
-        link.tags = _.map(req.body.tags.split(","), function(tag) {
-            return new Tag({_id: tag.trim()});
+        var tags = req.body.tags;
+        if (tags) {
+            link.tags = _.map(tags.split(","), function(tag) {
+                return new Tag({_id: tag.trim()});
             });
+        }
         if(typeof req.body.private !== 'undefined'){
             link.private = true;
         } else {
@@ -174,5 +179,66 @@ module.exports.suggest = function (req, res) {
         suggestion.from = req.body.from;
         suggestion.save();
         return res.json('200', {status: true});
+    });
+};
+
+module.exports.suggestions = function (req, res) {
+    Suggestion.find({
+        to: req.user.username
+    })
+    .exec(function (err, suggestions) {
+        res.render('links/suggestions', {
+            suggestions: suggestions,
+            user: req.user
+        });
+    });
+};
+
+module.exports.reject_suggestion = function (req, res) {
+    Suggestion.findOne({url: req.body.url, to: req.user.username})
+    .exec(function (err, link) {
+        if (err) {
+            return res.json('200', {
+                error: err.message
+            });
+        }
+        link.remove();
+        return res.json('200', {status: true});
+    });
+};
+module.exports.accept_suggestion = function (req, res) {
+    var link = new Link();
+    link.url = req.body.url;
+    link.title = req.body.title;
+    link.content = req.body.content;
+    link.description = req.body.description;
+    var tags = req.body.tags;
+    if (tags) {
+        link.tags = _.map(tags.split(","), function(tag) {
+            return new Tag({_id: tag.trim()});
+        });
+    }
+    if(typeof req.body.private !== 'undefined'){
+        link.private = true;
+    } else {
+        link.private = false;
+    }
+    link.creator = req.user;
+    return link.save(function (err) {
+        if (err) {
+            return res.json('200', {
+                error: err.message
+            });
+        }
+        Suggestion.findOne({url: req.body.url, to: req.user.username})
+        .exec(function (err, link) {
+            if (err) {
+                return res.json('200', {
+                    error: err.message
+                });
+            }
+            link.remove();
+            return res.json('200', {status: true});
+        });
     });
 };

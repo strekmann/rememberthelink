@@ -19,7 +19,7 @@
             block.hide();
             $.ajax({
                 method: 'DELETE',
-                url: 'delete',
+                url: '/links/delete',
                 data: {url: url},
                 success: function(data, status, xhr) {
                     if (status !== "success") {
@@ -31,6 +31,34 @@
             });
             return false;
         });
+        $('a.reject').on('click', function (ev) {
+            ev.preventDefault();
+            var self = $(this);
+            var block = $(this).parent().parent();
+            var url = block.find('.link .title').first().attr('href');
+            block.hide();
+            $.ajax({
+                method: 'DELETE',
+                url: 'reject',
+                data: {url: url},
+                success: function(data, status, xhr) {
+                    if (status !== "success") {
+                        alert("Could not delete");
+                        self.hide();
+                        block.show();
+                    }
+                }
+            });
+            return false;
+        });
+        $('a.accept').on('click', function (ev) {
+            ev.preventDefault();
+            var block = $(this).parent().parent();
+            var form = block.find('form').first();
+            var link = block.find('.link').first();
+            form.show();
+            link.hide();
+        });
         $('a.edit').on('click', function (ev) {
             ev.preventDefault();
             var block = $(this).parent().parent();
@@ -38,6 +66,25 @@
             var link = block.find('.link').first();
             form.show();
             link.hide();
+        });
+        $('form.suggestform').on('submit', function (){
+            var block = $(this).parent().parent().parent();
+            var form = block.find('form').first();
+            var link = block.find('.link').first();
+            $(form).hide();
+            $.ajax({
+                method: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(data, status, xhr) {
+                    if (status !== "success") {
+                        alert("Could not save");
+                        form.show();
+                        link.hide();
+                    }
+                }
+            });
+            return false;
         });
 
         $('a.cancel_edit').on('click', function (ev) {

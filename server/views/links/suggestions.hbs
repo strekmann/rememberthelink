@@ -1,22 +1,10 @@
 {{!< main}}
 <div class="large-12 columns">
-    <form action="/links/new">
-        <div id="errors"></div>
-        <div class="row collapse">
-            <div class="small-10 columns">
-                <input id="url" type="text" name="url" placeholder="http://new.link.now/">
-            </div>
-            <div class="small-2 columns">
-                <button class="button prefix">Save</button>
-            </div>
-        </div>
-    </form>
-
-    {{#each links}}
+    {{#each suggestions}}
     {{#canRead ../user}}
     <div class="clearfix">
         {{#canChange ../../user}}
-        <form action="edit" method="post" style="display:none" class="editform">
+        <form action="/links/accept" method="post" style="display:none" class="suggestform">
             <input type="text" class="title" name="title" value="{{title}}">
             <input type="text" class="description" name="description" value="{{description}}">
             <input type="text" class="tags" name="tags" value="{{joined_tags}}">
@@ -31,25 +19,19 @@
         <div class="link" title="{{description}}">
             <a href="{{url}}" class="title" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">{{title}}</a>
             <span>{{ago created}}</span>,
-            by <span>{{creator.name}}</span>
+            by <span>{{from}}</span>
             {{#canChange ../../user}}
-            <a class="edit">edit</a>
-            <a class="delete">delete</a>
+            <a class="accept">accept</a>
+            <a class="reject">reject</a>
             <a class="sure" style="display:none">Sure?</a>
             {{/canChange}}
             <span class="private"{{#unless private}} style="display: none"{{/unless}}>private</span>
             <br>
-            <span>{{url}}</span> —
-            <span class="tags">{{#tags}}<a href="/links/tags/{{_id}}">{{_id}}</a>{{/tags}}</span>
+            <span>{{url}}</span>
         </div>
     </div>
     {{/canRead}}
     {{/each}}
-    <hr>
-    <h1>Bookmarklet</h1>
-    <p>Drag this button to your toolbar</p>
-    <a class="button" href="javascript:var l=window.location.href;window.location.href='{{url}}new?url='+l;">Remember</a>
-    {{url}}
 </div>
 
 {{#content "footer"}}

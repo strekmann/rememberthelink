@@ -31,9 +31,12 @@ app.get('/links', link_routes.index);
 app.get('/links/new', app.ensureAuthenticated, link_routes.new_link);
 app.post('/links/new', app.ensureAuthenticated, link_routes.create_link);
 app.put('/links/edit', app.ensureAuthenticated, link_routes.update_link);
-app.delete('/links/delete', app.ensureAuthenticated, link_routes.update_link);
+app.delete('/links/delete', app.ensureAuthenticated, link_routes.delete_link);
 app.get('/links/tags/*', link_routes.tags);
 app.post('/links/uwanna', link_routes.suggest);
+app.get('/links/suggestions', link_routes.suggestions);
+app.delete('/links/reject', app.ensureAuthenticated, link_routes.reject_suggestion);
+app.post('/links/accept', app.ensureAuthenticated, link_routes.accept_suggestion);
 
 //require('./routes/friends')(app, '/friends');
 
