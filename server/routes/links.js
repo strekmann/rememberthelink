@@ -4,7 +4,8 @@ var cheerio = require('cheerio');
 var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
     User = require('../models').User,
     Tag = require('../models').Tag,
-    Link = require('../models/links').Link;
+    Link = require('../models/links').Link,
+    Suggestion = require('../models/links').Suggestion;
 
 // links routes
 module.exports.index = function(req, res){
@@ -93,20 +94,15 @@ module.exports.update_link = function (req, res) {
         }
         link.title = req.body.title;
         link.description = req.body.description;
-        //link.tags = req.body.tags;
         link.tags = _.map(req.body.tags.split(","), function(tag) {
             return new Tag({_id: tag.trim()});
             });
-        console.log(link.tags);
         if(typeof req.body.private !== 'undefined'){
             link.private = true;
         } else {
             link.private = false;
         }
-        link.save(function(err, doc) {
-            console.log(err);
-            console.log(doc);
-        });
+        link.save();
         return res.json('200', {status: true});
     });
 };
@@ -153,5 +149,30 @@ module.exports.tags =  function (req, res) {
             user: req.user,
             url: "http://"+req.headers.host + req.url
         });
+    });
+};
+
+module.exports.suggest = function (req, res) {
+    if (req.body.csrf !== 'h3rpz') {
+        return res.json('403', {status: false});
+    }
+    var url = req.body.url;
+    if (url.indexOf("://") === -1) {
+        url = "http://" + url;
+    }
+    Suggestion.findOne({
+        from: req.body.from,
+        to: req.body.to,
+        url: url
+    })
+    .exec(function (err, suggestion) {
+        if (!suggestion) {
+            suggestion = new Suggestion();
+        }
+        suggestion.url = url;
+        suggestion.to = req.body.to;
+        suggestion.from = req.body.from;
+        suggestion.save();
+        return res.json('200', {status: true});
     });
 };

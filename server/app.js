@@ -33,8 +33,9 @@ app.post('/links/new', app.ensureAuthenticated, link_routes.create_link);
 app.put('/links/edit', app.ensureAuthenticated, link_routes.update_link);
 app.delete('/links/delete', app.ensureAuthenticated, link_routes.update_link);
 app.get('/links/tags/*', link_routes.tags);
+app.post('/links/uwanna', link_routes.suggest);
 
-require('./routes/friends')(app, '/friends');
+//require('./routes/friends')(app, '/friends');
 
 // -- exports
 module.exports = app;
