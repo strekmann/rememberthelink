@@ -5,7 +5,8 @@ var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
     User = require('../models').User,
     Tag = require('../models').Tag,
     Link = require('../models/links').Link,
-    Suggestion = require('../models/links').Suggestion;
+    Suggestion = require('../models/links').Suggestion,
+    seq = require('../settings').bot.seq;
 
 // links routes
 module.exports.index = function(req, res){
@@ -158,7 +159,7 @@ module.exports.tags =  function (req, res) {
 };
 
 module.exports.suggest = function (req, res) {
-    if (req.body.csrf !== 'h3rpz') {
+    if (req.body.seq !== seq) {
         return res.json('403', {status: false});
     }
     var url = req.body.url;

@@ -39,7 +39,7 @@ bot.onMessage = function(from, to, message) {
                 from: from, 
                 to: link.to, 
                 url: link.url,
-                csrf: 'h3rpz'
+                seq: settings.bot.seq
             });
         }
     }

@@ -11,7 +11,8 @@ module.exports = {
         name: 'bot',
         server: 'irc.net',
         channels: ['#channel'],
-        postUrl: 'http://localhost:3000/links/uwanna'
+        postUrl: 'http://localhost:3000/links/uwanna',
+        seq: 'hello'
     }
 };
 
