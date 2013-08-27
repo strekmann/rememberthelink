@@ -1215,7 +1215,7 @@ $topbar-bg:                            #fff;
 
 // Controlling the styles for the title in the top bar
 
-// $topbar-title-weight:                  bold;
+$topbar-title-weight:                  normal;
 // $topbar-title-font-size:               emCalc(17px);
 
 // Style the top bar dropdown elements
@@ -1232,7 +1232,7 @@ $topbar-dropdown-link-color:           #333;
 $topbar-link-color:                    #333;
 $topbar-link-color-hover:              #000;
 $topbar-link-color-active:             #faaa4b;
-// $topbar-link-weight:                   bold;
+$topbar-link-weight:                   normal;
 // $topbar-link-font-size:                emCalc(13px);
 $topbar-link-hover-lightness:          -3%; // Darken by 30%
 // $topbar-link-bg-hover:                 darken($topbar-bg, 3%);
@@ -1240,14 +1240,14 @@ $topbar-link-bg-active:                #fafafa;
 
 $topbar-dropdown-label-color:          darken($topbar-bg, 3%);
 // $topbar-dropdown-label-text-transform: uppercase;
-// $topbar-dropdown-label-font-weight:    bold;
+$topbar-dropdown-label-font-weight:    normal;
 // $topbar-dropdown-label-font-size:      emCalc(10px);
 
 // Top menu icon styles
 
 // $topbar-menu-link-transform:           uppercase;
 // $topbar-menu-link-font-size:           emCalc(13px);
-// $topbar-menu-link-weight:              bold;
+$topbar-menu-link-weight:              normal;
 $topbar-menu-link-color:               #333;
 $topbar-menu-icon-color:               #333;
 // $topbar-menu-link-color-toggled:       #888;
