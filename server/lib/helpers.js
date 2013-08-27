@@ -1,7 +1,6 @@
 // Handlebars helpers
-var moment = require('moment');
-
-var moment = require('moment');
+var moment = require('moment'),
+    _ = require('underscore');
 
 module.exports.register = function(hbs) {
     //  usage: {{datetimeformat creation_date format="MMMM YYYY"}}
@@ -27,6 +26,18 @@ module.exports.register = function(hbs) {
     hbs.registerHelper('canChange', function(user, options) {
         if (user && (this.creator && user._id === this.creator._id) || (this.to === user.username)) {
             return options.fn(this);
+        }
+    });
+    hbs.registerHelper('doesnotfollow', function(username, options) {
+        var user = this;
+        console.log("ost");
+        console.log(this);
+        console.log(username);
+        if (user && username) {
+            var match = _.find(user.following, function(name){ return name===username; });
+            if (!match) {
+                return options.fn(this);
+            }
         }
     });
 };

@@ -39,7 +39,9 @@ app.delete('/links/reject', app.ensureAuthenticated, link_routes.reject_suggesti
 app.post('/links/accept', app.ensureAuthenticated, link_routes.accept_suggestion);
 
 var friend_routes = require('./routes/friends');
-app.get('/friends', friend_routes.index);
+app.get('/friends', app.ensureAuthenticated, friend_routes.index);
+app.get('/friends/search', app.ensureAuthenticated, friend_routes.search);
+app.post('/friends/add', app.ensureAuthenticated, friend_routes.add);
 
 // -- exports
 module.exports = app;
