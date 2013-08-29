@@ -10,6 +10,12 @@ var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
 
 // links routes
 module.exports.index = function(req, res){
+    if (!req.isAuthenticated()) {
+        return res.render('index', {
+            user: req.user
+        });
+    }
+
     Link.find()
     .populate('creator')
     .sort('-created')

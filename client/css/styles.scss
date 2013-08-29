@@ -79,6 +79,10 @@ li {
         min-height: 200px;
         border-bottom: 1px solid $borderColor;
 
+        img {
+            margin: emCalc(10px);
+        }
+
     }
 
     .content {

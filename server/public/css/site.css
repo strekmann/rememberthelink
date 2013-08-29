@@ -4667,6 +4667,8 @@ li {
   #index .hero {
     min-height: 200px;
     border-bottom: 1px solid rgba(170, 170, 170, 0.35); }
+    #index .hero img {
+      margin: 0.625em; }
   #index .content {
     min-height: 200px; }
 
