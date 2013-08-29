@@ -4,7 +4,7 @@
     {{#canRead ../user}}
     <div class="clearfix">
         {{#canChange ../../user}}
-        <form action="/links/accept" method="post" style="display:none" class="suggestform">
+        <form action="/accept" method="post" style="display:none" class="suggestform">
             <input type="text" class="title" name="title" value="{{title}}">
             <input type="text" class="description" name="description" value="{{description}}">
             <input type="text" class="tags" name="tags" value="{{joined_tags}}">

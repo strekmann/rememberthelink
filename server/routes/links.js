@@ -82,7 +82,7 @@ module.exports.create_link = function (req, res) {
                 error: err.message
             });
         }
-        return res.redirect('/links/');
+        return res.redirect('/');
     });
 };
 

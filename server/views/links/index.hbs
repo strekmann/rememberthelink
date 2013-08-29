@@ -1,6 +1,6 @@
 {{!< main}}
 <div class="large-12 columns">
-    <form action="/links/new">
+    <form action="/new">
         <div id="errors"></div>
         <div class="row collapse">
             <div class="small-10 columns">
@@ -41,7 +41,7 @@
             <span class="private"{{#unless private}} style="display: none"{{/unless}}>private</span>
             <br>
             <span>{{url}}</span> —
-            <span class="tags">{{#tags}}<a href="/links/tags/{{_id}}">{{_id}}</a>{{/tags}}</span>
+            <span class="tags">{{#tags}}<a href="/tags/{{_id}}">{{_id}}</a>{{/tags}}</span>
         </div>
     </div>
     {{/canRead}}
