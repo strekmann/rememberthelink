@@ -3,21 +3,21 @@
     <li class="name">
       <h1><a href="/">Remember the link</a></h1>
     </li>
-    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    <li class="toggle-topbar menu-icon"><a href="#"><span>{{__ "Menu"}}</span></a></li>
     </ul>
 
     <section class="top-bar-section">
         <ul class="right">
-            <li><a href="/suggestions">Suggestions</a></li>
-            <li><a href="/friends">Friends</a></li>
             {{#if user}}
-            <li class="has-dropdown"><a href="/account">Account</a>
+            <li><a href="/suggestions">{{__ "Suggestions"}}</a></li>
+            <li><a href="/friends">{{__ "Friends"}}</a></li>
+            <li class="has-dropdown"><a href="/account">{{__ "Account"}}</a>
             <ul class="dropdown">
-                <li><a href="/logout">Log out</a></li>
+                <li><a href="/logout">{{__ "Log out"}}</a></li>
             </ul>
             </li>
             {{else}}
-            <li><a href="/login">Log in</a></li>
+            <li><a href="/login">{{__ "Log in"}}</a></li>
             {{/if}}
         </ul>
     </section>
