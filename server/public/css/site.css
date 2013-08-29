@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* normalize.css v2.1.1 | MIT License | git.io/normalize */
+/*! normalize.css v2.1.1 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
    ========================================================================== */
@@ -2995,7 +2995,7 @@ form.custom {
       font-size: 1.0625em;
       margin: 0; }
       .top-bar .name h1 a {
-        font-weight: normal;
+        font-weight: 200;
         color: #333333;
         width: 50%;
         display: block;
@@ -3073,7 +3073,7 @@ form.custom {
     padding: 12px 0 12px 0;
     padding-left: 15px;
     font-size: 0.8125em;
-    font-weight: normal;
+    font-weight: 200;
     background: white; }
     .top-bar-section ul li > a.button {
       background: #1c79b4;
@@ -3132,7 +3132,7 @@ form.custom {
         font-weight: normal;
         padding: 8px 15px; }
         .top-bar-section .dropdown li a.parent-link {
-          font-weight: normal; }
+          font-weight: 200; }
       .top-bar-section .dropdown li.title h5 {
         margin-bottom: 0; }
         .top-bar-section .dropdown li.title h5 a {
@@ -4630,6 +4630,7 @@ a.th {
 .button:hover {
   text-decoration: none; }
 
+.top-bar-section ul li > a:hover,
 a:hover {
   text-decoration: underline; }
 
@@ -4665,12 +4666,21 @@ li {
 #index {
   margin-top: -1.875em; }
   #index .hero {
+    padding-top: 5em;
+    padding-bottom: 5em;
     min-height: 200px;
     border-bottom: 1px solid rgba(170, 170, 170, 0.35); }
-    #index .hero img {
-      margin: 0.625em; }
+    #index .hero .header {
+      display: block;
+      font: 400 60px "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #333; }
+    #index .hero .description {
+      display: block;
+      font: 100 60px "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #b5b5b5;
+      line-height: .8; }
   #index .content {
-    min-height: 200px; }
+    padding-top: 2em; }
 
 #applications {
   background: #fff; }

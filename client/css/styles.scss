@@ -29,6 +29,8 @@ $borderColor: rgba(170, 170, 170, .35);
 .button:hover {
     text-decoration: none;
 }
+
+.top-bar-section ul li > a:hover,
 a:hover {
     text-decoration: underline;
 }
@@ -76,17 +78,26 @@ li {
     margin-top: emCalc(-30px);
 
     .hero {
+        padding-top: 5em;
+        padding-bottom: 5em;
         min-height: 200px;
         border-bottom: 1px solid $borderColor;
 
-        img {
-            margin: emCalc(10px);
+        .header {
+            display: block;
+            font: 400 60px "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #333;
         }
-
+        .description {
+            display: block;
+            font: 100 60px "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #b5b5b5;
+            line-height: .8;
+        }
     }
 
     .content {
-        min-height: 200px;
+        padding-top: 2em;
     }
 }
 
