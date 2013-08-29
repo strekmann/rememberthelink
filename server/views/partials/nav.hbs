@@ -11,7 +11,7 @@
             {{#if user}}
             <li><a href="/suggestions">{{__ "Suggestions"}}</a></li>
             <li><a href="/friends">{{__ "Friends"}}</a></li>
-            <li class="has-dropdown"><a href="/account">{{__ "Account"}}</a>
+            <li class="has-dropdown"><a href="/account">{{user.username}}</a>
             <ul class="dropdown">
                 <li><a href="/logout">{{__ "Log out"}}</a></li>
             </ul>
