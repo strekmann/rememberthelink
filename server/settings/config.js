@@ -2,9 +2,9 @@ var localsettings = require('../settings.js');
 
 // -- global settings
 var config = {
-    siteName        : 'strekmann',
+    siteName        : 'rememberthelink',
     sessionSecret   : localsettings.sessionSecret,
-    uri             : 'http://localhost',
+    uri             : localsettings.uri,
     port            : process.env.PORT || 3000,
     db_name         : process.env.DB_NAME || 'test',
     debug           : 0,

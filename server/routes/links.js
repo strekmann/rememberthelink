@@ -6,7 +6,7 @@ var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
     Tag = require('../models').Tag,
     Link = require('../models/links').Link,
     Suggestion = require('../models/links').Suggestion,
-    seq = require('../settings').bot.seq;
+    localsettings = require('../settings');
 
 // links routes
 module.exports.index = function(req, res){
@@ -37,7 +37,7 @@ module.exports.index = function(req, res){
         res.render('links/index', {
             links: links,
             user: req.user,
-            url: "http://"+req.headers.host + req.url
+            url: localsettings.uri
         });
     });
 };
@@ -159,13 +159,13 @@ module.exports.tags =  function (req, res) {
         res.render('links/index', {
             links: links,
             user: req.user,
-            url: "http://"+req.headers.host + req.url
+            url: localsettings.uri
         });
     });
 };
 
 module.exports.suggest = function (req, res) {
-    if (req.body.seq !== seq) {
+    if (req.body.seq !== localsettings.bot.seq) {
         return res.json('403', {status: false});
     }
     var url = req.body.url;
