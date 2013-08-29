@@ -64,7 +64,7 @@
             block.hide();
             $.ajax({
                 method: 'DELETE',
-                url: '/links/delete',
+                url: '/delete',
                 data: {url: url},
                 success: function(data, status, xhr) {
                     if (status !== "success") {
@@ -153,7 +153,7 @@
                         alert("Could not get followers");
                     } else {
                         $.each(data.followers, function(i, follower) {
-                            followers += '<form method="post" action="/links/share"><input type="hidden" name="id" value="' + follower._id + '"><input type="hidden" name="url" value="' + url + '"><button type="submit">' + follower.username + '</button></form>';
+                            followers += '<form method="post" action="/share"><input type="hidden" name="id" value="' + follower._id + '"><input type="hidden" name="url" value="' + url + '"><button type="submit">' + follower.username + '</button></form>';
                         });
                         block.append('<div class="followers">' + followers + '</div>');
                     }

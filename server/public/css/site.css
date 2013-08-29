@@ -4659,6 +4659,19 @@ nav {
 li {
   list-style: none; }
 
+.hero {
+  background: transparent url(/img/hero.png); }
+
+#index {
+  margin-top: -1.875em; }
+  #index .hero {
+    min-height: 200px;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.35); }
+    #index .hero img {
+      margin: 0.625em; }
+  #index .content {
+    min-height: 200px; }
+
 #applications {
   background: #fff; }
   #applications .applications {

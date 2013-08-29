@@ -28,6 +28,7 @@ app.get('/auth/google', app.passport.authenticate('google', { scope: [
 app.get('/auth/google/callback', app.passport.authenticate('google', { failureRedirect: '/login' }), core_routes.google_callback);
 
 var link_routes = require('./routes/links');
+
 app.get('/', link_routes.index);
 app.get('/new', app.ensureAuthenticated, link_routes.new_link);
 app.post('/new', app.ensureAuthenticated, link_routes.create_link);
