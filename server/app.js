@@ -16,7 +16,7 @@ require('./bootstrap').boot(app);
 
 // -- routes
 var core_routes = require('./routes/index');
-//app.get('/', core_routes.index);
+app.get('/', core_routes.index);
 app.get('/account', app.ensureAuthenticated, core_routes.account);
 app.post('/account', app.ensureAuthenticated, core_routes.save_account);
 app.get('/login', core_routes.login);
@@ -28,6 +28,7 @@ app.get('/auth/google', app.passport.authenticate('google', { scope: [
 app.get('/auth/google/callback', app.passport.authenticate('google', { failureRedirect: '/login' }), core_routes.google_callback);
 
 var link_routes = require('./routes/links');
+
 app.get('/', link_routes.index);
 app.get('/new', app.ensureAuthenticated, link_routes.new_link);
 app.post('/new', app.ensureAuthenticated, link_routes.create_link);
