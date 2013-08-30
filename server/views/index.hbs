@@ -11,9 +11,26 @@
             </div>
         </div>
     </section>
+
     <section class="content">
         <div class="row">
             <div class="small-12 columns">We're working on it.</div>
         </div>
     </section>
-</div
+
+    <section class="bookmarklet">
+        <div class="row">
+            <div class="large-6 columns large-centered">
+                <span class="header">bookmarklet</span>
+                <span class="description">{{__ "drag this button to your toolbar"}}</span>
+                <a class="fanzybutton" href="javascript:var l=window.location.href;window.location.href='{{url}}/new?url='+l;">Remember</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+{{#content "footer"}}
+<script>
+    $(document).s7n.initIndex();
+</script>
+{{/content}}

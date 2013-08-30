@@ -9,8 +9,15 @@
 // foundation 4 lib
 @import "../vendor/foundation/foundation";
 
+// our mixins
+@import "mixins";
+
 // our styles
 $borderColor: rgba(170, 170, 170, .35);
+
+$fbtnStart: #faaa4b;
+$fbtnEnd: #ea9a3b;
+$fbtnBorder: #e89839;
 
 .clearfix:after {
     clear: both;
@@ -27,6 +34,27 @@ $borderColor: rgba(170, 170, 170, .35);
     border: none;
 }
 .button:hover {
+    text-decoration: none;
+}
+
+.fanzybutton {
+    @include gradientBG($fbtnStart, $fbtnEnd);
+    @include boxShadow(inset 0px 1px 0px rgba(255,255,255, .2));
+    @include borderRadius(4px);
+
+    text-shadow: 0px -1px 0px rgba(0,0,0, .2);
+    text-indent: 0;
+    border: 1px solid $fbtnBorder;
+    display: inline-block;
+    color: #fff;
+    padding: .5em 1em;
+    text-decoration: none;
+    text-align: center;
+}
+
+.fanzybutton:hover {
+    @include boxShadow(inset 0px 1px 0px rgba(255,255,255, .5));
+    color: #fff;
     text-decoration: none;
 }
 
@@ -85,12 +113,12 @@ li {
 
         .header {
             display: block;
-            font: 400 60px "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font: 400 emCalc(60px) "Helvetica Neue", Helvetica, Arial, sans-serif;
             color: #333;
         }
         .description {
             display: block;
-            font: 100 60px "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font: 100 emCalc(60px) "Helvetica Neue", Helvetica, Arial, sans-serif;
             color: #b5b5b5;
             line-height: .8;
         }
@@ -98,6 +126,33 @@ li {
 
     .content {
         padding-top: 2em;
+        padding-bottom: 2em;
+    }
+
+    .bookmarklet {
+        border-top: 1px solid $borderColor;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        text-align: center;
+
+        .header {
+            display: block;
+            font: 400 emCalc(30px) "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #333;
+        }
+
+        .description {
+            display: block;
+            font: 200 1em "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #b5b5b5;
+            line-height: .8em;
+        }
+
+        a {
+            margin-top: 1em;
+            cursor: move;
+            width: emCalc(165px);
+        }
     }
 }
 

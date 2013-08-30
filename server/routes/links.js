@@ -12,7 +12,8 @@ var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
 module.exports.index = function(req, res){
     if (!req.isAuthenticated()) {
         return res.render('index', {
-            user: req.user
+            user: req.user,
+            url: localsettings.uri
         });
     }
 
@@ -36,8 +37,7 @@ module.exports.index = function(req, res){
         });
         res.render('links/index', {
             links: links,
-            user: req.user,
-            url: localsettings.uri
+            user: req.user
         });
     });
 };

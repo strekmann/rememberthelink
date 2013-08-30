@@ -7,5 +7,6 @@
     "Suggestions": "Forslag",
     "Friends": "Venner",
     "Account": "Konto",
-    "Log out": "Logg ut"
+    "Log out": "Logg ut",
+    "drag this button to your toolbar": "dra denne knappen til verktøyslinjen din"
 }

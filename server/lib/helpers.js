@@ -45,6 +45,9 @@ module.exports.register = function(app, hbs) {
         return false;
     });
 
+    hbs.registerHelper('dump', function(value){
+        console.log(value);
+    });
 
     // -- i18n
     hbs.registerHelper('__', function () {
