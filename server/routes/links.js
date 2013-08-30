@@ -208,7 +208,7 @@ module.exports.share = function (req, res) {
         suggestion.from = req.user._id;
         suggestion.save();
         //return res.json('200', {status: true});
-        return res.redirect('/links');
+        return res.redirect('/');
     });
 };
 
