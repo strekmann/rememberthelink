@@ -1,5 +1,5 @@
 module.exports = {
-    uri: 'http://localhost:3000',
+    uri: 'http://localhost:3000/',
     sessionSecret: 'sessionSecretString',
     auth: {
         google: {
