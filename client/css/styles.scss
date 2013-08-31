@@ -85,15 +85,6 @@ nav {
     padding: 0.625em 0;
 }
 
-.contentbox {
-    background: rgba(#fff, .8);
-    padding: $column-gutter / 2;
-}
-
-.sidebarbox {
-    padding: $column-gutter / 2;
-}
-
 li {
     list-style: none;
 }
@@ -102,12 +93,24 @@ li {
     background: transparent url(/img/hero.png);
 }
 
+form.editform {
+    margin-top: 2em;
+}
+
+.tags a {
+    padding: 2px;
+    background: #fafafa;
+    margin-left: 2px;
+    border: 1px solid #f0f0f0;
+    font-size: 10px;
+}
+
 #index {
     margin-top: emCalc(-30px);
 
     .hero {
-        padding-top: 5em;
-        padding-bottom: 5em;
+        padding-top: 2em;
+        padding-bottom: 2em;
         min-height: 200px;
         border-bottom: 1px solid $borderColor;
 
@@ -115,6 +118,8 @@ li {
             display: block;
             font: 400 emCalc(60px) "Helvetica Neue", Helvetica, Arial, sans-serif;
             color: #333;
+            line-height: .8em;
+            margin-bottom: .1em;
         }
         .description {
             display: block;
@@ -155,23 +160,12 @@ li {
         }
     }
 }
-
-#applications {
-    background: #fff;
-
-    .applications {
-        margin: 1.25em;
+@media #{$small} {
+    #index {
+        .hero {
+            padding-top: 5em;
+            padding-bottom: 5em;
+        }
     }
 }
 
-form.editform {
-    margin-top: 2em;
-}
-
-.tags a {
-    padding: 2px;
-    background: #fafafa;
-    margin-left: 2px;
-    border: 1px solid #f0f0f0;
-    font-size: 10px;
-}
