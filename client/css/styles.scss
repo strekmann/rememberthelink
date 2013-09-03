@@ -72,6 +72,10 @@ html {
     background: #fff;
 }
 
+body * {
+    -webkit-font-smoothing: antialiased;
+}
+
 nav {
     box-shadow: 0px 0px 3px rgba(#000, .35);
 
@@ -97,12 +101,23 @@ form.editform {
     margin-top: 2em;
 }
 
-.tags a {
-    padding: emCalc(2px) emCalc(4px);
-    background: #fafafa;
-    border: 1px solid $borderColor;
-    font-size: emCalc(12px);
-    font-weight: 200;
+.tags {
+    i {
+        color: #b5b5b5;
+        font-size: emCalc(12px);
+    }
+
+    .tag {
+        padding: emCalc(2px) emCalc(4px);
+        background: #fafafa;
+        border: 1px solid $borderColor;
+        font-size: emCalc(12px);
+        font-weight: 200;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
 }
 
 #index {
@@ -149,7 +164,7 @@ form.editform {
         .description {
             display: block;
             font: 200 1em "Helvetica Neue", Helvetica, Arial, sans-serif;
-            color: #b5b5b5;
+            color: #898989;
             line-height: .8em;
         }
 
@@ -179,16 +194,40 @@ form.editform {
             border-bottom: none;
         }
     }
-    .title {
-        font-size: emCalc(20px);
-        font-weight: normal;
-        margin-top: 0;
-        margin-bottom: 0;
+
+    form {
+        line-height: 1;
     }
 
-    .subtext {
-        font-size: emCalc(12px);
-        font-weight: 200;
-        color: #b5b5b5;
+    .link {
+        .title {
+            font-size: emCalc(20px);
+            font-weight: normal;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .subtext {
+            font-size: emCalc(12px);
+            font-weight: 200;
+            color: #898989;
+
+            i {
+                font-size: emCalc(12px);
+            }
+        }
+
+        .controls {
+            float: right;
+            margin: emCalc(5px);
+
+            a {
+                color: #898989;
+                &:hover {
+                    text-decoration: none;
+                    color: #333;
+                }
+            }
+        }
     }
 }

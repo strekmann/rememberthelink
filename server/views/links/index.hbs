@@ -16,69 +16,31 @@
         </div>
     </div>
 
-
     <div class="row">
         <div class="small-12 columns">
-{{!--
-            {{#each links}}
-            <div class="clearfix">
-                <form action="edit" method="post" style="display:none" class="editform">
-                    <input type="text" class="title" name="title" value="{{title}}">
-                    <input type="text" class="description" name="description" value="{{description}}">
-                    <input type="text" class="tags" name="tags" value="{{joined_tags}}">
-                    <input type="checkbox" class="private" name="private"{{#if private}} checked{{/if}}>
-                    <input type="hidden" name="url" value="{{url}}">
-                    <div class="right">
-                        <a href="" class="cancel_edit button secondary">Cancel</a>
-                        <button class="submit">Send</button>
-                    </div>
-                </form>
-                <div class="link" title="{{description}}">
-                    <a href="{{url}}" class="title" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">{{title}}</a>
-                    <span>{{ago created}}</span>,
-                    by <span>{{creator.name}}</span>
-                    <a class="share">share</a>
-                    <a class="edit">edit</a>
-                    <a class="delete">delete</a>
-                    <a class="sure" style="display:none">Sure?</a>
-                    <span class="private"{{#unless private}} style="display: none"{{/unless}}>private</span>
-                    <br>
-                    <span>{{url}}</span> —
-                    <span class="tags">{{#tags}}<a href="/tags/{{_id}}">{{_id}}</a>{{/tags}}</span>
-                </div>
-            </form>
-            {{/canChange}}
-            <div class="link" title="{{description}}">
-                <a href="{{url}}" class="title" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">{{title}}</a>
-                <span>{{ago created}}</span>,
-                by <span>{{creator.name}}</span>
-                <a class="share">share</a>
-                {{#canChange ../../user}}
-                <a class="edit">edit</a>
-                <a class="delete">delete</a>
-                <a class="sure" style="display:none">Sure?</a>
-                {{/canChange}}
-                <span class="private"{{#unless private}} style="display: none"{{/unless}}>private</span>
-                <br>
-                <span>{{url}}</span> —
-                <span class="tags">{{#each tags}}<a href="/tags/{{this}}">{{this}}</a>{{/each}}</span>
-            </div>
-            {{/each}}
---}}
-            <ul>
+            <ul class="links">
                 {{#each links}}
-                <li>
-                    <h2 class="title"><a href="{{url}}">{{title}}</a></h2>
-                    <div class="subtext">
-                        <span class="date">{{datetimeformat created format="Do MMM"}}</span>
-                        ·
-                        <span class="url">{{url}}</span>
-                    </div>
-                    <div class="description">{{description}}</div>
-                    <div class="tags">
-                        {{#each tags}}
-                        <span class="tag"><a href="/tags/{{this}}">{{this}}</a></span>
-                        {{/each}}
+                <li class="clearfix">                
+                    <div class="link">
+                        <h2 class="title"><a href="{{url}}">{{title}}</a></h2>
+                        <div class="controls">
+                            {{#if private}}<i title="private" class="icon-shield"></i>{{/if}}
+                            <a title="share" class="share"><i class="icon-share"></i></a>
+                            <a title="edit" class="edit" href="edit/{{_id}}"><i class="icon-edit"></i></a>
+                            <a title="delete" class="delete"><i class="icon-remove"></i></a>
+                            <a class="sure" style="display: none">delete!</a>
+                        </div>
+                        <div class="subtext">
+                            <span class="date">{{datetimeformat created format="Do MMM"}}</span>&nbsp;
+                            <i class="icon-link"></i> <span class="url">{{url}}</span>
+                        </div>
+                        <div class="description">{{description}}</div>
+                        <div class="tags">
+                            <i class="icon-tags"></i>
+                            {{#each tags}}
+                            <a class="tag" href="/tags/{{this}}">{{this}}</a>
+                            {{/each}}
+                        </div>
                     </div>
                 </li>
                 {{/each}}
@@ -93,6 +55,37 @@
         </div>
     </div>
 </section>
+
+{{!-- 
+edit form for later
+<form action="edit" method="post" style="display:none" class="editform custom">
+    <div class="row">
+        <div class="large-2 small-3 columns"><label class="inline right">Title:</label></div>
+        <div class="large-10 small-9 columns"><input type="text" class="title" name="title" value="{{title}}"></div>
+    </div>
+    <div class="row">
+        <div class="large-2 small-3 columns"><label class="inline right">Description:</label></div>
+        <div class="large-10 small-9 columns"><input type="text" class="description" name="description" value="{{description}}"></div>
+    </div>
+    <div class="row">
+        <div class="large-2 small-3 columns"><label class="inline right">Tags:</label></div>
+        <div class="large-10 small-9 columns"><input type="text" class="tags" name="tags" value="{{joined_tags}}"></div>
+    </div>
+    <div class="row">
+        <div class="large-2 small-3 columns"><label class="inline right">&nbsp;</label></div>
+        <div class="large-10 small-9 columns"><input type="checkbox" class="private" name="private"{{#if private}} checked{{/if}}> private</div>
+    </div>
+    <input type="hidden" name="url" value="{{url}}">
+    <div class="row">
+        <div class="large-2 small-3 columns"><label class="right"></label></div>
+        <div class="large-10 small-9 columns">
+            <button type="button" class="cancel_edit small button secondary">Cancel</button>
+            <button class="submit small button">Save</button>
+        </div>
+    </div>
+</form>
+
+--}}
 
 {{#content "footer"}}
 <script>
