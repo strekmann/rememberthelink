@@ -153,12 +153,14 @@ module.exports.delete_link = function (req, res) {
 };
 
 module.exports.tags =  function (req, res) {
-    var query = [];
+    var query = [{creator: req.user._id}];
     var params = "" + req.params;
     _.each(params.split("/"), function (tag) {
         query.push({'tags':tag});
     });
-    Link.find({$and: query})
+    var page = parseInt(req.query.page, 10) || 0;
+    var per_page = 50;
+    Link.find({$and: query}, {}, {skip: per_page * page, limit: per_page})
     .populate('creator')
     .sort('-created')
     .exec(function (err, links) {
@@ -170,10 +172,29 @@ module.exports.tags =  function (req, res) {
         _.each(links, function(link) {
             link.joined_tags = link.tags.join(", ");
         });
-        res.render('links/index', {
-            links: links,
-            user: req.user,
-            url: localsettings.uri
+        res.format({
+            json: function () {
+                res.json(200, {
+                    links: links,
+                    user: req.user
+                });
+            },
+            html: function () {
+                var previous = 0;
+                var next =  page;
+                if (page > 0) {
+                    previous = page - 1;
+                }
+                if (links.length === per_page) {
+                    next = page + 1;
+                }
+                res.render('links/index', {
+                    links: links,
+                    user: req.user,
+                    next: next,
+                    previous: previous
+                });
+            }
         });
     });
 };
