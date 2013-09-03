@@ -37,7 +37,9 @@ module.exports.index = function(req, res, next){
         });
     }
 
-    Link.find({creator: req.user._id})
+    var page = req.query.page || 0;
+    var per_page = 50;
+    Link.find({creator: req.user._id}, {}, {skip: per_page * page, limit: per_page})
     .populate('creator')
     .sort('-created')
     .exec(function (err, links) {
@@ -47,9 +49,19 @@ module.exports.index = function(req, res, next){
         _.each(links, function(link) {
             link.joined_tags = link.tags.join(", ");
         });
-        res.render('links/index', {
-            links: links,
-            user: req.user
+        res.format({
+            json: function () {
+                res.json(200, {
+                    links: links,
+                    user: user
+                });
+            },
+            html: function () {
+                res.render('links/index', {
+                    links: links,
+                    user: req.user
+                });
+            }
         });
     });
 };
