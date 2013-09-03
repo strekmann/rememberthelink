@@ -67,12 +67,14 @@
         $('input.private').on('click', function (ev) {
             $(this).parent().parent().find('span.private').toggle();
         });
+
         $('a.delete').on('click', function (ev) {
             ev.preventDefault();
             var sure = $(this).parent().find('.sure').first();
             sure.show();
             return false;
         });
+
         $('a.sure').on('click', function (ev) {
             ev.preventDefault();
             var self = $(this);
@@ -93,6 +95,7 @@
             });
             return false;
         });
+
         $('a.reject').on('click', function (ev) {
             ev.preventDefault();
             var self = $(this);
@@ -113,6 +116,7 @@
             });
             return false;
         });
+
         $('a.accept').on('click', function (ev) {
             ev.preventDefault();
             var block = $(this).parent().parent();
@@ -121,6 +125,7 @@
             form.show();
             link.hide();
         });
+
         $('a.edit').on('click', function (ev) {
             ev.preventDefault();
             var block = $(this).parent().parent();
@@ -129,6 +134,25 @@
             form.show();
             link.hide();
         });
+
+        $('form.new').on('submit', function(ev){
+            var form = $(this);
+            var input = form.find('input');
+
+            // empty field?
+            if ($.trim(input.val()) === '') {
+                input.addClass('error');
+                setTimeout(function(){
+                    input.removeClass('error');
+                }, 2000);
+                return false;
+            }
+
+            if (input.val().indexOf("://") === -1) {
+                input.val("http://" + input.val());
+            }
+        });
+
         $('form.suggestform').on('submit', function (){
             var block = $(this).parent().parent().parent();
             var form = block.find('form').first();

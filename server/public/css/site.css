@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*! normalize.css v2.1.1 | MIT License | git.io/normalize */
+/* normalize.css v2.1.1 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
    ========================================================================== */
@@ -4688,11 +4688,11 @@ form.editform {
   margin-top: 2em; }
 
 .tags a {
-  padding: 2px;
+  padding: 0.125em 0.25em;
   background: #fafafa;
-  margin-left: 2px;
-  border: 1px solid #f0f0f0;
-  font-size: 10px; }
+  border: 1px solid rgba(170, 170, 170, 0.35);
+  font-size: 0.75em;
+  font-weight: 200; }
 
 #index {
   margin-top: -1.875em; }
@@ -4738,3 +4738,18 @@ form.editform {
   #index .hero {
     padding-top: 5em;
     padding-bottom: 5em; } }
+#links_index li {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid rgba(170, 170, 170, 0.35); }
+  #links_index li:last-child {
+    border-bottom: none; }
+#links_index .title {
+  font-size: 1.25em;
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 0; }
+#links_index .subtext {
+  font-size: 0.75em;
+  font-weight: 200;
+  color: #b5b5b5; }

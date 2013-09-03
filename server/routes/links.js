@@ -29,7 +29,7 @@ function set_private(_private) {
 }
 
 // links routes
-module.exports.index = function(req, res){
+module.exports.index = function(req, res, next){
     if (!req.isAuthenticated()) {
         return res.render('index', {
             user: req.user,
@@ -37,14 +37,12 @@ module.exports.index = function(req, res){
         });
     }
 
-    Link.find()
+    Link.find({creator: req.user._id})
     .populate('creator')
     .sort('-created')
     .exec(function (err, links) {
         if (err) {
-            return res.json('200', {
-                error: 'No links'
-            });
+            next(err);
         }
         _.each(links, function(link) {
             link.joined_tags = link.tags.join(", ");
@@ -57,30 +55,30 @@ module.exports.index = function(req, res){
 };
 
 module.exports.new_link = function (req, res) {
-    if (req.query.url) {
-        // prepend http:// if no protocol
-        var url = req.query.url;
-        if (url.indexOf("://") === -1) {
-            url = "http://" + url;
-        }
+    req.assert('url', res.__('Needs to be a valid url')).notEmpty().isUrl();
+    req.sanitize('url').xss();
 
-        // fetch url and populate object
-        request(url, function (error, response, body) {
-                if (error) {
+    var errors = req.validationErrors();
+    if (errors) {
+        return res.render('links/new', {
+            errors: errors,
+        });
     }
-    if (!error && response.statusCode === 200) {
-        var ch = cheerio.load(body);
-        var link = new Link();
-        link.url = url;
-        link.content = body;
-        link.title = ch('html head title').text().trim() || null;
-        res.render('links/new', {link: link});
-    }
-});
-        } else {
-            res.render('links/new');
+
+    request(req.query.url, function(error, response, body){
+        if (!error && response.statusCode === 200) {
+            var $ = cheerio.load(body);
+            var link = new Link();
+            link.url = req.query.url;
+            link.title = $('html head title').text().trim() || null;
+
+            return res.render('links/new', {
+                link: link
+            });
         }
-    };
+        return res.render('links/new');
+    });
+};
 
 module.exports.create_link = function (req, res) {
     var link = new Link();
