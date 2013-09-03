@@ -45,7 +45,7 @@
                 <span class="private"{{#unless private}} style="display: none"{{/unless}}>private</span>
                 <br>
                 <span>{{url}}</span> —
-                <span class="tags">{{#tags}}<a href="/tags/{{_id}}">{{_id}}</a>{{/tags}}</span>
+                <span class="tags">{{#each tags}}<a href="/tags/{{this}}">{{this}}</a>{{/each}}</span>
             </div>
         </div>
         {{/canRead}}

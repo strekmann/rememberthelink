@@ -17,15 +17,8 @@ var UserSchema = new mongoose.Schema({
     followers: [UserSchema]
 });
 
-var TagSchema = new mongoose.Schema({
-    _id: {type: String, lowercase: true, trim: true}
-});
-
 var User = mongoose.model('User', UserSchema);
-var Tag = mongoose.model('Tag', TagSchema);
 
 module.exports = {
-    User: User,
-    Tag: Tag,
-    TagSchema: TagSchema
+    User: User
 };

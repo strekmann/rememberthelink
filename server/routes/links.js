@@ -8,6 +8,26 @@ var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
     Suggestion = require('../models/links').Suggestion,
     localsettings = require('../settings');
 
+//libs
+function set_tags(tagstring) {
+    if (tagstring) {
+        return _.map(tagstring.split(","), function(tag) {
+            return tag.trim();
+        });
+    } else {
+        return [];
+    }
+
+}
+
+function set_private(_private) {
+    if(typeof _private !== 'undefined'){
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // links routes
 module.exports.index = function(req, res){
     if (!req.isAuthenticated()) {
@@ -27,13 +47,7 @@ module.exports.index = function(req, res){
             });
         }
         _.each(links, function(link) {
-            link.joined_tags = _.reduce(link.tags, function (memo, tag, index) {
-                if (index > 0) {
-                    return memo + ", " + tag._id;
-                } else {
-                    return tag._id;
-                }
-            }, "");
+            link.joined_tags = link.tags.join(", ");
         });
         res.render('links/index', {
             links: links,
@@ -74,12 +88,7 @@ module.exports.create_link = function (req, res) {
     link.title = req.body.title;
     link.content = req.body.content;
     link.description = req.body.description;
-    var tags = req.body.tags;
-    if (tags) {
-        link.tags = _.map(tags.split(","), function(tag) {
-            return new Tag({_id: tag.trim()});
-        });
-    }
+    link.tags = set_tags(req.body.tags);
     link.private = req.body.private;
     link.creator = req.user;
     return link.save(function (err) {
@@ -103,17 +112,8 @@ module.exports.update_link = function (req, res) {
         }
         link.title = req.body.title;
         link.description = req.body.description;
-        var tags = req.body.tags;
-        if (tags) {
-            link.tags = _.map(tags.split(","), function(tag) {
-                return new Tag({_id: tag.trim()});
-            });
-        }
-        if(typeof req.body.private !== 'undefined'){
-            link.private = true;
-        } else {
-            link.private = false;
-        }
+        link.tags = set_tags(req.body.tags);
+        link.private = set_private(req.body.private);
         link.save();
         return res.json('200', {status: true});
     });
@@ -136,7 +136,7 @@ module.exports.tags =  function (req, res) {
     var query = [];
     var params = "" + req.params;
     _.each(params.split("/"), function (tag) {
-        query.push({'tags._id':tag});
+        query.push({'tags':tag});
     });
     Link.find({$and: query})
     .populate('creator')
@@ -148,13 +148,7 @@ module.exports.tags =  function (req, res) {
             });
         }
         _.each(links, function(link) {
-            link.joined_tags = _.reduce(link.tags, function (memo, tag, index) {
-                if (index > 0) {
-                    return memo + ", " + tag._id;
-                } else {
-                    return tag._id;
-                }
-            }, "");
+            link.joined_tags = link.tags.join(", ");
         });
         res.render('links/index', {
             links: links,
@@ -256,17 +250,8 @@ module.exports.accept_suggestion = function (req, res) {
     link.title = req.body.title;
     link.content = req.body.content;
     link.description = req.body.description;
-    var tags = req.body.tags;
-    if (tags) {
-        link.tags = _.map(tags.split(","), function(tag) {
-            return new Tag({_id: tag.trim()});
-        });
-    }
-    if(typeof req.body.private !== 'undefined'){
-        link.private = true;
-    } else {
-        link.private = false;
-    }
+    link.tags = set_tags(req.body.tags);
+    link.private = set_private(req.body.private);
     link.creator = req.user;
     return link.save(function (err) {
         if (err) {

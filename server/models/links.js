@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var TagSchema = require('./index').TagSchema;
 
 var LinkSchema = new mongoose.Schema({
     url: {type: String, lowercase: true, trim: true, required: true},
@@ -7,7 +6,7 @@ var LinkSchema = new mongoose.Schema({
     title: {type: String},
     description: {type: String},
     'private': {type: Boolean, 'default': false},
-    tags: [TagSchema],
+    tags: [{type: String, lowercase: true, trim: true}],
     creator: {type: String, required: true, ref: 'User'},
     created: {type: Date, required: true, 'default': Date.now}
 });
