@@ -64,7 +64,7 @@ module.exports.profile = function (req, res) {
                 });
             });
         } else {
-            return res.json('403', {'status': 'You are not allowed to see this'})
+            return res.json('403', {'status': 'You are not allowed to see this'});
         }
     });
 };
