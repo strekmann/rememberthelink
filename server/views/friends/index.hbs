@@ -20,7 +20,7 @@
     <div class="large-6 columns">
         <h1>Following</h1>
         {{#each user.following}}
-        <h2>{{this.username}}</h2>
+        <h2><a href="/profile/{{this.username}}">{{this.username}}</a></h2>
         {{else}}
         <p>You should get some friends</p>
         {{/each}}
@@ -28,13 +28,17 @@
     <div class="large-6 columns">
         <h1>Followers</h1>
         {{#each user.followers}}
-        <h2>{{this.username}}</h2>
+        <h2><a href="/profile/{{this.username}}">{{this.username}}</a></h2>
         {{else}}
         <p>You should get some fans</p>
         {{/each}}
     </div>
 </div>
-
+<div class="row">
+    <div class="large-12 columns">
+        Now we have in total {{user_count}} users.
+    </div>
+</div>
 {{#content "footer"}}
 <script>
 $(document).foundation();

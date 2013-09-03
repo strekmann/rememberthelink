@@ -7,8 +7,11 @@ module.exports.index = function(req, res){
     User.findById(req.user._id)
     .populate('followers following')
     .exec(function (err, user) {
-        res.render('friends/index', {
-            user: user
+        User.count().exec(function (err, user_count) {
+            res.render('friends/index', {
+                user: user,
+                user_count: user_count
+            });
         });
     });
 };
@@ -50,15 +53,18 @@ module.exports.followers = function (req, res) {
 module.exports.profile = function (req, res) {
     User.findOne({username: req.params.username})
     .exec(function (err, profile) {
-        if (profile) {
+        if (profile && _.indexOf(profile.followers, req.user._id) > -1) {
             Link.find({creator: profile._id, private: false})
             .sort('-created')
             .exec(function (err, links) {
                 return res.render('friends/profile', {
+                    user: req.user,
                     links: links,
                     profile: profile
                 });
             });
+        } else {
+            return res.json('403', {'status': 'You are not allowed to see this'})
         }
     });
 };

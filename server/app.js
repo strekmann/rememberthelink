@@ -46,7 +46,7 @@ app.get('/friends', app.ensureAuthenticated, friend_routes.index);
 app.get('/friends/search', app.ensureAuthenticated, friend_routes.search);
 app.post('/friends/add', app.ensureAuthenticated, friend_routes.add);
 app.get('/friends/followers', app.ensureAuthenticated, friend_routes.followers);
-app.get('/profile/:username', friend_routes.profile);
+app.get('/profile/:username', app.ensureAuthenticated, friend_routes.profile);
 
 // -- exports
 module.exports = app;
