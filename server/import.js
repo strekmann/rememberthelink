@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var jsdom = require('jsdom');
 var sys = require("sys");
 var app = require('./app');
@@ -7,6 +8,14 @@ app.db = mongoose.connect('mongodb://localhost/' + app.conf.db_name);
 
 var fs = require("fs"),
 _ = require("underscore"),
+=======
+var cheerio = require("cheerio");
+var app = require('./app');
+var mongoose = require('mongoose');
+app.db = mongoose.connect('mongodb://localhost/' + app.conf.db_name);
+
+var fs = require("fs"),
+_ = require("underscore");
 User = require('./models').User,
 Tag = require('./models').Tag,
 Link = require('./models/links').Link;
@@ -55,4 +64,3 @@ User.findOne({username: 'sigurdga'}).exec(function (err, user) {
         });
     });
 });
-
