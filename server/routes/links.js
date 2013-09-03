@@ -37,7 +37,7 @@ module.exports.index = function(req, res, next){
         });
     }
 
-    var page = req.query.page || 0;
+    var page = parseInt(req.query.page, 10) || 0;
     var per_page = 50;
     Link.find({creator: req.user._id}, {}, {skip: per_page * page, limit: per_page})
     .populate('creator')
@@ -57,9 +57,19 @@ module.exports.index = function(req, res, next){
                 });
             },
             html: function () {
+                var previous = 0;
+                var next =  page;
+                if (page > 0) {
+                    previous = page - 1;
+                }
+                if (links.length === per_page) {
+                    next = page + 1;
+                }
                 res.render('links/index', {
                     links: links,
-                    user: req.user
+                    user: req.user,
+                    next: next,
+                    previous: previous
                 });
             }
         });
