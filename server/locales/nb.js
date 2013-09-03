@@ -8,7 +8,9 @@
     "Friends": "Venner",
     "Account": "Konto",
     "Log out": "Logg ut",
-    "drag this button to your toolbar": "dra denne knappen til verktøyslinjen din",
-    "Save": "Save",
-    "Needs to be a valid url": "Needs to be a valid url"
+    "drag this button to your toolbar": "dra denne knappen til verktøylinjen din",
+    "Save": "Lagre",
+    "Needs to be a valid url": "Må være en gyldig URL",
+    "Previous": "Forrige",
+    "Next": "Neste"
 }

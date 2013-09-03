@@ -8,5 +8,9 @@
     "Friends": "Friends",
     "Account": "Account",
     "Log out": "Log out",
-    "drag this button to your toolbar": "drag this button to your toolbar"
+    "drag this button to your toolbar": "drag this button to your toolbar",
+    "share": "share",
+    "edit": "edit",
+    "delete": "delete",
+    "private": "private"
 }
