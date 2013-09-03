@@ -1,0 +1,21 @@
+{{!< main}}
+<div class="row">
+    <div class="large-12 columns">
+        {{#each links}}
+        <div class="link" title="{{description}}">
+            <a href="{{url}}" class="title" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">{{title}}</a>
+            <span>{{ago created}}</span>,
+            by <span>{{creator.name}}</span>
+            <a class="share">share</a>
+            <a class="edit">edit</a>
+            <br>
+            <span>{{url}}</span> —
+            <span class="tags">{{#each tags}}<a href="/tags/{{this}}">{{this}}</a>{{/each}}</span>
+        </div>
+        {{/each}}
+    </div>
+</div>
+{{#content "footer"}}
+<script>
+</script>
+{{/content}}

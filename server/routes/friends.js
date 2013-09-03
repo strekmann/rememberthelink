@@ -1,5 +1,6 @@
 var _ = require('underscore');
-var User = require('../models').User;
+var User = require('../models').User,
+    Link = require('../models/links').Link;
 
 // links routes
 module.exports.index = function(req, res){
@@ -42,6 +43,22 @@ module.exports.followers = function (req, res) {
     .exec(function (err, user) {
         if (user) {
             res.json('200', {'followers': user.followers});
+        }
+    });
+};
+
+module.exports.profile = function (req, res) {
+    User.findOne({username: req.params.username})
+    .exec(function (err, profile) {
+        if (profile) {
+            Link.find({creator: profile._id, private: false})
+            .sort('-created')
+            .exec(function (err, links) {
+                return res.render('friends/profile', {
+                    links: links,
+                    profile: profile
+                });
+            });
         }
     });
 };
