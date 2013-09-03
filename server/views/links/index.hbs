@@ -24,14 +24,14 @@
                     <div class="link">
                         <h2 class="title"><a href="{{url}}">{{title}}</a></h2>
                         <div class="controls">
-                            {{#if private}}<i title="private" class="icon-shield"></i>{{/if}}
-                            <a title="share" class="share"><i class="icon-share"></i></a>
-                            <a title="edit" class="edit" href="edit/{{_id}}"><i class="icon-edit"></i></a>
-                            <a title="delete" class="delete"><i class="icon-remove"></i></a>
-                            <a class="sure" style="display: none">delete!</a>
+                            {{#if private}}<i title="{{__ 'private'}}" class="icon-shield"></i>{{/if}}
+                            <a title="{{__ 'share'}}" class="share"><i class="icon-share"></i></a>
+                            <a title="{{__ 'edit'}}" class="edit" href="edit/{{_id}}"><i class="icon-edit"></i></a>
+                            <a title="{{__ 'delete'}}" class="delete"><i class="icon-remove"></i></a>
+                            <a class="sure" style="display: none">{{__ 'delete'}}!</a>
                         </div>
                         <div class="subtext">
-                            <span class="date">{{datetimeformat created format="Do MMM"}}</span>&nbsp;
+                            <span class="date" title="{{datetimeformat created format="lll"}}">{{datetimeformat created format="Do MMM"}}</span>&nbsp;
                             <i class="icon-link"></i> <span class="url">{{url}}</span>
                         </div>
                         <div class="description">{{description}}</div>
@@ -49,9 +49,9 @@
     </div>
     <div class="row">
         <div class="small-12 columns" style="text-align: center; margin-bottom: 20px;">
-            <a href="?page={{previous}}">Previous</a>
+            <a href="?page={{previous}}">{{__ "Previous"}}</a>
             ·
-            <a href="?page={{next}}">Next</a>
+            <a href="?page={{next}}">{{__ "Next"}}</a>
         </div>
     </div>
 </section>
