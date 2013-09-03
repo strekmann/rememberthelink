@@ -1,56 +1,56 @@
 {{!< main}}
-<div class="large-12 columns">
-    <form action="/new">
-        <div id="errors"></div>
-        <div class="row collapse">
-            <div class="small-10 columns">
-                <input id="url" type="text" name="url" placeholder="http://new.link.now/">
-            </div>
-            <div class="small-2 columns">
-                <button class="button prefix">Save</button>
-            </div>
-        </div>
-    </form>
-
-    {{#each links}}
-    {{#canRead ../user}}
-    <div class="clearfix">
-        {{#canChange ../../user}}
-        <form action="edit" method="post" style="display:none" class="editform">
-            <input type="text" class="title" name="title" value="{{title}}">
-            <input type="text" class="description" name="description" value="{{description}}">
-            <input type="text" class="tags" name="tags" value="{{joined_tags}}">
-            <input type="checkbox" class="private" name="private"{{#if private}} checked{{/if}}>
-            <input type="hidden" name="url" value="{{url}}">
-            <div class="right">
-                <a href="" class="cancel_edit button secondary">Cancel</a>
-                <button class="submit">Send</button>
+<div class="row">
+    <div class="large-8 columns large-centered">
+        <form action="/new">
+            <div id="errors"></div>
+            <div class="row collapse">
+                <div class="small-10 columns">
+                    <input id="url" type="text" name="url" placeholder="http://new.link.now/">
+                </div>
+                <div class="small-2 columns">
+                    <button class="button prefix">Save</button>
+                </div>
             </div>
         </form>
-        {{/canChange}}
-        <div class="link" title="{{description}}">
-            <a href="{{url}}" class="title" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">{{title}}</a>
-            <span>{{ago created}}</span>,
-            by <span>{{creator.name}}</span>
-            <a class="share">share</a>
-            {{#canChange ../../user}}
-            <a class="edit">edit</a>
-            <a class="delete">delete</a>
-            <a class="sure" style="display:none">Sure?</a>
-            {{/canChange}}
-            <span class="private"{{#unless private}} style="display: none"{{/unless}}>private</span>
-            <br>
-            <span>{{url}}</span> —
-            <span class="tags">{{#tags}}<a href="/tags/{{_id}}">{{_id}}</a>{{/tags}}</span>
-        </div>
     </div>
-    {{/canRead}}
-    {{/each}}
-    <hr>
-    <h1>Bookmarklet</h1>
-    <p>Drag this button to your toolbar</p>
-    <a class="button" href="javascript:var l=window.location.href;window.location.href='{{url}}new?url='+l;">Remember</a>
-    {{url}}
+</div>
+<div class="row">
+    <div class="small-12 columns">
+        {{#each links}}
+        {{#canRead ../user}}
+        <div class="clearfix">
+            {{#canChange ../../user}}
+            <form action="edit" method="post" style="display:none" class="editform">
+                <input type="text" class="title" name="title" value="{{title}}">
+                <input type="text" class="description" name="description" value="{{description}}">
+                <input type="text" class="tags" name="tags" value="{{joined_tags}}">
+                <input type="checkbox" class="private" name="private"{{#if private}} checked{{/if}}>
+                <input type="hidden" name="url" value="{{url}}">
+                <div class="right">
+                    <a href="" class="cancel_edit button secondary">Cancel</a>
+                    <button class="submit">Send</button>
+                </div>
+            </form>
+            {{/canChange}}
+            <div class="link" title="{{description}}">
+                <a href="{{url}}" class="title" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">{{title}}</a>
+                <span>{{ago created}}</span>,
+                by <span>{{creator.name}}</span>
+                <a class="share">share</a>
+                {{#canChange ../../user}}
+                <a class="edit">edit</a>
+                <a class="delete">delete</a>
+                <a class="sure" style="display:none">Sure?</a>
+                {{/canChange}}
+                <span class="private"{{#unless private}} style="display: none"{{/unless}}>private</span>
+                <br>
+                <span>{{url}}</span> —
+                <span class="tags">{{#tags}}<a href="/tags/{{_id}}">{{_id}}</a>{{/tags}}</span>
+            </div>
+        </div>
+        {{/canRead}}
+        {{/each}}
+    </div>
 </div>
 
 {{#content "footer"}}
