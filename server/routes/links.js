@@ -53,7 +53,7 @@ module.exports.index = function(req, res, next){
             json: function () {
                 res.json(200, {
                     links: links,
-                    user: user
+                    user: req.user
                 });
             },
             html: function () {
