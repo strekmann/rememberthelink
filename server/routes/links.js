@@ -164,7 +164,7 @@ module.exports.tags =  function (req, res) {
     });
 };
 
-module.exports.suggest = function (req, res) {
+module.exports.bot_suggest = function (req, res) {
     if (req.body.seq !== localsettings.bot.seq) {
         return res.json('403', {status: false});
     }
@@ -172,20 +172,34 @@ module.exports.suggest = function (req, res) {
     if (url.indexOf("://") === -1) {
         url = "http://" + url;
     }
-    Suggestion.findOne({
-        from: req.body.from,
-        to: req.body.to,
-        url: url
-    })
-    .exec(function (err, suggestion) {
-        if (!suggestion) {
-            suggestion = new Suggestion();
+    User.findOne({username: req.body.from}).exec(function (err, from) {
+        if (err || !from) {
+            return res.json('403', {status: 'user (from) not found'});
         }
-        suggestion.url = url;
-        suggestion.to = req.body.to;
-        suggestion.from = req.body.from;
-        suggestion.save();
-        return res.json('200', {status: true});
+        User.findOne({username: req.body.to}).exec(function (err2, to) {
+            if (err2 || !to) {
+                return res.json('403', {status: 'user (to) not found'});
+            }
+            if (_.indexOf(to.followers, from._id)) {
+                Suggestion.findOne({
+                    from: from._id,
+                    to: to._id,
+                    url: url
+                })
+                .exec(function (err, suggestion) {
+                    if (!suggestion) {
+                        suggestion = new Suggestion();
+                    }
+                    suggestion.url = url;
+                    suggestion.to = to._id;
+                    suggestion.from = from._id;
+                    suggestion.save();
+                    return res.json('200', {status: true});
+                });
+            } else {
+                return res.json('200', {status: false});
+            }
+        });
     });
 };
 
