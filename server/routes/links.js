@@ -81,8 +81,7 @@ module.exports.new_link = function (req, res) {
     if (errors) {
         return res.render('links/new', {
             errors: errors,
-            url: req.query.url,
-            user: req.user
+            url: req.query.url
         });
     }
 
@@ -94,12 +93,10 @@ module.exports.new_link = function (req, res) {
             link.title = $('html head title').text().trim() || null;
 
             return res.render('links/new', {
-                link: link,
-                user: req.user
+                link: link
             });
         }
         return res.render('links/new', {
-            user: req.user,
             errors: [{
                 msg: "url not found"
             }]
