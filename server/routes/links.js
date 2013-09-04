@@ -8,7 +8,8 @@ var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
     Suggestion = require('../models/links').Suggestion,
     localsettings = require('../settings'),
     Redis = require("redis"),
-    redis = Redis.createClient();
+    redis = Redis.createClient(),
+    async = require('async');
 
 //libs
 function set_tags(tagstring) {
@@ -33,46 +34,61 @@ function set_private(_private) {
 // links routes
 module.exports.index = function(req, res, next){
     if (!req.isAuthenticated()) {
-        return res.render('index', {
-            url: localsettings.uri
-        });
-    }
-
-    var page = parseInt(req.query.page, 10) || 0;
-    var per_page = 50;
-    Link.find({creator: req.user._id}, {}, {skip: per_page * page, limit: per_page})
-    .populate('creator')
-    .sort('-created')
-    .exec(function (err, links) {
-        if (err) {
-            next(err);
-        }
-        _.each(links, function(link) {
-            link.joined_tags = link.tags.join(", ");
-        });
-        res.format({
-            json: function () {
-                res.json(200, {
-                    links: links
+        async.parallel({
+            tags: function(callback) {
+                redis.zcard('tags', function (err, tag_count) {
+                    callback(err, tag_count);
                 });
             },
-            html: function () {
-                var previous = 0;
-                var next =  page;
-                if (page > 0) {
-                    previous = page - 1;
-                }
-                if (links.length === per_page) {
-                    next = page + 1;
-                }
-                res.render('links/index', {
-                    links: links,
-                    next: next,
-                    previous: previous
+            urls: function(callback) {
+                redis.zcard('urls', function (err, url_count) {
+                    callback(err, url_count);
                 });
             }
+        }, function (err, results) {
+            return res.render('index', {
+                url: localsettings.uri,
+                urls: results.urls,
+                tags: results.tags
+            });
         });
-    });
+    } else {
+        var page = parseInt(req.query.page, 10) || 0;
+        var per_page = 50;
+        Link.find({creator: req.user._id}, {}, {skip: per_page * page, limit: per_page})
+        .populate('creator')
+        .sort('-created')
+        .exec(function (err, links) {
+            if (err) {
+                next(err);
+            }
+            _.each(links, function(link) {
+                link.joined_tags = link.tags.join(", ");
+            });
+            res.format({
+                json: function () {
+                    res.json(200, {
+                        links: links
+                    });
+                },
+                html: function () {
+                    var previous = 0;
+                    var next =  page;
+                    if (page > 0) {
+                        previous = page - 1;
+                    }
+                    if (links.length === per_page) {
+                        next = page + 1;
+                    }
+                    res.render('links/index', {
+                        links: links,
+                        next: next,
+                        previous: previous
+                    });
+                }
+            });
+        });
+    }
 };
 
 module.exports.new_link = function (req, res) {
