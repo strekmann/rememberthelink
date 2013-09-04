@@ -12,7 +12,7 @@ module.exports.account = function(req, res){
 module.exports.save_account = function(req, res){
     return User.findById(req.user._id, function(err, user){
         if (err) {
-            return res.json('200', {
+            return res.json(200, {
                 error: 'Could not find user'
             });
         }
@@ -27,7 +27,7 @@ module.exports.save_account = function(req, res){
 
         var errors = req.validationErrors();
         if (errors) {
-            return res.json('200', {
+            return res.json(200, {
                 errors: errors
             });
         }
@@ -37,11 +37,11 @@ module.exports.save_account = function(req, res){
         user.email = req.body.email;
         return user.save(function(err){
             if (err) {
-                return res.json('200', {
+                return res.json(200, {
                     error: err.message
                 });
             }
-            return res.json('200', {
+            return res.json(200, {
                 message: 'Changes saved'
             });
         });

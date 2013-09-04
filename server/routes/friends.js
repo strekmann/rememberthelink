@@ -34,7 +34,7 @@ module.exports.add = function (req, res) {
             req.user.save();
             user.followers.push(req.user._id);
             user.save();
-            res.json('200', {'status': true});
+            res.json(200, {'status': true});
         }
     });
 };
@@ -44,7 +44,7 @@ module.exports.followers = function (req, res) {
     .populate('followers')
     .exec(function (err, user) {
         if (user) {
-            res.json('200', {'followers': user.followers});
+            res.json(200, {'followers': user.followers});
         }
     });
 };
@@ -62,7 +62,7 @@ module.exports.profile = function (req, res) {
                 });
             });
         } else {
-            return res.json('403', {'status': 'You are not allowed to see this'});
+            return res.json(403, {'status': 'You are not allowed to see this'});
         }
     });
 };

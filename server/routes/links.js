@@ -118,7 +118,7 @@ module.exports.create_link = function (req, res) {
     link.creator = req.user;
     return link.save(function (err) {
         if (err) {
-            return res.json('200', {
+            return res.json(200, {
                 error: err.message
             });
         }
@@ -166,12 +166,12 @@ module.exports.delete_link = function (req, res) {
     Link.findOne({url: req.body.url, creator: req.user})
     .exec(function (err, link) {
         if (err) {
-            return res.json('200', {
+            return res.json(200, {
                 error: err.message
             });
         }
         link.remove();
-        return res.json('200', {status: true});
+        return res.json(200, {status: true});
     });
 };
 
@@ -188,7 +188,7 @@ module.exports.tags =  function (req, res) {
     .sort('-created')
     .exec(function (err, links) {
         if (err) {
-            return res.json('200', {
+            return res.json(200, {
                 error: 'No links'
             });
         }
@@ -222,7 +222,7 @@ module.exports.tags =  function (req, res) {
 
 module.exports.bot_suggest = function (req, res) {
     if (req.body.seq !== localsettings.bot.seq) {
-        return res.json('403', {status: false});
+        return res.json(403, {status: false});
     }
     var url = req.body.url;
     if (url.indexOf("://") === -1) {
@@ -230,11 +230,11 @@ module.exports.bot_suggest = function (req, res) {
     }
     User.findOne({username: req.body.from}).exec(function (err, from) {
         if (err || !from) {
-            return res.json('403', {status: 'user (from) not found'});
+            return res.json(403, {status: 'user (from) not found'});
         }
         User.findOne({username: req.body.to}).exec(function (err2, to) {
             if (err2 || !to) {
-                return res.json('403', {status: 'user (to) not found'});
+                return res.json(403, {status: 'user (to) not found'});
             }
             if (_.indexOf(to.followers, from._id)) {
                 Suggestion.findOne({
@@ -250,10 +250,10 @@ module.exports.bot_suggest = function (req, res) {
                     suggestion.to = to._id;
                     suggestion.from = from._id;
                     suggestion.save();
-                    return res.json('200', {status: true});
+                    return res.json(200, {status: true});
                 });
             } else {
-                return res.json('200', {status: false});
+                return res.json(200, {status: false});
             }
         });
     });
@@ -277,7 +277,7 @@ module.exports.share = function (req, res) {
         suggestion.to = req.body.id;
         suggestion.from = req.user._id;
         suggestion.save();
-        //return res.json('200', {status: true});
+        //return res.json(200, {status: true});
         return res.redirect('/');
     });
 };
@@ -297,12 +297,12 @@ module.exports.reject_suggestion = function (req, res) {
     Suggestion.findOne({url: req.body.url, to: req.user.username})
     .exec(function (err, link) {
         if (err) {
-            return res.json('200', {
+            return res.json(200, {
                 error: err.message
             });
         }
         link.remove();
-        return res.json('200', {status: true});
+        return res.json(200, {status: true});
     });
 };
 module.exports.accept_suggestion = function (req, res) {
@@ -316,19 +316,19 @@ module.exports.accept_suggestion = function (req, res) {
     link.creator = req.user;
     return link.save(function (err) {
         if (err) {
-            return res.json('200', {
+            return res.json(200, {
                 error: err.message
             });
         }
         Suggestion.findOne({url: req.body.url, to: req.user.username})
         .exec(function (err, link) {
             if (err) {
-                return res.json('200', {
+                return res.json(200, {
                     error: err.message
                 });
             }
             link.remove();
-            return res.json('200', {status: true});
+            return res.json(200, {status: true});
         });
     });
 };
