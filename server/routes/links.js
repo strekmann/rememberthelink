@@ -152,6 +152,7 @@ module.exports.create_link = function (req, res) {
         redis.zincrby('urls', 1, link.url);
         _.each(link.tags, function (tag) {
             redis.zincrby('tags', 1, tag);
+            redis.zincrby('tags_' + req.user._id, 1, tag);
         });
         return res.redirect('/');
     });
@@ -195,9 +196,11 @@ module.exports.update_link = function (req, res) {
             }
             _.each(old_tags, function (tag) {
                 redis.zincrby('tags', -1, tag);
+                redis.zincrby('tags_' + req.user._id, -1, tag);
             });
             _.each(link.tags, function (tag) {
                 redis.zincrby('tags', 1, tag);
+                redis.zincrby('tags_' + req.user._id, 1, tag);
             });
         });
         return res.redirect('/');
@@ -221,9 +224,18 @@ module.exports.delete_link = function (req, res) {
             redis.zincrby('urls', -1, url);
             _.each(old_tags, function (tag) {
                 redis.zincrby('tags', -1, tag);
+                redis.zincrby('tags_' + req.user._id, -1, tag);
             });
         });
         return res.json(200, {status: true});
+    });
+};
+
+module.exports.all_tags = function (req, res) {
+    redis.zrevrange('tags_' + req.user._id, 0, 100, function (err, tags) {
+        res.render('links/all_tags', {
+            tags: tags
+        });
     });
 };
 

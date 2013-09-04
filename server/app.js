@@ -35,6 +35,7 @@ app.post('/new', app.ensureAuthenticated, link_routes.create_link);
 app.get('/edit/:id', app.ensureAuthenticated, link_routes.edit_link);
 app.post('/edit', app.ensureAuthenticated, link_routes.update_link);
 app.delete('/delete', app.ensureAuthenticated, link_routes.delete_link);
+app.get('/tags', app.ensureAuthenticated, link_routes.all_tags);
 app.get('/tags/*', link_routes.tags);
 app.post('/uwanna', link_routes.bot_suggest);
 app.get('/suggestions', link_routes.suggestions);

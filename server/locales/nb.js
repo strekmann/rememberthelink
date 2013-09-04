@@ -12,5 +12,6 @@
     "Save": "Lagre",
     "Needs to be a valid url": "Må være en gyldig URL",
     "Previous": "Forrige",
-    "Next": "Neste"
+    "Next": "Neste",
+    "Tags": "Tags"
 }
