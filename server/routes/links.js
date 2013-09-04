@@ -32,7 +32,6 @@ function set_private(_private) {
 module.exports.index = function(req, res, next){
     if (!req.isAuthenticated()) {
         return res.render('index', {
-            user: req.user,
             url: localsettings.uri
         });
     }
@@ -52,8 +51,7 @@ module.exports.index = function(req, res, next){
         res.format({
             json: function () {
                 res.json(200, {
-                    links: links,
-                    user: req.user
+                    links: links
                 });
             },
             html: function () {
@@ -67,7 +65,6 @@ module.exports.index = function(req, res, next){
                 }
                 res.render('links/index', {
                     links: links,
-                    user: req.user,
                     next: next,
                     previous: previous
                 });
@@ -139,7 +136,6 @@ module.exports.edit_link = function (req, res) {
         link.joined_tags = link.tags.join(", ");
 
         return res.render('links/edit', {
-            user: req.user,
             link: link
         });
     });
@@ -202,8 +198,7 @@ module.exports.tags =  function (req, res) {
         res.format({
             json: function () {
                 res.json(200, {
-                    links: links,
-                    user: req.user
+                    links: links
                 });
             },
             html: function () {
@@ -217,7 +212,6 @@ module.exports.tags =  function (req, res) {
                 }
                 res.render('links/index', {
                     links: links,
-                    user: req.user,
                     next: next,
                     previous: previous
                 });
@@ -294,8 +288,7 @@ module.exports.suggestions = function (req, res) {
     })
     .exec(function (err, suggestions) {
         res.render('links/suggestions', {
-            suggestions: suggestions,
-            user: req.user
+            suggestions: suggestions
         });
     });
 };

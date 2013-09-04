@@ -4,6 +4,7 @@ var express = require('express'),
     expressValidator = require('express-validator'),
     hbs = require('express-hbs'),
     momentLocale = require('./lib/middleware').momentLocale;
+    setUser = require('./lib/middleware').setUser;
 
 module.exports.boot = function(app) {
     app.passport = require('./lib/passport')(app);
@@ -34,6 +35,7 @@ module.exports.boot = function(app) {
         app.use(app.passport.session());
 
         app.use(momentLocale);
+        app.use(setUser);
 
         // -- Express routing
         app.use(app.router);

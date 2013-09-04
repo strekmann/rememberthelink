@@ -2,15 +2,11 @@ var User = require('../models').User;
 
 // core routes - base is /
 module.exports.index = function(req, res) {
-    res.render('index', {
-        user: req.user
-    });
+    res.render('index');
 };
 
 module.exports.account = function(req, res){
-    res.render('account', {
-        user: req.user
-    });
+    res.render('account');
 };
 
 module.exports.save_account = function(req, res){
@@ -53,9 +49,7 @@ module.exports.save_account = function(req, res){
 };
 
 module.exports.login = function(req, res){
-    res.render('login', {
-        user: req.user
-    });
+    res.render('login');
 };
 
 module.exports.logout = function(req, res){

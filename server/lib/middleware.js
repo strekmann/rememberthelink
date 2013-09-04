@@ -21,3 +21,10 @@ module.exports.momentLocale = function (req, res, next) {
     moment.lang(req.locale);
     next();
 };
+
+module.exports.setUser = function (req, res, next) {
+    if (req.user) {
+        res.locals.user = req.user;
+    }
+    next();
+};

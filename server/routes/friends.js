@@ -20,8 +20,7 @@ module.exports.search = function (req, res) {
     User.find({'username': req.query.username})
     .exec(function (error, users) {
         res.render('friends/search', {
-            users: users,
-            user: req.user
+            users: users
         });
     });
 };
@@ -58,7 +57,6 @@ module.exports.profile = function (req, res) {
             .sort('-created')
             .exec(function (err, links) {
                 return res.render('friends/profile', {
-                    user: req.user,
                     links: links,
                     profile: profile
                 });
