@@ -153,6 +153,14 @@ form.editform {
         padding-bottom: 2em;
     }
 
+    .popular {
+        h2 {
+            font: 400 emCalc(30px) "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: .8em;
+        }
+    }
+
     .bookmarklet {
         border-top: 1px solid $borderColor;
         padding-top: 1em;
