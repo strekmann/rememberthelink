@@ -66,9 +66,9 @@
     $.fn.s7n.initLinks = function(options) {
         // -- index page
         // new link
-        $('form.new').on('submit', function(ev){
+        $('form.new').on('submit', function(){
             var form = $(this);
-            var input = form.find('input');
+            var input = form.find('input').first();
 
             // empty field?
             if ($.trim(input.val()) === '') {
@@ -248,6 +248,16 @@
             });
             return false;
         });
+    };
 
+    $.fn.s7n.initNewLinks = function(options) {
+        $('form.new').on('submit', function(){
+            var form = $(this);
+            var input = form.find('input').first();
+
+            if (input.val().indexOf("://") === -1) {
+                input.val("http://" + input.val());
+            }
+        });
     };
 }(jQuery));

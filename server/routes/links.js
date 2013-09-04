@@ -77,13 +77,15 @@ module.exports.index = function(req, res, next){
 };
 
 module.exports.new_link = function (req, res) {
-    req.assert('url', res.__('Needs to be a valid url')).notEmpty().isUrl();
+    req.assert('url', res.__('Needs to be a valid url')).isUrl();
     req.sanitize('url').xss();
 
     var errors = req.validationErrors();
     if (errors) {
         return res.render('links/new', {
             errors: errors,
+            url: req.query.url,
+            user: req.user
         });
     }
 
@@ -95,10 +97,16 @@ module.exports.new_link = function (req, res) {
             link.title = $('html head title').text().trim() || null;
 
             return res.render('links/new', {
-                link: link
+                link: link,
+                user: req.user
             });
         }
-        return res.render('links/new');
+        return res.render('links/new', {
+            user: req.user,
+            errors: [{
+                msg: "url not found"
+            }]
+        });
     });
 };
 

@@ -1,44 +1,61 @@
 {{!< main}}
-<div class="large-12 columns">
-    <h1>New link</h1>
-    {{#if link}}
-    <form class="" method="post" action="/new">
-        <div id="errors"></div>
-        <input id="body" type="hidden" name="body" value="{{link.body}}"></div>
-        <div class="row">
-            <div class="large-2 small-3 columns"><label class="right">URL</label></div>
-            <div class="large-10 small-9 columns"><input id="url" type="text" name="url" value="{{link.url}}"></div>
+<section id="links_new">
+    <div class="row">
+        <div class="large-12 columns">
+            <h2>Add new link</h2>
+            {{#if link}}
+            <form class="custom" method="post" action="/new">
+                <div class="row">
+                    <div class="large-2 small-3 columns"><label class="inline right">URL</label></div>
+                    <div class="large-10 small-9 columns"><input id="url" type="text" name="url" value="{{link.url}}"></div>
+                </div>
+                <div class="row">
+                    <div class="large-2 small-3 columns"><label class="inline right">Title</label></div>
+                    <div class="large-10 small-9 columns"><input id="title" type="text" name="title" value="{{link.title}}"></div>
+                </div>
+                <div class="row">
+                    <div class="large-2 small-3 columns"><label class="inline right">Description</label></div>
+                    <div class="large-10 small-9 columns"><input id="description" type="text" name="description"></div>
+                </div>
+                <div class="row">
+                    <div class="large-2 small-3 columns"><label class="inline right">Tags</label></div>
+                    <div class="large-10 small-9 columns"><input id="tags" type="text" name="tags"></div>
+                </div>
+                <div class="row listunderair">
+                    <div class="large-2 small-3 columns"></div>
+                    <div class="large-10 large-offset-2 small-9 small-offset-3 columns">
+                        <label for="private"><input id="private" type="checkbox" name="private"> Private</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-10 large-offset-2 small-9 small-offset-3 columns"><button id="savebtn" class="small button">Save</button></div>
+                </div>
+            </form>
+            {{else}}
+            <div class="row">
+                <div class="large-8 large-centered columns">
+                    <form class="new" method="get" action="/new">
+                        <div class="row collapse">
+                            <div class="small-10 columns">
+                                <input id="url" type="text" name="url" placeholder="http://new.link.now/" value="{{url}}" class="{{#if errors}}error{{/if}}">
+                                {{#each errors}}
+                                <small class="error">{{msg}}</small>
+                                {{/each}}
+                            </div>
+                            <div class="small-2 columns">
+                                <button id="savebtn" class="button prefix">{{__ "Save"}}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {{/if}}
         </div>
-        <div class="row">
-            <div class="large-2 small-3 columns"><label class="right">Title</label></div>
-            <div class="large-10 small-9 columns"><input id="title" type="text" name="title" value="{{link.title}}"></div>
-        </div>
-        <div class="row">
-            <div class="large-2 small-3 columns"><label class="right">Description</label></div>
-            <div class="large-10 small-9 columns"><input id="description" type="text" name="description"></div>
-        </div>
-        <div class="row">
-            <div class="large-2 small-3 columns"><label class="right">Tags</label></div>
-            <div class="large-10 small-9 columns"><input id="tags" type="text" name="tags"></div>
-        </div>
-        <div class="row">
-            <div class="large-2 small-3 columns"><label class="right" for="private">Private</label></div>
-            <div class="large-10 small-9 columns"><input id="private" type="checkbox" name="private"></div>
-        </div>
-        <div class="row">
-            <div class="large-10 large-offset-2 small-9 small-offset-3 columns"><button id="savebtn">Save</button></div>
-        </div>
-    </form>
-    {{else}}
-    <form class="">
-        <div id="errors"></div>
-        <div class="row">
-            <div class="large-2 small-3 columns"><label class="right">URL</label></div>
-            <div class="large-10 small-9 columns"><input id="url" type="text" name="url"></div>
-        </div>
-        <div class="row">
-            <div class="large-10 large-offset-2 small-9 small-offset-3 columns"><button id="savebtn">Save</button></div>
-        </div>
-    </form>
-    {{/if}}
-</div>
+    </div>
+</section>
+
+{{#content "footer"}}
+<script>
+    $(document).s7n.initNewLinks();
+</script>
+{{/content}}
