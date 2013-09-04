@@ -121,13 +121,32 @@ module.exports.create_link = function (req, res) {
     });
 };
 
+module.exports.edit_link = function (req, res) {
+    var _id = req.params.id;
+    Link.findOne({_id: _id, creator: req.user._id}).exec(function (err, link) {
+        if (!link) {
+            return res.render(404, {error: 'Link not found'});
+        }
+
+        link.joined_tags = link.tags.join(", ");
+
+        return res.render('links/edit', {
+            user: req.user,
+            link: link
+        });
+    });
+};
+
 module.exports.update_link = function (req, res) {
-    var url = req.body.url;
-    Link.findOne({url: url, creator: req.user})
+    var id = req.body.id;
+    Link.findOne({_id: id, creator: req.user._id})
     .exec(function (err, link) {
         if (err) {
-            return res.json('200', {
-                error: err.message
+            return next(err);
+        }
+        if (!link) {
+            return res.render(404, {
+                error: "Link not found"
             });
         }
         link.title = req.body.title;
@@ -135,7 +154,7 @@ module.exports.update_link = function (req, res) {
         link.tags = set_tags(req.body.tags);
         link.private = set_private(req.body.private);
         link.save();
-        return res.json('200', {status: true});
+        return res.redirect('/');
     });
 };
 
