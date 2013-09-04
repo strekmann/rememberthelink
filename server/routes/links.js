@@ -35,21 +35,33 @@ function set_private(_private) {
 module.exports.index = function(req, res, next){
     if (!req.isAuthenticated()) {
         async.parallel({
-            tags: function(callback) {
+            tag_count: function(callback) {
                 redis.zcard('tags', function (err, tag_count) {
                     callback(err, tag_count);
                 });
             },
-            urls: function(callback) {
+            url_count: function(callback) {
                 redis.zcard('urls', function (err, url_count) {
                     callback(err, url_count);
+                });
+            },
+            tags: function(callback) {
+                redis.zrevrange('tags', 0, 9, function (err, tags) {
+                    callback(err, tags);
+                });
+            },
+            urls: function(callback) {
+                redis.zrevrange('urls', 0, 9, function (err, urls) {
+                    callback(err, urls);
                 });
             }
         }, function (err, results) {
             return res.render('index', {
                 url: localsettings.uri,
                 urls: results.urls,
-                tags: results.tags
+                tags: results.tags,
+                url_count: results.url_count,
+                tag_count: results.tag_count
             });
         });
     } else {

@@ -57,4 +57,8 @@ module.exports.register = function(app, hbs) {
     hbs.registerHelper('__n', function () {
         return app.i18n.__n.apply(this, arguments);
     });
+
+    hbs.registerHelper('displayurl', function (url) {
+        return url.replace(/^\w+:\/\/(?:www\.)?/, '');
+    });
 };

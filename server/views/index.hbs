@@ -14,7 +14,27 @@
 
     <section class="content">
         <div class="row">
-            <div class="large-12 columns">We're working on it. We have saved {{urls}} urls and {{tags}} tags.</div>
+            <div class="large-12 columns"><p>We're working on it.</p></div>
+        </div>
+        <div class="row">
+            <div class="large-6 columns">
+                <h2>Popular tags</h2>
+                <ul>
+                    {{#each tags}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+                <p>Total number of tags: {{tag_count}}</p>
+            </div>
+            <div class="large-6 columns">
+                <h2>Popular urls</h2>
+                <ul>
+                    {{#each urls}}
+                    <li><a href="{{this}}">{{displayurl this}}</a></li>
+                    {{/each}}
+                </ul>
+                <p>Total number of urls: {{url_count}}</p>
+            </div>
         </div>
     </section>
 
