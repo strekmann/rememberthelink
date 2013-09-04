@@ -6,7 +6,9 @@ var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
     Tag = require('../models').Tag,
     Link = require('../models/links').Link,
     Suggestion = require('../models/links').Suggestion,
-    localsettings = require('../settings');
+    localsettings = require('../settings'),
+    Redis = require("redis"),
+    redis = Redis.createClient();
 
 //libs
 function set_tags(tagstring) {
@@ -119,6 +121,10 @@ module.exports.create_link = function (req, res) {
                 error: err.message
             });
         }
+        redis.zincrby('urls', 1, link.url);
+        _.each(link.tags, function (tag) {
+            redis.zincrby('tags', 1, tag);
+        });
         return res.redirect('/');
     });
 };
@@ -150,11 +156,22 @@ module.exports.update_link = function (req, res) {
                 error: "Link not found"
             });
         }
+        var old_tags = link.tags;
         link.title = req.body.title;
         link.description = req.body.description;
         link.tags = set_tags(req.body.tags);
         link.private = set_private(req.body.private);
-        link.save();
+        link.save(function (err) {
+            if (err) {
+                return;
+            }
+            _.each(old_tags, function (tag) {
+                redis.zincrby('tags', -1, tag);
+            });
+            _.each(link.tags, function (tag) {
+                redis.zincrby('tags', 1, tag);
+            });
+        });
         return res.redirect('/');
     });
 };
@@ -167,7 +184,17 @@ module.exports.delete_link = function (req, res) {
                 error: err.message
             });
         }
-        link.remove();
+        var old_tags = link.tags;
+        var url = link.url;
+        link.remove(function (err) {
+            if (err) {
+                return;
+            }
+            redis.zincrby('urls', -1, url);
+            _.each(old_tags, function (tag) {
+                redis.zincrby('tags', -1, tag);
+            });
+        });
         return res.json(200, {status: true});
     });
 };
@@ -273,7 +300,12 @@ module.exports.share = function (req, res) {
         suggestion.url = url;
         suggestion.to = req.body.id;
         suggestion.from = req.user._id;
-        suggestion.save();
+        suggestion.save(function (err) {
+            if (err) {
+                return;
+            }
+            redis.zincrby('urls', 1, url);
+        });
         //return res.json(200, {status: true});
         return res.redirect('/');
     });
@@ -298,7 +330,10 @@ module.exports.reject_suggestion = function (req, res) {
                 error: err.message
             });
         }
-        link.remove();
+        var url = link.url;
+        link.remove(function (err) {
+            redis.zincrby('urls', -1, url);
+        });
         return res.json(200, {status: true});
     });
 };
@@ -317,6 +352,9 @@ module.exports.accept_suggestion = function (req, res) {
                 error: err.message
             });
         }
+        _.each(link.tags, function (tag) {
+            redis.zincrby('tags', -1, tag);
+        });
         Suggestion.findOne({url: req.body.url, to: req.user.username})
         .exec(function (err, link) {
             if (err) {

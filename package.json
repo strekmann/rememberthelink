@@ -32,7 +32,9 @@
     "connect-redis": "",
     "i18n": "",
     "winston": "",
-    "irc": ""
+    "irc": "",
+    "redis": "",
+    "hiredis": ""
   },
   "devDependencies": {
     "uglify-js": "",
