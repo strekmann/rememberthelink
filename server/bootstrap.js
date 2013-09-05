@@ -4,8 +4,7 @@ var express = require('express'),
     expressValidator = require('express-validator'),
     hbs = require('express-hbs'),
     momentLocale = require('./lib/middleware').momentLocale,
-    setUser = require('./lib/middleware').setUser,
-    i18n = require('i18n-abide');
+    setUser = require('./lib/middleware').setUser;
 
 module.exports.boot = function(app) {
     app.passport = require('./lib/passport')(app);
@@ -34,6 +33,14 @@ module.exports.boot = function(app) {
 
         app.use(app.passport.initialize());
         app.use(app.passport.session());
+
+        app.use(app.i18n.init);
+        app.use(function(req, res, next) {
+            // this is a hack that will work as long as node.js is single-threaded
+            // https://github.com/donpark/hbs/issues/46
+            app.i18n.setLocale(app.i18n.getLocale(req));
+            return next();
+        });
 
         app.use(momentLocale);
         app.use(setUser);

@@ -33,5 +33,4 @@ module.exports = function(app, express){
     });
 
     app.i18n = i18n;
-    app.use(i18n.init);
 };

@@ -12,5 +12,9 @@
     "share": "share",
     "edit": "edit",
     "delete": "delete",
-    "private": "private"
+    "private": "private",
+    "Save": "Save",
+    "Previous": "Previous",
+    "Next": "Next",
+    "Tags": "Tags"
 }

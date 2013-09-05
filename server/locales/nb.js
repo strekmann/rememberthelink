@@ -13,5 +13,9 @@
     "Needs to be a valid url": "Må være en gyldig URL",
     "Previous": "Forrige",
     "Next": "Neste",
-    "Tags": "Tags"
+    "Tags": "Tags",
+    "share": "del",
+    "edit": "rediger",
+    "delete": "slett",
+    "private": "privat"
 }
