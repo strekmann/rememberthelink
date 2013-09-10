@@ -419,23 +419,21 @@ module.exports.upload_bookmarks = function (req, res) {
         var affected = 0;
         var wanted = 0;
         async.each(bookmarks, function (bookmark, callback) {
-            $ = cheerio.load(bookmark);
+            var $ = cheerio.load(bookmark);
             var link = $('a').first();
             if (link.length) {
                 wanted += 1;
                 var url = link.attr("href"),
-                date = link.attr("add_date"),
-                tags = _.map(link.attr("tags").split(","), function (tag) {
-                    return tag.trim();
-                }),
-                priv = link.attr("private"),
-                title = link.text(),
-                description = $('dd').text();
+                    date = link.attr("add_date"),
+                    tags = _.map(link.attr("tags").split(","), function (tag) {
+                        return tag.trim();
+                    }),
+                    priv = link.attr("private"),
+                    title = link.text(),
+                    description = $('dd').text();
 
                 Link.update({url: url, creator: req.user._id},
                             {
-                                url: url,
-                                creator: req.user._id,
                                 private: priv,
                                 created: date,
                                 tags: tags,
