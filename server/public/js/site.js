@@ -264,7 +264,6 @@
 
     $.fn.s7n.initImportLinks = function(options) {
         $('form.import').on('submit', function () {
-            console.log("HEI");
             $.ajax({
                 method: 'POST',
                 url : $(this).attr('action'),
