@@ -31,6 +31,7 @@ module.exports = function(grunt) {
                     'client/vendor/js/underscore.js',
                     'client/vendor/js/custom.modernizr.js',
                     'client/vendor/js/foundation.js',
+                    'client/vendor/js/select2.js',
                     'client/vendor/js/*.js'
                 ],
                 dest: 'server/public/js/vendor.js'
