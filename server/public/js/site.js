@@ -188,23 +188,6 @@
             return false;
         });
 
-        $('form.import').on('submit', function () {
-            console.log("HEI");
-            $.ajax({
-                method: 'POST',
-                url : $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function (data, status, xhr) {
-                    if (status !== "success") {
-                        alert("Some error");
-                    } else {
-                        alert("Good!");
-                        console.log(data);
-                    }
-                }
-            });
-            return false;
-        });
 
         $('a.cancel_edit').on('click', function (ev) {
             ev.preventDefault();
@@ -276,6 +259,26 @@
             if (input.val().indexOf("://") === -1) {
                 input.val("http://" + input.val());
             }
+        });
+    };
+
+    $.fn.s7n.initImportLinks = function(options) {
+        $('form.import').on('submit', function () {
+            console.log("HEI");
+            $.ajax({
+                method: 'POST',
+                url : $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (data, status, xhr) {
+                    if (status !== "success") {
+                        alert("Some error");
+                    } else {
+                        alert("Good!");
+                        console.log(data);
+                    }
+                }
+            });
+            return false;
         });
     };
 }(jQuery));
