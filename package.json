@@ -33,7 +33,9 @@
     "winston": "",
     "irc": "",
     "redis": "",
-    "hiredis": ""
+    "hiredis": "",
+    "jsdom": "",
+    "contextify": ""
   },
   "devDependencies": {
     "uglify-js": "",
