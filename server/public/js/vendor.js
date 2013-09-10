@@ -10860,9 +10860,9 @@ if (typeof jQuery === "undefined" &&
   'use strict';
 
   /*
-    matchMedia() polyfill - Test a CSS media 
-    type/query in JS. Authors & copyright (c) 2012: 
-    Scott Jehl, Paul Irish, Nicholas Zakas. 
+    matchMedia() polyfill - Test a CSS media
+    type/query in JS. Authors & copyright (c) 2012:
+    Scott Jehl, Paul Irish, Nicholas Zakas.
     Dual MIT/BSD license
 
     https://github.com/paulirish/matchMedia.js
@@ -10905,7 +10905,7 @@ if (typeof jQuery === "undefined" &&
   if (!Array.prototype.filter) {
     Array.prototype.filter = function(fun /*, thisp */) {
       "use strict";
-   
+
       if (this == null) {
         throw new TypeError();
       }
@@ -10937,9 +10937,9 @@ if (typeof jQuery === "undefined" &&
         // closest thing possible to the ECMAScript 5 internal IsCallable function
         throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
       }
-   
-      var aArgs = Array.prototype.slice.call(arguments, 1), 
-          fToBind = this, 
+
+      var aArgs = Array.prototype.slice.call(arguments, 1),
+          fToBind = this,
           fNOP = function () {},
           fBound = function () {
             return fToBind.apply(this instanceof fNOP && oThis
@@ -10947,10 +10947,10 @@ if (typeof jQuery === "undefined" &&
                : oThis,
              aArgs.concat(Array.prototype.slice.call(arguments)));
           };
-   
+
       fNOP.prototype = this.prototype;
       fBound.prototype = new fNOP();
-   
+
       return fBound;
     };
   }
@@ -14623,8 +14623,8 @@ the specific language governing permissions and limitations under the Apache Lic
 
             // if clearing is open and the current image is
             // clicked, go to the next image in sequence
-            if (target.hasClass('visible') && 
-              current[0] === target[0] && 
+            if (target.hasClass('visible') &&
+              current[0] === target[0] &&
               next.length > 0 && self.is_open(current)) {
               target = next;
               image = target.find('img');
@@ -15550,7 +15550,7 @@ the specific language governing permissions and limitations under the Apache Lic
       var $this = $(sel),
           type = $this.attr('type'),
           $span = $this.next('span.custom.' + type);
-          
+
       if (!$this.parent().hasClass('switch')) {
         $this.addClass('hidden-field');
       }
@@ -15862,11 +15862,11 @@ the specific language governing permissions and limitations under the Apache Lic
         large : 'only screen and (min-width: 1440px)',
         landscape : 'only screen and (orientation: landscape)',
         portrait : 'only screen and (orientation: portrait)',
-        retina : 'only screen and (-webkit-min-device-pixel-ratio: 2),' + 
-          'only screen and (min--moz-device-pixel-ratio: 2),' + 
-          'only screen and (-o-min-device-pixel-ratio: 2/1),' + 
-          'only screen and (min-device-pixel-ratio: 2),' + 
-          'only screen and (min-resolution: 192dpi),' + 
+        retina : 'only screen and (-webkit-min-device-pixel-ratio: 2),' +
+          'only screen and (min--moz-device-pixel-ratio: 2),' +
+          'only screen and (-o-min-device-pixel-ratio: 2/1),' +
+          'only screen and (min-device-pixel-ratio: 2),' +
+          'only screen and (min-resolution: 192dpi),' +
           'only screen and (min-resolution: 2dppx)'
       },
 
@@ -16725,7 +16725,7 @@ the specific language governing permissions and limitations under the Apache Lic
         zIndex: el.css('z-index'),
         position: el.css('position')
       };
-      
+
       origClasses = el.attr('class') == null ? '' : el.attr('class');
 
       el.css('z-index',parseInt(expose.css('z-index'))+1);
@@ -16804,7 +16804,7 @@ the specific language governing permissions and limitations under the Apache Lic
           el.css('position', origCSS.position);
         }
       }
-      
+
       origClasses = el.data('orig-class');
       el.attr('class', origClasses);
       el.removeData('orig-classes');
@@ -17011,7 +17011,7 @@ the specific language governing permissions and limitations under the Apache Lic
       $(this.scope).on('arrival.fndtn.magellan', '[data-magellan-arrival]', function (e) {
         var $destination = $(this),
             $expedition = $destination.closest('[data-magellan-expedition]'),
-            activeClass = $expedition.attr('data-magellan-active-class') 
+            activeClass = $expedition.attr('data-magellan-active-class')
               || self.settings.activeClass;
 
           $destination
@@ -17092,7 +17092,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
     set_threshold : function () {
       if (!this.settings.threshold) {
-        this.settings.threshold = (this.fixed_magellan.length > 0) ? 
+        this.settings.threshold = (this.fixed_magellan.length > 0) ?
           this.outerHeight(this.fixed_magellan, true) : 0;
       }
     },
@@ -17210,7 +17210,7 @@ the specific language governing permissions and limitations under the Apache Lic
           $slides_container = $(slider),
           $container = $slides_container.wrap(self._container_html()).parent(),
           $slides = $slides_container.children();
-      
+
       $.extend(true, self.settings, self.data_options($slides_container));
 
       if (self.settings.navigation_arrows) {
@@ -17496,7 +17496,7 @@ the specific language governing permissions and limitations under the Apache Lic
   };
 }(Foundation.zj, this, this.document));
 
-/*! http://mths.be/placeholder v2.0.7 by @mathias 
+/*! http://mths.be/placeholder v2.0.7 by @mathias
 	Modified to work with Zepto.js by ZURB
 */
 ;(function(window, document, $) {
@@ -18446,8 +18446,8 @@ the specific language governing permissions and limitations under the Apache Lic
       appendTo: 'body',
       'disable-for-touch': false,
       tipTemplate : function (selector, content) {
-        return '<span data-selector="' + selector + '" class="' 
-          + Foundation.libs.tooltips.settings.tooltipClass.substring(1) 
+        return '<span data-selector="' + selector + '" class="'
+          + Foundation.libs.tooltips.settings.tooltipClass.substring(1)
           + '">' + content + '<span class="nub"></span></span>';
       }
     },
@@ -18467,7 +18467,7 @@ the specific language governing permissions and limitations under the Apache Lic
       if (typeof method !== 'string') {
         if (Modernizr.touch) {
           $(this.scope)
-            .on('click.fndtn.tooltip touchstart.fndtn.tooltip touchend.fndtn.tooltip', 
+            .on('click.fndtn.tooltip touchstart.fndtn.tooltip touchend.fndtn.tooltip',
               '[data-tooltip]', function (e) {
               var settings = $.extend({}, self.settings, self.data_options($(this)));
               if (!settings['disable-for-touch']) {
@@ -18476,14 +18476,14 @@ the specific language governing permissions and limitations under the Apache Lic
                 self.showOrCreateTip($(this));
               }
             })
-            .on('click.fndtn.tooltip touchstart.fndtn.tooltip touchend.fndtn.tooltip', 
+            .on('click.fndtn.tooltip touchstart.fndtn.tooltip touchend.fndtn.tooltip',
               this.settings.tooltipClass, function (e) {
               e.preventDefault();
               $(this).fadeOut(150);
             });
         } else {
           $(this.scope)
-            .on('mouseenter.fndtn.tooltip mouseleave.fndtn.tooltip', 
+            .on('mouseenter.fndtn.tooltip mouseleave.fndtn.tooltip',
               '[data-tooltip]', function (e) {
               var $this = $(this);
 

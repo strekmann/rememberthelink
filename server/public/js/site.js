@@ -125,9 +125,9 @@
                         alert("Could not get followers");
                     } else {
                         $.each(data.followers, function(i, follower) {
-                            followers += '<form method="post" action="/share"><input type="hidden" name="id" value="' + follower._id + '"><input type="hidden" name="url" value="' + url + '"><button type="submit">' + follower.username + '</button></form>';
+                            followers += '<option value="' + follower._id + '">' + follower.username + '</option>';
                         });
-                        block.append('<div class="followers">' + followers + '</div>');
+                        block.append('<form class="followers" method="post" action="/share"><input type="hidden" name="url" value="' + url + '"><select class="chosen-select" multiple name="id">' + followers + '</select><button type="submit">Send</button></form>');
                     }
                 }
             });
@@ -166,7 +166,7 @@
             link.hide();
         });
 
-        
+
 
         $('form.suggestform').on('submit', function (){
             var block = $(this).parent().parent().parent();
@@ -252,6 +252,7 @@
     };
 
     $.fn.s7n.initNewLinks = function(options) {
+        $(".chosen-select").chosen();
         $('form.new').on('submit', function(){
             var form = $(this);
             var input = form.find('input').first();
