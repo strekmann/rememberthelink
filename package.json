@@ -28,13 +28,14 @@
     "passport-google-oauth": "",
     "express-validator":"",
     "request": "",
-    "cheerio": "",
     "connect-redis": "",
     "i18n": "",
     "winston": "",
     "irc": "",
     "redis": "",
-    "hiredis": ""
+    "hiredis": "",
+    "jsdom": "",
+    "contextify": ""
   },
   "devDependencies": {
     "uglify-js": "",

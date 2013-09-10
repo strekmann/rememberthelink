@@ -1,7 +1,9 @@
-var _ = require('underscore');
-var request = require('request');
-var cheerio = require('cheerio');
-var ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
+var _ = require('underscore'),
+    request = require('request'),
+    jsdom = require('jsdom'),
+    fs = require('fs'),
+    cheerio = require('cheerio'),
+    ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
     User = require('../models').User,
     Tag = require('../models').Tag,
     Link = require('../models/links').Link,
@@ -403,6 +405,53 @@ module.exports.accept_suggestion = function (req, res) {
                 });
             }
             link.remove();
+            return res.json(200, {status: true});
+        });
+    });
+};
+
+module.exports.import_bookmarks = function (req, res) {
+    return res.render('links/import');
+};
+
+function createOrUpdateLink(url, title, date, priv, tags, userid) {
+    Link.findOne({url: url, creator: userid}).exec(function (err, link) {
+        if (!link) {
+            link = new Link({url: url, creator: userid});
+        }
+        link.title = title;
+        if (tags) {
+            link.tags = _.map(tags.split(","), function(tag) {
+                return tag.trim();
+            });
+        }
+        link.private = priv;
+        link.created = date;
+        link.save(function (e, l) {
+            if (e) {
+                console.log(url, e);
+            }
+            return l;
+        });
+    });
+}
+
+module.exports.upload_bookmarks = function (req, res) {
+    jsdom.env(req.files.import.path, function (err, window) {
+        var bookmarks = window.document.getElementsByTagName("a");
+        async.each(bookmarks, function (bookmark, callback) {
+            var url = bookmark.getAttribute("href"),
+            date = bookmark.getAttribute("add_date"),
+            tags = bookmark.getAttribute("tags"),
+            priv = bookmark.getAttribute("private"),
+            title = bookmark.innerHTML;
+
+            createOrUpdateLink(url, title, date, priv, tags, req.user._id);
+            callback();
+        }, function (err) {
+            if (err) {
+                console.log(err);
+            }
             return res.json(200, {status: true});
         });
     });

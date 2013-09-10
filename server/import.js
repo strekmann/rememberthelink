@@ -1,19 +1,19 @@
-var cheerio = require("cheerio");
+var jsdom = require('jsdom');
+var sys = require("sys");
 var app = require('./app');
 var mongoose = require('mongoose');
+var _ = require("underscore");
 app.db = mongoose.connect('mongodb://localhost/' + app.conf.db_name);
 
 var fs = require("fs"),
-_ = require("underscore");
+_ = require("underscore"),
 User = require('./models').User,
 Tag = require('./models').Tag,
 Link = require('./models/links').Link;
 
 function createOrUpdateLink(url, title, date, priv, tags, userid) {
-    Link.findOne({url: url, creator: userid}, function (err, link) {
-        if (err) {
-            console.log(err);
-        }
+    console.log(url);
+    Link.findOne({url: url, creator: userid}).exec(function (err, link) {
         if (!link) {
             console.log(url);
             link = new Link({url: url, creator: userid});
@@ -21,50 +21,38 @@ function createOrUpdateLink(url, title, date, priv, tags, userid) {
         link.title = title;
         if (tags) {
             link.tags = _.map(tags.split(","), function(tag) {
-                return new Tag({_id: tag.trim()});
+                return tag.trim();
             });
         }
         link.private = priv;
         link.created = date;
-        //console.log(date);
         link.save(function (e) {
             if (e) {
-
-                console.log(e);
-                console.log(link);
+                console.log(url, e);
             }
         });
         return;
     });
 }
 
-function parseit(part, user) {
-    part.each(function (i, el) {
-
-    var a = $(el);
-    var url = a.attr('href');
-    var date = new Date(a.attr('add_date') * 1000);
-    var priv = a.attr('private');
-    var tags = a.attr('tags');
-    var title = a.text();
-
-    if (url && /^http/.exec(url)) {
-
-        createOrUpdateLink(url, title, date, priv, tags, user._id);
-    }
-    });
-}
-
 User.findOne({username: 'sigurdga'}).exec(function (err, user) {
 
-    fs.readFile('/home/sigurdga/Nedlastinger/delicious.html', function(err, data) {
-        if(err) throw err;
-        var array = data.toString().split("\n");
-        for(var i in array) {
-            var line = array[i];
-            $ = cheerio.load(line);
-            var dt = $('dt a');
-            parseit(dt, user);
-        }
+    fs.readFile('/home/sigurdga/Nedlastinger/delicious.html', 'utf-8', function(err, data) {
+        jsdom.env(data, function (err, window) {
+            console.log(err);
+            console.log("start");
+            var bookmarks = window.document.getElementsByTagName("a");
+            _.each(bookmarks, function (bookmark) {
+                var url = bookmark.getAttribute("href"),
+                    date = bookmark.getAttribute("add_date"),
+                    tags = bookmark.getAttribute("tags"),
+                    priv = bookmark.getAttribute("private"),
+                    title = bookmark.innerHTML;
+
+                createOrUpdateLink(url, title, date, priv, tags, user._id);
+            });
+            process.exit(code=0);
+        });
     });
 });
+
