@@ -1,6 +1,5 @@
 var _ = require('underscore'),
     request = require('request'),
-    jsdom = require('jsdom'),
     fs = require('fs'),
     cheerio = require('cheerio'),
     ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
@@ -414,45 +413,48 @@ module.exports.import_bookmarks = function (req, res) {
     return res.render('links/import');
 };
 
-function createOrUpdateLink(url, title, date, priv, tags, userid) {
-    Link.findOne({url: url, creator: userid}).exec(function (err, link) {
-        if (!link) {
-            link = new Link({url: url, creator: userid});
-        }
-        link.title = title;
-        if (tags) {
-            link.tags = _.map(tags.split(","), function(tag) {
-                return tag.trim();
-            });
-        }
-        link.private = priv;
-        link.created = date;
-        link.save(function (e, l) {
-            if (e) {
-                console.log(url, e);
-            }
-            return l;
-        });
-    });
-}
-
 module.exports.upload_bookmarks = function (req, res) {
-    jsdom.env(req.files.import.path, function (err, window) {
-        var bookmarks = window.document.getElementsByTagName("a");
+    fs.readFile(req.files.import.path, 'utf-8', function (err, data) {
+        var bookmarks = data.split(/<DT>/);
+        var affected = 0;
+        var wanted = 0;
         async.each(bookmarks, function (bookmark, callback) {
-            var url = bookmark.getAttribute("href"),
-            date = bookmark.getAttribute("add_date"),
-            tags = bookmark.getAttribute("tags"),
-            priv = bookmark.getAttribute("private"),
-            title = bookmark.innerHTML;
+            $ = cheerio.load(bookmark);
+            var link = $('a').first();
+            if (link.length) {
+                wanted += 1;
+                var url = link.attr("href"),
+                date = link.attr("add_date"),
+                tags = _.map(link.attr("tags").split(","), function (tag) {
+                    return tag.trim();
+                }),
+                priv = link.attr("private"),
+                title = link.text(),
+                description = $('dd').text();
 
-            createOrUpdateLink(url, title, date, priv, tags, req.user._id);
-            callback();
+                Link.update({url: url, creator: req.user._id},
+                            {
+                                url: url,
+                                creator: req.user._id,
+                                private: priv,
+                                created: date,
+                                tags: tags,
+                                title: title,
+                                description: description
+                            },
+                            {upsert: true},
+                            function (err, numdoc) {
+                                affected += numdoc;
+                                callback(err);
+                            });
+            } else {
+                callback();
+            }
         }, function (err) {
             if (err) {
                 console.log(err);
             }
-            return res.json(200, {status: true});
+            return res.json(200, {status: true, saved: affected, bookmarks: wanted});
         });
     });
 };
