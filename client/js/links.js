@@ -234,4 +234,10 @@
             return false;
         });
     };
+
+    $.fn.s7n.initEditLink = function(options) {
+        $('button.cancel_edit').on('click', function(){
+            history.back();
+        });
+    };
 }(jQuery));
