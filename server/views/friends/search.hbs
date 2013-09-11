@@ -1,16 +1,16 @@
 {{!< main}}
 <div class="row">
     <div class="large-12 columns">
-        <h1>Find users</h1>
-        <p>Search by username</p>
+        <h2>{{__ "Find users"}}</h2>
+        <p>{{__ "Search by username"}}</p>
         <form action="/friends/search" method="GET">
             <div id="errors"></div>
             <div class="row collapse">
                 <div class="small-10 columns">
-                    <input id="username" type="text" name="username" placeholder="gismo">
+                    <input id="username" type="text" name="username" placeholder="{{__ "username"}}">
                 </div>
                 <div class="small-2 columns">
-                    <button class="button prefix">Search</button>
+                    <button class="button prefix">{{__ "Search"}}</button>
                 </div>
             </div>
         </form>
@@ -20,10 +20,10 @@
 <div class="row">
     <div class="large-12 columns friends">
         {{#each users}}
-        <h2 class="username">{{username}}</h2>
+        <h3 class="username">{{username}}</h3>
         <p>{{name}}</p>
         {{#doesnotfollow username}}
-        <p><a href="/friends/add" class="add">Add</a></p>
+            <p><a href="/friends/add" class="add">{{__ "Add"}}</a></p>
         {{/doesnotfollow}}
         {{/each}}
     </div>
@@ -31,6 +31,6 @@
 
 {{#content "footer"}}
 <script>
-$(document).s7n.initLinks();
+    $(document).s7n.initLinks();
 </script>
 {{/content}}

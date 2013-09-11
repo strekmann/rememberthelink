@@ -16,5 +16,17 @@
     "Save": "Save",
     "Previous": "Previous",
     "Next": "Next",
-    "Tags": "Tags"
+    "Tags": "Tags",
+    "Find users": "Find users",
+    "Search by username": "Search by username",
+    "username": "username",
+    "Search": "Search",
+    "Following": "Following",
+    "You should get some friends": "You should get some friends",
+    "Followers": "Followers",
+    "You should get some fans": "You should get some fans",
+    "Now we have in total %s user": {
+        "one": "Now we have in total %s user",
+        "other": "Now we have in total %s users"
+    }
 }

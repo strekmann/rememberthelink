@@ -1,16 +1,16 @@
 {{!< main}}
 <div class="row">
     <div class="large-12 columns">
-        <h1>Find users</h1>
-        <p>Search by username</p>
+        <h2>{{__ "Find users"}}</h2>
+        <p>{{__ "Search by username"}}</p>
         <form action="/friends/search" method="GET">
             <div id="errors"></div>
             <div class="row collapse">
                 <div class="small-10 columns">
-                    <input id="username" type="text" name="username" placeholder="gismo">
+                    <input id="username" type="text" name="username" placeholder="{{__ "username"}}">
                 </div>
                 <div class="small-2 columns">
-                    <button class="button prefix">Search</button>
+                    <button class="button prefix">{{__ "Search"}}</button>
                 </div>
             </div>
         </form>
@@ -18,29 +18,24 @@
 </div>
 <div class="row">
     <div class="large-6 columns">
-        <h1>Following</h1>
+        <h3>{{__ "Following"}}</h3>
         {{#each user.following}}
-        <h2><a href="/profile/{{this.username}}">{{this.username}}</a></h2>
+            <h4><a href="/profile/{{this.username}}">{{this.username}}</a></h4>
         {{else}}
-        <p>You should get some friends</p>
+            <p>{{__ "You should get some friends"}}</p>
         {{/each}}
     </div>
     <div class="large-6 columns">
-        <h1>Followers</h1>
+        <h3>{{__ "Followers"}}</h3>
         {{#each user.followers}}
-        <h2><a href="/profile/{{this.username}}">{{this.username}}</a></h2>
+            <h4><a href="/profile/{{this.username}}">{{this.username}}</a></h4>
         {{else}}
-        <p>You should get some fans</p>
+            <p>{{__ "You should get some fans"}}</p>
         {{/each}}
     </div>
 </div>
 <div class="row">
     <div class="large-12 columns">
-        Now we have in total {{user_count}} users.
+        {{__n "Now we have in total %s user" "Now we have in total %s users" user_count}}.
     </div>
 </div>
-{{#content "footer"}}
-<script>
-$(document).foundation();
-</script>
-{{/content}}
