@@ -19,7 +19,7 @@
                 </div>
                 <div class="row">
                     <div class="large-2 small-3 columns"><label class="inline right">Tags</label></div>
-                    <div class="large-10 small-9 columns"><input id="tags" type="text" name="tags"></div>
+                    <div class="large-10 small-9 columns"><input id="tags" type="text" name="tags" style="width: 100%;"></div>
                 </div>
                 <div class="row listunderair">
                     <div class="large-2 small-3 columns"></div>
@@ -57,5 +57,9 @@
 {{#content "footer"}}
 <script>
     $(document).s7n.initNewLinks();
+    $('#tags').select2({
+        tags: [],
+        tokenSeparators: [",", " "]
+    });
 </script>
 {{/content}}

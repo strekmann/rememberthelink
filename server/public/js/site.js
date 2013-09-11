@@ -127,7 +127,8 @@
                         $.each(data.followers, function(i, follower) {
                             followers += '<option value="' + follower._id + '">' + follower.username + '</option>';
                         });
-                        block.append('<form class="followers" method="post" action="/share"><input type="hidden" name="url" value="' + url + '"><select class="chosen-select" multiple name="id">' + followers + '</select><button type="submit">Send</button></form>');
+                        block.append('<form class="followers" method="post" action="/share"><input type="hidden" name="url" value="' + url + '"><select class="" id="lst" multiple name="id">' + followers + '</select><button type="submit">Send</button></form>');
+                            block.find("#lst").select2({width: "element"});
                     }
                 }
             });
@@ -252,7 +253,6 @@
     };
 
     $.fn.s7n.initNewLinks = function(options) {
-        $(".chosen-select").chosen();
         $('form.new').on('submit', function(){
             var form = $(this);
             var input = form.find('input').first();
