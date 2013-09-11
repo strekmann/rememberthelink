@@ -197,7 +197,7 @@ form.editform {
 }
 
 #links_index {
-    li {
+    li.link {
         padding-top: 1em;
         padding-bottom: 1em;
         border-bottom: 1px solid $borderColor;
@@ -209,6 +209,10 @@ form.editform {
 
     form {
         line-height: 1;
+    }
+
+    form.followers {
+        margin: 1em 0 0 0;
     }
 
     .link {

@@ -52,8 +52,10 @@
 
         // share link
         $('ul.links').delegate('a.share', 'click', function(){
-            var block = $(this).parents('li');
-            var url = block.find('.link .title a').first().attr('href');
+            var link = $(this),
+                block = $(this).parents('li'),
+                url = block.find('.link .title a').first().attr('href');
+
             $.ajax({
                 method: 'GET',
                 url: '/friends/followers',
@@ -65,8 +67,21 @@
                         $.each(data.followers, function(i, follower) {
                             followers += '<option value="' + follower._id + '">' + follower.username + '</option>';
                         });
-                        block.append('<form class="followers" method="post" action="/share"><input type="hidden" name="url" value="' + url + '"><select class="" multiple name="id">' + followers + '</select><button type="submit">Send</button></form>');
-                            block.find("select").select2({width: "element"});
+                        block.find('form.followers').remove();
+                        block.append(
+                            '<form class="followers" method="post" action="/share">' +
+                                '<div class="row collapse">' +
+                                    '<div class="small-10 columns">' +
+                                        '<input type="hidden" name="url" value="' + url + '">' +
+                                        '<select class="" multiple name="id">' + followers + '</select>' +
+                                    '</div>' +
+                                    '<div class="small-2 columns">' +
+                                        '<button class="button" type="submit">'+ link.data('trans-share') +'</button>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</form>');
+                        
+                        block.find("select").select2({width: "element"});
                     }
                 }
             });

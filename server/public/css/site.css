@@ -2010,7 +2010,6 @@ disabled look for disabled choices in the results dropdown
     margin: 3px 0 3px 5px;
     position: relative;
 
-    line-height: 13px;
     color: #333;
     cursor: default;
     border: 1px solid #aaaaaa;
@@ -6889,14 +6888,16 @@ form.editform {
   #index .hero {
     padding-top: 5em;
     padding-bottom: 5em; } }
-#links_index li {
+#links_index li.link {
   padding-top: 1em;
   padding-bottom: 1em;
   border-bottom: 1px solid rgba(170, 170, 170, 0.35); }
-  #links_index li:last-child {
+  #links_index li.link:last-child {
     border-bottom: none; }
 #links_index form {
   line-height: 1; }
+#links_index form.followers {
+  margin: 1em 0 0 0; }
 #links_index .link .title {
   font-size: 1.25em;
   font-weight: normal;
