@@ -1,7 +1,7 @@
 (function($){
-    $.fn.s7n = $.fn.s7n || {};
+    $.s7n = $.s7n || {};
 
-    $.fn.s7n.initLinks = function(options) {
+    $.s7n.initLinks = function(options) {
         // -- index page
         // new link
         $('form.new').on('submit', function(){
@@ -205,7 +205,7 @@
         });
     };
 
-    $.fn.s7n.initNewLinks = function(options) {
+    $.s7n.initNewLinks = function(options) {
         $('form.new').on('submit', function(){
             var form = $(this);
             var input = form.find('input').first();
@@ -216,7 +216,7 @@
         });
     };
 
-    $.fn.s7n.initImportLinks = function(options) {
+    $.s7n.initImportLinks = function(options) {
         $('form.import').on('submit', function () {
             $.ajax({
                 method: 'POST',
@@ -235,7 +235,7 @@
         });
     };
 
-    $.fn.s7n.initEditLink = function(options) {
+    $.s7n.initEditLink = function(options) {
         $('button.cancel_edit').on('click', function(){
             history.back();
         });

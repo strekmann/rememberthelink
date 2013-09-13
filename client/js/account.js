@@ -1,7 +1,7 @@
 (function($){
-    $.fn.s7n = $.fn.s7n || {};
+    $.s7n = $.s7n || {};
 
-    $.fn.s7n.initAccount = function(options) {
+    $.s7n.initAccount = function(options) {
         var settings = $.extend({
             saveBtn: '#savebtn',
             usernameField: '#username',

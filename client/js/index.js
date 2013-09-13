@@ -1,7 +1,7 @@
 (function($){
-    $.fn.s7n = $.fn.s7n || {};
+    $.s7n = $.s7n || {};
 
-    $.fn.s7n.initIndex = function(options) {
+    $.s7n.initIndex = function(options) {
         var settings = $.extend({
             bookmarkletBtn: '.bookmarklet a.fanzybutton'
         }, options);

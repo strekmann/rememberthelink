@@ -17,5 +17,15 @@
     "share": "del",
     "edit": "rediger",
     "delete": "slett",
-    "private": "privat"
+    "private": "privat",
+    "Find users": "Find users",
+    "Search by username": "Search by username",
+    "username": "username",
+    "Search": "Search",
+    "Following": "Following",
+    "Followers": "Followers",
+    "Now we have in total %s user": {
+        "one": "Now we have in total %s user",
+        "other": "Now we have in total %s users"
+    }
 }
