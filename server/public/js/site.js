@@ -276,6 +276,11 @@
                 input.val("http://" + input.val());
             }
         });
+
+        $('#tags').select2({
+            tags: [],
+            tokenSeparators: [",", " "]
+        });
     };
 
     $.s7n.initImportLinks = function(options) {

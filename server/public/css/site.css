@@ -6840,6 +6840,19 @@ form.editform {
   .tags .tag:hover {
     text-decoration: none; }
 
+.select2-container-multi .select2-choices {
+  border: 1px solid #ccc; }
+
+.select2-container-multi .select2-choices .select2-search-field input {
+  padding: 0 5px;
+  font-size: 0.875em;
+  margin: 0; }
+
+.select2-container-multi .select2-choices .select2-search-choice {
+  padding: 0 5px 0 18px;
+  font-size: 0.875em;
+  margin: 4px 0px 4px 5px; }
+
 #index {
   margin-top: -1.875em; }
   #index .hero {
