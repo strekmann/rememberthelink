@@ -116,7 +116,8 @@
         $('ul.links').delegate('a.share', 'click', function(){
             var link = $(this),
                 block = $(this).parents('li'),
-                url = block.find('.link .title a').first().attr('href');
+                url = block.find('.link .title a').first().attr('href'),
+                template = _.template($('#template-share').html());
 
             $.ajax({
                 method: 'GET',
@@ -126,22 +127,13 @@
                     if (status !== "success") {
                         alert("Could not get followers");
                     } else {
-                        $.each(data.followers, function(i, follower) {
-                            followers += '<option value="' + follower._id + '">' + follower.username + '</option>';
-                        });
                         block.find('form.followers').remove();
-                        block.append(
-                            '<form class="followers" method="post" action="/share">' +
-                                '<div class="row collapse">' +
-                                    '<div class="small-10 columns">' +
-                                        '<input type="hidden" name="url" value="' + url + '">' +
-                                        '<select class="" multiple name="id">' + followers + '</select>' +
-                                    '</div>' +
-                                    '<div class="small-2 columns">' +
-                                        '<button class="button prefix" type="submit">'+ link.data('trans-share') +'</button>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</form>');
+
+                        block.append(template({
+                            url: url,
+                            followers: data.followers,
+                            share_translation: link.data('trans-share')
+                        }));
                         
                         block.find("select").select2({width: "element"});
                     }

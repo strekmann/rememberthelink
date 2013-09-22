@@ -55,6 +55,25 @@
     </div>
 </section>
 
+<script type="text/template" id="template-share">
+    <form class="followers" method="post" action="/share">
+        <div class="row collapse">
+            <div class="small-10 columns">
+                <input type="hidden" name="url" value="<%- rc.url %>">
+                <select class="" multiple name="id">
+                <% _.each( rc.followers, function(follower){ %>
+                    <option value="<%- follower._id %>"><%- follower.username %></option>
+                <% }); %>
+                </select>
+            </div>
+            <div class="small-2 columns">
+                <button class="button prefix" type="submit"><%- rc.share_translation %></button>
+            </div>
+        </div>
+    </form>
+</script>
+
+
 {{#content "footer"}}
 <script>
     $.s7n.initLinks();
