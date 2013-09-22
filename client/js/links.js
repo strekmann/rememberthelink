@@ -76,7 +76,7 @@
                                         '<select class="" multiple name="id">' + followers + '</select>' +
                                     '</div>' +
                                     '<div class="small-2 columns">' +
-                                        '<button class="button" type="submit">'+ link.data('trans-share') +'</button>' +
+                                        '<button class="button prefix" type="submit">'+ link.data('trans-share') +'</button>' +
                                     '</div>' +
                                 '</div>' +
                             '</form>');
