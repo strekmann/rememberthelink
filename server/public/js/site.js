@@ -306,5 +306,10 @@
         $('button.cancel_edit').on('click', function(){
             history.back();
         });
+
+        $('#tags').select2({
+            tags: $('#tags').val().split(','),
+            tokenSeparators: [",", " "]
+        });
     };
 }(jQuery));
