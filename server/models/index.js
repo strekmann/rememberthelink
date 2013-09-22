@@ -10,9 +10,6 @@ var UserSchema = new mongoose.Schema({
     is_admin: {type: Boolean, 'default': false},
     created: {type: Date, required: true, 'default': Date.now},
     google_id: {type: String},
-    google_email: {type: String},
-    google_link: {type: String},
-    google_picture: {type: String},
     following: [UserSchema],
     followers: [UserSchema]
 });

@@ -36,10 +36,7 @@ module.exports = function(app){
                             username: profile._json.family_name + "." + profile.id,
                             name: profile.displayName,
                             email: profile._json.email,
-                            google_id: profile.id,
-                            google_email: profile._json.email,
-                            google_link: profile._json.link,
-                            google_picture: profile._json.picture
+                            google_id: profile.id
                         });
                         user.save(function(err){
                             if (err) {
