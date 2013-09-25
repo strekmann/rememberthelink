@@ -21,11 +21,11 @@
             <span>{{ago created}}</span>,
             by <span>{{from}}</span>
             {{#canChange ../../user}}
-            <a class="accept">accept</a>
-            <a class="reject">reject</a>
-            <a class="sure" style="display:none">Sure?</a>
+            <a class="accept">{{__ 'accept'}}</a>
+            <a class="reject">{{__ 'reject'}}</a>
+            <a class="sure" style="display:none">{{__ 'Sure?'}}</a>
             {{/canChange}}
-            <span class="private"{{#unless private}} style="display: none"{{/unless}}>private</span>
+            <span class="private"{{#unless private}} style="display: none"{{/unless}}>{{__ 'private'}}</span>
             <br>
             <span>{{url}}</span>
         </div>

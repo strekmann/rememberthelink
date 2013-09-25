@@ -5,27 +5,27 @@
 
         <form action="/edit" method="post" class="editform custom">
             <div class="row">
-                <div class="large-2 small-3 columns"><label for="title" class="inline right">Title</label></div>
+                <div class="large-2 small-3 columns"><label for="title" class="inline right">{{__ "Title"}}</label></div>
                 <div class="large-10 small-9 columns"><input id="title" type="text" class="title" name="title" value="{{link.title}}"></div>
             </div>
             <div class="row">
-                <div class="large-2 small-3 columns"><label for="description" class="inline right">Description</label></div>
+                <div class="large-2 small-3 columns"><label for="description" class="inline right">{{__ "Description"}}</label></div>
                 <div class="large-10 small-9 columns"><input id="description" type="text" class="description" name="description" value="{{link.description}}"></div>
             </div>
             <div class="row">
-                <div class="large-2 small-3 columns"><label for="tags" class="inline right">Tags</label></div>
+                <div class="large-2 small-3 columns"><label for="tags" class="inline right">{{__ "Tags"}}</label></div>
                 <div class="large-10 small-9 columns"><input id="tags" type="text" class="tags" name="tags" value="{{link.joined_tags}}" style="width: 100%;"></div>
             </div>
             <div class="row">
                 <div class="large-2 small-3 columns"><label for="private" class="inline right">&nbsp;</label></div>
-                <div class="large-10 small-9 columns"><input id="private" type="checkbox" class="private" name="private"{{#if private}} checked{{/if}}> private</div>
+                <div class="large-10 small-9 columns"><input id="private" type="checkbox" class="private" name="private"{{#if private}} checked{{/if}}> {{__ "Private"}}</div>
             </div>
             <input type="hidden" name="id" value="{{link._id}}">
             <div class="row">
                 <div class="large-2 small-3 columns"><label class="right"></label></div>
                 <div class="large-10 small-9 columns">
-                    <button type="button" class="cancel_edit small button secondary">Cancel</button>
-                    <button class="submit small button">Save</button>
+                    <button type="button" class="cancel_edit small button secondary">{{__ "Cancel"}}</button>
+                    <button class="submit small button">{{__ "Save"}}</button>
                 </div>
             </div>
         </form>

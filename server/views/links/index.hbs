@@ -5,7 +5,7 @@
             <form class="new" action="/new">
                 <div class="row collapse">
                     <div class="small-10 columns">
-                        <input id="url" type="text" name="url" placeholder="http://new.link.now/">
+                        <input id="url" type="text" name="url" placeholder="{{__ 'http://new.link.now/'}}">
                     </div>
                     <div class="small-2 columns">
                         <button class="button prefix">{{__ "Save"}}</button>
@@ -19,14 +19,14 @@
         <div class="small-12 columns">
             <ul class="links">
                 {{#each links}}
-                <li class="clearfix link">                
+                <li class="clearfix link">
                     <div>
                         <h2 class="title"><a href="{{url}}">{{title}}</a></h2>
                         <div class="controls">
-                            {{#if private}}<i title="{{__ 'private'}}" class="icon-shield"></i>{{/if}}
-                            <a title="{{__ 'share'}}" class="share" data-trans-share="{{__ 'share'}}"><i class="icon-share"></i></a>
-                            <a title="{{__ 'edit'}}" class="edit" href="edit/{{_id}}"><i class="icon-edit"></i></a>
-                            <a title="{{__ 'delete'}}" class="delete"><i class="icon-remove"></i></a>
+                            {{#if private}}<i title="{{__ 'Private'}}" class="icon-shield"></i>{{/if}}
+                            <a title="{{__ 'Share'}}" class="share" data-trans-share="{{__ 'share'}}"><i class="icon-share"></i></a>
+                            <a title="{{__ 'Edit'}}" class="edit" href="edit/{{_id}}"><i class="icon-edit"></i></a>
+                            <a title="{{__ 'Delete'}}" class="delete"><i class="icon-remove"></i></a>
                             <a class="sure" style="display: none">{{__ 'delete'}}!</a>
                         </div>
                         <div class="subtext">
