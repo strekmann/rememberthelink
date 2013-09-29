@@ -1,70 +1,57 @@
-(function($){
-    $.s7n = $.s7n || {};
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports = {
+    indexView: function(){
+        var btn = $('#savebtn'),
+            username = $('#username'),
+            form = btn.parents('form'),
+            errors = $('#errors');
 
-    $.s7n.initAccount = function(options) {
-        var settings = $.extend({
-            saveBtn: '#savebtn',
-            usernameField: '#username',
-            errors: '#errors'
-        }, options);
-
-        var $btn = $(settings.saveBtn);
-        var $username = $(settings.usernameField);
-        var $form = $btn.parents('form');
-        var $errors = $(settings.errors);
-
-        $btn.on('click', function(){
-            $errors.empty();
+        btn.on('click', function(){
+            errors.empty();
             $.ajax({
                 type: 'POST',
                 url: window.location.href,
-                data: $form.serialize(),
+                data: form.serialize(),
                 success: function(data) {
                     if (data.message) {
-                        $errors.append('<div data-alert class="alert-box success">'+ data.message +'<a href="#" class="close">&times;</a></div>');
+                        errors.append('<div data-alert class="alert-box success">'+ data.message +'<a href="#" class="close">&times;</a></div>');
                     }
 
                     if (data.error) {
-                        $errors.append('<div data-alert class="alert-box alert">'+ data.error +'<a href="#" class="close">&times;</a></div>');
+                        errors.append('<div data-alert class="alert-box alert">'+ data.error +'<a href="#" class="close">&times;</a></div>');
                     }
 
                     if (data.errors) {
-                        var errors = '';
+                        var err = '';
                         $.each(data.errors, function(i, error){
-                            errors += '<div data-alert class="alert-box alert">'+ error.msg +'<a href="#" class="close">&times;</a></div>';
+                            err += '<div data-alert class="alert-box alert">'+ error.msg +'<a href="#" class="close">&times;</a></div>';
                         });
-                        $errors.append(errors);
+                        errors.append(err);
                     }
                 }
             });
             return false;
         });
-
-        return this;
-    };
-}(jQuery));
-(function($){
-    $.s7n = $.s7n || {};
-
-    $.s7n.initIndex = function(options) {
-        var settings = $.extend({
-            bookmarkletBtn: '.bookmarklet a.fanzybutton'
-        }, options);
-
-        var $btn = $(settings.bookmarkletBtn);
-
-        $btn.on('click', function(){
+    }
+};
+},{}],2:[function(require,module,exports){
+module.exports = {
+    indexView: function() {
+        var btn = $('.bookmarklet a.fanzybutton');
+        btn.on('click', function(){
             return false;
         });
-
-        return this;
-    };
-}(jQuery));
-(function($){
-    $.s7n = $.s7n || {};
-
-    $.s7n.initLinks = function(options) {
-        // -- index page
+    }
+};
+},{}],"1IuhEK":[function(require,module,exports){
+module.exports = {
+    base: require('./base'),
+    account: require('./account'),
+    links: require('./links')
+};
+},{"./account":1,"./base":2,"./links":4}],4:[function(require,module,exports){
+module.exports = {
+    indexView: function() {
         // new link
         $('form.new').on('submit', function(){
             var form = $(this);
@@ -256,10 +243,10 @@
                 }
             });
             return false;
-        });
-    };
+        });        
+    },
 
-    $.s7n.initNewLinks = function(options) {
+    newView: function() {
         $('form.new').on('submit', function(){
             var form = $(this);
             var input = form.find('input').first();
@@ -272,10 +259,10 @@
         $('#tags').select2({
             tags: [],
             tokenSeparators: [",", " "]
-        });
-    };
+        });        
+    },
 
-    $.s7n.initImportLinks = function(options) {
+    importView: function() {
         $('form.import').on('submit', function () {
             $.ajax({
                 method: 'POST',
@@ -292,9 +279,9 @@
             });
             return false;
         });
-    };
+    },
 
-    $.s7n.initEditLink = function(options) {
+    editView: function() {
         $('button.cancel_edit').on('click', function(){
             history.back();
         });
@@ -303,5 +290,9 @@
             tags: $('#tags').val().split(','),
             tokenSeparators: [",", " "]
         });
-    };
-}(jQuery));
+    }
+};
+},{}],"s7n":[function(require,module,exports){
+module.exports=require('1IuhEK');
+},{}]},{},["1IuhEK"])
+;

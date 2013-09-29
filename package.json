@@ -26,7 +26,7 @@
     "express-hbs": "",
     "passport": "",
     "passport-google-oauth": "",
-    "express-validator":"",
+    "express-validator": "",
     "request": "",
     "connect-redis": "",
     "i18n": "",
@@ -48,6 +48,7 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-watch": "~0.4.4",
-    "cheerio": ""
+    "cheerio": "",
+    "grunt-browserify": "~1.2.5"
   }
 }

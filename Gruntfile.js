@@ -13,6 +13,17 @@ module.exports = function(grunt) {
                 }
             }
         },
+        browserify: {
+            build: {
+                dest: 'server/public/js/site.js',
+                src: [
+                    'client/js/index.js'
+                ],
+                options: {
+                    alias: ['client/js/index.js:s7n']
+                }
+            }
+        },
         sass: {
             dest: {
                 files: {
@@ -35,10 +46,6 @@ module.exports = function(grunt) {
                     'client/vendor/js/*.js'
                 ],
                 dest: 'server/public/js/vendor.js'
-            },
-            client: {
-                src: ['client/js/*.js'],
-                dest: 'server/public/js/site.js'
             }
         },
         uglify: {
@@ -61,7 +68,7 @@ module.exports = function(grunt) {
         watch: {
             clientjs: {
                 files: ['client/js/**/*.js'],
-                tasks: ['jshint', 'concat:client']
+                tasks: ['jshint', 'browserify']
             },
             scss: {
                 files: ['client/css/**/*.scss'],
@@ -75,7 +82,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-browserify');
 
-    grunt.registerTask('default', ['jshint', 'sass', 'concat']);
-    grunt.registerTask('prod', ['jshint', 'sass', 'concat', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'sass', 'concat', 'browserify']);
+    grunt.registerTask('prod', ['jshint', 'sass', 'concat', 'browserify', 'uglify']);
 }
