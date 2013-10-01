@@ -16,11 +16,10 @@ module.exports = function(grunt) {
         browserify: {
             build: {
                 dest: 'server/public/js/site.js',
-                src: [
-                    'client/js/index.js'
-                ],
+                src: ['client/js/index.js'],
                 options: {
-                    alias: ['client/js/index.js:s7n']
+                    alias: ['client/js/index.js:s7n'],
+                    transform: ['./client/lib/underscorify']
                 }
             }
         },

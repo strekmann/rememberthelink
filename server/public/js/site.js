@@ -104,7 +104,7 @@ module.exports = {
             var link = $(this),
                 block = $(this).parents('li'),
                 url = block.find('.link .title a').first().attr('href'),
-                template = _.template($('#template-share').html());
+                template = require('../templates/sharelink.html');
 
             $.ajax({
                 method: 'GET',
@@ -292,6 +292,27 @@ module.exports = {
         });
     }
 };
+},{"../templates/sharelink.html":5}],5:[function(require,module,exports){
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<form class="followers" method="post" action="/share">\n    <div class="row collapse">\n        <div class="small-10 columns">\n            <input type="hidden" name="url" value="'+
+((__t=( url ))==null?'':_.escape(__t))+
+'">\n            <select class="" multiple name="id">\n            ';
+ _.each( followers, function(follower){ 
+__p+='\n                <option value="'+
+((__t=( follower._id ))==null?'':_.escape(__t))+
+'">'+
+((__t=( follower.username ))==null?'':_.escape(__t))+
+'</option>\n            ';
+ }); 
+__p+='\n            </select>\n        </div>\n        <div class="small-2 columns">\n            <button class="button prefix" type="submit">'+
+((__t=( share_translation ))==null?'':_.escape(__t))+
+'</button>\n        </div>\n    </div>\n</form>';
+}
+return __p;
+};
+
 },{}],"s7n":[function(require,module,exports){
 module.exports=require('1IuhEK');
 },{}]},{},["1IuhEK"])

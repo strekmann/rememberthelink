@@ -52,5 +52,7 @@
     "Popular urls": "Populære lenker",
     "Total number of urls": "Totalt antall lagra lenker",
     "Bookmarklet": "Bookmarklet",
-    "Remember": "Husk"
+    "Remember": "Husk",
+    "Login with Google": "Login with Google",
+    "Your most used tags": "Your most used tags"
 }

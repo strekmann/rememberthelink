@@ -52,7 +52,7 @@ module.exports = {
             var link = $(this),
                 block = $(this).parents('li'),
                 url = block.find('.link .title a').first().attr('href'),
-                template = _.template($('#template-share').html());
+                template = require('../templates/sharelink.html');
 
             $.ajax({
                 method: 'GET',
