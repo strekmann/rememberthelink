@@ -3,6 +3,9 @@ REPORTER = spec
 build:
 	@./node_modules/.bin/grunt
 
+production:
+	@./node_modules/.bin/grunt prod
+
 watch:
 	@./node_modules/.bin/grunt watch
 
@@ -27,4 +30,4 @@ test-bot:
 		--ui bdd \
 		test/bot/*.js
 
-.PHONY: build watch test test-w bot
+.PHONY: build production watch test test-w bot
