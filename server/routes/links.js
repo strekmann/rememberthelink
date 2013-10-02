@@ -234,8 +234,28 @@ module.exports.delete_link = function (req, res) {
 
 module.exports.all_tags = function (req, res) {
     redis.zrevrange('tags_' + req.user._id, 0, 100, function (err, tags) {
-        res.render('links/all_tags', {
-            tags: tags
+        res.format({
+            json: function () {
+                var prefix = req.query.q;
+                var all = tags;
+                if (prefix) {
+                    tags = _.filter(all, function(tag) {
+                        if (tag.toUpperCase().indexOf(prefix.toUpperCase())===0) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                }
+                res.json(200, {
+                    tags: tags
+                });
+            },
+            html: function () {
+                res.render('links/all_tags', {
+                    tags: tags
+                });
+            }
         });
     });
 };

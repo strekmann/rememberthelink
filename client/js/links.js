@@ -235,8 +235,35 @@ module.exports = {
         });
 
         $('#tags').select2({
-            tags: $('#tags').val().split(','),
-            tokenSeparators: [",", " "]
+            tags: $('#tags').val().split(', '),
+            tokenSeparators: [",", " "],
+            minimumInputLength: 2,
+            initSelection: function (element, callback) {
+                var data = [];
+                $(element.val().split(", ")).each(function () {
+                    data.push({id: this, text: this});
+                });
+                callback(data);
+            },
+            formatResult: function (object) {
+                return object;
+            },
+            ajax: {
+                url: "/tags",
+                dataType: "json",
+                data: function (term, page) {
+                    return {
+                        q: term
+                    };
+                },
+                results: function (data, page) {
+                    return {results: data.tags};
+                }
+            },
+            matcher: function (term, tag) {
+                console.log(term);
+                console.log(tag);
+            }
         });
     }
 };

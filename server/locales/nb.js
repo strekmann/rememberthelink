@@ -54,5 +54,6 @@
     "Bookmarklet": "Bookmarklet",
     "Remember": "Husk",
     "Login with Google": "Login with Google",
-    "Your most used tags": "Your most used tags"
+    "Your most used tags": "Your most used tags",
+    "URL": "URL"
 }
