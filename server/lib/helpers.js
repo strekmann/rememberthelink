@@ -34,10 +34,17 @@ module.exports.register = function(app, hbs) {
         }
     });
 
-    hbs.registerHelper('doesnotfollow', function(username, options) {
-        var user = this;
-        if (user && username) {
-            var match = _.find(user.following, function(name){ return name===username; });
+    hbs.registerHelper('doesnotfollow', function(user, options) {
+        var other = this;
+        if (other.username && user && user.username) {
+            // can't follow yourself
+            if (other.username === user.username) {
+                return false;
+            }
+
+            var match = _.find(user.following, function(name){
+                return name.username===other.username;
+            });
             if (!match) {
                 return options.fn(this);
             }

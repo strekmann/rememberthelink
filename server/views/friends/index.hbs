@@ -2,8 +2,7 @@
 <div class="row">
     <div class="large-12 columns">
         <h2>{{__ "Find users"}}</h2>
-        <p>{{__ "Search by username"}}</p>
-        <form action="/friends/search" method="GET">
+        <form action="" method="GET">
             <div id="errors"></div>
             <div class="row collapse">
                 <div class="small-10 columns">
@@ -16,8 +15,22 @@
         </form>
     </div>
 </div>
+
+<div class="row search-results">
+    <div class="large-12 columns friends">
+        <h4>{{__ 'Search results'}}</h4>
+        {{#each users}}
+            <div class="row">
+                <div class="large-3 column">{{this.username}}</div>
+                <div class="large-8 column">{{this.name}}</div>
+                <div class="large-1 column">{{#doesnotfollow ../user}}<a href="/friends/add" class="add">{{__ "Add"}}</a>{{/doesnotfollow}}</div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+
 <div class="row">
-    <div class="large-6 columns">
+    <div class="large-12 columns following">
         <h3>{{__ "Following"}}</h3>
         {{#each user.following}}
             <h4><a href="/profile/{{this.username}}">{{this.username}}</a></h4>
@@ -25,7 +38,10 @@
             <p>{{__ "You should get some friends"}}</p>
         {{/each}}
     </div>
-    <div class="large-6 columns">
+</div>
+
+<div class="row">
+    <div class="large-12 columns followers">
         <h3>{{__ "Followers"}}</h3>
         {{#each user.followers}}
             <h4><a href="/profile/{{this.username}}">{{this.username}}</a></h4>
@@ -39,3 +55,9 @@
         {{__n "Now we have in total %s user" "Now we have in total %s users" user_count}}.
     </div>
 </div>
+
+{{#content "footer"}}
+<script>
+    require('s7n').friends.indexView();
+</script>
+{{/content}}

@@ -43,13 +43,39 @@ module.exports = {
         });
     }
 };
+},{}],3:[function(require,module,exports){
+module.exports = {
+    indexView: function() {
+        $('.friends a.add').on('click', function (ev) {
+            ev.preventDefault();
+            var addlink = $(this).parent();
+            var parent = addlink.parent();
+            var username = parent.find('.username').text();
+            $.ajax({
+                method: 'POST',
+                url: $(this).attr('href'),
+                data: {'username': username},
+                success: function(data, status, xhr) {
+                    if (status !== "success") {
+                        alert("Could not save");
+                    }
+                    else {
+                        addlink.hide();
+                    }
+                }
+            });
+            return false;
+        });
+    }
+};
 },{}],"1IuhEK":[function(require,module,exports){
 module.exports = {
     base: require('./base'),
     account: require('./account'),
-    links: require('./links')
+    links: require('./links'),
+    friends: require('./friends')
 };
-},{"./account":1,"./base":2,"./links":4}],4:[function(require,module,exports){
+},{"./account":1,"./base":2,"./friends":3,"./links":5}],5:[function(require,module,exports){
 module.exports = {
     indexView: function() {
         // new link
@@ -121,7 +147,7 @@ module.exports = {
                             followers: data.followers,
                             share_translation: link.data('trans-share')
                         }));
-                        
+
                         block.find("select").select2({width: "element"});
                     }
                 }
@@ -223,27 +249,6 @@ module.exports = {
             });
             return false;
         });
-
-        $('.friends a.add').on('click', function (ev) {
-            ev.preventDefault();
-            var addlink = $(this).parent();
-            var parent = addlink.parent();
-            var username = parent.find('.username').text();
-            $.ajax({
-                method: 'POST',
-                url: $(this).attr('href'),
-                data: {'username': username},
-                success: function(data, status, xhr) {
-                    if (status !== "success") {
-                        alert("Could not save");
-                    }
-                    else {
-                        addlink.hide();
-                    }
-                }
-            });
-            return false;
-        });        
     },
 
     newView: function() {
@@ -259,7 +264,7 @@ module.exports = {
         $('#tags').select2({
             tags: [],
             tokenSeparators: [",", " "]
-        });        
+        });
     },
 
     importView: function() {
@@ -318,7 +323,7 @@ module.exports = {
                 },
                 results: function (data, page) {
                     return {results: _.map(data.tags, function(tag) {
-                        return {id: tag, text:tag}; 
+                        return {id: tag, text:tag};
                     })};
                 }
             }
@@ -326,7 +331,7 @@ module.exports = {
     }
 };
 
-},{"../templates/sharelink.html":5}],5:[function(require,module,exports){
+},{"../templates/sharelink.html":6}],6:[function(require,module,exports){
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){

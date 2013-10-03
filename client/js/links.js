@@ -69,7 +69,7 @@ module.exports = {
                             followers: data.followers,
                             share_translation: link.data('trans-share')
                         }));
-                        
+
                         block.find("select").select2({width: "element"});
                     }
                 }
@@ -171,27 +171,6 @@ module.exports = {
             });
             return false;
         });
-
-        $('.friends a.add').on('click', function (ev) {
-            ev.preventDefault();
-            var addlink = $(this).parent();
-            var parent = addlink.parent();
-            var username = parent.find('.username').text();
-            $.ajax({
-                method: 'POST',
-                url: $(this).attr('href'),
-                data: {'username': username},
-                success: function(data, status, xhr) {
-                    if (status !== "success") {
-                        alert("Could not save");
-                    }
-                    else {
-                        addlink.hide();
-                    }
-                }
-            });
-            return false;
-        });        
     },
 
     newView: function() {
@@ -207,7 +186,7 @@ module.exports = {
         $('#tags').select2({
             tags: [],
             tokenSeparators: [",", " "]
-        });        
+        });
     },
 
     importView: function() {

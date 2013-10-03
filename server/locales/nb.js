@@ -55,5 +55,8 @@
     "Remember": "Husk",
     "Login with Google": "Login with Google",
     "Your most used tags": "Your most used tags",
-    "URL": "URL"
+    "URL": "URL",
+    "You should get some friends": "You should get some friends",
+    "You should get some fans": "You should get some fans",
+    "Search results": "Search results"
 }

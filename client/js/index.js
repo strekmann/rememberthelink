@@ -1,5 +1,6 @@
 module.exports = {
     base: require('./base'),
     account: require('./account'),
-    links: require('./links')
+    links: require('./links'),
+    friends: require('./friends')
 };

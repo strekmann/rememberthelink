@@ -1,17 +1,39 @@
-var _ = require('underscore');
+var _ = require('underscore'),
+    async = require('async');
+
 var User = require('../models').User,
     Link = require('../models/links').Link;
 
 // links routes
 module.exports.index = function(req, res){
-    User.findById(req.user._id)
-    .populate('followers following')
-    .exec(function (err, user) {
-        User.count().exec(function (err, user_count) {
-            res.render('friends/index', {
-                user: user,
-                user_count: user_count
+    async.parallel({
+        user: function(callback) {
+            User.findById(req.user._id)
+            .populate('followers following')
+            .exec(function(err, user){
+                callback(err, user);
             });
+        },
+        count: function(callback){
+            User.count().exec(function(err, count){
+                callback(err, count);
+            });
+        },
+        users: function(callback){
+            if (req.query.username === undefined) {
+                return callback(null, []);
+            }
+
+            User.find({'username': req.query.username})
+            .exec(function (err, users) {
+                callback(err, users);
+            });
+        }
+    }, function(err, results){
+        res.render('friends/index', {
+            user: results.user,
+            user_count: results.count,
+            users: results.users
         });
     });
 };
