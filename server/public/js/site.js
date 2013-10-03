@@ -287,11 +287,45 @@ module.exports = {
         });
 
         $('#tags').select2({
-            tags: $('#tags').val().split(','),
-            tokenSeparators: [",", " "]
+            tags: $('#tags').val().split(', '),
+            tokenSeparators: [",", " "],
+            minimumInputLength: 2,
+            initSelection: function (element, callback) {
+                var data = [];
+                $(element.val().split(", ")).each(function () {
+                    data.push({id: this, text: this});
+                });
+                callback(data);
+            },
+            createSearchChoice: function(term, data) {
+                if ($(data).filter(function() {
+                    return this.text.localeCompare(term) === 0;
+                }).length === 0) {
+                    return {
+                        id: term,
+                        text: term
+                    };
+                }
+            },
+            ajax: {
+                url: "/tags",
+                dataType: "json",
+                quietMillis: 100,
+                data: function (term, page) {
+                    return {
+                        q: term
+                    };
+                },
+                results: function (data, page) {
+                    return {results: _.map(data.tags, function(tag) {
+                        return {id: tag, text:tag}; 
+                    })};
+                }
+            }
         });
     }
 };
+
 },{"../templates/sharelink.html":5}],5:[function(require,module,exports){
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};

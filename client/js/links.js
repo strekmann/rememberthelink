@@ -245,24 +245,30 @@ module.exports = {
                 });
                 callback(data);
             },
-            formatResult: function (object) {
-                return object;
+            createSearchChoice: function(term, data) {
+                if ($(data).filter(function() {
+                    return this.text.localeCompare(term) === 0;
+                }).length === 0) {
+                    return {
+                        id: term,
+                        text: term
+                    };
+                }
             },
             ajax: {
                 url: "/tags",
                 dataType: "json",
+                quietMillis: 100,
                 data: function (term, page) {
                     return {
                         q: term
                     };
                 },
                 results: function (data, page) {
-                    return {results: data.tags};
+                    return {results: _.map(data.tags, function(tag) {
+                        return {id: tag, text:tag};
+                    })};
                 }
-            },
-            matcher: function (term, tag) {
-                console.log(term);
-                console.log(tag);
             }
         });
     }
