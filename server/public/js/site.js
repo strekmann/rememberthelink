@@ -68,14 +68,16 @@ module.exports = {
         });
     }
 };
-},{}],"1IuhEK":[function(require,module,exports){
+},{}],"Dk0A7s":[function(require,module,exports){
 module.exports = {
     base: require('./base'),
     account: require('./account'),
     links: require('./links'),
     friends: require('./friends')
 };
-},{"./account":1,"./base":2,"./friends":3,"./links":5}],5:[function(require,module,exports){
+},{"./account":1,"./base":2,"./friends":3,"./links":6}],"s7n":[function(require,module,exports){
+module.exports=require('Dk0A7s');
+},{}],6:[function(require,module,exports){
 module.exports = {
     indexView: function() {
         // new link
@@ -323,7 +325,7 @@ module.exports = {
                 },
                 results: function (data, page) {
                     return {results: _.map(data.tags, function(tag) {
-                        return {id: tag, text:tag};
+                        return {id: tag.text, text: tag.text};
                     })};
                 }
             }
@@ -331,7 +333,7 @@ module.exports = {
     }
 };
 
-},{"../templates/sharelink.html":6}],6:[function(require,module,exports){
+},{"../templates/sharelink.html":7}],7:[function(require,module,exports){
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){
@@ -352,7 +354,5 @@ __p+='\n            </select>\n        </div>\n        <div class="small-2 colum
 return __p;
 };
 
-},{}],"s7n":[function(require,module,exports){
-module.exports=require('1IuhEK');
-},{}]},{},["1IuhEK"])
+},{}]},{},["Dk0A7s"])
 ;

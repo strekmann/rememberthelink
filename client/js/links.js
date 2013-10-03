@@ -245,7 +245,7 @@ module.exports = {
                 },
                 results: function (data, page) {
                     return {results: _.map(data.tags, function(tag) {
-                        return {id: tag, text:tag};
+                        return {id: tag.text, text: tag.text};
                     })};
                 }
             }
