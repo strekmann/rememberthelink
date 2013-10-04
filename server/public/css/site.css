@@ -6749,6 +6749,18 @@ a.th {
   .f-dropdown.large {
     max-width: 800px; }
 
+@font-face {
+  font-family: 'Dosis';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Dosis Regular"), local("Dosis-Regular"), url(http://themes.googleusercontent.com/static/fonts/dosis/v1/yUkc6bor5XCjwNWLpzDf8Q.ttf) format("truetype"); }
+
+@font-face {
+  font-family: 'Quattrocento';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Quattrocento"), url(http://themes.googleusercontent.com/static/fonts/quattrocento/v4/WZDISdyil4HsmirlOdBRFNqQynqKV_9Plp7mupa0S4g.ttf) format("truetype"); }
+
 .clearfix:after {
   clear: both;
   content: "";
