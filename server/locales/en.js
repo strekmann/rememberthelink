@@ -28,5 +28,12 @@
     "Now we have in total %s user": {
         "one": "Now we have in total %s user",
         "other": "Now we have in total %s users"
-    }
+    },
+    "We're working on it": "We're working on it",
+    "Popular tags": "Popular tags",
+    "Total number of tags": "Total number of tags",
+    "Popular urls": "Popular urls",
+    "Total number of urls": "Total number of urls",
+    "Bookmarklet": "Bookmarklet",
+    "Remember": "Remember"
 }

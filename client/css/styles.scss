@@ -13,24 +13,6 @@
 @import "mixins";
 
 
-// fonts
-// sans-serif
-@font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Dosis Regular'), local('Dosis-Regular'), url(http://themes.googleusercontent.com/static/fonts/dosis/v1/yUkc6bor5XCjwNWLpzDf8Q.ttf) format('truetype');
-}
-
-// serif
-@font-face {
-  font-family: 'Quattrocento';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Quattrocento'), url(http://themes.googleusercontent.com/static/fonts/quattrocento/v4/WZDISdyil4HsmirlOdBRFNqQynqKV_9Plp7mupa0S4g.ttf) format('truetype');
-}
-
-
 // our styles
 $borderColor: rgba(170, 170, 170, .35);
 
@@ -170,14 +152,16 @@ form.editform {
 
         .header {
             display: block;
-            font: 400 emCalc(60px) "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: emCalc(60px);
+            font-weight: 400;
             color: #333;
             line-height: .8em;
             margin-bottom: .1em;
         }
         .description {
             display: block;
-            font: 100 emCalc(60px) "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 100;
+            font-size: emCalc(60px);
             color: #b5b5b5;
             line-height: .8;
         }
@@ -190,7 +174,8 @@ form.editform {
 
     .popular {
         h2 {
-            font: 400 emCalc(30px) "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 400;
+            font-size: emCalc(30px);
             color: #333;
             line-height: .8em;
         }
@@ -204,13 +189,13 @@ form.editform {
 
         .header {
             display: block;
-            font: 400 emCalc(30px) "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 400;
+            font-size: emCalc(30px);
             color: #333;
         }
 
         .description {
             display: block;
-            font: 200 1em "Helvetica Neue", Helvetica, Arial, sans-serif;
             color: #898989;
             line-height: .8em;
         }
@@ -280,5 +265,50 @@ form.editform {
                 }
             }
         }
+    }
+}
+
+
+// fonts
+// sans-serif
+@font-face {
+  font-family: 'Dosis';
+  font-style: normal;
+  font-weight: 200;
+  src: local('Dosis ExtraLight'), local('Dosis-ExtraLight'), url(http://themes.googleusercontent.com/static/fonts/dosis/v1/05xr33FHwecUTIADg28rEfesZW2xOQ-xsNqO47m55DA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Dosis';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Dosis Regular'), local('Dosis-Regular'), url(http://themes.googleusercontent.com/static/fonts/dosis/v1/guC5lwT5Dw7anV_xfpCGqw.ttf) format('truetype');
+}
+
+// serif
+@font-face {
+  font-family: 'Quattrocento';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Quattrocento'), url(http://themes.googleusercontent.com/static/fonts/quattrocento/v4/WZDISdyil4HsmirlOdBRFNqQynqKV_9Plp7mupa0S4g.ttf) format('truetype');
+}
+
+@media #{$topbar-media-query} {
+    body {
+        font-family: "Quattrocento", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    h1,h2,h3,h4,h5,h6 {
+        font-family: "Dosis", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .top-bar-section ul li a {
+        font-family: "Dosis", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 400;
+    }
+    .top-bar .name h1 a {
+        font-weight: 400;
+    }
+    #index .hero .header,
+    #index .hero .description,
+    #index .bookmarklet .header {
+        font-family: "Dosis", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 }
