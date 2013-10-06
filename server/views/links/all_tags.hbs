@@ -3,9 +3,9 @@
 <div class="row">
     <div class="large-12 columns">
         <h2>{{__ "Your most used tags"}}</h2>
-        <ul>
+        <ul style="-webkit-column-count: 3; -webkit-column-gap: 20px; -moz-column-count: 3; -moz-colum-gap: 20px; column-count: 3; column-gap: 20px;" class="tags">
             {{#each tags}}
-            <li><a href="/tags/{{this.text}}">{{this.text}}</a> {{this.score}}</li>
+            <li><a class="tag" href="/tags/{{this.text}}">{{this.text}}</a> {{this.score}}</li>
             {{/each}}
         </ul>
     </div>
