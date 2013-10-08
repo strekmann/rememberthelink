@@ -75,9 +75,7 @@ module.exports = {
     links: require('./links'),
     friends: require('./friends')
 };
-},{"./account":1,"./base":2,"./friends":3,"./links":6}],"s7n":[function(require,module,exports){
-module.exports=require('1IuhEK');
-},{}],6:[function(require,module,exports){
+},{"./account":1,"./base":2,"./friends":3,"./links":5}],5:[function(require,module,exports){
 function interactivate_tags () {
     $('#tags').select2({
         tags: $('#tags').val().split(', '),
@@ -334,7 +332,7 @@ module.exports = {
     }
 };
 
-},{"../templates/sharelink.html":7}],7:[function(require,module,exports){
+},{"../templates/sharelink.html":6}],6:[function(require,module,exports){
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){
@@ -355,5 +353,7 @@ __p+='\n            </select>\n        </div>\n        <div class="small-2 colum
 return __p;
 };
 
+},{}],"s7n":[function(require,module,exports){
+module.exports=require('1IuhEK');
 },{}]},{},["1IuhEK"])
 ;

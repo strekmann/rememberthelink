@@ -1,58 +1,64 @@
 {{!< main}}
-<div class="row">
-    <div class="large-12 columns">
-        <h2>{{__ "Find users"}}</h2>
-        <form action="" method="GET">
-            <div id="errors"></div>
-            <div class="row collapse">
-                <div class="small-10 columns">
-                    <input id="username" type="text" name="username" placeholder="{{__ "username"}}">
+<div id="friends-index">
+    <div class="row">
+        <div class="large-12 columns">
+            <h2>{{__ "Find users"}}</h2>
+            <form action="" method="GET">
+                <div id="errors"></div>
+                <div class="row collapse">
+                    <div class="small-10 columns">
+                        <input id="username" type="text" name="username" placeholder="{{__ "username"}}">
+                    </div>
+                    <div class="small-2 columns">
+                        <button class="button prefix">{{__ "Search"}}</button>
+                    </div>
                 </div>
-                <div class="small-2 columns">
-                    <button class="button prefix">{{__ "Search"}}</button>
+                <div class="text-center">
+                    {{__n "Now we have in total %s user" "Now we have in total %s users" user_count}}.
                 </div>
+            </form>
+        </div>
+    </div>
+
+    {{#if users}}
+    <div class="row search-results">
+        <div class="large-12 columns friends">
+            <h4>{{__ 'Search results'}}</h4>
+            {{#each users}}
+                <div class="row nomargin">
+                    <div class="large-3 column">{{this.username}}</div>
+                    <div class="large-7 column">{{this.name}}</div>
+                    <div class="large-2 column">{{#doesnotfollow ../user}}<a href="/friends/add" class="add">{{__ "Add"}}</a>{{/doesnotfollow}}</div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+
+    <div class="row">
+        <div class="large-12 columns following">
+            <h4>{{__ "Following"}}</h4>
+            <div class="cols">
+            {{#each user.following}}
+                <p><a href="/profile/{{this.username}}">{{this.name}}</a></p>
+            {{else}}
+                <p>{{__ "You should get some friends"}}</p>
+            {{/each}}
             </div>
-        </form>
+        </div>
     </div>
-</div>
 
-<div class="row search-results">
-    <div class="large-12 columns friends">
-        <h4>{{__ 'Search results'}}</h4>
-        {{#each users}}
-            <div class="row">
-                <div class="large-3 column">{{this.username}}</div>
-                <div class="large-8 column">{{this.name}}</div>
-                <div class="large-1 column">{{#doesnotfollow ../user}}<a href="/friends/add" class="add">{{__ "Add"}}</a>{{/doesnotfollow}}</div>
+    <div class="row">
+        <div class="large-12 columns followers">
+            <h4>{{__ "Followers"}}</h4>
+            <div class="cols">
+            {{#each user.followers}}
+                <p><a href="/profile/{{this.username}}">{{this.name}}</a></p>
+            {{else}}
+                <p>{{__ "You should get some fans"}}</p>
+            {{/each}}
             </div>
-        {{/each}}
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns following">
-        <h3>{{__ "Following"}}</h3>
-        {{#each user.following}}
-            <h4><a href="/profile/{{this.username}}">{{this.username}}</a></h4>
-        {{else}}
-            <p>{{__ "You should get some friends"}}</p>
-        {{/each}}
-    </div>
-</div>
-
-<div class="row">
-    <div class="large-12 columns followers">
-        <h3>{{__ "Followers"}}</h3>
-        {{#each user.followers}}
-            <h4><a href="/profile/{{this.username}}">{{this.username}}</a></h4>
-        {{else}}
-            <p>{{__ "You should get some fans"}}</p>
-        {{/each}}
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        {{__n "Now we have in total %s user" "Now we have in total %s users" user_count}}.
+        </div>
     </div>
 </div>
 

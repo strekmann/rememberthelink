@@ -2134,7 +2134,7 @@ disabled look for disabled choices in the results dropdown
 }
 
 @charset "UTF-8";
-/*! normalize.css v2.1.1 | MIT License | git.io/normalize */
+/* normalize.css v2.1.1 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
    ========================================================================== */
@@ -6840,6 +6840,10 @@ form.editform {
   .tags .tag:hover {
     text-decoration: none; }
 
+.row.nomargin {
+  margin-left: 0;
+  margin-right: 0; }
+
 .select2-container-multi .select2-choices {
   border: 1px solid #ccc; }
 
@@ -6934,6 +6938,37 @@ form.editform {
       text-decoration: none;
       color: #333; }
 
+#friends-index h4 {
+  color: #333; }
+#friends-index .search-results {
+  margin-bottom: 3em; }
+  #friends-index .search-results .row {
+    background-color: #fafafa;
+    margin-bottom: 4px;
+    line-height: 2; }
+#friends-index .following,
+#friends-index .followers {
+  margin-bottom: 1em; }
+#friends-index .cols {
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  -webkit-column-gap: 1em;
+  -moz-column-gap: 1em;
+  column-gap: 1em; }
+
+@media only screen and (min-width: 768px) {
+  #friends-index .cols {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    -webkit-column-gap: 1em;
+    -moz-column-gap: 1em;
+    column-gap: 1em; }
+  #friends-index .search-results .column {
+    border-right: 4px solid #fff; }
+    #friends-index .search-results .column:last-child {
+      border-right: none; } }
 @font-face {
   font-family: 'Dosis';
   font-style: normal;
@@ -6970,6 +7005,9 @@ form.editform {
   #index .hero .description,
   #index .bookmarklet .header {
     font-family: "Dosis", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+  #index .bookmarklet .description {
+    line-height: 1.5em; }
 
   form.custom .custom.checkbox {
     font-family: "Helvetica Neue", Helvetica, sans-serif; } }

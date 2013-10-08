@@ -125,6 +125,11 @@ form.editform {
     }
 }
 
+.row.nomargin {
+    margin-left: 0;
+    margin-right: 0;
+}
+
 // select 2 override
 .select2-container-multi .select2-choices {
     border: 1px solid #ccc;
@@ -268,6 +273,55 @@ form.editform {
     }
 }
 
+#friends-index {
+    h4 {
+        color: #333;
+    }
+
+    .search-results {
+        margin-bottom: 3em;
+
+        .row {
+            background-color: #fafafa;
+            margin-bottom: 4px;
+            line-height: 2;
+        }
+    }
+
+    .following,
+    .followers {
+        margin-bottom: 1em;
+    }
+
+    .cols {
+        -webkit-column-count: 2;
+           -moz-column-count: 2;
+                column-count: 2;
+        -webkit-column-gap: 1em;
+           -moz-column-gap: 1em;
+                column-gap: 1em;
+    }
+}
+@media #{$small} {
+    #friends-index {
+        .cols {
+            -webkit-column-count: 3;
+               -moz-column-count: 3;
+                    column-count: 3;
+            -webkit-column-gap: 1em;
+               -moz-column-gap: 1em;
+                    column-gap: 1em;
+        }
+
+        .search-results .column {
+            border-right: 4px solid #fff;
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+    }
+}
 
 // fonts
 // sans-serif
@@ -310,6 +364,9 @@ form.editform {
     #index .hero .description,
     #index .bookmarklet .header {
         font-family: "Dosis", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    #index .bookmarklet .description {
+        line-height: 1.5em;
     }
     form.custom .custom.checkbox {
         font-family: "Helvetica Neue", Helvetica, sans-serif;
