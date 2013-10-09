@@ -6949,6 +6949,8 @@ form.editform {
 #friends-index .following,
 #friends-index .followers {
   margin-bottom: 1em; }
+#friends-index .usercount {
+  font-size: 0.8em; }
 #friends-index .cols {
   -webkit-column-count: 2;
   -moz-column-count: 2;
