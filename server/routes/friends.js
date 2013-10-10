@@ -74,7 +74,7 @@ module.exports.followers = function (req, res) {
 module.exports.profile = function (req, res) {
     User.findOne({username: req.params.username})
     .exec(function (err, profile) {
-        if (profile && _.indexOf(profile.followers, req.user._id) > -1) {
+        if (profile && _.indexOf(profile.follows, req.user._id) > -1) {
             Link.find({creator: profile._id, private: false})
             .sort('-created')
             .exec(function (err, links) {
