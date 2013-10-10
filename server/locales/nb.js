@@ -61,5 +61,7 @@
     "Search results": "Resultater",
     "Suggested links": "Suggested links",
     "Accept": "Accept",
-    "Reject": "Reject"
+    "Reject": "Reject",
+    "grab": "grab",
+    "Grab": "Grab"
 }

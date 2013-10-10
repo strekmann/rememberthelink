@@ -6907,41 +6907,51 @@ form.editform {
     padding-top: 5em;
     padding-bottom: 5em; } }
 #links-index li.link,
+#links-profile li.link,
 #links-suggestions li.link {
   padding-top: 1em;
   padding-bottom: 1em;
   border-bottom: 1px solid rgba(170, 170, 170, 0.35); }
   #links-index li.link:last-child,
+  #links-profile li.link:last-child,
   #links-suggestions li.link:last-child {
     border-bottom: none; }
 #links-index form,
+#links-profile form,
 #links-suggestions form {
   line-height: 1; }
 #links-index form.followers,
+#links-profile form.followers,
 #links-suggestions form.followers {
   margin: 1em 0 0 0; }
 #links-index .link .title,
+#links-profile .link .title,
 #links-suggestions .link .title {
   font-size: 1.25em;
   font-weight: normal;
   margin-top: 0;
   margin-bottom: 0; }
 #links-index .link .subtext,
+#links-profile .link .subtext,
 #links-suggestions .link .subtext {
   font-size: 0.75em;
   font-weight: 200;
   color: #898989; }
   #links-index .link .subtext i,
+  #links-profile .link .subtext i,
   #links-suggestions .link .subtext i {
     font-size: 0.75em; }
 #links-index .link .controls,
+#links-profile .link .controls,
 #links-suggestions .link .controls {
   float: right;
   margin: 0.3125em; }
   #links-index .link .controls a,
+  #links-profile .link .controls a,
   #links-suggestions .link .controls a {
     color: #898989; }
     #links-index .link .controls a:hover,
+    #links-profile .link .controls a:hover,
     #links-suggestions .link .controls a:hover {
       text-decoration: none;
       color: #333; }

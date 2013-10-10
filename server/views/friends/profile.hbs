@@ -1,19 +1,35 @@
 {{!< main}}
-<div class="row">
-    <div class="large-12 columns">
-        {{#each links}}
-        <div class="link" title="{{description}}">
-            <a href="{{url}}" class="title" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">{{title}}</a>
-            <span>{{ago created}}</span>,
-            by <span>{{creator.name}}</span>
-            <a class="grab">{{__ 'grab'}}</a>
-            <br>
-            <span>{{url}}</span> —
-            <span class="tags">{{#each tags}}<a href="/tags/{{this}}">{{this}}</a>{{/each}}</span>
+<section id="links-profile">
+    <div class="row">
+        <div class="large-12 columns">
+            <h2>{{profile.name}}</h2>
+            <p>{{profile.username}}
+
+            <ul class="links">
+                {{#each links}}
+                <li class="clearfix link">
+                <div>
+                    <h2 class="title"><a href="{{url}}">{{title}}</a></h2>
+                    <div class="controls">
+                        <a title="{{__ 'Grab'}}" class="grab"><i class="icon-copy"></i></a>
+                    </div>
+                    <div class="subtext">
+                        <span class="date" title="{{datetimeformat created format="lll"}}">{{datetimeformat created format="Do MMM"}}</span>&nbsp;
+                        <i class="icon-link"></i> <span class="url">{{url}}</span>
+                    </div>
+                    <div class="tags">
+                        <i class="icon-tags"></i>
+                        {{#each tags}}
+                        <a class="tag" href="/tags/{{this}}">{{this}}</a>
+                        {{/each}}
+                    </div>
+                </div>
+                </li>
+                {{/each}}
+            </ul>
         </div>
-        {{/each}}
     </div>
-</div>
+</section>
 {{#content "footer"}}
 <script>
 </script>

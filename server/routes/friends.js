@@ -74,13 +74,31 @@ module.exports.followers = function (req, res) {
 module.exports.profile = function (req, res) {
     User.findOne({username: req.params.username})
     .exec(function (err, profile) {
-        if (profile && _.indexOf(profile.follows, req.user._id) > -1) {
-            Link.find({creator: profile._id, private: false})
+        if (true || profile && _.indexOf(profile.follows, req.user._id) > -1) {
+            var page = parseInt(req.query.page, 10) || 0;
+            var per_page = 50;
+            Link.find({creator: profile._id, private: false}, {}, {skip: per_page * page, limit: per_page})
             .sort('-created')
             .exec(function (err, links) {
+                if (err) {
+                    next(err);
+                }
+                _.each(links, function(link) {
+                    link.joined_tags = link.tags.join(", ");
+                });
+                var previous = 0;
+                var next =  page;
+                if (page > 0) {
+                    previous = page - 1;
+                }
+                if (links.length === per_page) {
+                    next = page + 1;
+                }
                 return res.render('friends/profile', {
                     links: links,
-                    profile: profile
+                    profile: profile,
+                    previous: previous,
+                    next: next
                 });
             });
         } else {
