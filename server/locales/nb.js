@@ -63,5 +63,6 @@
     "Accept": "Accept",
     "Reject": "Reject",
     "grab": "grab",
-    "Grab": "Grab"
+    "Grab": "Grab",
+    "Copy": "Copy"
 }

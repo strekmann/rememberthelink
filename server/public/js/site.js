@@ -65,8 +65,28 @@ module.exports = {
             });
             return false;
         });
+    },
+
+    profileView: function() {
+        $('ul.links').on('click', 'a.grab', function(){
+            var link = $(this),
+                block = $(this).parents('li'),
+                titleBlock = block.find('.title a').first(),
+                url = titleBlock.attr('href'),
+                title = titleBlock.text().trim();
+            $.ajax({
+                method: 'POST',
+                url: '/accept',
+                data: {url: url, title: title},
+                success: function(data) {
+                    block.hide();
+                }
+            });
+            return false;
+        });
     }
 };
+
 },{}],"Dk0A7s":[function(require,module,exports){
 module.exports = {
     base: require('./base'),

@@ -11,7 +11,7 @@
                 <div>
                     <h2 class="title"><a href="{{url}}">{{title}}</a></h2>
                     <div class="controls">
-                        <a title="{{__ 'Grab'}}" class="grab"><i class="icon-copy"></i></a>
+                        <a title="{{__ 'Copy'}}" class="grab"><i class="icon-copy"></i></a>
                     </div>
                     <div class="subtext">
                         <span class="date" title="{{datetimeformat created format="lll"}}">{{datetimeformat created format="Do MMM"}}</span>&nbsp;
@@ -29,8 +29,17 @@
             </ul>
         </div>
     </div>
+    <div class="row">
+        <div class="small-12 columns" style="text-align: center; margin-bottom: 20px;">
+            <a href="?page={{previous}}">{{__ "Previous"}}</a>
+            ·
+            <a href="?page={{next}}">{{__ "Next"}}</a>
+        </div>
+    </div>
 </section>
+
 {{#content "footer"}}
 <script>
+    require('s7n').friends.profileView();
 </script>
 {{/content}}
