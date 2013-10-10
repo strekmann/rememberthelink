@@ -58,5 +58,8 @@
     "URL": "URL",
     "You should get some friends": "Du bør få deg noen venner",
     "You should get some fans": "Du bør få deg noen disipler",
-    "Search results": "Resultater"
+    "Search results": "Resultater",
+    "Suggested links": "Suggested links",
+    "Accept": "Accept",
+    "Reject": "Reject"
 }

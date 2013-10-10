@@ -1,41 +1,32 @@
 {{!< main}}
-<div class="large-12 columns">
-    {{#each suggestions}}
-    {{#canRead ../user}}
-    <div class="clearfix">
-        {{#canChange ../../user}}
-        <form action="/accept" method="post" style="display:none" class="suggestform">
-            <input type="text" class="title" name="title" value="{{title}}">
-            <input type="text" class="description" name="description" value="{{description}}">
-            <input type="text" class="tags" name="tags" value="{{joined_tags}}">
-            <input type="checkbox" class="private" name="private"{{#if private}} checked{{/if}}>
-            <input type="hidden" name="url" value="{{url}}">
-            <div class="right">
-                <a href="" class="cancel_edit button secondary">Cancel</a>
-                <button class="submit">Send</button>
-            </div>
-        </form>
-        {{/canChange}}
-        <div class="link" title="{{description}}">
-            <a href="{{url}}" class="title" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 1.5em; font-weight: bold; display: block; margin-top: 20px;">{{title}}</a>
-            <span>{{ago created}}</span>,
-            by <span>{{from}}</span>
-            {{#canChange ../../user}}
-            <a class="accept">{{__ 'accept'}}</a>
-            <a class="reject">{{__ 'reject'}}</a>
-            <a class="sure" style="display:none">{{__ 'Sure?'}}</a>
-            {{/canChange}}
-            <span class="private"{{#unless private}} style="display: none"{{/unless}}>{{__ 'private'}}</span>
-            <br>
-            <span>{{url}}</span>
+<section id="links-suggestions">
+    <div class="row">
+        <div class="small-12 columns">
+            <h2>{{__ 'Suggested links'}}</h2>
+            <ul class="links">
+                {{#each suggestions}}
+                <li class="clearfix link">
+                    <div>
+                        <h2 class="title"><a href="{{url}}">{{title}}</a></h2>
+                        <div class="controls">
+                            <a title="{{__ 'Accept'}}" class="accept"><i class="icon-ok"></i></a>
+                            <a title="{{__ 'Reject'}}" class="reject"><i class="icon-remove"></i></a>
+                        </div>
+                        <div class="subtext">
+                            <span class="date" title="{{datetimeformat created format="lll"}}">{{datetimeformat created format="Do MMM"}}</span>&nbsp;
+                            <i class="icon-link"></i> <span class="url">{{url}}</span>
+                        </div>
+                        <div class="description">{{description}}</div>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
         </div>
     </div>
-    {{/canRead}}
-    {{/each}}
-</div>
+</section>
 
 {{#content "footer"}}
 <script>
-    require('s7n').links.indexView();
+    require('s7n').links.suggestionsView();
 </script>
 {{/content}}

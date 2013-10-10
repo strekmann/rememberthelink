@@ -350,36 +350,50 @@ module.exports.bot_suggest = function (req, res) {
 };
 
 module.exports.share = function (req, res) {
-    var url = req.body.url;
-    if (url.indexOf("://") === -1) {
-        url = "http://" + url;
+    req.assert('url', res.__('Needs to be a valid url')).isUrl();
+    req.sanitize('url').xss();
+
+    var errors = req.validationErrors();
+    if (errors) {
+        return res.json(200, {
+            errors: errors,
+        });
     }
+
     Suggestion.findOne({
         from: req.user._id,
         to: req.body.id,
-        url: url
+        url: req.body.url
     })
     .exec(function (err, suggestion) {
         if (!suggestion) {
             suggestion = new Suggestion();
+            console.log('ny');
         }
-        suggestion.url = url;
+        suggestion.url = req.body.url;
         suggestion.to = req.body.id;
         suggestion.from = req.user._id;
+        suggestion.title = req.body.title;
+        suggestion.description = req.body.description;
         suggestion.save(function (err) {
             if (err) {
-                return;
+                return res.json(200, {
+                    error: res.__('Could not save')
+                });
             }
-            redis.zincrby('urls', 1, url);
+            redis.zincrby('urls', 1, req.body.url);
+            console.log(suggestion);
+
+            return res.json(200, {
+               status: true
+            });
         });
-        //return res.json(200, {status: true});
-        return res.redirect('/');
     });
 };
 
 module.exports.suggestions = function (req, res) {
     Suggestion.find({
-        to: req.user.username
+        to: req.user._id
     })
     .exec(function (err, suggestions) {
         res.render('links/suggestions', {
@@ -389,7 +403,7 @@ module.exports.suggestions = function (req, res) {
 };
 
 module.exports.reject_suggestion = function (req, res) {
-    Suggestion.findOne({url: req.body.url, to: req.user.username})
+    Suggestion.findOne({url: req.body.url, to: req.user._id})
     .exec(function (err, link) {
         if (err) {
             return res.json(200, {
@@ -404,13 +418,20 @@ module.exports.reject_suggestion = function (req, res) {
     });
 };
 module.exports.accept_suggestion = function (req, res) {
+    req.assert('url', res.__('Needs to be a valid url')).isUrl();
+    req.sanitize('title').xss();
+    req.sanitize('url').xss();
+
+    var errors = req.validationErrors();
+    if (errors) {
+        return res.json(200, {
+            errors: errors,
+        });
+    }
+
     var link = new Link();
     link.url = req.body.url;
     link.title = req.body.title;
-    link.content = req.body.content;
-    link.description = req.body.description;
-    link.tags = set_tags(req.body.tags);
-    link.private = set_private(req.body.private);
     link.creator = req.user;
     return link.save(function (err) {
         if (err) {
@@ -421,7 +442,7 @@ module.exports.accept_suggestion = function (req, res) {
         _.each(link.tags, function (tag) {
             redis.zincrby('tags', -1, tag);
         });
-        Suggestion.findOne({url: req.body.url, to: req.user.username})
+        Suggestion.findOne({url: req.body.url, to: req.user._id})
         .exec(function (err, link) {
             if (err) {
                 return res.json(200, {

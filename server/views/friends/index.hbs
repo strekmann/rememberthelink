@@ -1,5 +1,5 @@
 {{!< main}}
-<div id="friends-index">
+<section id="friends-index">
     <div class="row">
         <div class="large-12 columns">
             <h2>{{__ "Find users"}}</h2>
@@ -26,7 +26,7 @@
             <h4>{{__ 'Search results'}}</h4>
             {{#each users}}
                 <div class="row nomargin">
-                    <div class="large-3 column">{{this.username}}</div>
+                    <div class="large-3 column username">{{this.username}}</div>
                     <div class="large-7 column">{{this.name}}</div>
                     <div class="large-2 column">{{#doesnotfollow ../user}}<a href="/friends/add" class="add">{{__ "Add"}}</a>{{/doesnotfollow}}</div>
                 </div>
@@ -60,7 +60,7 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 
 {{#content "footer"}}
 <script>

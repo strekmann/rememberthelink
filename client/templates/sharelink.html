@@ -1,7 +1,8 @@
-<form class="followers" method="post" action="/share">
+<form class="suggestform" method="post" action="/share">
     <div class="row collapse">
         <div class="small-10 columns">
             <input type="hidden" name="url" value="<%- url %>">
+            <input type="hidden" name="title" value="<%- title %>">
             <select class="" multiple name="id">
             <% _.each( followers, function(follower){ %>
                 <option value="<%- follower._id %>"><%- follower.username %></option>
@@ -10,6 +11,11 @@
         </div>
         <div class="small-2 columns">
             <button class="button prefix" type="submit"><%- share_translation %></button>
+        </div>
+    </div>
+    <div class="row collapse">
+        <div class="small-10 columns">
+            <input type="text" name="description" placeholder="Message">
         </div>
     </div>
 </form>

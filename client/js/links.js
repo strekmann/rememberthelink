@@ -60,14 +60,14 @@ module.exports = {
         });
 
         // delete link
-        $('ul.links').delegate('a.delete', 'click', function(){
+        $('ul.links').on('click', 'a.delete', function(){
             var sure = $(this).parent().find('.sure').first();
             sure.show();
             return false;
         });
 
         // comfirm delete
-        $('ul.links').delegate('a.sure', 'click', function(){
+        $('ul.links').on('click', 'a.sure', function(){
             var self = $(this);
             var block = $(this).parents('li');
             var url = block.find('.link .title a').first().attr('href');
@@ -88,10 +88,12 @@ module.exports = {
         });
 
         // share link
-        $('ul.links').delegate('a.share', 'click', function(){
+        $('ul.links').on('click', 'a.share', function(){
             var link = $(this),
                 block = $(this).parents('li'),
-                url = block.find('.link .title a').first().attr('href'),
+                titleBlock = block.find('.title a').first(),
+                url = titleBlock.attr('href'),
+                title = titleBlock.text().trim(),
                 template = require('../templates/sharelink.html');
 
             $.ajax({
@@ -105,12 +107,13 @@ module.exports = {
                         block.find('form.followers').remove();
 
                         block.append(template({
+                            title: title,
                             url: url,
                             followers: data.followers,
                             share_translation: link.data('trans-share')
                         }));
 
-                        block.find("select").select2({width: "element"});
+                        block.find("select").select2({width: "element", placeholder: "User"});
                     }
                 }
             });
@@ -118,95 +121,14 @@ module.exports = {
         });
 
 
-        // -- TODO: use delegate
-        $('a.reject').on('click', function (ev) {
-            ev.preventDefault();
-            var self = $(this);
-            var block = $(this).parent().parent();
-            var url = block.find('.link .title').first().attr('href');
-            block.hide();
-            $.ajax({
-                method: 'DELETE',
-                url: 'reject',
-                data: {url: url},
-                success: function(data, status, xhr) {
-                    if (status !== "success") {
-                        alert("Could not delete");
-                        self.hide();
-                        block.show();
-                    }
-                }
-            });
-            return false;
-        });
-
-        $('a.accept').on('click', function (ev) {
-            ev.preventDefault();
-            var block = $(this).parent().parent();
-            var form = block.find('form').first();
-            var link = block.find('.link').first();
-            form.show();
-            link.hide();
-        });
-
-
-
-        $('form.suggestform').on('submit', function (){
-            var block = $(this).parent().parent().parent();
-            var form = block.find('form').first();
-            var link = block.find('.link').first();
-            $(form).hide();
+        $('ul.links').on('submit', 'form.suggestform', function (){
+            var form = $(this);
             $.ajax({
                 method: 'POST',
                 url: $(this).attr('action'),
                 data: $(this).serialize(),
-                success: function(data, status, xhr) {
-                    if (status !== "success") {
-                        alert("Could not save");
-                        form.show();
-                        link.hide();
-                    }
-                }
-            });
-            return false;
-        });
-
-
-        $('a.cancel_edit').on('click', function (ev) {
-            ev.preventDefault();
-            var block = $(this).parent().parent().parent();
-            var form = block.find('form').first();
-            var link = block.find('.link').first();
-            $(form).hide();
-            $(link).show();
-        });
-
-
-        $('form.editform').on('submit', function() {
-            var form = $(this);
-            var block = form.parent();
-            var link = block.find('.link').first();
-            var title = form.find('input.title').first().val();
-            var description = form.find('input.description').first().val();
-            var tags = form.find('input.tags').first().val();
-            link.find('.title').first().text(title);
-            link.find('.description').first().text(description);
-            link.find('.tags').first().html(_.reduce(tags.split(','), function(memo, tag) {
-                return memo + '<a href="">' + $.trim(tag) + '</a>';
-            }, ""));
-            form.hide();
-            link.show();
-
-            $.ajax({
-                method: 'PUT',
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function(data, status, xhr) {
-                    if (status !== "success") {
-                        alert("Could not update");
-                        form.show();
-                        link.hide();
-                    }
+                success: function(data) {
+                    form.remove();
                 }
             });
             return false;
@@ -251,5 +173,39 @@ module.exports = {
         });
 
         interactivate_tags();
+    },
+
+    suggestionsView: function() {
+        $('ul.links').on('click', 'a.accept', function(ev){
+            ev.preventDefault();
+            var block = $(this).parents('li');
+            var url = block.find('.url').first().text().trim();
+            var title = block.find('.title a').text().trim();
+            $.ajax({
+                method: 'POST',
+                url: 'accept',
+                data: {url: url, title: title},
+                success: function(data) {
+                    block.hide();
+                }
+            });
+            return false;
+        });
+
+        $('ul.links').on('click', 'a.reject', function (ev) {
+            ev.preventDefault();
+            var block = $(this).parents('li');
+            var url = block.find('.url').first().text().trim();
+
+            $.ajax({
+                method: 'DELETE',
+                url: 'reject',
+                data: {url: url},
+                success: function(data) {
+                    block.hide();
+                }
+            });
+            return false;
+        });
     }
 };
