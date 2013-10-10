@@ -50,8 +50,7 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 mangle: false,
-                compress: true,
-                report: 'gzip'
+                compress: true
             },
             vendor: {
                 files: {
