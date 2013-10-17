@@ -51,7 +51,7 @@
     "Total number of tags": "Forskjellige merkelapper",
     "Popular urls": "Populære lenker",
     "Total number of urls": "Totalt antall lagra lenker",
-    "Bookmarklet": "Bokmerkenkapp",
+    "Bookmarklet": "Bokmerkeknapp",
     "Remember": "Husk",
     "Login with Google": "Logg inn med Google",
     "Your most used tags": "Merkelappene du bruker mest",
@@ -59,10 +59,10 @@
     "You should get some friends": "Du bør få deg noen venner",
     "You should get some fans": "Du bør få deg noen disipler",
     "Search results": "Resultater",
-    "Suggested links": "Suggested links",
-    "Accept": "Accept",
-    "Reject": "Reject",
-    "grab": "grab",
-    "Grab": "Grab",
-    "Copy": "Copy"
+    "Suggested links": "Foreslåtte lenker",
+    "Accept": "Aksepter",
+    "Reject": "Avslå",
+    "grab": "ta",
+    "Grab": "Ta",
+    "Copy": "Kopier"
 }
