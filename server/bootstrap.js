@@ -9,6 +9,7 @@ var express = require('express'),
 module.exports.boot = function(app) {
     app.passport = require('./lib/passport')(app);
     app.ensureAuthenticated = require('./lib/middleware').ensureAuthenticated;
+    app.ensureAdmin = require('./lib/middleware').ensureAdmin;
 
     app.configure(function(){
         // -- Parses x-www-form-urlencoded request bodies (and json)

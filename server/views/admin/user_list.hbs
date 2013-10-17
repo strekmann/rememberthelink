@@ -1,0 +1,42 @@
+{{!< main}}
+
+<section id="user_list">
+    <div class="row">
+        <div class="large-12 columns">
+            <h2>{{__ "All users"}}</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Active</th>
+                        <th>Admin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each users}}
+                    <tr data-id="{{this._id}}">
+                        <td><a href="/profile/{{this.username}}">{{this.username}}</a></td>
+                        <td>{{this.name}}</td>
+                        <td><input type="checkbox" class="active"{{#if this.is_active}} checked{{/if}}></td>
+                        <td><input type="checkbox" class="admin"{{#if this.is_admin}} checked{{/if}}></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 columns" style="text-align: center; margin-bottom: 20px;">
+            <a href="?page={{previous}}">{{__ "Previous"}}</a>
+            ·
+            <a href="?page={{next}}">{{__ "Next"}}</a>
+        </div>
+    </div>
+</section>
+{{#content "footer"}}
+<script>
+    require('s7n').admin.userListView();
+</script>
+{{/content}}
+

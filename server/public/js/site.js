@@ -36,6 +36,33 @@ module.exports = {
 };
 },{}],2:[function(require,module,exports){
 module.exports = {
+    userListView: function() {
+        $('#user_list').on('change', '.active', function (ev) {
+            var checked = $(this).is(':checked');
+            var user_id = $(this).parents('tr').attr('data-id');
+            $.ajax({
+                url: '/admin/permissions/' + user_id,
+                method: 'PUT',
+                dataType: 'json',
+                data: {is_active: checked}
+            });
+        });
+
+        $('#user_list').on('change', '.admin', function (ev) {
+            var checked = $(this).is(':checked');
+            var user_id = $(this).parents('tr').attr('data-id');
+            $.ajax({
+                url: '/admin/permissions/' + user_id,
+                method: 'PUT',
+                dataType: 'json',
+                data: {is_admin: checked}
+            });
+        });
+    }
+};
+
+},{}],3:[function(require,module,exports){
+module.exports = {
     indexView: function() {
         var btn = $('.bookmarklet a.fanzybutton');
         btn.on('click', function(){
@@ -43,7 +70,7 @@ module.exports = {
         });
     }
 };
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 module.exports = {
     indexView: function() {
         $('.friends a.add').on('click', function (ev) {
@@ -92,11 +119,13 @@ module.exports = {
     base: require('./base'),
     account: require('./account'),
     links: require('./links'),
-    friends: require('./friends')
+    friends: require('./friends'),
+    admin: require('./admin')
 };
-},{"./account":1,"./base":2,"./friends":3,"./links":6}],"s7n":[function(require,module,exports){
+
+},{"./account":1,"./admin":2,"./base":3,"./friends":4,"./links":7}],"s7n":[function(require,module,exports){
 module.exports=require('Dk0A7s');
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 function interactivate_tags () {
     $('#tags').select2({
         tags: $('#tags').val().split(', '),
@@ -309,7 +338,7 @@ module.exports = {
     }
 };
 
-},{"../templates/sharelink.html":7}],7:[function(require,module,exports){
+},{"../templates/sharelink.html":8}],8:[function(require,module,exports){
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){

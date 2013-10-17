@@ -13,7 +13,7 @@ module.exports.ensureAuthenticated = function(req, res, next) {
 };
 
 module.exports.ensureAdmin = function(req, res, next) {
-    if (req.isAuthenticated() && req.user.isAdmin) { return next(); }
+    if (req.isAuthenticated() && req.user.is_admin) { return next(); }
     res.render('403');
 };
 

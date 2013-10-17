@@ -52,6 +52,10 @@ app.post('/friends/add', app.ensureAuthenticated, friend_routes.add);
 app.get('/friends/followers', app.ensureAuthenticated, friend_routes.followers);
 app.get('/profile/:username', app.ensureAuthenticated, friend_routes.profile);
 
+var admin_routes = require('./routes/admin');
+app.get('/admin', app.ensureAdmin, admin_routes.user_list);
+app.put('/admin/permissions/:id', app.ensureAdmin, admin_routes.set_permissions);
+
 // -- exports
 module.exports = app;
 

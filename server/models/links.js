@@ -1,11 +1,10 @@
 var mongoose = require('mongoose');
 
 var LinkSchema = new mongoose.Schema({
-    url: {type: String, lowercase: true, trim: true, required: true},
-    content: {type: String},
+    url: {type: String, trim: true, required: true},
     title: {type: String},
     description: {type: String},
-    'private': {type: Boolean, 'default': false},
+    'private': {type: Boolean, required: true, 'default': false},
     tags: [{type: String, lowercase: true, trim: true}],
     creator: {type: String, required: true, ref: 'User'},
     created: {type: Date, required: true, 'default': Date.now}
