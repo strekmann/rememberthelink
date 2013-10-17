@@ -241,6 +241,7 @@ module.exports.all_tags = function (req, res) {
         }
 
         res.format({
+            // json = search
             json: function () {
                 var prefix = req.query.q;
                 if (prefix) {
@@ -257,8 +258,18 @@ module.exports.all_tags = function (req, res) {
                 });
             },
             html: function () {
+                var max = 1;
+                if (all.length > 0) {
+                    max = all[0].score;
+
+                    all.sort(function(a, b){
+                        return a.text < b.text ? -1 : 1;
+                    });
+                }
+
                 res.render('links/all_tags', {
-                    tags: all
+                    tags: all,
+                    max: max
                 });
             }
         });

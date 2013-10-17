@@ -68,4 +68,9 @@ module.exports.register = function(app, hbs) {
     hbs.registerHelper('displayurl', function (url) {
         return url.replace(/^\w+:\/\/(?:www\.)?/, '');
     });
+
+    hbs.registerHelper('calcTagCloudSize', function(size, max){
+        var res = (Math.log(+size) - Math.log(1))/(Math.log(+max+1) - Math.log(1)) + 1;
+        return res*res + 'em';
+    });
 };
