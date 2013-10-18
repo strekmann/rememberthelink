@@ -70,7 +70,7 @@ module.exports = {
         $('ul.links').on('click', 'a.sure', function(){
             var self = $(this);
             var block = $(this).parents('li');
-            var url = block.find('.link .title a').first().attr('href');
+            var url = block.find('.title a').first().attr('href');
             self.hide();
 
             $.ajax({
