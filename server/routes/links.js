@@ -142,7 +142,11 @@ module.exports.create_link = function (req, res) {
     link.content = req.body.content;
     link.description = req.body.description;
     link.tags = set_tags(req.body.tags);
-    link.private = req.body.private;
+    if (req.body.private) {
+        link.private = true;
+    } else {
+        link.private = false;
+    }
     link.creator = req.user;
     return link.save(function (err) {
         if (err) {
@@ -190,7 +194,11 @@ module.exports.update_link = function (req, res) {
         link.title = req.body.title;
         link.description = req.body.description;
         link.tags = set_tags(req.body.tags);
-        link.private = set_private(req.body.private);
+        if (req.body.private) {
+            link.private = true;
+        } else {
+            link.private = false;
+        }
         link.save(function (err) {
             if (err) {
                 return;
