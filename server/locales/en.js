@@ -55,5 +55,11 @@
     "Admin": "Admin",
     "Created": "Created",
     "Google data": "Google data",
-    "Google ID": "Google ID"
+    "Google ID": "Google ID",
+    "Needs to be a valid url": "Needs to be a valid url",
+    "URL": "URL",
+    "All users": "All users",
+    "Export your bookmarks": "Export your bookmarks",
+    "Bookmarks file": "Bookmarks file",
+    "JSON structured file": "JSON structured file"
 }

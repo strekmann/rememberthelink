@@ -44,6 +44,8 @@ app.post('/accept', app.ensureAuthenticated, link_routes.accept_suggestion);
 app.post('/share', app.ensureAuthenticated, link_routes.share);
 app.get('/import', app.ensureAuthenticated, link_routes.import_bookmarks);
 app.post('/import', app.ensureAuthenticated, link_routes.upload_bookmarks);
+app.get('/export', app.ensureAuthenticated, link_routes.export_page);
+app.get('/export/bookmarks', app.ensureAuthenticated, link_routes.export_bookmarks);
 
 var friend_routes = require('./routes/friends');
 app.get('/friends', app.ensureAuthenticated, friend_routes.index);

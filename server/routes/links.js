@@ -527,3 +527,39 @@ module.exports.upload_bookmarks = function (req, res) {
         });
     });
 };
+
+module.exports.export_page = function (req, res) {
+    return res.render('links/export');
+};
+module.exports.export_bookmarks = function (req, res) {
+    var sep = '\n';
+    var bookmarks = [
+        '<!DOCTYPE NETSCAPE-Bookmark-file-1>',
+        '<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">',
+        '<!-- This is an automatically generated file.',
+        'It will be read and overwritten.',
+        'Do Not Edit! -->',
+        '<TITLE>Bookmarks</TITLE>',
+        '<H1>Bookmarks</H1>',
+        '<DL><p>'
+    ].join(sep);
+
+    Link.find({creator: req.user._id}).exec(function (err, links) {
+        _.each(links, function (link, i) {
+            var priv;
+            if (link.private) {
+                priv = "1";
+            } else {
+                priv = "0";
+            }
+            bookmarks += '<DT><A HREF="' + link.url + '" ADD_DATE="' + link.created.getTime() + '" PRIVATE="' + priv + '" TAGS="' + link.tags + '">' + link.title + '</A>' + sep;
+            if (link.description) {
+                bookmarks += '<DD>' + link.description;
+            }
+        });
+        bookmarks += '</DL><p>';
+        res.set('Content-Type', 'text/html');
+        res.set('Content-Disposition', 'attachment; filename="bookmarks.html"');
+        res.send(new Buffer(bookmarks));
+    });
+};
