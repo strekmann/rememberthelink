@@ -1,5 +1,6 @@
 var _ = require('underscore'),
-    User = require('../models').User;
+    User = require('../models').User,
+    Link = require('../models/links').Link;
 
 module.exports.user_list = function(req, res, next){
     var page = parseInt(req.query.page, 10) || 0;
@@ -20,6 +21,11 @@ module.exports.user_list = function(req, res, next){
                 if (users.length === per_page) {
                     next = page + 1;
                 }
+                _.each(users, function(user) {
+                    Link.count({creator: user._id}).exec(function (err, link_count) {
+                        user.link_count = link_count;
+                    });
+                });
                 res.render('admin/user_list', {
                     users: users,
                     next: next,

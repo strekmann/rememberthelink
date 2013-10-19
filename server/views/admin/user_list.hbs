@@ -9,6 +9,7 @@
                     <tr>
                         <th>Username</th>
                         <th>Name</th>
+                        <th>Links</th>
                         <th>Active</th>
                         <th>Admin</th>
                     </tr>
@@ -18,6 +19,7 @@
                     <tr data-id="{{this._id}}">
                         <td><a href="/profile/{{this.username}}">{{this.username}}</a></td>
                         <td>{{this.name}}</td>
+                        <td>{{this.link_count}}</td>
                         <td><input type="checkbox" class="active"{{#if this.is_active}} checked{{/if}}></td>
                         <td><input type="checkbox" class="admin"{{#if this.is_admin}} checked{{/if}}></td>
                     </tr>
