@@ -144,6 +144,9 @@ module.exports = {
                 input.val("http://" + input.val());
             }
         });
+        $('button.cancel_new').on('click', function(){
+            history.back();
+        });
 
         interactivate_tags();
     },

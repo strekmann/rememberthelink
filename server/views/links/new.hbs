@@ -28,7 +28,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="large-10 large-offset-2 small-9 small-offset-3 columns"><button id="savebtn" class="small button">{{__ 'Save'}}</button></div>
+                    <div class="large-10 large-offset-2 small-9 small-offset-3 columns">
+                        <button id="savebtn" class="small button">{{__ 'Save'}}</button>
+                        <button type="button" class="cancel_new small button secondary">{{__ "Cancel"}}</button>
+                    </div>
                 </div>
             </form>
             {{else}}
@@ -44,6 +47,7 @@
                             </div>
                             <div class="small-2 columns">
                                 <button id="savebtn" class="button prefix">{{__ "Save"}}</button>
+                                <button type="button" class="cancel_new small button secondary">{{__ "Cancel"}}</button>
                             </div>
                         </div>
                     </form>
