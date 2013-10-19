@@ -122,7 +122,7 @@ module.exports.profile = function (req, res) {
                 });
             },
 
-            function callback(result, callback) { // fetch tags
+            function callback(result, cb) { // fetch tags
                 var id = 'tags_' + result.profile._id;
                 redis.zrevrangebyscore(id, 10, 1, "withscores", function (err, tags_list) {
                     var tags = [];
@@ -131,7 +131,7 @@ module.exports.profile = function (req, res) {
                     }
                     result.tags = tags;
 
-                    callback(err, result);
+                    cb(err, result);
                 });
             }
         ], function(err, result){
