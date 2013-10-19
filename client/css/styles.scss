@@ -86,6 +86,10 @@ nav {
     }
 }
 
+.dark {
+    color: #333;
+}
+
 .listair {
     padding: 0.625em 0;
 }
@@ -276,10 +280,6 @@ form.editform {
 }
 
 #friends-index {
-    h4 {
-        color: #333;
-    }
-
     .search-results {
         margin-bottom: 3em;
 

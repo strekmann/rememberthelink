@@ -23,7 +23,7 @@
     {{#if users}}
     <div class="row search-results">
         <div class="large-12 columns friends">
-            <h4>{{__ 'Search results'}}</h4>
+            <h4 class="dark">{{__ 'Search results'}}</h4>
             {{#each users}}
                 <div class="row nomargin">
                     <div class="large-3 column username">{{this.username}}</div>
@@ -37,7 +37,7 @@
 
     <div class="row">
         <div class="large-12 columns following">
-            <h4>{{__ "Following"}}</h4>
+            <h4 class="dark">{{__ "Following"}}</h4>
             <div class="cols">
             {{#each user.following}}
                 <p><a href="/profile/{{this.username}}">{{this.name}}</a></p>
@@ -50,7 +50,7 @@
 
     <div class="row">
         <div class="large-12 columns followers">
-            <h4>{{__ "Followers"}}</h4>
+            <h4 class="dark">{{__ "Followers"}}</h4>
             <div class="cols">
             {{#each user.followers}}
                 <p><a href="/profile/{{this.username}}">{{this.name}}</a></p>

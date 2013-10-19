@@ -64,5 +64,7 @@
     "Reject": "Avslå",
     "grab": "ta",
     "Grab": "Ta",
-    "Copy": "Kopier"
+    "Copy": "Kopier",
+    "Top tags": "Populære merkelapper",
+    "User not found": "Fant ikke brukeren"
 }

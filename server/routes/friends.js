@@ -1,4 +1,6 @@
 var _ = require('underscore'),
+    Redis = require("redis"),
+    redis = Redis.createClient(),
     async = require('async');
 
 var User = require('../models').User,
@@ -72,37 +74,75 @@ module.exports.followers = function (req, res) {
 };
 
 module.exports.profile = function (req, res) {
-    User.findOne({username: req.params.username})
-    .exec(function (err, profile) {
-        if (true || profile && _.indexOf(profile.follows, req.user._id) > -1) {
-            var page = parseInt(req.query.page, 10) || 0;
-            var per_page = 50;
-            Link.find({creator: profile._id, private: false}, {}, {skip: per_page * page, limit: per_page})
-            .sort('-created')
-            .exec(function (err, links) {
-                if (err) {
-                    next(err);
-                }
-                _.each(links, function(link) {
-                    link.joined_tags = link.tags.join(", ");
+    if (true || profile && _.indexOf(profile.follows, req.user._id) > -1) {
+        async.waterfall([
+            function(callback){ // fetch user profile
+                User.findOne({username: req.params.username})
+                .exec(function (err, profile) {
+                    if (err) {
+                        return callback({
+                            status: 500,
+                            error: err
+                        });
+                    }
+
+                    if ( profile === null) {
+                        return callback({
+                            status: 404,
+                            error: res.__("User not found")
+                        });
+                    }
+
+                    var page = parseInt(req.query.page, 10) || 0;
+                    var per_page = 50;
+                    Link.find({creator: profile._id, private: false}, {}, {skip: per_page * page, limit: per_page})
+                    .sort('-created')
+                    .exec(function (err, links) {
+                        if (err) {
+                            next(err);
+                        }
+                        _.each(links, function(link) {
+                            link.joined_tags = link.tags.join(", ");
+                        });
+                        var previous = 0;
+                        var next =  page;
+                        if (page > 0) {
+                            previous = page - 1;
+                        }
+                        if (links.length === per_page) {
+                            next = page + 1;
+                        }
+                        return callback(err, {
+                            links: links,
+                            profile: profile,
+                            previous: previous,
+                            next: next
+                        });
+                    });
                 });
-                var previous = 0;
-                var next =  page;
-                if (page > 0) {
-                    previous = page - 1;
-                }
-                if (links.length === per_page) {
-                    next = page + 1;
-                }
-                return res.render('friends/profile', {
-                    links: links,
-                    profile: profile,
-                    previous: previous,
-                    next: next
+            },
+
+            function callback(result, callback) { // fetch tags
+                var id = 'tags_' + result.profile._id;
+                redis.zrevrangebyscore(id, 10, 1, "withscores", function (err, tags_list) {
+                    var tags = [];
+                    for (var i = 0; i < tags_list.length; i += 2) {
+                        tags.push({'text': tags_list[i], 'score': tags_list[i+1]});
+                    }
+                    result.tags = tags;
+
+                    callback(err, result);
                 });
-            });
-        } else {
-            return res.json(403, {'status': 'You are not allowed to see this'});
-        }
-    });
+            }
+        ], function(err, result){
+            if (err) {
+                return res.render(err.status, {
+                    error: err.error
+                });
+            }
+            return res.render('friends/profile', result);
+        });
+    } else {
+        return res.json(403, {'error': res.__('You are not allowed to see this')});
+    }
 };
