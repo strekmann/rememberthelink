@@ -116,6 +116,12 @@ module.exports.new_link = function (req, res) {
         });
     }
 
+    Link.findOne({url: req.query.url, creator: req.user._id}).exec(function (err, link) {
+        if (link) {
+            res.redirect('/edit/' + link.id);
+        }
+    });
+
     request(req.query.url, function(error, response, body){
         if (!error && response.statusCode === 200) {
             var $ = cheerio.load(body);
