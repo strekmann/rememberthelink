@@ -61,5 +61,10 @@
     "All users": "All users",
     "Export your bookmarks": "Export your bookmarks",
     "Bookmarks file": "Bookmarks file",
-    "JSON structured file": "JSON structured file"
+    "JSON structured file": "JSON structured file",
+    "Add": "Add",
+    "Tag": "Tag",
+    "Suggested links": "Suggested links",
+    "Accept": "Accept",
+    "Reject": "Reject"
 }
