@@ -18,7 +18,7 @@ var filename = process.argv[2];
 if (filename) {
     async.series([ function (callback) {
         User.find({}).exec(function (err, users) {
-            var all = async.map(
+            async.map(
                 users,
                 function (user, callback) {
                     var new_user = {};
@@ -46,7 +46,7 @@ if (filename) {
         });
     }],
     function (err, users) {
-        fs.writeFile(filename, JSON.stringify(users), finish);
+        fs.writeFile(filename, JSON.stringify({users: users[0]}), finish);
     });
 } else {
     console.log("Please provide a filename to backup to.");
