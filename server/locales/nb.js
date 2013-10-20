@@ -67,5 +67,6 @@
     "Copy": "Kopier",
     "Top tags": "Populære merkelapper",
     "User not found": "Fant ikke brukeren",
-    "No tags registered": "No tags registered"
+    "No tags registered": "No tags registered",
+    "Tag": "Tag"
 }
