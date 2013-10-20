@@ -32,6 +32,22 @@ function set_private(_private) {
     }
 }
 
+function clean_link(link) {
+    var new_link = {};
+    new_link.url = link.url;
+    new_link.created = link.created.getTime();
+    if (link.title) {
+        new_link.title = link.title;
+    }
+    if (link.description) {
+        new_link.description = link.description;
+    }
+    if (link.tags.length) {
+        new_link.tags = link.tags;
+    }
+    return new_link;
+}
+
 // links routes
 module.exports.index = function(req, res, next){
     if (!req.isAuthenticated()) {
@@ -561,5 +577,12 @@ module.exports.export_bookmarks = function (req, res) {
         res.set('Content-Type', 'text/html');
         res.set('Content-Disposition', 'attachment; filename="bookmarks.html"');
         res.send(new Buffer(bookmarks));
+    });
+};
+
+module.exports.export_json = function (req, res) {
+    Link.find({creator: req.user._id}).exec(function (err, links) {
+        cleaned_links = _.map(links, clean_link);
+        res.json(200, {bookmarks: cleaned_links});
     });
 };
