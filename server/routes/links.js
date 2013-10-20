@@ -47,6 +47,7 @@ function clean_link(link) {
     }
     return new_link;
 }
+module.exports.clean_link = clean_link;
 
 // links routes
 module.exports.index = function(req, res, next){
