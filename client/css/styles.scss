@@ -20,6 +20,8 @@ $fbtnStart: #faaa4b;
 $fbtnEnd: #ea9a3b;
 $fbtnBorder: #e89839;
 
+$heroBgColor: #f1f4f8;
+
 .clearfix:after {
     clear: both;
     content: "";
@@ -281,6 +283,21 @@ form.editform {
                     color: #333;
                 }
             }
+        }
+    }
+
+    .tags {
+        li {
+            line-height: 25px;
+            margin-bottom: 4px;
+        }
+        .count {
+            display: inline-block;
+            background: $heroBgColor;
+            padding-left: 4px;
+            padding-right: 4px;
+            min-width: 25px;
+            text-align: center;
         }
     }
 }

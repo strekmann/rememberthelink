@@ -32,10 +32,10 @@
         </div>
         <div class="large-2 columns">
             <h4 class="dark">{{__ "Top tags"}}</h4>
-            <ul>
+            <ul class="tags">
                 {{#each tags}}
                 <li>
-                    <span class="count">{{this.count}}</span>
+                    <span class="count">{{this.score}}</span>
                     <span class="text"><a href="/tags/{{this.text}}">{{this.text}}</a></span>
                 </li>
                 {{else}}

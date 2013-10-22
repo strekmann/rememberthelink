@@ -66,5 +66,8 @@
     "Tag": "Tag",
     "Suggested links": "Suggested links",
     "Accept": "Accept",
-    "Reject": "Reject"
+    "Reject": "Reject",
+    "User not found": "User not found",
+    "Copy": "Copy",
+    "Top tags": "Top tags"
 }
