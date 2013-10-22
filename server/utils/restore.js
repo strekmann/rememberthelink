@@ -18,7 +18,9 @@ function finish() {
 var filename = process.argv[2];
 if (filename) {
     fs.readFile(filename, function (err, contents) {
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
         var users = JSON.parse(contents).users;
         async.map(
             users,
