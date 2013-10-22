@@ -29,13 +29,15 @@ describe("links", function(){
 
     describe("fetch logged in frontpage", function(){
         it("should show index for logged in user", function(done){
-            app.get('/', function(req, res){
-                req.user = user;
+            app.get('/test/', function(req, res){
+                req.user = user; // add test user to request
+                res.locals.user = user; // add user to templates
                 return routes.index(req, res);
             });
 
             request(app)
-                .get('/')
+                .get('/test/')
+                .set('Accept', 'text/html')
                 .expect(200)
                 .end(function(err, res){
                     if (err) { return done(err); }
