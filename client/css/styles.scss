@@ -196,6 +196,11 @@ form.editform {
             color: #333;
             line-height: .8em;
         }
+
+        .urls li {
+            line-height: 1;
+            margin: 0.6em auto;
+        }
     }
 
     .bookmarklet {
@@ -300,6 +305,7 @@ form.editform {
             text-align: center;
         }
     }
+
 }
 
 #friends-index {

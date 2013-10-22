@@ -27,7 +27,7 @@
         <div class="row popular">
             <div class="large-6 columns">
                 <h2>{{__ "Popular tags"}}</h2>
-                <ul>
+                <ul class="tags">
                     {{#each tags}}
                     <li>{{this}}</li>
                     {{/each}}
@@ -36,7 +36,7 @@
             </div>
             <div class="large-6 columns">
                 <h2>{{__ "Popular urls"}}</h2>
-                <ul>
+                <ul class="urls">
                     {{#each urls}}
                     <li><a href="{{this}}">{{displayurl this}}</a></li>
                     {{/each}}
