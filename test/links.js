@@ -100,6 +100,6 @@ describe("links", function(){
                                 });
                         });
                 });
-        })
+        });
     });
 });
