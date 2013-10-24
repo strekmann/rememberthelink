@@ -9,7 +9,10 @@ production:
 watch:
 	@./node_modules/.bin/grunt watch
 
-test:
+hint:
+	@./node_modules/.bin/grunt hint
+
+test: hint
 	@NODE_ENV=test ./node_modules/.bin/mocha \
 		--reporter $(REPORTER) \
 		--ui bdd
@@ -30,4 +33,4 @@ test-bot:
 		--ui bdd \
 		test/bot/*.js
 
-.PHONY: build production watch test test-w bot
+.PHONY: build production watch test test-w bot hint
