@@ -1,4 +1,4 @@
-describe("Requests", function(){
+describe("Error handling", function(){
     describe("fetching unknown url", function(){
         it("should return 404", function(done){
             request(app)
@@ -9,5 +9,9 @@ describe("Requests", function(){
                     done();
                 });
         });
+    });
+
+    describe("page with server error", function(){
+        it("should return 500");
     });
 });
