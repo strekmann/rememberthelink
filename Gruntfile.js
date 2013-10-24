@@ -84,4 +84,5 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['jshint', 'sass', 'concat', 'browserify']);
     grunt.registerTask('prod', ['jshint', 'sass', 'concat', 'browserify', 'uglify']);
+    grunt.registerTask('hint', ['jshint']);
 }
