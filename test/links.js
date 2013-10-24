@@ -27,27 +27,6 @@ describe("links", function(){
         done();
     });
 
-    describe("fetch frontpage for logged in user", function(){
-        it("should show index for logged in user", function(done){
-            app.get('/test/', function(req, res){
-                req.user = user; // add test user to request
-                res.locals.user = user; // add user to templates
-                return link_routes.index(req, res);
-            });
-
-            request(app)
-                .get('/test/')
-                .set('Accept', 'text/html')
-                .expect(200)
-                .end(function(err, res){
-                    if (err) { return done(err); }
-                    $ = cheerio.load(res.text);
-                    $('#nav-username').first().text().should.equal('testuser');
-                    done();
-                });
-        });
-    });
-
     describe("save link", function () {
         it("should let user save one link", function (done) {
             app.get('/test/', function(req, res){
