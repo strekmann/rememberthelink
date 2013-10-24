@@ -10,17 +10,4 @@ describe("Requests", function(){
                 });
         });
     });
-
-    describe("fetching protected url", function(){
-        it("should redirect to login", function(done){
-            request(app)
-                .get("/account")
-                .expect(302)
-                .end(function(err, res){
-                    if (err) { return done(err); }
-                    res.text.should.equal('Moved Temporarily. Redirecting to /login');
-                    done();
-                });
-        });
-    });
 });
