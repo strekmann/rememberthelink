@@ -5,7 +5,6 @@ var chai = require('chai');
 chai.should();
 
 app.db = mongoose.connect('mongodb://localhost/' + app.conf.db_name + '_test');
-app.db.connection.db.dropDatabase();
 
 global.app = app;
 global.expect = chai.expect;

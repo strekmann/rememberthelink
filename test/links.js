@@ -27,15 +27,18 @@ describe("Links", function(){
             username: 'testuser',
             name: 'Mr. Test'
         });
+
         user.save(function(err){
+            console.log("SAAD");
             done(err);
         });
     });
 
     after(function(done){
         // cleanup
-        app.db.connection.db.dropDatabase();
-        done();
+        app.db.connection.db.dropDatabase(function(){
+            done();
+        });
     });
 
     describe("list links", function(){

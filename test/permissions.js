@@ -26,8 +26,9 @@ describe("Permissions", function () {
 
     after(function(done){
         // cleanup
-        app.db.connection.db.dropDatabase();
-        done();
+        app.db.connection.db.dropDatabase(function(){
+            done();
+        });
     });
 
     describe("fetching protected url", function(){
