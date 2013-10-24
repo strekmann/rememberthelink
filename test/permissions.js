@@ -1,5 +1,35 @@
 describe("Permissions", function () {
 
+    var cheerio = require('cheerio'),
+        link_routes = require('../server/routes/links'),
+        User = require('../server/models').User,
+        user;
+
+    before(function(done){
+        // routes
+        app.get('/test/', function(req, res){
+            req.user = user; // add test user to request
+            res.locals.user = user; // add user to templates
+            return link_routes.index(req, res);
+        });
+
+        // mock
+        user = new User({
+            _id: 'testid',
+            username: 'testuser',
+            name: 'Mr. Test'
+        });
+        user.save(function(err){
+            done(err);
+        });
+    });
+
+    after(function(done){
+        // cleanup
+        app.db.connection.db.dropDatabase();
+        done();
+    });
+
     describe("fetching protected url", function(){
         it("should redirect to login", function(done){
             request(app)
