@@ -19,6 +19,8 @@
                         <div class="description">{{description}}</div>
                     </div>
                 </li>
+                {{else}}
+                    <li>{{__ "No suggestions for you at the momemt."}}</li>
                 {{/each}}
             </ul>
         </div>

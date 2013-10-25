@@ -5,6 +5,8 @@
             <h2>{{__ "Your most used tags"}}</h2>
             {{#each tags}}
             <span style="font-size: {{calcTagCloudSize this.score ../max}}"'><a class="tag" href="/tags/{{this.text}}">{{this.text}}</a></span>
+            {{else}}
+                {{__ "No tags registered yet."}}
             {{/each}}
         </div>
     </div>
