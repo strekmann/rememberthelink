@@ -8,8 +8,7 @@ var _ = require('underscore'),
     Link = require('../models/links').Link,
     Suggestion = require('../models/links').Suggestion,
     localsettings = require('../settings'),
-    Redis = require("redis"),
-    redis = Redis.createClient(),
+    redis = require('../lib/redisclient'),
     async = require('async');
 
 //libs

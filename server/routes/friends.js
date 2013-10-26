@@ -1,6 +1,5 @@
 var _ = require('underscore'),
-    Redis = require("redis"),
-    redis = Redis.createClient(),
+    redis = require('../lib/redisclient'),
     async = require('async');
 
 var User = require('../models').User,

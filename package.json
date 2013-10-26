@@ -51,6 +51,7 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-watch": "~0.4.4",
-    "grunt-browserify": "~1.2.5"
+    "grunt-browserify": "~1.2.5",
+    "fakeredis": "~0.1.1"
   }
 }
