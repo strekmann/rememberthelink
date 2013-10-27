@@ -69,5 +69,13 @@
     "Reject": "Reject",
     "User not found": "User not found",
     "Copy": "Copy",
-    "Top tags": "Top tags"
+    "Top tags": "Top tags",
+    "You are not allowed to see this": "You are not allowed to see this",
+    "Could not save": "Could not save",
+    "No tags registered": "No tags registered",
+    "We": "We",
+    "No tags registered yet.": "No tags registered yet.",
+    "Import": "Import",
+    "Upload": "Upload",
+    "No suggestions for you at the momemt.": "No suggestions for you at the momemt."
 }

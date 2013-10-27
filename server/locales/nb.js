@@ -68,5 +68,16 @@
     "Top tags": "Populære merkelapper",
     "User not found": "Fant ikke brukeren",
     "No tags registered": "No tags registered",
-    "Tag": "Tag"
+    "Tag": "Tag",
+    "You are not allowed to see this": "You are not allowed to see this",
+    "Could not save": "Could not save",
+    "All users": "All users",
+    "We": "We",
+    "No tags registered yet.": "No tags registered yet.",
+    "Export your bookmarks": "Export your bookmarks",
+    "Bookmarks file": "Bookmarks file",
+    "JSON structured file": "JSON structured file",
+    "Import": "Import",
+    "Upload": "Upload",
+    "No suggestions for you at the momemt.": "No suggestions for you at the momemt."
 }
