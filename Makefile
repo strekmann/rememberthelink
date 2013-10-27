@@ -12,6 +12,9 @@ watch:
 hint:
 	@./node_modules/.bin/grunt hint
 
+locales:
+	@./node_modules/.bin/grunt locales
+
 test: hint
 	@NODE_ENV=test ./node_modules/.bin/mocha \
 		--reporter $(REPORTER) \
@@ -33,4 +36,4 @@ test-bot:
 		--ui bdd \
 		test/bot/*.js
 
-.PHONY: build production watch test test-w bot hint
+.PHONY: build production watch test test-w bot hint locales

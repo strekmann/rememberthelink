@@ -72,8 +72,18 @@ module.exports = function(grunt) {
                 files: ['client/css/**/*.scss'],
                 tasks: ['sass', 'concat:css']
             }
+        },
+        i18n: {
+            js: {
+                src: ['server/**/*.js']
+            },
+            hbs: {
+                src: ['server/**/*.hbs']
+            }
         }
     });
+
+    grunt.loadTasks('tasks');
 
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -85,4 +95,5 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jshint', 'sass', 'concat', 'browserify']);
     grunt.registerTask('prod', ['jshint', 'sass', 'concat', 'browserify', 'uglify']);
     grunt.registerTask('hint', ['jshint']);
+    grunt.registerTask('locales', ['i18n']);
 }
