@@ -13,7 +13,7 @@ describe("I18n", function(){
             var text = "With blueberry jam",
                 __ = app.i18n.__;
 
-            __({phrase: text, locale: 'zh'}).should.equal("和蓝莓酱");
+            __({phrase: text, locale: 'zh'}).should.equal("同蓝莓酱");
         });
     });
 });
