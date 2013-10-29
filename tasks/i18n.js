@@ -3,12 +3,22 @@
 	fint translation and add them to locale files
 */
 
-function getMatches(re, str, index) {
+function getMatches(re, str) {
 	var matches = [],
 		match;
 
 	while (match = re.exec(str)) {
-		matches.push(match[index]);
+		matches.push(match[1]);
+	}
+	return matches;
+}
+
+function getPluralMatches(re, str) {
+	var matches = [],
+		match;
+
+	while (match = re.exec(str)) {
+		matches.push({singular: match[1], plural: match[2]});
 	}
 	return matches;
 }
@@ -29,9 +39,12 @@ module.exports = function(grunt){
     });
 
 	grunt.registerMultiTask('i18n', 'Populate i18n locale files', function() {
+		// translations containing ' or " will mess with us >_<
 		var options = this.options({
 			singlejs: /__\(["|'](.+?)["|']\)/g,
-			singlehbs: /__\s+["|'](.+?)["|']/g
+			singlehbs: /__\s+["|'](.+?)["|']/g,
+			pluraljs: /__n\(["|'](.+?)["|']\s*,\s*["|'](.+?)["|']\)/g,
+			pluralhbs: /__n\s+["|'](.+?)["|']\s+["|'](.+?)["|']/g
 		});
 
 		this.files.forEach(function(f){
@@ -48,14 +61,24 @@ module.exports = function(grunt){
 			src.forEach(function(filepath){
 				var content = grunt.file.read(filepath);
 
-				// single translations __() and {{__ ""}}
-				var hits = getMatches(options.singlejs, content, 1);
-				hits = hits.concat(getMatches(options.singlehbs, content, 1));
+				// single translations __(..) and {{__ ""}}
+				var hits = getMatches(options.singlejs, content);
+				hits = hits.concat(getMatches(options.singlehbs, content));
 				hits.forEach(function(hit){
 					config.i18n.locales.forEach(function(locale){
 						i18n.setLocale(locale);
 						i18n.__(hit);
-					});					
+					});
+				});
+
+				// plural translations __n(..,..) and {{__n "" ""}}
+				var hits = getPluralMatches(options.pluraljs, content);
+				hits = hits.concat(getPluralMatches(options.pluralhbs, content));
+				hits.forEach(function(hit){
+					config.i18n.locales.forEach(function(locale){
+						i18n.setLocale(locale);
+						i18n.__n(hit.singular, hit.plural, 1);
+					});
 				});
 			});
 		});
