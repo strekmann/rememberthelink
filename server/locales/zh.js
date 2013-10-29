@@ -69,5 +69,9 @@
     "Accept": "接受",
     "Reject": "拒绝",
     "No suggestions for you at the momemt.": "暂时无建议.",
-    "Login with Google": "谷歌账号登入"
+    "Login with Google": "谷歌账号登入",
+    "Now we have in total %s user": {
+        "one": "Now we have in total %s user",
+        "other": "Now we have in total %s users"
+    }
 }
