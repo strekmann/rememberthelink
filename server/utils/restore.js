@@ -1,5 +1,6 @@
 // -- import configuration
 var mongoose = require('mongoose'),
+    redis = require('../lib/redisclient'),
     async = require('async'),
     _ = require('underscore'),
     fs = require('fs'),
@@ -46,6 +47,7 @@ if (filename) {
                                         if (!dblink) {
                                             dblink = new Link();
                                             dblink.url = link.url;
+                                            dblink.creator = dbuser._id;
                                             dblink.created = new Date(link.created);
                                             if (link.title) {
                                                 dblink.title = link.title;
@@ -53,14 +55,28 @@ if (filename) {
                                             if (link.description) {
                                                 dblink.description = link.description;
                                             }
-                                            if (link.tags.length) {
+                                            if (link.tags && link.tags.length) {
                                                 dblink.tags = link.tags;
+                                                async.each(
+                                                    dblink.tags,
+                                                    function (tag, callback) {
+                                                        tag = tag.trim();
+                                                        if (tag.length > 0) {
+                                                            redis.zincrby('tags', 1, tag);
+                                                            redis.zincrby('tags_' + dbuser._id, 1, tag);
+                                                        }
+                                                        callback(null);
+                                                    },
+                                                    function (err) {
+                                                    }
+                                                );
                                             }
                                         }
                                         dblink.save(function (err) {
                                             if (err) {
                                                 callback(err, 0);
                                             } else {
+                                                redis.zincrby('urls', 1, dblink.url);
                                                 callback(null, 1);
                                             }
                                         });
