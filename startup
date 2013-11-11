@@ -4,21 +4,26 @@
 # description: rememberthelink server
 # processname: rememberthelink
 
-DAEMON_PATH="/srv/rememberthenlink/rememberthelink"
+DAEMON_PATH="/srv/rememberthelink/rememberthelink"
 
-DAEMON="NODE_ENV=production PORT=3214 DB=rtl dtach -n /tmp/rtl node /srv/rememberthelink/rememberthelink/cluster.js"
+DAEMON="node /srv/rememberthelink/rememberthelink/cluster.js"
 DAEMONOPTS=""
 
 NAME=rememberthelink
 DESC="My daemon description"
 PIDFILE=/var/run/$NAME.pid
+LOGFILE=/srv/rememberthelink/server.log
 SCRIPTNAME=/etc/init.d/$NAME
+
+export NODE_ENV=production
+export PORT=3214
+export DB=rtl
 
 case "$1" in
 start)
     printf "%-50s" "Starting $NAME..."
     cd $DAEMON_PATH
-    PID=`$DAEMON $DAEMONOPTS > /dev/null 2>&1 & echo $!`
+    PID=`$DAEMON $DAEMONOPTS >> $LOGFILE 2>&1 & echo $!`
     #echo "Saving PID" $PID " to " $PIDFILE
         if [ -z $PID ]; then
             printf "%s\n" "Fail"
