@@ -2,35 +2,41 @@ describe("Links", function(){
     var cheerio = require('cheerio'),
         link_routes = require('../server/routes/links'),
         User = require('../server/models').User,
+        Link = require('../server/models/links').Link,
         user;
 
     before(function(done){
-        // routes
-        app.get('/test/', function(req, res){
-            req.user = user; // add test user to request
-            res.locals.user = user; // add user to templates
-            return link_routes.index(req, res);
-        });
+        app.db.connection.db.dropDatabase(function(){
+            // routes
+            app.get('/test/', function(req, res){
+                req.user = user; // add test user to request
+                res.locals.user = user; // add user to templates
+                return link_routes.index(req, res);
+            });
 
-        app.get('/test/new', function (req, res) {
-            req.user = res.locals.user = user;
-            return link_routes.new_link(req, res);
-        });
-        app.post('/test/new', function (req, res) {
-            req.user = res.locals.user = user;
-            return link_routes.create_link(req, res);
-        });
+            app.get('/test/new', function (req, res) {
+                req.user = res.locals.user = user;
+                return link_routes.new_link(req, res);
+            });
+            app.post('/test/new', function (req, res) {
+                req.user = res.locals.user = user;
+                return link_routes.create_link(req, res);
+            });
+            app.delete('/test/delete', function (req, res) {
+                req.user = res.locals.user = user;
+                return link_routes.delete_link(req, res);
+            });
 
-        // mock
-        user = new User({
-            _id: 'testid',
-            username: 'testuser',
-            name: 'Mr. Test'
-        });
+            // mock
+            user = new User({
+                _id: 'testid',
+                username: 'testuser',
+                name: 'Mr. Test'
+            });
 
-        user.save(function(err){
-            console.log("SAAD");
-            done(err);
+            user.save(function(err){
+                done(err);
+            });
         });
     });
 
@@ -97,6 +103,32 @@ describe("Links", function(){
     });
 
     describe("delete link", function(){
-        it("should remove link");
+        var url = 'http://rememberthelink.com/';
+        it("should remove link", function (done) {
+            request(app)
+                .del('/test/delete')
+                .send({url: url})
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    done();
+                });
+        });
+
+        it("should find no links", function(done){
+            request(app)
+                .get('/test/')
+                .set('Accept', 'text/html')
+                .expect(200)
+                .end(function(err, res){
+                    if (err) { return done(err); }
+                    $ = cheerio.load(res.text);
+                    var links = $('#links-index .links').children();
+                    links.length.should.equal(0);
+                    done();
+                });
+        });
     });
 });
