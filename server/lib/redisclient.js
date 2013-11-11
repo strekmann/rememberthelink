@@ -1,7 +1,6 @@
+var redis = require('redis');
+var client = redis.createClient();
 if (process.env.NODE_ENV === "test") {
-	var redis = require('fakeredis');
-	module.exports = redis.createClient();
-} else {
-	var redis = require('redis');
-	module.exports = redis.createClient();
+    client.select(1);
 }
+module.exports = client;
