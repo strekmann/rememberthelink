@@ -8,7 +8,7 @@ module.exports = {
         btn.on('click', function(){
             errors.empty();
             $.ajax({
-                type: 'POST',
+                type: 'PUT',
                 url: window.location.href,
                 data: form.serialize(),
                 success: function(data) {
