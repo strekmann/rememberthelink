@@ -65,6 +65,15 @@ describe("Migration", function() {
         });
     });
 
+    describe("export all data", function () {
+        it("should export all data as json", function (done) {
+            export_all(function (err, users) {
+                users.length.should.equal(1);
+                done();
+            });
+        });
+    });
+
     describe("export user data", function(){
         it("should return user data feed", function (done) {
             request(app)
@@ -111,12 +120,4 @@ describe("Migration", function() {
         });
     });
 
-    describe("export all data", function () {
-        it("should export all data as json", function (done) {
-            export_all(function (err, users) {
-                users.length.should.equal(1);
-                done();
-            });
-        });
-    });
 });
