@@ -5,7 +5,6 @@ describe("Links", function(){
     var cheerio = require('cheerio'),
         link_routes = require('../server/routes/links'),
         User = require('../server/models').User,
-        Link = require('../server/models/links').Link,
         user;
 
     before(function(done){
