@@ -18,7 +18,7 @@ require('./bootstrap').boot(app);
 var core_routes = require('./routes/index');
 //app.get('/', core_routes.index);
 app.get('/account', app.ensureAuthenticated, core_routes.account);
-app.post('/account', app.ensureAuthenticated, core_routes.save_account);
+app.put('/account', app.ensureAuthenticated, core_routes.update_account);
 app.get('/login', core_routes.login);
 app.get('/logout', core_routes.logout);
 app.get('/auth/google', app.passport.authenticate('google', { scope: [

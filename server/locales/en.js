@@ -77,5 +77,6 @@
     "No tags registered yet.": "No tags registered yet.",
     "Import": "Import",
     "Upload": "Upload",
-    "No suggestions for you at the momemt.": "No suggestions for you at the momemt."
+    "No suggestions for you at the momemt.": "No suggestions for you at the momemt.",
+    "username is already in use": "username is already in use"
 }
