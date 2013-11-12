@@ -47,10 +47,6 @@ describe("Links", function(){
         });
     });
 
-    describe("list links", function(){
-        it("should list links");
-    });
-
     describe("save link", function () {
         var url,
             title;
@@ -99,6 +95,47 @@ describe("Links", function(){
                     // TODO: Check tags
                     done();
                 });
+        });
+    });
+
+    describe("list links", function(){
+        it("should list links and check that all controls are present", function (done) {
+            request(app)
+                .get('/test/')
+                .set('Accept', 'text/html')
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    $ = cheerio.load(res.text);
+                    var links = $('#links-index .links').children();
+                    links.length.should.equal(1);
+                    var first = links.first();
+                    first.find('h2.title a').attr('href').should.equal('http://rememberthelink.com/');
+                    first.find('h2.title a').text().should.equal('Remember the link');
+                    first.find('.description').text().should.equal('Nothing to see here');
+                    var subtext = first.find('.subtext');
+                    var date = subtext.find('span.date');
+                    date.length.should.equal(1);
+                    date.attr('title').length.should.be.above(10);
+                    var url = subtext.find('.url');
+                    //url.should.equal('http://rememberthelink.com/');
+                    var controls = first.find('.controls');
+                    var share = controls.find('.share');
+                    var ok = share.should.be.ok;
+                    //share.should.have.property('data-trans-share');
+                    assert(share.attr('data-trans-share'), true);
+                    var edit = controls.find('.edit');
+                    assert(edit, true);
+                    edit.attr('href').should.match(/^edit\/\w+$/);
+                    var del = controls.find('.delete');
+                    assert(del, true);
+                    var sure = controls.find('.sure');
+                    assert(sure, true);
+                    sure.attr('style').should.equal('display: none');
+                    done();
+            });
         });
     });
 
