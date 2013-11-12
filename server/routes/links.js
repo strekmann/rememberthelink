@@ -558,7 +558,7 @@ module.exports.export_bookmarks = function (req, res) {
         '<TITLE>Bookmarks</TITLE>',
         '<H1>Bookmarks</H1>',
         '<DL><p>'
-    ].join(sep);
+    ].join(sep) + sep;
 
     Link.find({creator: req.user._id}).exec(function (err, links) {
         _.each(links, function (link, i) {
