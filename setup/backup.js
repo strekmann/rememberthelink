@@ -1,7 +1,7 @@
 // -- import configuration
 var mongoose = require('mongoose'),
     fs = require('fs'),
-    conf = require('../settings/config'),
+    conf = require('../server/settings/config'),
     export_all = require('./lib/migration').export_all,
     settings = conf.config;
 

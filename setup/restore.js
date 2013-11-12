@@ -2,7 +2,7 @@
 var mongoose = require('mongoose'),
     fs = require('fs'),
     import_all = require('./lib/migration').import_all,
-    conf = require('../settings/config'),
+    conf = require('../server/settings/config'),
     settings = conf.config;
 
 mongoose.connect('mongodb://localhost/' + conf.config.db_name);

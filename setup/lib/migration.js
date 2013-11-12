@@ -1,9 +1,9 @@
 var async = require('async'),
     _ = require('underscore'),
-    redis = require('../../lib/redisclient'),
-    clean_link = require('../../routes/links').clean_link,
-    User = require('../../models').User,
-    Link = require('../../models/links').Link;
+    redis = require('../../server/lib/redisclient'),
+    clean_link = require('../../server/routes/links').clean_link,
+    User = require('../../server/models').User,
+    Link = require('../../server/models/links').Link;
 
 module.exports.export_all = function (callback) {
     User.find({}).exec(function (err, users) {

@@ -6,9 +6,10 @@ describe("Migration", function() {
         link_routes = require('../server/routes/links'),
         User = require('../server/models').User,
         Link = require('../server/models/links').Link,
-        export_all = require('../server/utils/lib/migration').export_all,
+        export_all = require('../setup/lib/migration').export_all,
+        import_all = require('../setup/lib/migration').import_all,
         user,
-        data;
+        user_data;
 
     before(function (done) {
         app.db.connection.db.dropDatabase(function () {
