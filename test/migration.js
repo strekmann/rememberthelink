@@ -99,7 +99,6 @@ describe("Migration", function() {
                             Link.find(function (err, links) {
                                 links.length.should.equal(2);
                                 _.each(links, function (link) {
-                                    console.dir(link);
                                     link.url.should.match(/^http:\/\/\d+\.example\.com\/$/);
                                     link.title.should.match(/^Link \d+$/);
                                     link.creator.should.equal('testid');
