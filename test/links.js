@@ -1,3 +1,6 @@
+/*jshint expr: true*/
+// using should.js ...
+
 describe("Links", function(){
     var cheerio = require('cheerio'),
         link_routes = require('../server/routes/links'),
@@ -120,19 +123,18 @@ describe("Links", function(){
                     date.length.should.equal(1);
                     date.attr('title').length.should.be.above(10);
                     var url = subtext.find('.url');
-                    //url.should.equal('http://rememberthelink.com/');
+                    url.text().should.equal('http://rememberthelink.com/');
                     var controls = first.find('.controls');
                     var share = controls.find('.share');
-                    var ok = share.should.be.ok;
-                    //share.should.have.property('data-trans-share');
-                    assert(share.attr('data-trans-share'), true);
+                    share.should.be.ok;
+                    share.attr('data-trans-share').should.be.ok;
                     var edit = controls.find('.edit');
-                    assert(edit, true);
+                    edit.should.be.ok;
                     edit.attr('href').should.match(/^edit\/\w+$/);
                     var del = controls.find('.delete');
-                    assert(del, true);
+                    del.should.be.ok;
                     var sure = controls.find('.sure');
-                    assert(sure, true);
+                    sure.should.be.ok;
                     sure.attr('style').should.equal('display: none');
                     done();
             });
