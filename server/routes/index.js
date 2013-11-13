@@ -9,7 +9,7 @@ module.exports.account = function(req, res){
     res.render('account');
 };
 
-module.exports.save_account = function(req, res){
+module.exports.update_account = function(req, res){
     return User.findById(req.user._id, function(err, user){
         if (err) {
             return res.json(200, {
@@ -38,7 +38,13 @@ module.exports.save_account = function(req, res){
         return user.save(function(err){
             if (err) {
                 return res.json(200, {
-                    error: err.message
+                    errors: [
+                        {
+                            param: 'username',
+                            msg: res.__('username is already in use'),
+                            value: req.body.username
+                        }
+                    ]
                 });
             }
             return res.json(200, {
