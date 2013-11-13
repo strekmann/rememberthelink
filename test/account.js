@@ -7,37 +7,37 @@ describe("Account", function(){
         cheerio = require('cheerio'),
         async = require('async');
 
-        before(function(done){
-            app.db.connection.db.dropDatabase(function(){
-                // routes
-                app.get('/test/account', function(req, res){
-                    req.user = user; // add test user to request
-                    res.locals.user = user; // add user to templates
-                    return account_routes.account(req, res);
-                });
+    before(function(done){
+        app.db.connection.db.dropDatabase(function(){
+            // routes
+            app.get('/test/account', function(req, res){
+                req.user = user; // add test user to request
+                res.locals.user = user; // add user to templates
+                return account_routes.account(req, res);
+            });
 
-                app.put('/test/account', function(req, res){
-                    req.user = user;
-                    return account_routes.update_account(req, res);
-                });
+            app.put('/test/account', function(req, res){
+                req.user = user;
+                return account_routes.update_account(req, res);
+            });
 
-                // mock
-                user = new User({
-                    _id: 'mrtest.1234567890',
-                    username: 'testuser',
-                    name: 'Mr. Test',
-                    email: 'mr.test@rememberthelink.com',
-                    is_active: true,
-                    is_admin: false,
-                    created: new Date(),
-                    google_id: '1234567890'
-                });
+            // mock
+            user = new User({
+                _id: 'mrtest.1234567890',
+                username: 'testuser',
+                name: 'Mr. Test',
+                email: 'mr.test@rememberthelink.com',
+                is_active: true,
+                is_admin: false,
+                created: new Date(),
+                google_id: '1234567890'
+            });
 
-                user.save(function(err){
-                    done(err);
-                });
+            user.save(function(err){
+                done(err);
             });
         });
+    });
 
     after(function(done){
         // cleanup
