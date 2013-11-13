@@ -37,6 +37,7 @@ describe("Migration", function() {
                             url: 'http://1.example.com/',
                             title: 'Link 1',
                             creator: user._id,
+                            private: true,
                             tags: ['t1', 't2', 't3']
                         });
                         link.save(function (err) {
@@ -109,9 +110,12 @@ describe("Migration", function() {
                                         link.creator.should.equal('testid');
                                         link.tags.length.should.equal(3);
                                     });
-                                    redis.zrevrange('tags_' + user._id, 0, 9, function (err, tags) {
-                                        tags.length.should.equal(4);
-                                        done();
+                                    Link.count({private: true}, function (err, number) {
+                                        number.should.equal(1);
+                                        redis.zrevrange('tags_' + user._id, 0, 9, function (err, tags) {
+                                            tags.length.should.equal(4);
+                                            done();
+                                        });
                                     });
                                 });
                             });
@@ -152,6 +156,13 @@ describe("Migration", function() {
                         });
                     });
                 });
+            });
+        });
+
+        it("should find one private link after import", function (done) {
+            Link.count({private: true}, function (err, number) {
+                number.should.equal(1);
+                done(err);
             });
         });
     });

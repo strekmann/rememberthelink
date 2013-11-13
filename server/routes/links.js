@@ -35,6 +35,11 @@ function clean_link(link) {
     var new_link = {};
     new_link.url = link.url;
     new_link.created = link.created.getTime();
+    if (link.private) {
+        new_link.private = true;
+    } else {
+        new_link.private = false;
+    }
     if (link.title) {
         new_link.title = link.title;
     }
@@ -409,7 +414,6 @@ module.exports.share = function (req, res) {
     .exec(function (err, suggestion) {
         if (!suggestion) {
             suggestion = new Suggestion();
-            console.log('ny');
         }
         suggestion.url = req.body.url;
         suggestion.to = req.body.id;
@@ -423,7 +427,6 @@ module.exports.share = function (req, res) {
                 });
             }
             redis.zincrby('urls', 1, req.body.url);
-            console.log(suggestion);
 
             return res.json(200, {
                status: true
@@ -515,7 +518,7 @@ module.exports.upload_bookmarks = function (req, res) {
                     tags = _.map(link.attr("tags").split(","), function (tag) {
                         return tag.trim();
                     }),
-                    priv = link.attr("private"),
+                    priv = parseInt(link.attr("private"), 10),
                     title = link.text(),
                     description = $('dd').text();
 
@@ -542,8 +545,12 @@ module.exports.upload_bookmarks = function (req, res) {
                         }
 
                     }
+                    if (priv) {
+                        dblink.private = true;
+                    } else {
+                        dblink.private = false;
+                    }
                     dblink.created = new Date(date);
-                    dblink.private = priv;
                     dblink.title = title;
                     dblink.description = description;
 

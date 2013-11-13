@@ -64,6 +64,12 @@ module.exports.import_all = function (users, callback) {
                                         dblink.url = link.url;
                                         dblink.creator = dbuser._id;
                                         dblink.created = new Date(link.created);
+                                        if (link.private) {
+                                            dblink.private = true;
+                                        } else {
+                                            dblink.private = false;
+                                        }
+
                                         if (link.title) {
                                             dblink.title = link.title;
                                         }
