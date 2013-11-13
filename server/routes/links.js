@@ -519,19 +519,39 @@ module.exports.upload_bookmarks = function (req, res) {
                     title = link.text(),
                     description = $('dd').text();
 
-                Link.update({url: url, creator: req.user._id},
-                            {
-                                private: priv,
-                                created: date,
-                                tags: tags,
-                                title: title,
-                                description: description
-                            },
-                            {upsert: true},
-                            function (err, numdoc) {
-                                affected += numdoc;
-                                callback(err);
-                            });
+                Link.findOne({url: url, creator: req.user._id}, function (err, dblink) {
+                    if (!dblink) {
+                        dblink = new Link();
+                        dblink.url = url;
+                        dblink.creator = req.user._id;
+                        if (tags && tags.length) {
+                            dblink.tags = tags;
+                            async.each(
+                                dblink.tags,
+                                function (tag, callback) {
+                                    tag = tag.trim();
+                                    if (tag.length > 0) {
+                                        redis.zincrby('tags', 1, tag);
+                                        redis.zincrby('tags_' + req.user._id, 1, tag);
+                                    }
+                                    callback(null);
+                                },
+                                function (err) {
+                                }
+                            );
+                        }
+
+                    }
+                    dblink.created = new Date(date);
+                    dblink.private = priv;
+                    dblink.title = title;
+                    dblink.description = description;
+
+                    dblink.save(function (err) {
+                        affected += 1;
+                        callback(err);
+                    });
+                });
             } else {
                 callback();
             }
