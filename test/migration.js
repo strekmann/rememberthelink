@@ -137,25 +137,43 @@ describe("Migration", function() {
     });
 
     describe("import all data", function () {
-        it("should import all data after a database reset", function (done) {
+        it("should reset and import", function (done) {
             app.db.connection.db.dropDatabase(function(){
                 redis.flushdb(function () {
                     import_all(user_data, function (err, statistics) {
-                        if (err) {
-                            done(err);
-                        }
-                        Link.count(function (err, number) {
-                            number.should.equal(2);
-                            redis.zrevrange('urls', 0, 9, function (err, urls) {
-                                urls.length.should.equal(2);
-                                redis.zrevrange('tags', 0, 9, function (err, tags) {
-                                    tags.length.should.equal(4);
-                                    done();
-                                });
-                            });
-                        });
+                        done(err);
                     });
                 });
+            });
+        });
+
+        it("should have two links in database", function (done) {
+            Link.count(function (err, number) {
+                if (err) {
+                    done(err);
+                }
+                number.should.equal(2);
+                done();
+            });
+        });
+
+        it("should have two urls in redis", function (done) {
+            redis.zrevrange('urls', 0, 9, function (err, urls) {
+                if (err) {
+                    done(err);
+                }
+                urls.length.should.equal(2);
+                done();
+            });
+        });
+
+        it("should have four tags in redis", function (done) {
+            redis.zrevrange('tags', 0, 9, function (err, tags) {
+                if (err) {
+                    done(err);
+                }
+                tags.length.should.equal(4);
+                done();
             });
         });
 
