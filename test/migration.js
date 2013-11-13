@@ -102,25 +102,37 @@ describe("Migration", function() {
                                 if (err) {
                                     done(err);
                                 }
-                                Link.find(function (err, links) {
-                                    links.length.should.equal(2);
-                                    _.each(links, function (link) {
-                                        link.url.should.match(/^http:\/\/\d+\.example\.com\/$/);
-                                        link.title.should.match(/^Link \d+$/);
-                                        link.creator.should.equal('testid');
-                                        link.tags.length.should.equal(3);
-                                    });
-                                    Link.count({private: true}, function (err, number) {
-                                        number.should.equal(1);
-                                        redis.zrevrange('tags_' + user._id, 0, 9, function (err, tags) {
-                                            tags.length.should.equal(4);
-                                            done();
-                                        });
-                                    });
-                                });
+                                done();
                             });
                     });
                 });
+            });
+        });
+
+        it("should find and check two links in database", function (done) {
+            Link.find({creator: user._id}, function (err, links) {
+                links.length.should.equal(2);
+                _.each(links, function (link) {
+                    link.url.should.match(/^http:\/\/\d+\.example\.com\/$/);
+                    link.title.should.match(/^Link \d+$/);
+                    link.creator.should.equal('testid');
+                    link.tags.length.should.equal(3);
+                });
+                done();
+            });
+        });
+
+        it("should find one private link", function (done) {
+            Link.count({private: true, creator: user._id}, function (err, number) {
+                number.should.equal(1);
+                done();
+            });
+        });
+
+        it("should find four tags in redis", function (done) {
+            redis.zrevrange('tags_' + user._id, 0, 9, function (err, tags) {
+                tags.length.should.equal(4);
+                done();
             });
         });
     });
