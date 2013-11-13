@@ -44,16 +44,18 @@ module.exports.set_permissions = function(req, res, next){
     } else {
         User.findOne({_id: user_id})
         .exec(function (err, user) {
-            if (req.body.is_active !== undefined) {
-                user.is_active = req.body.is_active;
+            if (req.user._id !== user_id) {
+                if (req.body.is_active !== undefined) {
+                    user.is_active = req.body.is_active;
+                }
+                if (req.body.is_admin !== undefined) {
+                    user.is_admin = req.body.is_admin;
+                }
+                user.save();
+                return res.json(200, {status: true});
+            } else {
+                return res.json(200, {status: false});
             }
-            if (req.body.is_admin !== undefined) {
-                user.is_admin = req.body.is_admin;
-            }
-            console.log(user);
-            console.log(err);
-            user.save();
-            return res.json(200, {status: true});
         });
     }
 };
