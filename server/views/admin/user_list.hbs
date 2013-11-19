@@ -20,8 +20,8 @@
                         <td><a href="/profile/{{this.username}}">{{this.username}}</a></td>
                         <td>{{this.name}}</td>
                         <td>{{this.link_count}}</td>
-                        <td><input type="checkbox" class="active"{{#if this.is_active}} checked{{/if}}></td>
-                        <td><input type="checkbox" class="admin"{{#if this.is_admin}} checked{{/if}}></td>
+                        <td><input type="checkbox" class="is_active"{{#if this.is_active}} checked{{/if}}></td>
+                        <td><input type="checkbox" class="is_admin"{{#if this.is_admin}} checked{{/if}}></td>
                     </tr>
                     {{/each}}
                 </tbody>
