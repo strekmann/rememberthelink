@@ -19,7 +19,7 @@ module.exports.update_account = function(req, res){
 
         req.assert('username', 'username is required').notEmpty();
         req.assert('name', 'name is required').notEmpty();
-        req.assert('email', 'valid email required').notEmpty().isEmail();
+        req.assert('email', 'valid email required').isEmail();
 
         req.sanitize('username').xss();
         req.sanitize('name').xss();
