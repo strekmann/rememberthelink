@@ -69,7 +69,6 @@ describe("Account", function(){
                     email.should.equal(user.email);
 
                     var is_active = $('#is_active').is(':checked');
-                    console.log(is_active);
                     is_active.should.equal(user.is_active);
 
                     var is_admin = $('#is_admin').is(':checked');
