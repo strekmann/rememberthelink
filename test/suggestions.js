@@ -4,7 +4,6 @@ describe("Suggestions", function(){
 
     var cheerio = require('cheerio'),
         links_routes = require('../server/routes/links'),
-        //admin_routes = require('../server/routes/admin'),
         User = require('../server/models').User,
         user,
         user1;
@@ -118,8 +117,62 @@ describe("Suggestions", function(){
     });
 
     describe("accept suggestion", function(){
-        it("should be removed from list");
-
-        it("should be added to links list");
+        it("should add suggestion", function (done) {
+            request(app)
+                .post('/test/share/')
+                .send({
+                    url: 'http://strekmann.no/',
+                    id: 'user'
+                })
+                .expect(200)
+                .end(function (req, res) {
+                    res.body.status.should.be.true;
+                    done();
+                });
+        });
+        app.post('/test/accept/', function(req, res){
+            req.user = user; // add test user to request
+            res.locals.user = user; // add user to templates
+            return links_routes.accept_suggestion(req, res);
+        });
+        it("should accept suggestion", function (done) {
+            request(app)
+                .post('/test/accept/')
+                .send({url: 'http://strekmann.no/'})
+                .expect(200)
+                .end(function (err, res) {
+                    res.body.status.should.be.true;
+                    done();
+                });
+        });
+        it("should be removed from list", function (done) {
+            request(app)
+                .get('/test/suggestions/')
+                .set('Accept', 'text/html')
+                .expect(200)
+                .end(function (err, res) {
+                    $ = cheerio.load(res.text);
+                    var links = $('.links .link');
+                    links.length.should.equal(0);
+                    done();
+                });
+        });
+        it("should be added to links list", function (done) {
+            app.get('/test/all', function(req, res){
+                req.user = user; // add test user to request
+                res.locals.user = user; // add user to templates
+                return links_routes.index(req, res);
+            });
+            request(app)
+                .get('/test/all')
+                .set('Accept', 'text/html')
+                .expect(200)
+                .end(function (err, res) {
+                    $ = cheerio.load(res.text);
+                    var links = $('.links .link');
+                    links.length.should.equal(1);
+                    done();
+                });
+        });
     });
 });
