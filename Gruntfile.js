@@ -13,6 +13,16 @@ module.exports = function(grunt) {
                 }
             }
         },
+        browserify: {
+            build: {
+                dest: 'server/public/js/site.js',
+                src: ['client/js/index.js'],
+                options: {
+                    alias: ['client/js/index.js:s7n'],
+                    transform: ['./client/lib/underscorify']
+                }
+            }
+        },
         sass: {
             dest: {
                 files: {
@@ -31,20 +41,16 @@ module.exports = function(grunt) {
                     'client/vendor/js/underscore.js',
                     'client/vendor/js/custom.modernizr.js',
                     'client/vendor/js/foundation.js',
+                    'client/vendor/js/select2.js',
                     'client/vendor/js/*.js'
                 ],
                 dest: 'server/public/js/vendor.js'
-            },
-            client: {
-                src: ['client/js/*.js'],
-                dest: 'server/public/js/site.js'
             }
         },
         uglify: {
             options: {
                 mangle: false,
-                compress: true,
-                report: 'gzip'
+                compress: true
             },
             vendor: {
                 files: {
@@ -60,21 +66,34 @@ module.exports = function(grunt) {
         watch: {
             clientjs: {
                 files: ['client/js/**/*.js'],
-                tasks: ['jshint', 'concat:client']
+                tasks: ['jshint', 'browserify']
             },
             scss: {
                 files: ['client/css/**/*.scss'],
                 tasks: ['sass', 'concat:css']
             }
+        },
+        i18n: {
+            js: {
+                src: ['server/**/*.js']
+            },
+            hbs: {
+                src: ['server/**/*.hbs']
+            }
         }
     });
+
+    grunt.loadTasks('tasks');
 
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-browserify');
 
-    grunt.registerTask('default', ['jshint', 'sass', 'concat']);
-    grunt.registerTask('prod', ['jshint', 'sass', 'concat', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'sass', 'concat', 'browserify']);
+    grunt.registerTask('prod', ['jshint', 'sass', 'concat', 'browserify', 'uglify']);
+    grunt.registerTask('hint', ['jshint']);
+    grunt.registerTask('locales', ['i18n']);
 }

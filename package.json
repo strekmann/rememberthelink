@@ -22,24 +22,33 @@
     "async": "",
     "uslug": "",
     "moment": "",
+    "underscore": "",
     "express-hbs": "",
-    "requester": "",
     "passport": "",
     "passport-google-oauth": "",
-    "express-validator":"",
-    "connect-redis": ""
+    "express-validator": "",
+    "request": "",
+    "connect-redis": "",
+    "i18n": "",
+    "redis": "",
+    "hiredis": "",
+    "jsdom": "",
+    "contextify": ""
   },
   "devDependencies": {
     "uglify-js": "",
     "mocha": "",
     "chai": "",
     "supertest": "",
+    "cheerio": "",
+    "through": "~2.3.4",
+    "browserify": "~2.35.0",
     "grunt-cli": "",
     "grunt-contrib-sass": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-watch": "~0.4.4",
-    "cheerio": ""
+    "grunt-browserify": "~1.2.5"
   }
 }

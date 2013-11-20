@@ -3,10 +3,19 @@ REPORTER = spec
 build:
 	@./node_modules/.bin/grunt
 
+production:
+	@./node_modules/.bin/grunt prod
+
 watch:
 	@./node_modules/.bin/grunt watch
 
-test:
+hint:
+	@./node_modules/.bin/grunt hint
+
+locales:
+	@./node_modules/.bin/grunt locales
+
+test: hint
 	@NODE_ENV=test ./node_modules/.bin/mocha \
 		--reporter $(REPORTER) \
 		--ui bdd
@@ -18,4 +27,4 @@ test-w:
 		--ui bdd \
 		--watch
 
-.PHONY: build watch test test-w
+.PHONY: build production watch test test-w hint locales
