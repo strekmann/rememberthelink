@@ -23,11 +23,7 @@ module.exports.save_account = function(req, res){
 
         req.assert('username', 'username is required').notEmpty();
         req.assert('name', 'name is required').notEmpty();
-        req.assert('email', 'valid email required').notEmpty().isEmail();
-
-        req.sanitize('username').xss();
-        req.sanitize('name').xss();
-        req.sanitize('email').xss();
+        req.assert('email', 'valid email required').isEmail();
 
         var errors = req.validationErrors();
         if (errors) {

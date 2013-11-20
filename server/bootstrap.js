@@ -1,8 +1,10 @@
 // -- module dependencies
 var express = require('express'),
-path = require('path'),
-expressValidator = require('express-validator'),
-hbs = require('express-hbs');
+    path = require('path'),
+    expressValidator = require('express-validator'),
+    hbs = require('express-hbs'),
+    momentLocale = require('./lib/middleware').momentLocale,
+    setUser = require('./lib/middleware').setUser;
 
 module.exports.boot = function(app) {
     app.passport = require('./lib/passport')(app);
@@ -32,6 +34,15 @@ module.exports.boot = function(app) {
         app.use(app.passport.initialize());
         app.use(app.passport.session());
 
+        app.use(app.i18n.init);
+        app.use(function (req, res, next) {
+            app.i18n.setLocale(app.i18n.getLocale(req));
+            return next();
+        });
+
+        app.use(momentLocale);
+        app.use(setUser);
+
         // -- Express routing
         app.use(app.router);
 
@@ -45,7 +56,7 @@ module.exports.boot = function(app) {
         app.set('view engine', 'hbs');
         app.set('views', path.join(__dirname, 'views'));
 
-        require('./lib/helpers').register(hbs);
+        require('./lib/helpers').register(app, hbs);
 
         // -- 500 status
         app.use(function(err, req, res, next) {

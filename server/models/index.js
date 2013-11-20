@@ -9,10 +9,7 @@ var UserSchema = new mongoose.Schema({
     is_active: {type: Boolean, 'default': true},
     is_admin: {type: Boolean, 'default': false},
     created: {type: Date, required: true, 'default': Date.now},
-    google_id: {type: String},
-    google_email: {type: String},
-    google_link: {type: String},
-    google_picture: {type: String}
+    google_id: {type: String}
 });
 
 var User = mongoose.model('User', UserSchema);

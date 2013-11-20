@@ -1,10 +1,10 @@
 var localsettings = require('../settings.js');
 
 // -- global settings
-var settings = {
-    siteName        : 'strekmann',
+var config = {
+    siteName        : 'boilerplate',
     sessionSecret   : localsettings.sessionSecret,
-    uri             : 'http://localhost',
+    uri             : localsettings.uri,
     port            : process.env.PORT || 3000,
     db_name         : process.env.DB_NAME || 'test',
     debug           : 0,
@@ -13,11 +13,15 @@ var settings = {
     redis           : {
         host        : '127.0.0.1',
         port        : 6379
+    },
+    i18n            : {
+        locales     : ['en'],
+        defaultLocale: 'en'
     }
 };
 
 module.exports = function(app, express, env){
-    app.conf = settings;
+    app.conf = config;
 
     if (env === 'development') {
         require('./development')(app, express);
@@ -30,6 +34,4 @@ module.exports = function(app, express, env){
     }
 };
 
-module.exports.settings = settings;
-
-// secret key gen: cat /dev/urandom| base64 | fold -w 64
+module.exports.config = config;
