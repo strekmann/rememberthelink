@@ -1,4 +1,5 @@
 module.exports = {
+    uri: 'http://localhost:3000/',
     sessionSecret: 'sessionSecretString',
     auth: {
         google: {
@@ -8,3 +9,5 @@ module.exports = {
         }
     }
 };
+
+/* secret gen: cat /dev/urandom| base64 | fold -w 64 */
