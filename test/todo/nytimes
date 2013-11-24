@@ -1,0 +1,14 @@
+➜  /tmp  wget -O- http://www.nytimes.com/2013/11/24/opinion/sunday/art-makes-you-smart.html
+--2013-11-24 22:59:30--  http://www.nytimes.com/2013/11/24/opinion/sunday/art-makes-you-smart.html
+Resolving www.nytimes.com (www.nytimes.com)... 170.149.168.130
+Connecting to www.nytimes.com (www.nytimes.com)|170.149.168.130|:80... connected.
+HTTP forespřrsel sendt, mottar topptekster... 303 See Other
+Sted: http://www.nytimes.com/glogin?URI=http://www.nytimes.com/2013/11/24/opinion/sunday/art-makes-you-smart.html&OQ=_rQ3D0&OP=a8365309Q2FQ2BiwKQ2BXzKQ2BxxxQ2BJKdVQ2BHiQ5CmliiKEQ2BEQ2AQ7BQ20Q2BQ7BQ7BQ2BE.Q2BiwSXSiXQ2Bm8XHLzQ2BLlKQ5BdLIRmQ5Bzi8Q5BmdLlKQ7EJKdV [omdirigert]
+--2013-11-24 22:59:31--  http://www.nytimes.com/glogin?URI=http://www.nytimes.com/2013/11/24/opinion/sunday/art-makes-you-smart.html&OQ=_rQ3D0&OP=a8365309Q2FQ2BiwKQ2BXzKQ2BxxxQ2BJKdVQ2BHiQ5CmliiKEQ2BEQ2AQ7BQ20Q2BQ7BQ7BQ2BE.Q2BiwSXSiXQ2Bm8XHLzQ2BLlKQ5BdLIRmQ5Bzi8Q5BmdLlKQ7EJKdV
+Connecting to www.nytimes.com (www.nytimes.com)|170.149.168.130|:80... connected.
+HTTP forespřrsel sendt, mottar topptekster... 302 Found
+Sted: http://www.nytimes.com/2013/11/24/opinion/sunday/art-makes-you-smart.html?_r=0 [omdirigert]
+--2013-11-24 22:59:31--  http://www.nytimes.com/2013/11/24/opinion/sunday/art-makes-you-smart.html?_r=0
+Reusing existing connection to www.nytimes.com:80.
+HTTP forespřrsel sendt, mottar topptekster... 200 OK
+
