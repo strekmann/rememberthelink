@@ -78,5 +78,11 @@
     "Import": "Import",
     "Upload": "Upload",
     "No suggestions for you at the momemt.": "No suggestions for you at the momemt.",
-    "username is already in use": "username is already in use"
+    "username is already in use": "username is already in use",
+    "Facebook data": "Facebook data",
+    "Facebook ID": "Facebook ID",
+    "Rememberthelink is a web tool where you can save, tag and share the links you find interesting, important or otherwise want to remember.": "Rememberthelink is a web tool where you can save, tag and share the links you find interesting, important or otherwise want to remember.",
+    "We do our development in public on Github, you can install Rememberthelink on your own server, and we make sure our export and import scripts are always tested.": "We do our development in public on Github, you can install Rememberthelink on your own server, and we make sure our export and import scripts are always tested.",
+    "We will admit we started this project because we were a bit unhappy about similar tools we knew about. And we did it to learn Node.js better.": "We will admit we started this project because we were a bit unhappy about similar tools we knew about. And we did it to learn Node.js better.",
+    "Login with Facebook": "Login with Facebook"
 }

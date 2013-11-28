@@ -183,6 +183,15 @@ form.editform {
         padding-bottom: 2em;
     }
 
+    .description .columns {
+        -webkit-column-count: 3;
+        -webkit-column-gap: 2rem;
+        -moz-column-count: 3;
+        -moz-column-gap: 2rem;
+        column-count: 3;
+        column-gap: 2rem;
+    }
+
     .bubbles {
         max-width: 640px;
         margin-left: auto;
