@@ -28,13 +28,14 @@ Head over to [rememberthelink](http://rememberthelink.com) to test the running
 production code. This service is intended to be free and stable.
 
 If you want to run the code yourself, you can clone this repository, fetch
-dependencies, copy the example settings and modify them, and run `node
-cluster.js`:
+dependencies, copy the example settings and modify them, build static files,
+and run `node cluster.js`:
 
     git clone https://github.com/strekmann/rememberthelink
     cd rememberthelink
     npm install
     cp server/settings.example.js server/settings.js  # remember to modify this
+    make
     node cluster.js
 
 How to contribute
