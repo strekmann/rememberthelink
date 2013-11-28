@@ -372,7 +372,7 @@ module.exports.bot_suggest = function (req, res) {
             if (err2 || !to) {
                 return res.json(403, {status: 'user (to) not found'});
             }
-            if (_.indexOf(to.followers, from._id)) {
+            if (_.indexOf(to.followers, from._id) !== -1) {
                 Suggestion.findOne({
                     from: from._id,
                     to: to._id,
@@ -383,10 +383,12 @@ module.exports.bot_suggest = function (req, res) {
                         suggestion = new Suggestion();
                     }
                     suggestion.url = url;
+                    suggestion.title = url;
                     suggestion.to = to._id;
                     suggestion.from = from._id;
-                    suggestion.save();
-                    return res.json(200, {status: true});
+                    suggestion.save(function(err) {
+                        return res.json(200, {status: true});
+                    });
                 });
             } else {
                 return res.json(200, {status: false});
