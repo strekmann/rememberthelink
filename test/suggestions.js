@@ -45,10 +45,6 @@ describe("Suggestions", function(){
         });
     });
 
-    describe("list suggestions", function(){
-        it("should list suggestions");
-    });
-
     describe("add suggestion", function(){
         app.post('/test/share/', function(req, res){
             req.user = user1; // add test user to request
