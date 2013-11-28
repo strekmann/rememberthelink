@@ -11,7 +11,7 @@ var LinkSchema = new mongoose.Schema({
 });
 
 var SuggestionSchema = new mongoose.Schema({
-    url: {type: String, lowercase: true, trim: true, required: true},
+    url: {type: String, trim: true, required: true},
     title: {type: String},
     description: {type: String},
     from: {type: String, required: true, ref: 'User'},
