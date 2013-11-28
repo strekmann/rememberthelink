@@ -25,7 +25,9 @@ app.get('/auth/google', app.passport.authenticate('google', { scope: [
             'https://www.googleapis.com/auth/userinfo.profile',
             'https://www.googleapis.com/auth/userinfo.email'
         ]}), function(req, res){});
-app.get('/auth/google/callback', app.passport.authenticate('google', { failureRedirect: '/login' }), core_routes.google_callback);
+app.get('/auth/google/callback', app.passport.authenticate('google', { failureRedirect: '/login' }), core_routes.oauth_callback);
+app.get('/auth/facebook', app.passport.authenticate('facebook', { scope: ['email']}), function(req, res){});
+app.get('/auth/facebook/callback', app.passport.authenticate('facebook', { failureRedirect: '/login' }), core_routes.oauth_callback);
 
 var link_routes = require('./routes/links');
 

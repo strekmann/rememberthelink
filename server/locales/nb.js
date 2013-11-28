@@ -80,5 +80,8 @@
     "Import": "Importer",
     "Upload": "Last opp",
     "No suggestions for you at the momemt.": "Du har ingen forslag.",
-    "username is already in use": "brukernavnet er allerede i bruk"
+    "username is already in use": "brukernavnet er allerede i bruk",
+    "Facebook data": "Facebook data",
+    "Facebook ID": "Facebook ID",
+    "Login with Facebook": "Login with Facebook"
 }

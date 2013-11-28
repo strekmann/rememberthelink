@@ -1,6 +1,7 @@
 var User = require('../models').User,
     passport = require('passport'),
-    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
+    FacebookStrategy = require('passport-facebook').Strategy;
 
 module.exports = function(app){
     passport.serializeUser(function(user, done) {
@@ -37,6 +38,37 @@ module.exports = function(app){
                             name: profile.displayName,
                             email: profile._json.email,
                             google_id: profile.id
+                        });
+                        user.save(function(err){
+                            if (err) {
+                                return done("Could not create user", null);
+                            }
+                        });
+                    }
+                    return done(null, user);
+                });
+            });
+        }
+    ));
+
+    passport.use(new FacebookStrategy({
+            clientID: app.conf.auth.facebook.clientId,
+            clientSecret: app.conf.auth.facebook.clientSecret,
+            callbackURL: app.conf.auth.facebook.callbackURL
+        },
+        function(accessToken, refreshToken, profile, done) {
+            process.nextTick(function () {
+                User.findOne({facebook_id: profile.id}, function(err, user){
+                    if (err) {
+                        return done(err.message, null);
+                    }
+                    if (!user) {
+                        user = new User({
+                            _id: profile.name.familyName + "." + profile.id,
+                            username: profile.name.familyName + "." + profile.id,
+                            name: profile.displayName,
+                            email: profile._json.email,
+                            facebook_id: profile.id
                         });
                         user.save(function(err){
                             if (err) {

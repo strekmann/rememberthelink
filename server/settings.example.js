@@ -6,7 +6,12 @@ module.exports = {
             clientId: 'googleClientId',
             clientSecret: 'googleCLientSecret',
             callbackURL: 'http://localhost:3000/auth/google/callback'
-        }
+        },
+        facebook: {
+            clientId: 'FacebookAppId',
+            clientSecret: 'FacebookAppSecret',
+            callbackURL: 'http://localhost:3000/auth/facebook/callback'
+         }
     },
     bot: {
         name: 'bot',

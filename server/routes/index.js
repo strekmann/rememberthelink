@@ -64,7 +64,7 @@ module.exports.logout = function(req, res){
     res.redirect('/');
 };
 
-module.exports.google_callback = function(req, res){
+module.exports.oauth_callback = function(req, res){
     var url = req.session.returnTo || '/';
     delete req.session.returnTo;
     res.redirect(url);

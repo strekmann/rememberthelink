@@ -44,11 +44,20 @@
                 </div>
             </form>
 
+            {{#if user.google_id}}
             <h3>{{__ "Google data"}}</h3>
             <div class="row listair">
                 <div class="large-2 small-3 columns"><label class="right">{{__ "Google ID"}}</label></div>
                 <div id="google_id" class="large-10 small-9 columns">{{user.google_id}}</a></div>
             </div>
+            {{/if}}
+            {{#if user.facebook_id}}
+            <h3>{{__ "Facebook data"}}</h3>
+            <div class="row listair">
+                <div class="large-2 small-3 columns"><label class="right">{{__ "Facebook ID"}}</label></div>
+                <div id="facebook_id" class="large-10 small-9 columns">{{user.facebook_id}}</a></div>
+            </div>
+            {{/if}}
         </div>
     </div>
 </section>
