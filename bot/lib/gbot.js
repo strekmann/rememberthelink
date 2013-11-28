@@ -35,12 +35,12 @@ bot.onMessage = function(from, to, message) {
 
         var link = bot.findLink(message);
         if (link) {
-            request.post(settings.bot.postUrl).form({
+            request.post(settings.bot.postUrl, {form: {
                 from: from, 
                 to: link.to, 
                 url: link.url,
                 seq: settings.bot.seq
-            });
+            }});
         }
     }
 };
