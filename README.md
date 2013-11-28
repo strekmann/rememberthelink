@@ -47,7 +47,7 @@ Dependencies
 ------------
 
 This is a Node.js project and relies on express, mongoose, redis, i18n, and a
-lot more specified in the [packages.json](./blob/master/packages.json).
+lot more specified in the [packages.json](./packages.json).
 Rememberthelink is based on our own node-boilerplate, which we intend to keep
 updated as this project evolves.
 
@@ -60,4 +60,4 @@ Contributors
 License
 -------
 
-[AGPL](./blob/master/LICENSE)
+[AGPL](./LICENSE)
