@@ -24,7 +24,7 @@
         <div class="row description">
             <div class="small-12 columns">
                 <p>{{__ "Rememberthelink is a web tool where you can save, tag and share the links you find interesting, important or otherwise want to remember."}}</p>
-                <p>{{__ "We do our development in public on Github, you can install Rememberthelink on your own server, and we make sure our export and import scripts are always tested."}}</p>
+                <p>{{{__ "We do our development in public on %s, you can install Rememberthelink on your own server, and we make sure our export and import scripts are always tested." '<a href="http://github.com">Github</a>'}}}</p>
                 <p>{{__ "We will admit we started this project because we were a bit unhappy about similar tools we knew about. And we did it to learn Node.js better."}}</p>
             </div>
         </div>
@@ -52,10 +52,15 @@
 
     <section class="bookmarklet">
         <div class="row">
-            <div class="large-6 columns large-centered">
+            <div class="large-6 columns">
                 <span class="header">{{__ "Bookmarklet"}}</span>
                 <span class="description">{{__ "drag this button to your toolbar"}}</span>
                 <a class="fanzybutton" href="javascript:var l=window.location.href;window.location.href='{{url}}new?url='+l;">{{__ "Remember"}}</a>
+            </div>
+            <div class="large-6 columns">
+                <span class="header" href="https://addons.mozilla.org/en-US/firefox/addon/remember-the-link/">{{__ "Firefox extension"}}</span>
+                <span class="description">{{__ "Download from %s" "mozilla.org"}}:</span>
+                <a href="https://addons.mozilla.org/en-US/firefox/addon/remember-the-link/">Go to the addon page</a>
             </div>
         </div>
     </section>
