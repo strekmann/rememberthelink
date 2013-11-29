@@ -7,3 +7,6 @@ bot/*.log
 server/public/js/vendor.js
 server/public/js/site.js
 server/public/css/site.css
+*.zip
+*.xpi
+*.crx
