@@ -24,7 +24,13 @@ module.exports = function(grunt) {
             }
         },
         sass: {
+            options: {
+                includePaths: ['client/vendor/foundation']
+            },
             dest: {
+                options: {
+                    outputStyle: 'compressed'
+                },
                 files: {
                     'tmp/css/styles.css': 'client/css/styles.scss'
                 }
@@ -37,9 +43,9 @@ module.exports = function(grunt) {
             },
             vendor: {
                 src: [
-                    'client/vendor/js/jquery.js',
-                    'client/vendor/js/underscore.js',
                     'client/vendor/js/custom.modernizr.js',
+                    'client/vendor/js/underscore.js',
+                    'client/vendor/js/jquery.js',
                     'client/vendor/js/foundation.js',
                     'client/vendor/js/select2.js',
                     'client/vendor/js/*.js'

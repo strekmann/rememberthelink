@@ -1,5 +1,7 @@
 node_modules
 server/settings.js
-mongo/
+setup/mongo
 .sass-cache
 tmp
+server/public/css
+server/public/js
