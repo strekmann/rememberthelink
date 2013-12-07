@@ -5,3 +5,4 @@ services:
   - mongodb
   - redis-server
 before_install: cp server/settings.example.js server/settings.js
+env: NODE_ENV=test
