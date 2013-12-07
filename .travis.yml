@@ -1,8 +1,7 @@
 language: node_js
 node_js:
-  - "0.11"
   - "0.10"
 services:
   - mongodb
   - redis-server
-after_install: cp server/settings.example.js server/settings.js
+before_install: cp server/settings.example.js server/settings.js
