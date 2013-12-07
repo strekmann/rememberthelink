@@ -127,7 +127,6 @@ module.exports.index = function(req, res, next){
 
 module.exports.new_link = function (req, res) {
     req.assert('url', res.__('Needs to be a valid url')).isUrl();
-    req.sanitize('url').xss();
 
     var errors = req.validationErrors();
     if (errors) {
@@ -399,7 +398,6 @@ module.exports.bot_suggest = function (req, res) {
 
 module.exports.share = function (req, res) {
     req.assert('url', res.__('Needs to be a valid url')).isUrl();
-    req.sanitize('url').xss();
 
     var errors = req.validationErrors();
     if (errors) {
@@ -465,8 +463,6 @@ module.exports.reject_suggestion = function (req, res) {
 };
 module.exports.accept_suggestion = function (req, res) {
     req.assert('url', res.__('Needs to be a valid url')).isUrl();
-    req.sanitize('title').xss();
-    req.sanitize('url').xss();
 
     var errors = req.validationErrors();
     if (errors) {

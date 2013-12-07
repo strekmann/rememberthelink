@@ -21,10 +21,6 @@ module.exports.update_account = function(req, res){
         req.assert('name', 'name is required').notEmpty();
         req.assert('email', 'valid email required').isEmail();
 
-        req.sanitize('username').xss();
-        req.sanitize('name').xss();
-        req.sanitize('email').xss();
-
         var errors = req.validationErrors();
         if (errors) {
             return res.json(200, {
