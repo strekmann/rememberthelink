@@ -1,4 +1,4 @@
-Remember the link
+Remember the link [![Build Status](https://travis-ci.org/strekmann/rememberthelink.png)](https://travis-ci.org/strekmann/rememberthelink)
 =================
 
 Rememberthelink is a web tool where you can save, tag and share the links you
