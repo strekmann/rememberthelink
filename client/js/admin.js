@@ -1,6 +1,6 @@
 module.exports = {
     userListView: function() {
-        $('#user_list').on('change', '.is_active', function (ev) {
+        $('#user-list').on('change', '.is_active', function (ev) {
             var box = $(this);
             var checked = box.is(':checked');
             var user_id = box.parents('tr').attr('data-id');
@@ -17,7 +17,7 @@ module.exports = {
             });
         });
 
-        $('#user_list').on('change', '.is_admin', function (ev) {
+        $('#user-list').on('change', '.is_admin', function (ev) {
             var box = $(this);
             var checked = box.is(':checked');
             var user_id = box.parents('tr').attr('data-id');
