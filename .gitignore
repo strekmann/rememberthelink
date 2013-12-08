@@ -5,3 +5,5 @@ setup/mongo
 tmp
 server/public/css
 server/public/js
+server/public/fonts
+bower_modules

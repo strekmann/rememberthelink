@@ -42,13 +42,15 @@
     "supertest": "",
     "cheerio": "",
     "through": "",
-    "browserify": "",
+    "browserify": "< 3.0.0",
     "grunt-cli": "",
     "grunt-sass": "",
     "grunt-contrib-jshint": "",
     "grunt-contrib-concat": "",
     "grunt-contrib-uglify": "",
     "grunt-contrib-watch": "",
-    "grunt-browserify": ""
+    "grunt-browserify": "",
+    "bower": "",
+    "grunt-contrib-copy": ""
   }
 }
