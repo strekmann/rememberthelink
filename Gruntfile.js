@@ -25,7 +25,10 @@ module.exports = function(grunt) {
         },
         sass: {
             options: {
-                includePaths: ['client/vendor/foundation']
+                includePaths: [
+                    'bower_modules/foundation/scss',
+                    'bower_modules/font-awesome/scss'
+                ]
             },
             dest: {
                 options: {
@@ -38,19 +41,39 @@ module.exports = function(grunt) {
         },
         concat: {
             css: {
-                src: ['client/vendor/css/**/*.css', 'tmp/css/styles.css'],
+                src: [
+                    'bower_modules/select2/select2.css',
+                    'client/vendor/css/**/*.css', 
+                    'tmp/css/styles.css'
+                ],
                 dest: 'server/public/css/site.css'
             },
             vendor: {
                 src: [
-                    'client/vendor/js/custom.modernizr.js',
-                    'client/vendor/js/underscore.js',
-                    'client/vendor/js/jquery.js',
-                    'client/vendor/js/foundation.js',
-                    'client/vendor/js/select2.js',
+                    'bower_modules/underscore/underscore.js',
+                    'bower_modules/jquery/jquery.js',
+                    'bower_modules/foundation/js/foundation.js',
+                    'bower_modules/moment/moment.js',
+                    'bower_modules/select2/select2.js',
                     'client/vendor/js/*.js'
                 ],
                 dest: 'server/public/js/vendor.js'
+            }
+        },
+        copy: {
+            js: {
+                expand: true,
+                flatten: true,
+                filter: 'isFile',
+                src: ['bower_modules/foundation/js/vendor/custom.modernizr.js'],
+                dest: 'server/public/js/'
+            },
+            font: {
+                expand: true,
+                flatten: true,
+                filter: 'isFile',
+                src: ['bower_modules/font-awesome/fonts/*'],
+                dest: 'server/public/fonts/'
             }
         },
         uglify: {
@@ -94,12 +117,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browserify');
 
-    grunt.registerTask('default', ['jshint', 'sass', 'concat', 'browserify']);
-    grunt.registerTask('prod', ['jshint', 'sass', 'concat', 'browserify', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'sass', 'concat', 'copy', 'browserify']);
+    grunt.registerTask('prod', ['default', 'uglify']);
     grunt.registerTask('hint', ['jshint']);
     grunt.registerTask('locales', ['i18n']);
 }

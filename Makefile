@@ -27,4 +27,8 @@ test-w:
 		--ui bdd \
 		--watch
 
-.PHONY: build production watch test test-w hint locales
+install:
+	npm install
+	./node_modules/.bin/bower install
+
+.PHONY: build production watch test test-w hint locales install
