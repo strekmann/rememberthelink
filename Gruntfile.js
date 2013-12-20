@@ -109,6 +109,22 @@ module.exports = function(grunt) {
             hbs: {
                 src: ['server/**/*.hbs']
             }
+        },
+        nodemon: {
+            dev: {
+                options: {
+                    file: 'cluster.js',
+                    watchedExtensions: ['js', 'html']
+                }
+            }
+        },
+        concurrent: {
+            dev: {
+                tasks: ['nodemon', 'watch'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
         }
     });
 
@@ -121,6 +137,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-concurrent');
 
     grunt.registerTask('default', ['jshint', 'sass', 'concat', 'copy', 'browserify']);
     grunt.registerTask('prod', ['default', 'uglify']);

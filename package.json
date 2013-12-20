@@ -51,6 +51,8 @@
     "grunt-contrib-watch": "",
     "grunt-browserify": "",
     "bower": "",
-    "grunt-contrib-copy": ""
+    "grunt-contrib-copy": "",
+    "grunt-nodemon": "",
+    "grunt-concurrent": ""
   }
 }
