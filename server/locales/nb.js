@@ -90,7 +90,7 @@
     "Firefox extension": "Firefox-utvidelse",
     "Firefox extension downloadable at the central firefox addons page.": "Firefox-utvidelsen kan du laste ned fra Firefox sine nettsider.",
     "We do our development in public on <a href='http://github.com'>Github</a>, you can install Rememberthelink on your own server, and we make sure our export and import scripts are always tested.": "We do our development in public on <a href='http://github.com'>Github</a>, you can install Rememberthelink on your own server, and we make sure our export and import scripts are always tested.",
-    "We do our development in public on %s, you can install Rememberthelink on your own server, and we make sure our export and import scripts are always tested.": "Uviklingen skjer i full åpenhet på %s, du kan installere Rememberthelink på din egen server, og vi tester automatisk at eksportering og importering fungerer etter hver endring.",
+    "We do our development in public on %s, you can install Rememberthelink on your own server, and we make sure our export and import scripts are always tested.": "Utviklingen skjer i full åpenhet på %s, vi tester automatisk all viktig funksjonalitet, og du kan installere Rememberthelink på din egen server.",
     "Download from %s": "Last ned fra %s",
     "Chrome extension": "Chrome-utividelse",
     "About": "Om",
