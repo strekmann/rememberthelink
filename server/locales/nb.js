@@ -101,5 +101,6 @@
     "Thoughts, suggestions or complaints?": "Tanker, forslag eller klager?",
     "Send us an email": "Send oss en epost",
     "or": "eller",
-    "describe your issues at Github": "beskriv problemene dine på Github"
+    "describe your issues at Github": "beskriv problemene dine på Github",
+    "Export": "Eksporter"
 }

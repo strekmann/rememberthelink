@@ -93,5 +93,6 @@
     "Thoughts, suggestions or complaints?": "Thoughts, suggestions or complaints?",
     "Send us an email": "Send us an email",
     "or": "or",
-    "describe your issues at Github": "describe your issues at Github"
+    "describe your issues at Github": "describe your issues at Github",
+    "Export": "Export"
 }
