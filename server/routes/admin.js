@@ -1,4 +1,4 @@
-var _ = require('underscore'),
+var async = require('async'),
     User = require('../models').User,
     Link = require('../models/links').Link;
 
@@ -21,15 +21,20 @@ module.exports.user_list = function(req, res, next){
                 if (users.length === per_page) {
                     next = page + 1;
                 }
-                _.each(users, function(user) {
+                async.each(users, function(user, callback) {
                     Link.count({creator: user._id}).exec(function (err, link_count) {
                         user.link_count = link_count;
+                        callback(err);
                     });
-                });
-                res.render('admin/user_list', {
-                    users: users,
-                    next: next,
-                    previous: previous
+                }, function (err) {
+                    if (err) {
+                        console.log("error when countin link:", err);
+                    }
+                    res.render('admin/user_list', {
+                        users: users,
+                        next: next,
+                        previous: previous
+                    });
                 });
             }
         });
