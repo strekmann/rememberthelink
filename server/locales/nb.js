@@ -102,5 +102,7 @@
     "Send us an email": "Send oss en epost",
     "or": "eller",
     "describe your issues at Github": "beskriv problemene dine på Github",
-    "Export": "Eksporter"
+    "Export": "Eksporter",
+    "Go to the webstore page": "Utvidelse til Chrome",
+    "Go to the addon page": "Utvidelse til Firefox"
 }

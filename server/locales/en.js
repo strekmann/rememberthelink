@@ -94,5 +94,7 @@
     "Send us an email": "Send us an email",
     "or": "or",
     "describe your issues at Github": "describe your issues at Github",
-    "Export": "Export"
+    "Export": "Export",
+    "Go to the webstore page": "Go to the webstore page",
+    "Go to the addon page": "Go to the addon page"
 }
