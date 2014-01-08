@@ -211,7 +211,9 @@ form.editform {
             margin: 0.6em auto;
         }
     }
+}
 
+#footer {
     .bookmarklet {
         border-top: 1px solid $borderColor;
         padding-top: 1em;
@@ -232,10 +234,19 @@ form.editform {
         }
 
         a {
+            display: inline-block;
             margin-top: 1em;
-            cursor: move;
-            width: emCalc(165px);
         }
+        a.fanzybutton {
+            width: emCalc(165px);
+            cursor: move;
+        }
+    }
+    .about {
+        border-top: 1px solid $borderColor;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        text-align: center;
     }
 }
 @media #{$small} {

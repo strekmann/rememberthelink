@@ -88,5 +88,10 @@
     "We do our development in public on %s, you can install Rememberthelink on your own server, and we make sure our export and import scripts are always tested.": "We do our development in public on %s, you can install Rememberthelink on your own server, and we make sure our export and import scripts are always tested.",
     "Firefox extension": "Firefox extension",
     "Download from %s": "Download from %s",
-    "Chrome extension": "Chrome extension"
+    "Chrome extension": "Chrome extension",
+    "By %s and %s at %s.": "By %s and %s at %s.",
+    "Thoughts, suggestions or complaints?": "Thoughts, suggestions or complaints?",
+    "Send us an email": "Send us an email",
+    "or": "or",
+    "describe your issues at Github": "describe your issues at Github"
 }

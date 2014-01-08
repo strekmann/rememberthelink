@@ -49,27 +49,9 @@
             </div>
         </div>
     </section>
-
-    <section class="bookmarklet">
-        <div class="row">
-            <div class="large-4 columns">
-                <span class="header">{{__ "Bookmarklet"}}</span>
-                <span class="description">{{__ "drag this button to your toolbar"}}</span>
-                <a class="fanzybutton" href="javascript:var l=window.location.href;window.location.href='{{url}}new?url='+l;">{{__ "Remember"}}</a>
-            </div>
-            <div class="large-4 columns">
-                <span class="header">{{__ "Chrome extension"}}</span>
-                <span class="description">{{__ "Download from %s" "google.com"}}:</span>
-                <a href="https://chrome.google.com/webstore/detail/remember-the-link/ncapgeledeiafgomdafmafggglddijmf">Go to the webstore page</a>
-            </div>
-            <div class="large-4 columns">
-                <span class="header">{{__ "Firefox extension"}}</span>
-                <span class="description">{{__ "Download from %s" "mozilla.org"}}:</span>
-                <a href="https://addons.mozilla.org/en-US/firefox/addon/remember-the-link/">Go to the addon page</a>
-            </div>
-        </div>
-    </section>
 </div>
+
+{{>foot}}
 
 {{#content "footer"}}
 <script>
