@@ -3,12 +3,13 @@
 <section id="user-list">
     <div class="row">
         <div class="large-12 columns">
-            <h2>{{__ "All users"}}</h2>
+            <h2>{{__ "All users"}} ({{users.length}})</h2>
             <table>
                 <thead>
                     <tr>
                         <th>Username</th>
                         <th>Name</th>
+                        <th>Joined</th>
                         <th>Links</th>
                         <th>Active</th>
                         <th>Admin</th>
@@ -19,6 +20,7 @@
                     <tr data-id="{{this._id}}">
                         <td><a href="/profile/{{this.username}}">{{this.username}}</a></td>
                         <td>{{this.name}}</td>
+                        <td>{{datetimeformat this.created}}</td>
                         <td>{{this.link_count}}</td>
                         <td><input type="checkbox" class="is_active"{{#if this.is_active}} checked{{/if}}></td>
                         <td><input type="checkbox" class="is_admin"{{#if this.is_admin}} checked{{/if}}></td>
