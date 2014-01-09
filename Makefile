@@ -36,4 +36,7 @@ test-bot:
 		--ui bdd \
 		test/bot/*.js
 
-.PHONY: build production watch test test-w bot hint locales
+doc:
+	@./node_modules/.bin/grunt groc
+
+.PHONY: build production watch test test-w bot hint locales doc

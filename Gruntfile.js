@@ -80,6 +80,15 @@ module.exports = function(grunt) {
             hbs: {
                 src: ['server/**/*.hbs']
             }
+        },
+        groc: {
+            javascript: [
+                "server/**/*.js", "README.md", "client/**/*.js"
+            ],
+            options: {
+                "out": "server/public/doc/",
+                "except": ["server/public/**/*.js", "client/vendor/**/*.js"]
+            }
         }
     });
 
@@ -91,6 +100,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-groc');
 
     grunt.registerTask('default', ['jshint', 'sass', 'concat', 'browserify']);
     grunt.registerTask('prod', ['jshint', 'sass', 'concat', 'browserify', 'uglify']);

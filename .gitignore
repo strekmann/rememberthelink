@@ -10,3 +10,4 @@ server/public/css/site.css
 *.zip
 *.xpi
 *.crx
+server/public/doc/
