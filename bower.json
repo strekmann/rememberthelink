@@ -1,0 +1,10 @@
+{
+  "name": "rememberthelink",
+  "dependencies": {
+    "foundation": "",
+    "underscore": "",
+    "moment": "",
+    "select2": "",
+    "font-awesome": "~4.0.3"
+  }
+}

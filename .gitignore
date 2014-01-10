@@ -1,6 +1,6 @@
 node_modules
 server/settings.js
-mongo/
+setup/mongo
 .sass-cache
 tmp
 bot/*.log
@@ -11,3 +11,7 @@ server/public/css/site.css
 *.xpi
 *.crx
 server/public/doc/
+server/public/css
+server/public/js
+server/public/fonts
+bower_modules

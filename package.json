@@ -53,6 +53,10 @@
     "grunt-contrib-uglify": "",
     "grunt-contrib-watch": "",
     "grunt-browserify": "",
-    "grunt-groc": "strekmann/grunt-groc"
+    "grunt-groc": "strekmann/grunt-groc",
+    "bower": "",
+    "grunt-contrib-copy": "",
+    "grunt-nodemon": "",
+    "grunt-concurrent": ""
   }
 }

@@ -1,13 +1,17 @@
 @charset "UTF-8";
 
 // our variables
-@import "variables";
+@import "settings";
 
 // normalize lib
-@import "../vendor/foundation/normalize";
+@import "normalize";
 
-// foundation 4 lib
-@import "../vendor/foundation/foundation";
+// foundation lib
+@import "foundation";
+
+
+// font-awesome
+@import "font-awesome";
 
 // our mixins
 @import "mixins";

@@ -20,7 +20,6 @@ module.exports.register = function(app, hbs) {
         return moment(context).fromNow();
     });
 
-
     // -- user rights
     hbs.registerHelper('canRead', function(user, options) {
         if (!this.private || user._id === this.creator._id) {
