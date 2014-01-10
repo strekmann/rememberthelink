@@ -52,6 +52,7 @@
     "grunt-contrib-concat": "",
     "grunt-contrib-uglify": "",
     "grunt-contrib-watch": "",
-    "grunt-browserify": ""
+    "grunt-browserify": "",
+    "grunt-groc": "~0.4.0"
   }
 }
