@@ -1,4 +1,5 @@
 node_modules
+bower_modules
 server/settings.js
 mongo/
 .sass-cache
