@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "Remember the link",
-  "description": "A button to remember links using the new service, Remember the link",
-  "version": "1.0",
+  "description": "Remember important sites by storing their links on rememberthelink.com",
+  "version": "1.0.1",
 
   "permissions": [
     "tabs",
@@ -12,7 +12,7 @@
 
   "page_action": {
     "default_icon": "icon.png",
-    "default_title": "Remember this"
+    "default_title": "Remember this page"
   },
 
   "background": {"scripts": ["background.js"] }
