@@ -26,7 +26,7 @@ function getPluralMatches(re, str) {
 module.exports = function(grunt){
 	var i18n = require('i18n'),
 		path = require('path'),
-		config = require('../server/settings/config').config;
+		config = require('../server/settings');
 
 	i18n.configure({
         locales: config.i18n.locales,
