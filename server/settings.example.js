@@ -1,4 +1,5 @@
 module.exports = {
+    siteName: 'boilerplate',
     uri: 'http://localhost:3000/',
     sessionSecret: 'sessionSecretString',
     auth: {
@@ -7,6 +8,10 @@ module.exports = {
             clientSecret: 'googleCLientSecret',
             callbackURL: 'http://localhost:3000/auth/google/callback'
         }
+    },
+    redis: {
+        host: '127.0.0.1',
+        port: 6379
     }
 };
 
