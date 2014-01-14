@@ -31,4 +31,7 @@ install:
 	npm install
 	./node_modules/.bin/bower install
 
+doc:
+	./node_modules/.bin/groc
+
 .PHONY: build production watch test test-w hint locales install

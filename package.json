@@ -53,6 +53,7 @@
     "bower": "",
     "grunt-contrib-copy": "",
     "grunt-nodemon": "",
-    "grunt-concurrent": ""
+    "grunt-concurrent": "",
+    "groc": "strekmann/groc"
   }
 }
