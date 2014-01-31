@@ -2,7 +2,7 @@
 var app = require('./server/app'),
     http = require('http'),
     cluster = require('cluster'),
-    numCPU = parseInt(require('os').cpus().length / 2),
+    numCPU = 2,
     i = 0;
 
 if (app.settings.env === 'development') {
