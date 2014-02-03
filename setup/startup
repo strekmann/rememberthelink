@@ -36,8 +36,9 @@ export DB=rtl
 case "$1" in
 start)
     echo -n "Starting $DESC: "
+    mkdir -p $RUNDIR
     touch $PIDFILE
-    chown $USER:$GROUP $PIDFILE
+    chown $USER:$GROUP $RUNDIR $PIDFILE
     chmod 755 $RUNDIR
 
     if start-stop-daemon --start --quiet --umask 007 -m --pidfile $PIDFILE --chuid $USER:$GROUP --background --exec $DAEMON >> $LOGFILE
