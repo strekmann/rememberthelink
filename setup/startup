@@ -23,7 +23,7 @@ GROUP=www-data
 
 RUNDIR=/var/run/strekmann
 PIDFILE=$RUNDIR/rememberthelink.pid
-LOGFILE=/srv/strekmann/server.log
+LOGFILE=/srv/rememberthelink/server.log
 
 test -x $DAEMON || exit 0
 
@@ -36,9 +36,8 @@ export DB=rtl
 case "$1" in
 start)
     echo -n "Starting $DESC: "
-    mkdir -p $RUNDIR
     touch $PIDFILE
-    chown $USER:$GROUP $RUNDIR $PIDFILE
+    chown $USER:$GROUP $PIDFILE
     chmod 755 $RUNDIR
 
     if start-stop-daemon --start --quiet --umask 007 -m --pidfile $PIDFILE --chuid $USER:$GROUP --background --exec $DAEMON >> $LOGFILE
@@ -49,23 +48,23 @@ start)
     fi
     ;;
 stop)
-        echo -n "Stopping $DESC: "
-        if start-stop-daemon --stop --retry forever/TERM/1 --quiet --oknodo --pidfile $PIDFILE --exec $DAEMON
-        then
-                echo "$NAME."
-        else
-                echo "failed"
-        fi
-        rm -f $PIDFILE
-        sleep 1
-        ;;
+    echo -n "Stopping $DESC: "
+    if start-stop-daemon --stop --retry forever/TERM/1 --quiet --oknodo --pidfile $PIDFILE
+    then
+        echo "$NAME."
+    else
+        echo "failed"
+    fi
+    rm -f $PIDFILE
+    sleep 1
+    ;;
 restart|force-reload)
     $0 stop
     $0 start
     ;;
 status)
     echo -n "$DESC is "
-    if start-stop-daemon --stop --quiet --signal 0 --name ${NAME} --pidfile ${PIDFILE}
+    if start-stop-daemon --stop --quiet --signal 0 --pidfile ${PIDFILE}
     then
             echo "running"
     else
