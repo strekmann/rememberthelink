@@ -41,7 +41,7 @@ start)
     chown $USER:$GROUP $RUNDIR $PIDFILE
     chmod 755 $RUNDIR
 
-    if start-stop-daemon --start --quiet --umask 007 --pidfile $PIDFILE --chuid $USER:$GROUP --background --exec $DAEMON >> $LOGFILE
+    if start-stop-daemon --start --quiet --umask 007 -m --pidfile $PIDFILE --chuid $USER:$GROUP --background --exec $DAEMON >> $LOGFILE
     then
             echo "$NAME."
     else
