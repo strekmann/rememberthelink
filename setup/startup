@@ -14,7 +14,7 @@
 
 # Adapted redis init file
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/srv/rememberthelink/rememberthelink/cluster.jsr
+DAEMON=/srv/rememberthelink/rememberthelink/cluster.js
 DAEMON_ARGS=
 NAME=rememberthelink
 DESC=rememberthelink
