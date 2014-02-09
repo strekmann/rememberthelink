@@ -31,7 +31,9 @@ module.exports = function(app){
                     if (err) {
                         return done(err.message, null);
                     }
-                    if (!user) {
+                    if (user) {
+                        return done(null, user);
+                    } else {
                         user = new User({
                             _id: profile._json.family_name + "." + profile.id,
                             username: profile._json.family_name + "." + profile.id,
@@ -43,9 +45,9 @@ module.exports = function(app){
                             if (err) {
                                 return done("Could not create user", null);
                             }
+                            return done(null, user);
                         });
                     }
-                    return done(null, user);
                 });
             });
         }
