@@ -1,0 +1,36 @@
+{
+    "uri": "http://localhost:3000/",
+    "sessionSecret": "rememberthelinksecret",
+    "auth": {
+        "google": {
+            "clientId": "547014004939.apps.googleusercontent.com",
+            "clientSecret": "imprzDMIWXglHCq5JxSW9MPg",
+            "callbackURL": "http://localhost:3000/auth/google/callback"
+        },
+        "facebook": {
+            "clientId": "FacebookAppId",
+            "clientSecret": "FacebookAppSecret",
+            "callbackURL": "http://localhost:3000/auth/facebook/callback"
+         }
+    },
+    "redis": {
+        "host": "127.0.0.1",
+        "port": 6379
+    },
+    "mongo": {
+        "testserver": "mongodb://localhost/rtl-test",
+        "servers": ["mongodb://localhost/rtl"],
+        "replset": null
+    },
+    "i18n": {
+        "locales": ["en", "no", "zh"],
+        "defaultLocale": "en"
+    }
+    "bot": {
+        "name": "strekmann",
+        "server": "irc.homelien.no",
+        "channels": ["#strekmann"],
+        "postUrl": "http://oda.itea.ntnu.no:3000/links/uwanna",
+        "seq": "v7e6eDZwtssHJAbc0KNWI2M4w9RNrKAfxA2bBKZCGmfRvlGgzA3jOuSe7XoaGg1m"
+    }
+}

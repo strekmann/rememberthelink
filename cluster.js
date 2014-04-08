@@ -2,12 +2,11 @@
 var app = require('./server/app'),
     http = require('http'),
     cluster = require('cluster'),
-    numCPU = 2,
+    numCPU = require('os').cpus().length / 2,
     i = 0;
 
-if (app.settings.env === 'development') {
-    numCPU = 2;
-}
+if (numCPU < 2) { numCPU = 2; }
+if (app.settings.env === 'development') { numCPU = 2; }
 
 if (cluster.isMaster){
     for (i; i<numCPU; i++){
@@ -25,7 +24,10 @@ if (cluster.isMaster){
 } else {
     // -- database
     var mongoose = require('mongoose');
-    app.db = mongoose.connect('mongodb://localhost/' + app.conf.db_name);
+    app.db = mongoose.connect(
+        app.conf.mongo.servers.join(','),
+        {replSet: {rs_name: app.conf.mongo.replset}}
+    );
 
     // -- handle node exceptions
     process.on('uncaughtException', function(err){

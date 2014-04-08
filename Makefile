@@ -9,6 +9,9 @@ production:
 watch:
 	@./node_modules/.bin/grunt watch
 
+concurrent:
+	@./node_modules/.bin/grunt concurrent
+
 hint:
 	@./node_modules/.bin/grunt hint
 
@@ -27,16 +30,11 @@ test-w:
 		--ui bdd \
 		--watch
 
-bot:
-	@/usr/bin/env node bot/bot.js
-
-test-bot:
-	@NODE_ENV=test ./node_modules/.bin/mocha \
-		--reporter $(REPORTER) \
-		--ui bdd \
-		test/bot/*.js
+install:
+	npm install
+	./node_modules/.bin/bower install
 
 doc:
-	@./node_modules/.bin/grunt groc
+	./node_modules/.bin/groc
 
-.PHONY: build production watch test test-w bot hint locales doc
+.PHONY: build production watch concurrent test test-w hint locales install
