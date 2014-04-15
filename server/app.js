@@ -13,7 +13,7 @@ app.configure(function(){
     app.use(app.passport.session());
 
     app.use(app.router);
-    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.static(path.join(__dirname, '..', 'public')));
 
     app.engine('hbs', hbs.express3({
         partialsDir: path.join(__dirname, 'views', 'partials'),
