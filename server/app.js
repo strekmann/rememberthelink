@@ -1,6 +1,5 @@
 var express     = require('express'),
     path        = require('path'),
-    hbs         = require('express-hbs'),
     settings    = require('./settings'),
     app         = require('libby')(express, settings);
 
@@ -9,39 +8,56 @@ app.ensureAuthenticated = require('./lib/middleware').ensureAuthenticated;
 
 app.configure(function(){
 
+    // set jade as template engine
+    app.set('views', path.join(__dirname, 'views'));
+    app.set('view engine', 'jade');
+
     app.use(app.passport.initialize());
     app.use(app.passport.session());
 
     app.use(app.router);
     app.use(express.static(path.join(__dirname, '..', 'public')));
 
-    app.engine('hbs', hbs.express3({
-        partialsDir: path.join(__dirname, 'views', 'partials'),
-        layoutsDir: path.join(__dirname, 'views', 'layouts'),
-        contentHelperName: 'content'
-    }));
-    app.set('view engine', 'hbs');
-    app.set('views', path.join(__dirname, 'views'));
-
-    require('./lib/helpers').register(app, hbs);
-
     // 500 status
-    app.use(function(err, req, res, next) {
-        console.error(err.stack);
+    app.use(function(err, req, res, next){
+        console.error("ERR:", err.message, err.stack);
         res.status(500);
-        res.render('500', {
-            status: err.status || 500,
-            error: err.message
+        res.format({
+            html: function(){
+                res.render('500', {
+                    error: err.message,
+                    status: err.status || 500
+                });
+            },
+
+            json: function(){
+                res.json(500, {
+                    error: err.message,
+                    status: err.status || 500
+                });
+            }
         });
     });
 
     // 404 status
-    app.use(function(req, res, next) {
+    app.use(function(req, res, next){
         res.status(404);
-        res.render('404', {
-            status: 404,
-            error: 'file not found',
-            url: req.url
+        res.format({
+            html: function(){
+                res.render('404', {
+                    status: 404,
+                    error: 'file not found',
+                    url: req.url
+                });
+            },
+
+            json: function(){
+                res.json(404, {
+                    status: '404',
+                    error: 'file not found',
+                    url: req.url
+                });
+            }
         });
     });
 });

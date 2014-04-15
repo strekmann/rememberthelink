@@ -13,9 +13,14 @@ module.exports = {
         host: '127.0.0.1',
         port: 6379
     },
+        mongo: {
+        servers: ['mongodb://localhost/test'],
+        replset: null
+    },
     i18n: {
-        locales: ['en'],
-        defaultLocale: 'en'
+        languages: ['nb','en'],
+        default_language: 'nb',
+        translation_directory: '/absolute/path/or/fix/yourself'
     }
 };
 

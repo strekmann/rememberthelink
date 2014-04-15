@@ -4,4 +4,6 @@ setup/mongo
 .sass-cache
 tmp
 /public/css
+/public/fonts
+/public/js
 /bower_components
