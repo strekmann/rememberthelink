@@ -1,0 +1,68 @@
+extends layouts/main
+
+block content
+  section#account
+    .row
+      .columns
+        h3= __("User data")
+        form.custom
+          #errors
+          .row.listair
+            .columns.medium-2.small-3
+              label.right= __("ID")
+            #id.columns.medium-10.small-9= active_user._id
+          .row
+            .columns.medium-2.small-3
+              label.right.inline= __("Username")
+            .columns.medium-10.small-9
+              input#username(type="text" name="username" value=active_user.username)
+          .row
+            .columns.medium-2.small-3
+              label.right.inline= __("Name")
+            .columns.medium-10.small-9
+              input#name(type="text" name="name" value=active_user.name)
+          .row
+            .columns.medium-2.small-3
+              label.right.inline= __("Email")
+            .columns.medium-10.small-9
+              input#email(type="text" name="email" value=active_user.email)
+          .row.listair
+            .columns.medium-2.small-3
+              label.right= __("Active")
+            .columns.medium-10.small-9
+              if active_user.is_active
+                input#is_active(type="checkbox" name="active" checked disabled)
+              else
+                input#is_active(type="checkbox" name="active" disabled)
+              span.custom.checkbox
+          .row.listair
+            .columns.medium-2.small-3
+              label.right= __("Admin")
+            .columns.medium-10.small-9
+              if active_user.is_admin
+                input#is_admin(type="checkbox" name="admin" checked disabled)
+              else
+                input#is_admin(type="checkbox" name="admin" disabled)
+              span.custom.checkbox
+          .row.listair
+            .columns.medium-2.small-3
+              label.right= __("Created")
+            #created.columns.medium-10.small-9= longdate(active_user.created)
+
+        if active_user.google_id
+          h3= __("Google data")
+          .row.listair
+            .columns.medium-2.small-3
+              label.right= __("Google ID")
+            #google_id.columns.medium-10.small-9= active_user.google_id
+
+        if active_user.facebook_id
+          h3= __("Facebook data")
+          .row.listair
+            .columns.medium-2.small-3
+              label.right= __("Facebook ID")
+            #facebook_id.medium-10.small-9= active_user.facebook_id
+
+block javascript
+  script.
+    require('s7n').account.indexView();
