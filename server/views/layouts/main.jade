@@ -23,7 +23,7 @@ html(lang=lang dir=lang_dir)
             span Menu
       section.top-bar-section
         ul.right
-          if user
+          if active_user
             li
               a(href="/tags") Tags
             li
@@ -31,7 +31,7 @@ html(lang=lang dir=lang_dir)
             li
               a(href="/friends") Friends
             li.has-dropdown
-              a#nav-username(href="/account")= user.username
+              a#nav-username(href="/account")= active_user.username
               ul.dropdown
                 li
                   a(href="/import") Import
