@@ -28,11 +28,8 @@ module.exports = {
         servers: ['mongodb://localhost/rtl'],
         replset: null
     },
-    i18n: {
-        languages: ['nb','en'],
-        default_language: 'nb',
-        translation_directory: __dirname + '/../public/js'
-    }
+    languages: ['nb','en'],
+    default_language: 'nb'
 };
 
 /* secret gen: cat /dev/urandom| base64 | fold -w 64 */
