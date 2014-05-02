@@ -12,10 +12,7 @@
     "ractive-decorators-sortable": "ractivejs/ractive-decorators-sortable",
     "uslug": "sigurdga/uslug",
     "unorm": "",
-    "dropzone": "",
     "Ractive-transitions-fade": "~0.1.1",
-    "Ractive-transitions-slide": "~0.1.1",
-    "ace-builds": "~1.1.3",
-    "leptureeditor": "*"
+    "Ractive-transitions-slide": "~0.1.1"
   }
 }

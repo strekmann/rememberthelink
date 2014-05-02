@@ -65,7 +65,7 @@ module.exports = function(grunt) {
                 src: [
                     'bower_components/underscore/underscore.js',
                     'bower_components/jquery/dist/jquery.js',
-                    //'bower_components/foundation/js/vendor/fastclick.js',
+                    //'bower_components/fastclick/lib/fastclick.js',
                     'bower_components/foundation/js/foundation.js',
                     'bower_components/moment/moment.js',
                     'bower_components/moment/min/langs.js',
@@ -75,9 +75,6 @@ module.exports = function(grunt) {
                     'bower_components/ractive-decorators-sortable/Ractive-decorators-sortable.js',
                     'bower_components/Ractive-transitions-fade/Ractive-transitions-fade.js',
                     'bower_components/Ractive-transitions-slide/Ractive-transitions-slide.js',
-                    'bower_components/ace-builds/src-noconflict/ace.js',
-                    'bower_components/ace-builds/src-noconflict/theme-tomorrow.js',
-                    'bower_components/ace-builds/src-noconflict/mode-markdown.js',
                     'client/vendor/js/*.js'
                 ],
                 dest: 'public/js/vendor.js'
