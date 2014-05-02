@@ -99,7 +99,7 @@ module.exports = function(grunt) {
                     'bower_components/font-awesome/fonts/*',
                     'client/fonts/*'
                 ],
-                dest: 'public/fonts/'
+                dest: 'public/font/'
             },
             img: {
                 expand: true,

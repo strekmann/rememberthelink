@@ -126,7 +126,7 @@ module.exports.index = function(req, res, next){
 };
 
 module.exports.new_link = function (req, res) {
-    req.assert('url', res.__('Needs to be a valid url')).isUrl();
+    req.assert('url', res.locals.__('Needs to be a valid url')).isUrl();
 
     var errors = req.validationErrors();
     if (errors) {
