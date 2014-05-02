@@ -32,10 +32,10 @@ app.configure(function(){
         res.locals.moment = moment;
         res.locals.longdate = function (date) {
             return moment(date).format('lll');
-        },
+        };
         res.locals.shortdate = function (date) {
             return moment(date).format('Do MMMM');
-        },
+        };
         res.locals.displayurl = function (url) {
             return url.replace(/^\w+:\/\/(?:www\.)?/, '');
         };
