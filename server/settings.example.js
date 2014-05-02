@@ -27,6 +27,11 @@ module.exports = {
     mongo: {
         servers: ['mongodb://localhost/rtl'],
         replset: null
+    },
+    i18n: {
+        languages: ['nb','en'],
+        default_language: 'nb',
+        translation_directory: __dirname + '/../public/js'
     }
 };
 
