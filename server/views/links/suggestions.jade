@@ -1,0 +1,31 @@
+extends ../layouts/main
+
+block content
+  .row
+    .columns
+      h2= __("Suggested links")
+
+      ul.links
+        if suggestsions
+          each suggestion in suggestions
+            li.link.clearfix(data-id=link.url)
+              div
+                h2.title
+                  a(href=link.url)= link.title
+                .controls
+                  a.accept(title=__("Accept"))
+                    i.icon-ok
+                  a.reject(title=__("Reject"))
+                    i.icon-remove
+                .subtext
+                  span.date(title=longformat(link.created))= shortformat(link.created)
+                  i.icon-link
+                  | &nbsp;
+                  span.url= link.url
+                .description= link.description
+        else
+          li= __("No suggestions for you at the moment")
+
+block javascript
+  script.
+    require('s7n').links.suggestionsView();

@@ -1,0 +1,12 @@
+extends ../layouts/main
+
+block content
+  .row
+    .columns
+      h2= __("Export your bookmarks")
+
+      ul
+        li
+          a(href="/export/bookmarks")= __("Bookmarks file")
+        li
+          __("JSON structured file")

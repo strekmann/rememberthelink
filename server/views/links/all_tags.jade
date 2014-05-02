@@ -1,0 +1,13 @@
+extends ../layouts/main
+
+block content
+  .#all-tags
+    .row
+      .columns
+        h2= __("Your most used tags")
+        if tags
+          each tag in tags
+            span(style="font-size: "+tag.score/max)
+              a.tag(href="/tags/"+tag.text)= tag.text
+        else
+          p= __("You have no tags. Did you tag anything?")

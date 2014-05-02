@@ -1,0 +1,47 @@
+extends ../layouts/main
+
+block content
+  section#links-profile
+    .row
+      .columns
+        h2= profile.name
+          small [
+            =profile.username
+            | ]
+    .row
+      .columns.medium-10
+        ul.links
+          for link in links
+            li.link.clearfix
+              div
+                h2.title
+                  a(href=link.url)= link.title
+                .controls
+                  a.grab(title=__("Copy"))
+                    i.icon-copy
+                .subtext
+                  span.date(title=longdate(link.created))= shortdate(created)
+                  | &nbsp;
+                  i.icon-link
+                  | &nbsp;
+                  span.url= link.url
+                .tags
+                  i.icon-tags
+                  each tag in link.tags
+                    a.tag(href="/tags/"+tag)= tag
+            .columns.medium-2
+              h4.dark= __("Top tags")
+              ul.tags
+                if tags
+                  each tag in tags
+                    li
+                      span.count= tag.score
+                      span.text
+                        a(href="/tags/"+tag.text)= tag.text
+                else
+                  li
+                    p= __("No tags registered")
+
+block javascript
+  script.
+    require('s7n').friends.profileView();

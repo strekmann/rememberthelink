@@ -1,0 +1,51 @@
+extends ../layouts/main
+
+block content
+  section#friends-index
+    .row
+      .columns
+        h2= __("Find users")
+        form(action="" method="get")
+          #errors
+          .row.collapse
+            .columns.small-10
+              input#username(type="text" name="username" placeholder=__("username"))
+            .columns.small-2
+              button.button.prefix= __("Search")
+          .text-center.usercount
+            p= __("Now we have in total %d users" user_count)
+    if users
+      .row.search-results
+        .columns.friends
+          h4.dark= __("Search results")
+          for user in users
+            .row.nomargin
+              .columns.medium-3.username= user.username
+              .columns.medium-7= user.name
+              .columns.medium-2
+                if true
+                  a.add(href="/friends/add")= __("Add")
+    .row
+      .columns.following
+        h4.dark= __("Following")
+        .cols
+          if user.following
+            each user in active_user.following
+              p
+                a(href="/profile/"+user.username)= user.name
+          else
+            p= __("You should get some friends")
+    .row
+      .columns.followers
+        h4.dark= __("Followers")
+        .cols
+          if user.followers
+            for user in active_user.followers
+              p
+                a(href="/profile/"+user.username)= user.name
+          else
+            p= __("You should get some fans")
+
+block javascript
+  script.
+    require('s7n').friends.indexView();

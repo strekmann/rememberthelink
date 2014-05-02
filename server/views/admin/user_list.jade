@@ -1,0 +1,42 @@
+extends ../layouts/main
+
+block content
+  section#user-list
+    .row
+      .columns
+        h2
+          = __("All users")
+          | &nbsp;(
+          = users.length
+          | )
+        table
+          thead
+            tr
+              th= __("Username")
+              th= __("Name")
+              th= __("Joined")
+              th= __("Links")
+              th= __("Active")
+              th= __("Admin")
+          tbody
+            each user in users
+              tr(data-id=user._id)
+                td
+                  a(href="/profile/"+user.username)= user.username
+                td= user.name
+                td= longdate(user.created)
+                td= user.link_count
+                td
+                  if user.is_active
+                    input.is_active(type="checkbox" checked)
+                  else
+                    input.is_active(type="checkbox")
+                td
+                  if user.is_admin
+                    input.is_admin(type="checkbox" checked)
+                  else
+                    input.is_admin(type="checkbox")
+
+block javascript
+  script.
+    require('s7n').admin.userListView();

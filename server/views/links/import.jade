@@ -1,0 +1,14 @@
+extends ../layouts/main
+
+block content
+  .row
+    .columns
+      h2= __("Import")
+
+      form.import(action="/import" method="post" enctype="multipart/form-data")
+        input(type="file" name="import")
+        button(type="submit")= __("Upload")
+
+block javascript
+  script.
+    request('s7n').links.importView();
