@@ -64,13 +64,12 @@ module.exports = function(grunt) {
             vendor: {
                 src: [
                     'bower_components/underscore/underscore.js',
-                    'bower_components/foundation/js/vendor/jquery.js',
+                    'bower_components/jquery/dist/jquery.js',
                     //'bower_components/foundation/js/vendor/fastclick.js',
                     'bower_components/foundation/js/foundation.js',
                     'bower_components/moment/moment.js',
                     'bower_components/moment/min/langs.js',
                     'bower_components/marked/lib/marked.js',
-                    'bower_components/dropzone/downloads/dropzone.js',
                     'bower_components/ractive/Ractive.js',
                     'bower_components/ractive-events-tap/Ractive-events-tap.js',
                     'bower_components/ractive-decorators-sortable/Ractive-decorators-sortable.js',
@@ -79,9 +78,6 @@ module.exports = function(grunt) {
                     'bower_components/ace-builds/src-noconflict/ace.js',
                     'bower_components/ace-builds/src-noconflict/theme-tomorrow.js',
                     'bower_components/ace-builds/src-noconflict/mode-markdown.js',
-                    'bower_components/unorm/lib/unorm.js',
-                    'bower_components/uslug/lib/uslug.js',
-                    'tmp/js/chosen.js',
                     'client/vendor/js/*.js'
                 ],
                 dest: 'public/js/vendor.js'
@@ -92,7 +88,7 @@ module.exports = function(grunt) {
                 expand: true,
                 flatten: true,
                 filter: 'isFile',
-                src: ['bower_components/foundation/js/vendor/modernizr.js'],
+                src: ['bower_components/modernizr/modernizr.js'],
                 dest: 'public/js/'
             },
             font: {
@@ -101,7 +97,6 @@ module.exports = function(grunt) {
                 filter: 'isFile',
                 src: [
                     'bower_components/font-awesome/fonts/*',
-                    'bower_components/leptureeditor/vendor/icomoon/fonts/*',
                     'client/fonts/*'
                 ],
                 dest: 'public/fonts/'
@@ -171,11 +166,11 @@ module.exports = function(grunt) {
         abideExtract: {
             js: {
                 src: 'server/**/*.js',
-                dest: 'locale/templates/LC_MESSAGES/messages.pot'
+                dest: 'server/locale/templates/LC_MESSAGES/messages.pot'
             },
             jade: {
                 src: 'server/views/**/*.jade',
-                dest: 'locale/templates/LC_MESSAGES/messages.pot',
+                dest: 'server/locale/templates/LC_MESSAGES/messages.pot',
                 options: {
                     language: 'jade',
                     keyword: '__'
@@ -185,16 +180,17 @@ module.exports = function(grunt) {
         abideMerge: {
             messages: {
                 options: {
-                    template: 'locale/templates/LC_MESSAGES/messages.pot',
-                    localeDir: 'locale'
+                    template: 'server/locale/templates/LC_MESSAGES/messages.pot',
+                    localeDir: 'server/locale'
                 }
             }
         },
         abideCompile: {
             json: {
-                dest: 'public/locale/',
+                dest: 'public/js/',
                 options: {
-                    type: 'json'
+                    type: 'json',
+                    localeDir: 'server/locale'
                 }
             }
         }
@@ -217,5 +213,5 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jshint', 'sass', 'coffee', 'concat', 'copy', 'browserify', 'abideCompile']);
     grunt.registerTask('prod', ['default', 'uglify']);
     grunt.registerTask('hint', ['jshint']);
-    grunt.registerTask('translate', ['abideExtract', 'abideMerge']);
+    grunt.registerTask('locales', ['abideExtract', 'abideMerge']);
 };

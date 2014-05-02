@@ -1,6 +1,7 @@
-node_modules
-bower_components
-server/settings.js
+/node_modules
+/bower_components
+/server/settings.js
+/server/locale/templates/
 mongo/
 .sass-cache
 tmp
