@@ -2,11 +2,11 @@
 // Express application serving requests.
 
 var _           = require('underscore'),
-    express     = require('expresss'),
+    express     = require('express'),
     path        = require('path'),
     moment      = require('moment'),
     settings    = require('./settings'),
-    util        = require('./lib/util'),
+    //util        = require('./lib/util'),
     app         = require('libby')(express, settings);
 
 // ## Configure

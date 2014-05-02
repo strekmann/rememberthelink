@@ -19,6 +19,14 @@ module.exports = {
         channels: ['#channel'],
         postUrl: 'http://localhost:3000/uwanna',
         seq: 'hello'
+    },
+        redis: {
+        host: '127.0.0.1',
+        port: 6379
+    },
+    mongo: {
+        servers: ['mongodb://localhost/rtl'],
+        replset: null
     }
 };
 

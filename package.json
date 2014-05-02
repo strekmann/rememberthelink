@@ -26,20 +26,17 @@
     "underscore": "1.6.x",
     "passport": "0.2.x",
     "passport-google-oauth": "0.1.x",
+    "passport-facebook": "^1.0",
     "express-validator": "2.x",
     "connect-redis": "1.x",
     "redis": "0.10.x",
-    "passport-local": "1.x",
     "jade": "1.3.x",
     "q": "1.0.x",
     "mkdirp": "0.3.x",
     "i18n-abide": "0.0.x",
-    "multer": "0.0.x",
     "slug": "0.4.x",
     "marked": "0.3.x",
-    "superagent": "0.17.x",
-    "country-list": "sigurdga/country-list",
-    "mmmagic": "^0.3.6"
+    "superagent": "0.17.x"
   },
   "devDependencies": {
     "uglify-js": "",

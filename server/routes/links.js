@@ -1,5 +1,5 @@
 var _ = require('underscore'),
-    request = require('request'),
+    request = require('superagent'),
     fs = require('fs'),
     cheerio = require('cheerio'),
     ensureAuthenticated = require('../lib/middleware').ensureAuthenticated,
@@ -142,8 +142,12 @@ module.exports.new_link = function (req, res) {
         }
     });
 
-    request(req.query.url, function(error, response, body){
-        if (!error && response.statusCode === 200) {
+    request
+    .get(req.query.url)
+    .end(function(error, result){
+        var body = result.body;
+        console.log(result);
+        if (!error && body.status === "ok") {
             var $ = cheerio.load(body);
             var link = new Link();
             link.url = req.query.url;
