@@ -29,6 +29,7 @@ app.configure(function(){
     // Utils middleware, adding handy functions to templates.
     app.use(function(req, res, next){
         res.locals.moment = moment;
+        next();
     });
 
     // Add our routes.
