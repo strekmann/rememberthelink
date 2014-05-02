@@ -20,7 +20,7 @@ module.exports = {
         postUrl: 'http://localhost:3000/uwanna',
         seq: 'hello'
     },
-        redis: {
+    redis: {
         host: '127.0.0.1',
         port: 6379
     },

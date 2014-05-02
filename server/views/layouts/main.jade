@@ -1,0 +1,54 @@
+doctype html
+
+html(lang=lang dir=lang_dir)
+  head
+    meta(charset="utf-8")
+    title= title
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="author" content="Strekmann")
+
+    link(href="/css/site.css" rel="stylesheet")
+    link(href="/img/favicon.png" rel="shortcut icon")
+
+    script(src="/js/modernizr.js")
+
+  body
+    nav.top-bar
+      ul.title-area
+        li.name
+          h1
+            a(href="/") Remember the link
+        li.toggle-topbar.menu-icon
+          a(href="#")
+            span Menu
+      section.top-bar-section
+        ul.right
+          if user
+            li
+              a(href="/tags") Tags
+            li
+              a(href="/suggestions") Suggestions
+            li
+              a(href="/friends") Friends
+            li.has-dropdown
+              a#nav-username(href="/account")= user.username
+              ul.dropdown
+                li
+                  a(href="/import") Import
+                li
+                  a(href="/export") Export
+                li
+                  a(href="/logout") Logout
+          else
+            li
+              a(href="/login") Log in
+
+    block body
+
+    script(src="/js/vendor.js")
+    script(src="/js/site.js")
+
+    script.
+      $(document).foundation();
+
+    block javascript
