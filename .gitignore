@@ -9,4 +9,5 @@ bot/*.log
 *.zip
 *.xpi
 *.crx
+*.mo
 /public

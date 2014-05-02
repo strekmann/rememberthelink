@@ -1,14 +1,63 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-02 12:46+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Project-Id-Version: Remember the link\n"
+"POT-Creation-Date: 2014-05-02 13:31+0000\n"
+"PO-Revision-Date: 2014-05-02 15:31+0100\n"
+"Last-Translator: bergquis <jorgen.bergquist@ntnu.no>\n"
+"Language-Team: Strekmann <post@strekmann.no>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.5\n"
 
 #: server/views/index.jade:18
 msgid "Add"
 msgstr "Legg til"
+
+#: server/views/index.jade:9
+msgid "a place to store and share links"
+msgstr "et sted å lagre og dele lenker"
+
+#: server/views/index.jade:20
+msgid "Tag"
+msgstr "Merk"
+
+#: server/views/index.jade:22
+msgid "Share"
+msgstr "Del"
+
+#: server/views/index.jade:25
+msgid ""
+"Rememberthelink is a web tool where you can save, tag and share the links "
+"you find interesting, important or otherwise want to remember."
+msgstr ""
+
+#: server/views/index.jade:26
+msgid ""
+"We do our development in public on %s, you can install Rememberthelink on "
+"your own server, and we make sure our export and import scripts are always "
+"tested."
+msgstr ""
+
+#: server/views/index.jade:27
+msgid ""
+"We will admit we started this project because we were a bit unhappy about "
+"similar tools we knew about. And we did it to learn Node.js better."
+msgstr ""
+
+#: server/views/index.jade:30
+msgid "Popular tags"
+msgstr "Populære merkelapper"
+
+#: server/views/index.jade:34
+msgid "Total number of tags"
+msgstr "Totalt antall merkelapper"
+
+#: server/views/index.jade:38
+msgid "Popular urls"
+msgstr "Populære lenker"
+
+#: server/views/index.jade:43
+msgid "Total number of urls"
+msgstr "Totalt antall lenker"
