@@ -93,8 +93,8 @@ module.exports = {
                 block = $(this).parents('li'),
                 titleBlock = block.find('.title a').first(),
                 url = titleBlock.attr('href'),
-                title = titleBlock.text().trim(),
-                template = require('../templates/sharelink.html');
+                title = titleBlock.text().trim();
+                //template = require('../templates/sharelink.html');
 
             $.ajax({
                 method: 'GET',
