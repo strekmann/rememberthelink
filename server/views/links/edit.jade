@@ -1,0 +1,35 @@
+extends ../layouts/main
+
+block content
+  .row
+    .columns
+      h2= link.title
+
+      form.editform.custom(method="post" action="/edit")
+        .row
+          .columns.medium-2.small-3
+            label.inline.right= __("Title")
+          .columns.medium-10.small-9
+            input#title(type="text" name="title" value=link.title)
+        .row
+          .columns.medium-2.small-3
+            label.inline.right= __("Description")
+          .columns.medium-10.small-9
+            input#description(type="text" name="description" value=link.description)
+        .row
+          .columns.medium-2.small-3
+            label.inline.right= __("Tags")
+          .columns.medium-10.small-9
+            input#tags(type="text" name="tags" style="width: 100%;")
+        .row.listunderair
+          .columns.medium-2.small-3
+          .columns.medium-10.medium-offset-2.small-9.small-offset-3
+            label(for="private")
+              if link.private
+                input#private(type="checkbox" name="private" checked)= __("Private")
+              else
+                input#private(type="checkbox" name="private")= __("Private")
+        .row
+          .columns.medium-10.medium-offset-2.small-9.small-offset-3
+            button#savebtn.small.button= __("Save")
+            button.cancel_new.small.button.secondary(type="button")= __("Cancel")
