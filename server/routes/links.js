@@ -145,9 +145,8 @@ module.exports.new_link = function (req, res) {
     request
     .get(req.query.url)
     .end(function(error, result){
-        var body = result.body;
-        console.log(result);
-        if (!error && body.status === "ok") {
+        var body = result.text;
+        if (!error && result.status === 200) {
             var $ = cheerio.load(body);
             var link = new Link();
             link.url = req.query.url;
