@@ -1,0 +1,15 @@
+extends layouts/main
+
+block content
+  section#login
+    .row
+      .columns.medium-6.text-center
+        a.fanzybutton(href="/auth/google")
+          i.icon-google-plus
+          | &nbsp;
+          = __("Login with Google")
+      .columns.medium-6.text-center
+        a.fanzybutton(href="/auth/facebook")
+          i.icon-facebook
+          | &nbsp;
+          = __("Login with Facebook")
