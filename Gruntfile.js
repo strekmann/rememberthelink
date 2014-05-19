@@ -56,7 +56,7 @@ module.exports = function(grunt) {
                     outputStyle: 'compressed'
                 },
                 files: {
-                    '/tmp/css/styles.css': 'client/scss/styles.scss'
+                    '/tmp/styles.css': 'client/scss/styles.scss'
                 }
             }
         },
@@ -64,7 +64,7 @@ module.exports = function(grunt) {
             css: {
                 src: [
                     'client/vendor/css/**/*.css',
-                    '/tmp/css/styles.css'
+                    '/tmp/styles.css'
                 ],
                 dest: 'public/css/site.css'
             },

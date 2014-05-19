@@ -45,6 +45,7 @@
     "grunt-contrib-jshint": "",
     "grunt-contrib-uglify": "",
     "grunt-contrib-watch": "",
+    "grunt-i18n-abide": "",
     "grunt-sass": "",
     "mocha": "",
     "supertest": "",
