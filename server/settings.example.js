@@ -2,6 +2,7 @@ module.exports = {
     siteName: 'boilerplate',
     uri: 'http://localhost:3000/',
     sessionSecret: 'sessionSecretString',
+    trust_proxy: false,
     auth: {
         google: {
             clientId: 'googleClientId',
@@ -13,10 +14,12 @@ module.exports = {
         host: '127.0.0.1',
         port: 6379
     },
-    i18n: {
-        locales: ['en'],
-        defaultLocale: 'en'
-    }
+    mongo: {
+        servers: ['mongodb://localhost/nidarholm'],
+        replset: null
+    },
+    locales: ['en'],
+    defaultLocale: 'en'
 };
 
 /* secret gen: cat /dev/urandom| base64 | fold -w 64 */

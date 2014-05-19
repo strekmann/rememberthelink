@@ -1,9 +1,17 @@
 #!/usr/bin/env node
-var app = require('./server/app'),
-    http = require('http'),
+
+var http = require('http'),
     cluster = require('cluster'),
-    numCPU = require('os').cpus().length,
+    numCPU = Math.floor(require('os').cpus().length / 2),
+    settings = require('./server/settings'),
+    app = require('./server/app'),
     i = 0;
+
+// Make sure we always have at least 2 workers.
+if (numCPU < 2) { numCPU = 2; }
+
+// We only need 2 workers in development mode.
+if (app.settings.env === 'development') { numCPU = 2; }
 
 if (cluster.isMaster){
     for (i; i<numCPU; i++){
@@ -11,21 +19,21 @@ if (cluster.isMaster){
     }
 
     cluster.on('fork', function(worker){
-        console.log('forked worker ' + worker.process.pid);
+        console.info('* forked worker %s', worker.process.pid);
     });
 
     cluster.on('exit', function(worker, code, signal){
-        console.log('worker ' + worker.process.pid + ' died');
+        console.info('# worker %s died [%s]. Spawning new!', worker.process.pid, code);
         cluster.fork();
     });
 } else {
     // -- database
     var mongoose = require('mongoose');
-    app.db = mongoose.connect('mongodb://localhost/' + app.conf.db_name);
+    app.db = mongoose.connect(settings.mongo.servers.join(','), {replSet: {rs_name: settings.mongo.replset}});
 
     // -- handle node exceptions
     process.on('uncaughtException', function(err){
-        console.error('uncaughtException', err.message);
+        console.error(new Date().toString(), 'uncaughtException', err.message);
         console.error(err.stack);
         process.exit(1);
     });

@@ -1,67 +1,57 @@
-var User = require('../models').User;
+var express = require('express'),
+    router = express.Router(),
+    User = require('../models').User,
+    ensureAuthenticated = require('./lib/middleware').ensureAuthenticated;
 
-// core routes - base is /
-module.exports.index = function(req, res) {
-    res.render('index', {
-        user: req.user
-    });
-};
+router.get('/', function(req, res, next){
+    res.render('index');
+});
 
-module.exports.account = function(req, res){
-    res.render('account', {
-        user: req.user
-    });
-};
+router.get('/login', function(req, res, next){
+    res.render('login');
+});
 
-module.exports.save_account = function(req, res){
-    return User.findById(req.user._id, function(err, user){
-        if (err) {
-            return res.json('200', {
-                error: 'Could not find user'
-            });
-        }
-
-        req.assert('username', 'username is required').notEmpty();
-        req.assert('name', 'name is required').notEmpty();
-        req.assert('email', 'valid email required').isEmail();
-
-        var errors = req.validationErrors();
-        if (errors) {
-            return res.json('200', {
-                errors: errors
-            });
-        }
-
-        user.username = req.body.username;
-        user.name = req.body.name;
-        user.email = req.body.email;
-        return user.save(function(err){
-            if (err) {
-                return res.json('200', {
-                    error: err.message
-                });
-            }
-            return res.json('200', {
-                message: 'Changes saved'
-            });
-        });
-    });
-};
-
-module.exports.login = function(req, res){
-    res.render('login', {
-        user: req.user
-    });
-};
-
-module.exports.logout = function(req, res){
+router.get('/logout', function(req, res, next){
     req.logout();
     req.session.destroy();
     res.redirect('/');
-};
+});
 
-module.exports.google_callback = function(req, res){
-    var url = req.session.returnTo || '/';
-    delete req.session.returnTo;
-    res.redirect(url);
-};
+router.route('/account')
+    .all(ensureAuthenticated)
+    .get(function(req, res, next){
+        res.render('account');
+    })
+    .put(function(req, res, next){
+        User.findById(req.user._id, function(err, user){
+            if (err) {
+                return res.json(404, {
+                    error: 'Could not find user'
+                });
+            }
+
+            req.assert('username', 'username is required').notEmpty();
+            req.assert('name', 'name is required').notEmpty();
+            req.assert('email', 'valid email required').isEmail();
+
+            var errors = req.validationErrors();
+            if (errors) {
+                return res.json('200', {
+                    errors: errors
+                });
+            }
+
+            user.username = req.body.username;
+            user.name = req.body.name;
+            user.email = req.body.email;
+            return user.save(function(err){
+                if (err) { next(err); }
+
+                return res.json(200, {
+                    message: 'Changes saved'
+                });
+            });
+        });
+    });
+
+module.exports = router;
