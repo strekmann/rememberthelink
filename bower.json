@@ -8,8 +8,8 @@
     "ractive": "",
     "ractive-decorators-sortable": "ractivejs/ractive-decorators-sortable",
     "ractive-events-tap": "",
-    "Ractive-transitions-fade": "~0.1.1",
-    "Ractive-transitions-slide": "~0.1.1",
+    "ractive-transitions-fade": "",
+    "ractive-transitions-slide": "",
     "underscore": ""
   }
 }

@@ -27,12 +27,14 @@ module.exports = function(grunt) {
                 options: {
                     node: true
                 },
-                files: [
-                    'Gruntfile.js',
-                    'cluster.js',
-                    'server/**/*.js',
-                    'test/*.js'
-                ]
+                files: {
+                src: [
+                        'Gruntfile.js',
+                        'cluster.js',
+                        'server/**/*.js',
+                        'test/*.js'
+                    ]
+                }
             }
         },
         browserify: {
@@ -79,8 +81,8 @@ module.exports = function(grunt) {
                     'bower_components/ractive/ractive.js',
                     'bower_components/ractive-events-tap/ractive-events-tap.js',
                     'bower_components/ractive-decorators-sortable/Ractive-decorators-sortable.js',
-                    'bower_components/Ractive-transitions-fade/Ractive-transitions-fade.js',
-                    'bower_components/Ractive-transitions-slide/Ractive-transitions-slide.js',
+                    'bower_components/ractive-transitions-fade/ractive-transitions-fade.js',
+                    'bower_components/ractive-transitions-slide/ractive-transitions-slide.js',
                     'client/vendor/js/*.js'
                 ],
                 dest: 'public/js/vendor.js'
@@ -187,4 +189,4 @@ module.exports = function(grunt) {
     grunt.registerTask('prod', ['default', 'uglify']);
     grunt.registerTask('hint', ['jshint']);
     grunt.registerTask('locales', ['abideExtract', 'abideMerge']);
-}
+};

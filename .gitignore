@@ -1,9 +1,6 @@
-node_modules
-server/settings.js
-setup/mongo
+/node_modules
+/bower_components
+/server/settings.js
+/setup/mongo
 .sass-cache
-tmp
-server/public/css
-server/public/js
-server/public/fonts
-bower_modules
+/public
