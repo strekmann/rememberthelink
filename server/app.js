@@ -32,19 +32,14 @@ app.get('/auth/google/callback', app.passport.authenticate('google', { failureRe
 // Core routes like index, login, logout and account.
 app.use('/', require('./routes/index'));
 
-var core_routes = require('./routes/index');
-app.get('/', core_routes.index);
-app.get('/account', app.ensureAuthenticated, core_routes.account);
-app.put('/account', app.ensureAuthenticated, core_routes.save_account);
-app.get('/login', core_routes.login);
-app.get('/logout', core_routes.logout);
-
 // Static file middleware serving static files.
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Internal server error - 500 status
 app.use(function(err, req, res, next){
-    console.error("ERR:", err.message, err.stack);
+    console.error("ERROR: %s [%s] %s", req.ip, new Date().toString(), err.message);
+    console.error(err.stack);
+
     res.status(500);
     res.format({
         html: function(){
