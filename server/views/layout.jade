@@ -1,0 +1,28 @@
+doctype html
+
+html(lang=lang dir=lang_dir)
+  head
+    meta(charset="utf-8")
+    title= title
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="author" content="Strekmann")
+    link(href="/css/site.css" rel="stylesheet")
+
+    //if lt IE 9
+      script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+
+    script(src="/js/modernizr.js")
+    link(rel="shortcut icon" href="/img/favicon.png")
+
+  body
+    block content
+
+    block footer
+
+    script(src="/js/vendor.js")
+    script(src="/js/site.js")
+
+    script.
+      $(document).foundation();
+
+    block javascript
