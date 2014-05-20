@@ -18,6 +18,7 @@ app.use(app.passport.session());
 // Make some variables always available in templates.
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    next();
 });
 
 // ## Application routes
@@ -33,7 +34,7 @@ app.get('/auth/google/callback', app.passport.authenticate('google', { failureRe
 app.use('/', require('./routes/index'));
 
 // Static file middleware serving static files.
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Internal server error - 500 status
 app.use(function(err, req, res, next){

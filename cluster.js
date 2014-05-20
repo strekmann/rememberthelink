@@ -3,15 +3,14 @@
 var http = require('http'),
     cluster = require('cluster'),
     numCPU = Math.floor(require('os').cpus().length / 2),
-    settings = require('./server/settings'),
-    app = require('./server/app'),
+    env = process.env.NODE_ENV || 'development',
     i = 0;
 
 // Make sure we always have at least 2 workers.
 if (numCPU < 2) { numCPU = 2; }
 
 // We only need 2 workers in development mode.
-if (app.settings.env === 'development') { numCPU = 2; }
+if (env === 'development') { numCPU = 2; }
 
 if (cluster.isMaster){
     for (i; i<numCPU; i++){
@@ -28,7 +27,10 @@ if (cluster.isMaster){
     });
 } else {
     // -- database
-    var mongoose = require('mongoose');
+    var mongoose = require('mongoose'),
+        settings = require('./server/settings'),
+        app = require('./server/app');
+
     app.db = mongoose.connect(settings.mongo.servers.join(','), {replSet: {rs_name: settings.mongo.replset}});
 
     // -- handle node exceptions

@@ -1,7 +1,7 @@
 var express = require('express'),
     router = express.Router(),
     User = require('../models').User,
-    ensureAuthenticated = require('./lib/middleware').ensureAuthenticated;
+    ensureAuthenticated = require('../lib/middleware').ensureAuthenticated;
 
 router.get('/', function(req, res, next){
     res.render('index');
