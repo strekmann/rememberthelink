@@ -71,6 +71,9 @@ module.exports = function(grunt) {
                 dest: 'public/css/site.css'
             },
             vendor: {
+                options: {
+                    separator: ';' + grunt.util.linefeed
+                },
                 src: [
                     'bower_components/underscore/underscore.js',
                     'bower_components/jquery/dist/jquery.js',
