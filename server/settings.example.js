@@ -18,7 +18,7 @@ module.exports = {
         servers: ['mongodb://localhost/nidarholm'],
         replset: null
     },
-    locales: ['en'],
+    locales: ['en', 'nb'],
     defaultLocale: 'en'
 };
 
