@@ -1,9 +1,225 @@
 extends layout
 
 block content
-  section#index
-    .row
-      .columns
-        h1 Hello world!
+  section#foundation.row
+    .columns
+      h1 Foundation test page
+      h3.subheader This page includes foundation elements so that we can make sure things work together.
 
-        i.fa.fa-camera-retro
+      h4#alert-boxes Alert boxes
+      .alert-box(data-alert) Standard alert
+      .alert-box.info(data-alert) Info alert
+      .alert-box.success(data-alert) Success alert
+      .alert-box.alert(data-alert) Alert alert
+      .alert-box.warning(data-alert) Warning alert
+      .alert-box.secondary(data-alert) Secondary alert
+
+      hr
+
+      h4#block-grid Block grid
+      ul.small-block-grid-2.large-block-grid-4
+        li
+          img.th(src="http://foundation.zurb.com/docs/assets/img/examples/comet-th.jpg")
+        li
+          img.th(src="http://foundation.zurb.com/docs/assets/img/examples/launch-th.jpg")
+        li
+          img.th(src="http://foundation.zurb.com/docs/assets/img/examples/space-th.jpg")
+        li
+          img.th(src="http://foundation.zurb.com/docs/assets/img/examples/spacewalk-th.jpg")
+
+      hr
+
+      h4#breadcrumbs Breadcrumbs
+      ul.breadcrumbs
+        li
+          a(href="#") Home
+        li.unavailable
+          a(href="#") Gene splicing
+        li.current
+          a(href="#") Cloning
+
+      hr
+
+      h4#buttons Buttons
+      .row
+        .columns.small-6
+          a.tiny.button(href="#") .tiny.button
+          br
+          a.small.button(href="#") .small.button
+          br
+          a.button(href="#") .button
+          br
+          a.button.expand(href="#") .button.expand
+        .columns.small-6
+          a.tiny.button.secondary(href="#") .tiny.button.secondary
+          br
+          a.small.button.success(href="#") .small.button.success
+          br
+          a.button.alert(href="#") .button.alert
+          br
+          a.button.disabled(href="#") .button.disabled
+
+      hr
+
+      h4#forms Forms
+      form
+        fieldset
+          legend Default styling
+          .row
+            .columns
+              label Input label
+              input(type="text" placeholder="Field #1")
+          .row
+            .columns.large-4
+              label Input label
+              input(type="text" placeholder="Field #2")
+            .columns.large-4
+              label Input label
+              input(type="text" placeholder="Field #3" disabled)
+            .columns.large-4
+              .row.collapse
+                label Input label
+                .columns.small-9
+                  input(type="text" placeholder="Field #5")
+                .columns.small-3
+                  span.postfix .com
+          .row
+            .columns.error
+              label Input label
+              input(type="text" placeholder="Field #4")
+              small.error This is an error
+          .row
+            .columns
+              label Input label
+              textarea(placeholder="Textarea Field" style="z-index: 1000;")
+          .row
+            .columns
+              label Input label
+              select
+                option(value="en") En
+                option(value="to") To
+                option(value="tre") Tre
+                option(value="fire") Fire
+
+
+      form
+        fieldset
+          legend Float-labels styling
+          .row
+            .columns.float-labels
+              input(type="text" placeholder="" required)
+              label Title
+          .row
+            .columns.large-4.float-labels
+              input(type="text" placeholder="")
+              label Height
+            .columns.large-4.float-labels
+              input(type="text" placeholder="" disabled)
+              label Width
+            .columns.large-4.float-labels
+                input(type="text" placeholder="")
+                label Weight
+          .row
+            .columns.float-labels.error
+              input(type="text" placeholder="")
+              small.error This is an error
+              label Location
+          .row
+            .columns.float-labels
+              textarea(placeholder="Textarea Field")
+              label Input label
+          .row
+            .columns.float-labels
+              select
+                option(value="en") En
+                option(value="to") To
+                option(value="tre") Tre
+                option(value="fire") Fire
+              label Input label
+
+      hr
+
+      h4#pagination Pagination
+      ul.pagination
+        li.arrow.unavailable
+          a «
+        li.current
+          a 1
+        li
+          a 2
+        li.unavailable
+          a …
+        li
+          a 9
+        li.arrow
+          a »
+
+      hr
+
+      h4#panels Panels
+      .row
+        .columns.large-6
+          .panel
+            p This is a regular panel
+        .columns.large-6
+          .panel.callout
+            p This is a callout panel
+
+      hr
+
+      h4#tables Tables
+      table
+        thead
+          tr
+            th Table header
+            th Table header
+            th Table header
+            th Table header
+        tbody
+          tr
+            td Table column
+            td Table column
+            td Table column
+            td Table column
+          tr
+            td Table column
+            td Table column
+            td Table column
+            td Table column
+          tr
+            td Table column
+            td Table column
+            td Table column
+            td Table column
+          tr
+            td Table column
+            td Table column
+            td Table column
+            td Table column
+          tr
+            td Table column
+            td Table column
+            td Table column
+            td Table column
+
+      hr
+
+      h4#type Type
+      h1 h1. Very large header
+      h2 h2. Large header
+      h3 h3. Medium header
+      h4 h4. Moderate header
+      h5 h5. Small header
+      h6 h6. Tiny header
+
+      h1.subheader h1. Subheader - Very large header
+      h2.subheader h2. Subheader - Large header
+      h3.subheader h3. Subheader - Medium header
+      h4.subheader h4. Subheader - Moderate header
+      h5.subheader h5. Subheader - Small header
+      h6.subheader h6. Subheader - Tiny header
+
+      h5 Blockquote
+      blockquote MongoDB er helt dust!
+        cite Sigurd Gartmann
+

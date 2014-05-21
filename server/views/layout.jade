@@ -15,9 +15,24 @@ html(lang=lang dir=lang_dir)
     link(rel="shortcut icon" href="/img/favicon.png")
 
   body
-    block content
+    nav.top-bar(data-topbar)
+      ul.title-area
+        li.name
+          h1
+            a(href="/")= __("Boilerplate")
 
-    block footer
+      section.top-bar-section
+        ul.right
+          if currentUser
+            li
+              a(href="/account")= __("Account")
+            li
+              a(href="/logout")= __("Logout")
+          else
+            li
+              a(href="/login")= __("Login")
+
+    block content
 
     script(src="/js/vendor.js")
     script(src="/js/site.js")
