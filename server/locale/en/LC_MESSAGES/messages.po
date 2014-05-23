@@ -1,16 +1,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2014-05-23 23:32+0000\n"
 "PO-Revision-Date: 2014-05-21 10:35+0100\n"
+"Last-Translator: bergquis <jorgen.bergquist@ntnu.no>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2014-05-21 08:31+0000\n"
-"Last-Translator: bergquis <jorgen.bergquist@ntnu.no>\n"
 "X-Generator: Poedit 1.6.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: en\n"
 
 #: server/views/layout.jade:22
 msgid "Boilerplate"
@@ -30,4 +30,40 @@ msgstr ""
 
 #: server/views/login.jade:9
 msgid "Login with Google"
+msgstr ""
+
+#: server/views/account.jade:19
+msgid "User data"
+msgstr ""
+
+#: server/views/account.jade:32
+msgid "Username"
+msgstr ""
+
+#: server/views/account.jade:38
+msgid "Name"
+msgstr ""
+
+#: server/views/account.jade:44
+msgid "E-mail"
+msgstr ""
+
+#: server/views/account.jade:50
+msgid "Active"
+msgstr ""
+
+#: server/views/account.jade:56
+msgid "Admin"
+msgstr ""
+
+#: server/views/account.jade:62
+msgid "Created"
+msgstr ""
+
+#: server/views/account.jade:69
+msgid "Google data"
+msgstr ""
+
+#: server/views/account.jade:67
+msgid "Save"
 msgstr ""

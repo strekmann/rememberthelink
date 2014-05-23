@@ -6,7 +6,17 @@ block content
   script#template(type="text/ractive")
     .row
       .columns
-        h1 User data
+        | {{#info}}
+        .alert-box.info(data-alert) {{this}}
+          a.close(on-click="closeBox")&times;
+        | {{/info}}
+        | {{#error}}
+        .alert-box.alert(data-alert) {{this}}
+          a.close(on-click="closeBox")&times;
+        | {{/error}}
+    .row
+      .columns
+        h1= __('User data')
 
         form(on-submit="updateUser")
           .errors
@@ -19,44 +29,44 @@ block content
 
           .row
             .columns.large-2.small-3
-              label.right.inline Username
+              label.right.inline= __('Username')
             .columns.large-10.small-9
               input#username(type="text" name="username" value="{{user.username}}")
 
           .row
             .columns.large-2.small-3
-              label.right.inline Name
+              label.right.inline= __('Name')
             .columns.large-10.small-9
               input#name(type="text" name="name" value="{{user.name}}")
 
           .row
             .columns.large-2.small-3
-              label.right.inline E-mail
+              label.right.inline= __('E-mail')
             .columns.large-10.small-9
               input#email(type="text" name="email" value="{{user.email}}")
 
           .row.listair
             .columns.large-2.small-3
-              label.right Active
+              label.right= __('Active')
             .columns.large-10.small-9
               input#is_active(type="checkbox" name="active" checked="{{user.is_active}}" disabled)
 
           .row.listair
             .columns.large-2.small-3
-              label.right Admin
+              label.right= __('Admin')
             .columns.large-10.small-9
               input#is_admin(type="checkbox" name="admin" checked="{{user.is_admin}}" disabled)
 
           .row.listair
             .columns.large-2.small-3
-              label.right Created
+              label.right= __('Created')
             #created.columns.large-10.small-9 {{user.created}}
 
           .row.listair
             .columns.large-10.small-9.large-offset-2.small-offset-3
-              input#savebtn.button.small(type="submit" value="Save")
+              input#savebtn.button.small(type="submit" value=__("Save"))
 
-        h3 Google data
+        h3= __('Google data')
 
         .row.listair
           .columns.large-3.small-3

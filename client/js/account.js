@@ -11,29 +11,10 @@ var Account = Ractive.extend({
     },
 
     updateUser: function(user){
-        console.log(user);
-
-        $.ajax({
+        return $.ajax({
             type: 'PUT',
-            url: restAPI,
+            url: this.restAPI,
             data: user,
-            success: function(data) {
-                if (data.message) {
-                    errors.append('<div data-alert class="alert-box success">'+ data.message +'<a href="#" class="close">&times;</a></div>');
-                }
-
-                if (data.error) {
-                    errors.append('<div data-alert class="alert-box alert">'+ data.error +'<a href="#" class="close">&times;</a></div>');
-                }
-
-                if (data.errors) {
-                    var err = '';
-                    $.each(data.errors, function(i, error){
-                        err += '<div data-alert class="alert-box alert">'+ error.msg +'<a href="#" class="close">&times;</a></div>';
-                    });
-                    errors.append(err);
-                }
-            }
         });
     }
 });
@@ -49,46 +30,32 @@ module.exports.accountView = function(user){
 
     account.on('updateUser', function(event){
         event.original.preventDefault();
-        account.updateUser(event.context.user);
+        account.updateUser(event.context.user)
+            .then(function(data){
+                // everything ok
+                if (data.message){
+                    account.get('info').push(data.message);
+                }
+                if (data.error){
+                    account.get('error').push(data.error);
+                }
+                if (data.errors){
+                    _.each(data.errors, function(err){
+                        account.get('error').push(err.msg);
+                    });
+                }
+            }, function(xhr, status, err){
+                account.get('error').push(err);
+            });
+        $('body').animate({scrollTop: 0}, 'fast');
+    });
+
+    account.on('closeBox', function(event){
+        var keyparts = event.keypath.split('.'),
+            index = keyparts.pop(),
+            path = keyparts.join('.');
+        account.get(path).splice(index, 1);
     });
 
     return account;
 };
-
-/*
-module.exports = {
-    indexView: function(){
-        var btn = $('#savebtn'),
-            username = $('#username'),
-            form = btn.parents('form'),
-            errors = $('#errors');
-
-        btn.on('click', function(){
-            errors.empty();
-            $.ajax({
-                type: 'PUT',
-                url: window.location.href,
-                data: form.serialize(),
-                success: function(data) {
-                    if (data.message) {
-                        errors.append('<div data-alert class="alert-box success">'+ data.message +'<a href="#" class="close">&times;</a></div>');
-                    }
-
-                    if (data.error) {
-                        errors.append('<div data-alert class="alert-box alert">'+ data.error +'<a href="#" class="close">&times;</a></div>');
-                    }
-
-                    if (data.errors) {
-                        var err = '';
-                        $.each(data.errors, function(i, error){
-                            err += '<div data-alert class="alert-box alert">'+ error.msg +'<a href="#" class="close">&times;</a></div>';
-                        });
-                        errors.append(err);
-                    }
-                }
-            });
-            return false;
-        });
-    }
-};
-*/

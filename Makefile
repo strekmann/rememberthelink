@@ -7,7 +7,7 @@ production:
 	@./node_modules/.bin/grunt prod
 
 watch:
-	@./node_modules/.bin/grunt concurrent
+	@./node_modules/.bin/grunt watch
 
 hint:
 	@./node_modules/.bin/grunt hint

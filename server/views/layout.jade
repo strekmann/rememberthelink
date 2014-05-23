@@ -23,7 +23,7 @@ html(lang=lang dir=lang_dir)
 
       section.top-bar-section
         ul.right
-          if currentUser
+          if active_user
             li
               a(href="/account")= __("Account")
             li
@@ -38,6 +38,21 @@ html(lang=lang dir=lang_dir)
     script(src="/js/site.js")
 
     script.
-      $(document).foundation();
+      var doc = $(document);
+      doc.foundation();
+
+      var scroll_added;
+      doc.scroll(function(e){
+        if (doc.scrollTop() > 5){
+          if (scroll_added) { return; }
+          scroll_added = true;
+          console.log('scroll tru');
+          $('body').addClass('scroll');
+        }
+        else {
+          $('body').removeClass('scroll');
+          scroll_added = false;
+        }
+      });
 
     block javascript
