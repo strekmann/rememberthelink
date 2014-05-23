@@ -17,7 +17,7 @@ app.use(app.passport.session());
 
 // Make some variables always available in templates.
 app.use(function(req, res, next){
-    res.locals.currentUser = req.user;
+    res.locals.active_user = req.user;
     next();
 });
 

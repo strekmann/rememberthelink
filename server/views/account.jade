@@ -19,25 +19,25 @@ block content
             .columns.large-2.small-3
               label.right.inline Username
             .columns.large-10.small-9
-              input#username(type="text" name="username" value=user.username)
+              input#username(type="text" name="username" value=active_user.username)
 
           .row
             .columns.large-2.small-3
               label.right.inline Name
             .columns.large-10.small-9
-              input#name(type="text" name="name" value=user.name)
+              input#name(type="text" name="name" value=active_user.name)
 
           .row
             .columns.large-2.small-3
               label.right.inline E-mail
             .columns.large-10.small-9
-              input#email(type="text" name="email" value=user.email)
+              input#email(type="text" name="email" value=active_user.email)
 
           .row.listair
             .columns.large-2.small-3
               label.right Active
             .columns.large-10.small-9
-              if user.is_active
+              if active_user.is_active
                 input#is_active(type="checkbox" name="active" checked disabled)
               else
                 input#is_active(type="checkbox" name="active" disabled)
@@ -47,7 +47,7 @@ block content
             .columns.large-2.small-3
               label.right Admin
             .columns.large-10.small-9
-              if user.is_admin
+              if active_user.is_admin
                 input#is_admin(type="checkbox" name="admin" checked disabled)
               else
                 input#is_admin(type="checkbox" name="admin" disabled)
@@ -56,7 +56,7 @@ block content
           .row.listair
             .columns.large-2.small-3
               label.right Created
-            #created.columns.large-10.small-9= user.created
+            #created.columns.large-10.small-9= active_user.created
 
           .row.listair
             .columns.large-10.small-9.large-offset-2.small-offset-3
@@ -67,4 +67,4 @@ block content
         .row.listair
           .columns.large-3.small-3
             label.right Google ID
-          #google_id.columns.large-10.small-9= user.google_id
+          #google_id.columns.large-10.small-9= active_user.google_id
