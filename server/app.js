@@ -7,6 +7,11 @@ var express     = require('express'),
 // Add passport to application.
 app.passport = require('./lib/passport')(app);
 
+if (app.settings.env === 'development'){
+    // pretty print jade html in development
+    app.locals.pretty = true;
+}
+
 // Use jade templates located under server/views
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

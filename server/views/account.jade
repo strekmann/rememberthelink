@@ -2,69 +2,70 @@ extends layout
 
 block content
   section#account
+
+  script#template(type="text/ractive")
     .row
       .columns
         h1 User data
 
-        form.custom
+        form(on-submit="updateUser")
           .errors
 
           .row.listair
             .columns.large-2.small-3
               label.right ID
             .columns.large-10.small-9
-              #id= active_user.id
+              #id {{user._id}}
 
           .row
             .columns.large-2.small-3
               label.right.inline Username
             .columns.large-10.small-9
-              input#username(type="text" name="username" value=active_user.username)
+              input#username(type="text" name="username" value="{{user.username}}")
 
           .row
             .columns.large-2.small-3
               label.right.inline Name
             .columns.large-10.small-9
-              input#name(type="text" name="name" value=active_user.name)
+              input#name(type="text" name="name" value="{{user.name}}")
 
           .row
             .columns.large-2.small-3
               label.right.inline E-mail
             .columns.large-10.small-9
-              input#email(type="text" name="email" value=active_user.email)
+              input#email(type="text" name="email" value="{{user.email}}")
 
           .row.listair
             .columns.large-2.small-3
               label.right Active
             .columns.large-10.small-9
-              if active_user.is_active
-                input#is_active(type="checkbox" name="active" checked disabled)
-              else
-                input#is_active(type="checkbox" name="active" disabled)
-              span.custom.checkbox
+              input#is_active(type="checkbox" name="active" checked="{{user.is_active}}" disabled)
 
           .row.listair
             .columns.large-2.small-3
               label.right Admin
             .columns.large-10.small-9
-              if active_user.is_admin
-                input#is_admin(type="checkbox" name="admin" checked disabled)
-              else
-                input#is_admin(type="checkbox" name="admin" disabled)
-              span.custom.checkbox
+              input#is_admin(type="checkbox" name="admin" checked="{{user.is_admin}}" disabled)
 
           .row.listair
             .columns.large-2.small-3
               label.right Created
-            #created.columns.large-10.small-9= active_user.created
+            #created.columns.large-10.small-9 {{user.created}}
 
           .row.listair
             .columns.large-10.small-9.large-offset-2.small-offset-3
-              a#savebtn.button.small Save
+              input#savebtn.button.small(type="submit" value="Save")
 
         h3 Google data
 
         .row.listair
           .columns.large-3.small-3
             label.right Google ID
-          #google_id.columns.large-10.small-9= active_user.google_id
+          #google_id.columns.large-10.small-9 {{user.google_id}}
+
+
+block javascript
+  script
+    | require('s7n').account.accountView(
+    != JSON.stringify(active_user)
+    | );
