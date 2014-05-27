@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "node cluster.js",
-    "test": "./node_modules/.bin/mocha"
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha"
   },
   "dependencies": {
     "async": "0.2.x",
