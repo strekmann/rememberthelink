@@ -15,7 +15,7 @@ module.exports = {
         port: 6379
     },
     mongo: {
-        servers: ['mongodb://localhost/nidarholm'],
+        servers: ['mongodb://localhost/boilerplate'],
         replset: null
     },
     locales: ['en', 'nb'],
