@@ -34,4 +34,7 @@ install:
 doc:
 	./node_modules/.bin/groc
 
-.PHONY: build production watch test test-w hint locales install
+clean:
+	rm -r ./node_modules ./bower_components ./public
+
+.PHONY: build production watch test test-w hint locales install clean
