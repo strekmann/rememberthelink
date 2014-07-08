@@ -3,8 +3,8 @@ var express = require('express'),
     User = require('../models').User,
     ensureAuthenticated = require('../lib/middleware').ensureAuthenticated;
 
-router.get('/', function(req, res, next){
-    res.render('index');
+router.get('/foundation', function(req, res, next){
+    res.render('foundation');
 });
 
 router.get('/login', function(req, res, next){
