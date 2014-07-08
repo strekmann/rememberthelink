@@ -4,7 +4,8 @@ var http = require('http'),
     cluster = require('cluster'),
     numCPU = Math.floor(require('os').cpus().length / 2),
     env = process.env.NODE_ENV || 'development',
-    i = 0;
+    i = 0,
+    stamp = new Date().getTime();
 
 // Make sure we always have at least 2 workers.
 if (numCPU < 2) { numCPU = 2; }
@@ -32,6 +33,7 @@ if (cluster.isMaster){
         app = require('./server/app');
 
     app.db = mongoose.connect(settings.mongo.servers.join(','), {replSet: {rs_name: settings.mongo.replset}});
+    app.stamp = stamp;
 
     // -- handle node exceptions
     process.on('uncaughtException', function(err){

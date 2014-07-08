@@ -6,7 +6,7 @@ html(lang=lang dir=lang_dir)
     title= title
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     meta(name="author" content="Strekmann")
-    link(href="/css/site.css" rel="stylesheet")
+    link(href="/css/site.css?"+stamp rel="stylesheet")
 
     //if lt IE 9
       script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
@@ -34,8 +34,8 @@ html(lang=lang dir=lang_dir)
 
     block content
 
-    script(src="/js/vendor.js")
-    script(src="/js/site.js")
+    script(src="/js/vendor.js?"+stamp)
+    script(src="/js/site.js?"+stamp)
 
     script.
       var doc = $(document);
