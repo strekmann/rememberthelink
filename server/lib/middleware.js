@@ -11,3 +11,8 @@ module.exports.ensureAuthenticated = function(req, res, next) {
     req.session.returnTo = req.url;
     res.redirect('/login');
 };
+
+module.exports.ensureAdmin = function(req, res, next) {
+    if (req.isAuthenticated() && req.user.is_admin) { return next(); }
+    res.render('403');
+};

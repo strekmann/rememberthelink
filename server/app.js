@@ -38,10 +38,12 @@ app.get('/auth/google/callback', app.passport.authenticate('google', { failureRe
 
 // Core routes like index, login, logout and account.
 app.use('/', require('./routes/index'));
+app.use('/links', require('./routes/links'));
+app.use('/friends', require('./routes/friends'));
+app.use('/admin', require('./routes/admin'));
 
-// Example index route, change me :D
 app.get('/', function(req, res, next){
-    res.render('foundation');
+    res.render('index');
 });
 
 // Static file middleware serving static files.

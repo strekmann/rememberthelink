@@ -29,6 +29,7 @@
     "mongoose": "3.x",
     "passport": "0.2.x",
     "passport-google-oauth": "0.1.x",
+    "passport-local": "1.x",
     "redis": "0.10.x",
     "underscore": "1.6.x",
     "uslug": "1.0.x"

@@ -50,5 +50,28 @@ module.exports = function(app){
         }
     ));
 
+    if (process.env.NODE_ENV === 'test') {
+        var LocalStrategy = require('passport-local').Strategy;
+
+        passport.use(new LocalStrategy(function (username, password, done) {
+            User.findOne({username: username.toLowerCase()}, function (err, user) {
+                if (err) {
+                    return done(err);
+                }
+                if (!user) {
+                    return done(null, false, {message: 'Unrecognized username.'});
+                }
+                var hashedPassword = crypto.createHash(user.algorithm);
+                hashedPassword.update(user.salt);
+                hashedPassword.update(password);
+                if (user.password === hashedPassword.digest('hex')) {
+                    return done(null, user);
+                } else {
+                    return done(null, false, {message: 'Incorrect password.'});
+                }
+            });
+        }));
+    }
+
     return passport;
 };
