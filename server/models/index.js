@@ -9,7 +9,10 @@ var UserSchema = new mongoose.Schema({
     is_active: {type: Boolean, 'default': true},
     is_admin: {type: Boolean, 'default': false},
     created: {type: Date, required: true, 'default': Date.now},
-    google_id: {type: String}
+    google_id: {type: String},
+    facebook_id: {type: String},
+    following: [UserSchema],
+    followers: [UserSchema]
 });
 
 var User = mongoose.model('User', UserSchema);
