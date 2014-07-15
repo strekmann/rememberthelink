@@ -120,6 +120,7 @@ router.route('/')
                         }
                         res.render('links/index', {
                             links: links,
+                            show_buttons: links.length === 0,
                             next: next,
                             previous: previous
                         });
