@@ -71,3 +71,5 @@ router.get('/followers', function (req, res, next) {
         }
     });
 });
+
+module.exports = router;

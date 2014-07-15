@@ -153,7 +153,7 @@ router.route('/')
             return res.redirect('/');
         });
     })
-    .put(ensureeAuthenticated, function (req, res, next) {
+    .put(ensureAuthenticated, function (req, res, next) {
         var id = req.body.id;
         Link.findOne({_id: id, creator: req.user._id})
         .exec(function (err, link) {
@@ -190,7 +190,7 @@ router.route('/')
             return res.redirect('/');
         });
     })
-    .delete(ensureaeAuthenticated, function (req, res, next) {
+    .delete(ensureAuthenticated, function (req, res, next) {
         Link.findOne({url: req.body.url, creator: req.user})
         .exec(function (err, link) {
             if (err) {
