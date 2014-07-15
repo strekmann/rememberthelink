@@ -218,7 +218,7 @@ router.route('/')
 
 // will probably be replaced by ractive fun
 router.get('/new', ensureAuthenticated, function (req, res, next) {
-    req.assert('url', res.__('Needs to be a valid url')).isUrl();
+    req.assert('url', res.locals.__('Needs to be a valid url')).isUrl();
 
     var errors = req.validationErrors();
     if (errors) {
@@ -371,7 +371,7 @@ router.route('/suggestions')
         });
     })
     .post(function (req, res, next) {
-        req.assert('url', res.__('Needs to be a valid url')).isUrl();
+        req.assert('url', res.locals.__('Needs to be a valid url')).isUrl();
 
         var errors = req.validationErrors();
         if (errors) {
@@ -396,7 +396,7 @@ router.route('/suggestions')
             suggestion.save(function (err) {
                 if (err) {
                     return res.json(200, {
-                        error: res.__('Could not save')
+                        error: res.locals.__('Could not save')
                     });
                 }
                 redis.zincrby('urls', 1, req.body.url);
@@ -426,7 +426,7 @@ router.route('/suggestions/check')
         });
     })
     .post(function (req, res, next) {
-        req.assert('url', res.__('Needs to be a valid url')).isUrl();
+        req.assert('url', res.locals.__('Needs to be a valid url')).isUrl();
 
         var errors = req.validationErrors();
         if (errors) {

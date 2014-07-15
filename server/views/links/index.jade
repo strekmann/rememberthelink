@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+  section#links-index
+    .row
+      .columns.large-8.large-centered
+        form.new(action="/new")
+          .row.collapse
+            .columns.small-10
+              input#url(type="text" name="url" placeholder=__("http://new.link.now"))
+            .columns.small-2
+              button.button.prefix=__("Save")
+    .row
+      .columns
+        ul.links
+          each link in links
+            li.clearfix.link
+              div
+                h2.title
+                  a(href=link.url)= link.title
+                .controls
+                  if link.private
+                    i.icon-shield(title=__("Private"))
+                  a.share(title=__("Share") data-trans-share=__("share"))
+                    i.icon-share
+                  a.edit(title=__("Edit") data-trans-edit=__("edit"))
+                    i.icon-edit
+                  a.delete(title=__("Delete"))
+                    i.icon-remove
+                  a.sure(style="display: none")= __('delete')
+                    | !
+                .subtext
+                  span.date(title=longdate(link.created))= shortdate(link.created)
+                  | &nbsp;
+                  i.icon-link
+                    span.url= link.url
+                .description= link.description
+                .tags
+                  i.icon-tags
+                  each tag in link.tags
+                    a.tag(href="/tags"+tag)= tag
+
+block javascript
+  script.
+    require('s7n').links.indexView();
