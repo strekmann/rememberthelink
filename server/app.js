@@ -38,13 +38,9 @@ app.get('/auth/google/callback', app.passport.authenticate('google', { failureRe
 
 // Core routes like index, login, logout and account.
 app.use('/', require('./routes/index'));
-app.use('/links', require('./routes/links'));
+app.use('/', require('./routes/links'));
 app.use('/friends', require('./routes/friends'));
 app.use('/admin', require('./routes/admin'));
-
-app.get('/', function(req, res, next){
-    res.render('index');
-});
 
 // Static file middleware serving static files.
 app.use(express.static(path.join(__dirname, '..', 'public')));

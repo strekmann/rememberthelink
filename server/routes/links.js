@@ -7,6 +7,7 @@ var _ = require('underscore'),
     cheerio = require('cheerio'),
     request = require('request'),
     cheerio = require('cheerio'),
+    redis = require('../lib/redisclient'),
     User = require('../models/index').User,
     Link = require('../models/links').Link,
     Tag = require('../models').Tag,
@@ -82,8 +83,8 @@ router.route('/')
             }, function (err, results) {
                 return res.render('index', {
                     url: localsettings.uri,
-                    urls: results.urls,
-                    tags: results.tags,
+                    urls: results.urls || [],
+                    tags: results.tags || [],
                     url_count: results.url_count,
                     tag_count: results.tag_count
                 });
