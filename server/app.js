@@ -1,5 +1,6 @@
 var express     = require('express'),
     path        = require('path'),
+    moment      = require('moment'),
     settings    = require('./settings'),
     app         = require('libby')(express, settings);
 
@@ -24,6 +25,14 @@ app.use(app.passport.session());
 app.use(function(req, res, next){
     res.locals.active_user = req.user;
     res.locals.stamp = app.stamp;
+    res.locals.longdate = function (date) {
+        if (!date) { return; }
+        return moment(date).format('LL');
+    };
+    res.locals.shortdate = function (date) {
+        if (!date) { return; }
+        return moment(date).format('l');
+    };
     next();
 });
 
