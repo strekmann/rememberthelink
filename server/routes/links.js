@@ -86,7 +86,8 @@ router.route('/')
                     urls: results.urls || [],
                     tags: results.tags || [],
                     url_count: results.url_count,
-                    tag_count: results.tag_count
+                    tag_count: results.tag_count,
+                    show_buttons: true
                 });
             });
         } else {

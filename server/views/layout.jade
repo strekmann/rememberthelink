@@ -34,6 +34,39 @@ html(lang=lang dir=lang_dir)
 
     block content
 
+    block footer
+      #footer
+        if show_buttons
+          section.bookmarklet
+            .row
+              .large-4.columns
+                span.header= __("Bookmarklet")
+                span.description= __("drag this button to you toolbar")
+                a.fanzybutton(href="javascript:var l=window.location.href;window.location.href='" + url + "new?url='+l;")= __("Remember")
+              .large-4.columns
+                span.header= __("Chrome extension")
+                span.description= __("Download from google.com")
+                a.fanzybutton(href="https://chrome.google.com/webstore/detail/remember-the-link/ncapgeledeiafgomdafmafggglddijmf")= __("Go to the webstore page")
+              .large-4.columns
+                span.header= __("Firefox extension")
+                span.description= __("Download from mozilla.org")
+                a.fanzybutton(href="https://addons.mozilla.org/en-US/firefox/addon/remember-the-link/")= __("Go to the addon page")
+
+        section.about
+          .row
+            .columns
+              | By 
+              a(href="https://github.com/sigurdga/") sigurdga 
+              | and 
+              a(href="https://github.com/bergquis/") bergquis
+              | . 
+              = __("Thoughts, suggestions or complaints?")
+              | 
+              a(href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#114;&#101;&#109;&#101;&#109;&#98;&#101;&#114;&#116;&#104;&#101;&#108;&#105;&#110;&#107;&#46;&#99;&#111;&#109;")= __("Send us an email")
+              |  or 
+              a(href="https://github.com/strekmann/rememberthelink/issues")= __("describe your issues at Github")
+              | .
+
     script(src="/js/vendor.js?"+stamp)
     script(src="/js/site.js?"+stamp)
 
