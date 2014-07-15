@@ -27,11 +27,11 @@ app.use(function(req, res, next){
     res.locals.stamp = app.stamp;
     res.locals.longdate = function (date) {
         if (!date) { return; }
-        return moment(date).format('LL');
+        return moment(date).format('LLL');
     };
     res.locals.shortdate = function (date) {
         if (!date) { return; }
-        return moment(date).format('l');
+        return moment(date).format('Do MMM');
     };
     next();
 });
