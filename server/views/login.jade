@@ -3,7 +3,13 @@ extends layout
 block content
   section#login
     .row
-      .columns.text-center
-        a.button(href="/auth/google")
+      .columns.medium-6.text-center
+        a.fanzybutton(href="/auth/google")
           i.icon-google-plus
+          | &nbsp;
           = __("Login with Google")
+      .columns.medium-6.text-center
+        a.fanzybutton(href="/auth/facebook")
+          i.icon-facebook
+          | &nbsp;
+          = __("Login with Facebook")

@@ -32,7 +32,8 @@
     "passport-local": "1.x",
     "redis": "0.10.x",
     "underscore": "1.6.x",
-    "uslug": "1.0.x"
+    "uslug": "1.0.x",
+    "request": "^2.37.0"
   },
   "devDependencies": {
     "bower": "",

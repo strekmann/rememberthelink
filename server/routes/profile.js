@@ -41,18 +41,18 @@ router.get('/', function (req, res, next) {
                             link.joined_tags = link.tags.join(", ");
                         });
                         var previous = 0;
-                        var next = page;
+                        var nextPage = page;
                         if (page > 0) {
                             previous = page - 1;
                         }
                         if (links.length === per_page) {
-                            next = page + 1;
+                            nextPage = page + 1;
                         }
                         return callback(err, {
                             links: links,
                             profile: profile,
                             previous: previous,
-                            next: next
+                            next: nextPage
                         });
                     });
                 });
