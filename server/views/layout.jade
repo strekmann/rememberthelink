@@ -20,6 +20,9 @@ html(lang=lang dir=lang_dir)
         li.name
           h1
             a(href="/")= __("Remember the link")
+        li.toggle-topbar.menu-icon
+          a(href="#")
+            span
 
       section.top-bar-section
         ul.right
@@ -32,10 +35,11 @@ html(lang=lang dir=lang_dir)
             li
               a(href="/login")= __("Login")
 
-    block content
+    section#content
+      block content
 
-    block footer
-      #footer
+    footer#footer
+      block footer
         if show_buttons
           section.bookmarklet
             .row

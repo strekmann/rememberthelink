@@ -88,6 +88,18 @@ nav {
     }
 }
 
+#content {
+    min-height: 10rem;
+}
+
+#login {
+    margin-top: 2rem;
+
+    .fanzybutton {
+        margin: 0.5rem;
+    }
+}
+
 .dark {
     color: #333;
 }
