@@ -9,8 +9,9 @@ Based on
 * node.js
 * express
 * mongoose
-* handlebars
 * passport
+* jade
+* ractive
 
 Howto
 -----
