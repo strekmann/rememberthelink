@@ -18,7 +18,7 @@ Howto
 
 * Clone this repository: ``git clone git://github.com/strekmann/node-boilerplate.git``
 * Change directory: ``cd node-boilerplate``
-* Install dependencies: ``npm install``
+* Install dependencies: ``make install``
 * Create a settings file, and remember to edit it: ``cp server/settings.example.js server/settings.js``
 * See that everything works on your side: ``make test``
 * Run: ``node cluster``
