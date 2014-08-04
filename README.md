@@ -38,4 +38,5 @@ Please use the issues and pull requests at Github.
 
 Copyright and license
 ---------------------
-Copyright © 2013 Jørgen Bergquist and Sigurd Gartmann, released under the [MIT license](https://github.com/strekmann/node-boilerplate/blob/master/LICENSE).
+Copyright © 2013-2014 Jørgen Bergquist and Sigurd Gartmann, released under the
+[MIT license](https://github.com/strekmann/node-boilerplate/blob/master/LICENSE).
