@@ -2,44 +2,72 @@ extends ../layout
 
 block content
   section#links-index
+
+  script#template(type="text/ractive")
     .row
       .columns.large-8.large-centered
-        form.new(action="/new")
+        {{#expanded}}
+        form.new(on-submit="saveLink")
+          .row
+            .columns
+              input#url(type="text" name="url" placeholder=__("http://new.link.now") value="{{.link.url}}" disabled)
+          .row
+            .columns
+              input#title(type="text" name="title" placeholder=__("Title") value="{{.link.title}}")
+          .row
+            .columns
+              textarea#description(type="text" name="description" placeholder=__("Description") value="{{.link.description}}")
+          .row
+            .columns
+              input#tags(type="text" name="tags" placeholder=__("Tags") value="{{.link.tags}}")
+          .row
+            .columns
+              button= __("Save")
+              button.secondary(on-click="cancel")= __("Cancel")
+        {{/expanded}}
+        {{^expanded}}
+        form.new(on-submit="addLink")
           .row.collapse
             .columns.small-10
-              input#url(type="text" name="url" placeholder=__("http://new.link.now"))
+              input#url(type="text" name="url" placeholder=__("http://new.link.now") value="{{.link.url}}")
             .columns.small-2
-              button.button.prefix=__("Save")
+              button.button.prefix=__("Fetch")
+        {{/expanded}}
     .row
       .columns
         ul.links
-          each link in links
-            li.clearfix.link
-              div
-                h2.title
-                  a(href=link.url)= link.title
-                .controls
-                  if link.private
-                    i.icon-shield(title=__("Private"))
-                  a.share(title=__("Share") data-trans-share=__("share"))
-                    i.icon-share
-                  a.edit(title=__("Edit") data-trans-edit=__("edit"))
-                    i.icon-edit
-                  a.delete(title=__("Delete"))
-                    i.icon-remove
-                  a.sure(style="display: none")= __('delete')
-                    | !
-                .subtext
-                  span.date(title=longdate(link.created))= shortdate(link.created)
-                  | &nbsp;
-                  i.icon-link
-                    span.url= link.url
-                .description= link.description
-                .tags
-                  i.icon-tags
-                  each tag in link.tags
-                    a.tag(href="/tags"+tag)= tag
+          {{#links}}
+          li.clearfix.link
+            div
+              h2.title
+                a(href="{{.url}}") {{.title}}
+              .controls
+                {{#.private}}
+                i.fa.fa-shield(title=__("Private"))
+                {{/.private}}
+                a.share(title=__("Share") data-trans-share=__("share"))
+                  i.fa.fa-share
+                a.edit(title=__("Edit") data-trans-edit=__("edit"))
+                  i.fa.fa-edit
+                a.delete(title=__("Delete"))
+                  i.fa.fa-trash-o
+                a.sure(style="display: none")= __('delete')
+                  | !
+              .subtext
+                span.date(title="{{isodate(.created)}}") {{shortdate(.created)}}
+                | &nbsp;
+                i.fa.fa-link
+                  span.url {{.url}}
+              .description {{.description}}
+              .tags
+                i.fa.fa-tags
+                {{#tags}}
+                a.tag(href="/tags/{{.}}") {{.}}
+                {{/tags}}
+          {{/links}}
 
 block javascript
-  script.
-    require('s7n').links.indexView();
+  script
+    | require('s7n').links.indexView(
+    != JSON.stringify(links)
+    | );

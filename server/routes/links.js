@@ -133,7 +133,6 @@ router.route('/')
         var link = new Link();
         link.url = req.body.url;
         link.title = req.body.title;
-        link.content = req.body.content;
         link.description = req.body.description;
         link.tags = set_tags(req.body.tags);
         if (req.body.private) {
@@ -142,7 +141,7 @@ router.route('/')
             link.private = false;
         }
         link.creator = req.user;
-        return link.save(function (err) {
+        link.save(function (err, link) {
             if (err) {
                 return res.json(200, {
                     error: err.message
@@ -153,7 +152,7 @@ router.route('/')
                 redis.zincrby('tags', 1, tag);
                 redis.zincrby('tags_' + req.user._id, 1, tag);
             });
-            return res.redirect('/');
+            res.status(200).json(link);
         });
     })
     .put(ensureAuthenticated, function (req, res, next) {
@@ -216,6 +215,20 @@ router.route('/')
             return res.json(200, {status: true});
         });
     });
+
+router.get('/title', function (req, res) {
+    request(req.query.url, function(err, response, body){
+        if (!err && response.statusCode === 200) {
+            var $ = cheerio.load(body);
+            var title = $('html head title').text().trim() || "";
+
+            res.status(200).json({title: title});
+        }
+        else {
+            res.status(400).json({error: err.message});
+        }
+    });
+});
 
 // will probably be replaced by ractive fun
 router.get('/new', ensureAuthenticated, function (req, res, next) {
