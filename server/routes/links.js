@@ -219,7 +219,7 @@ router.route('/')
 
 // will probably be replaced by ractive fun
 router.get('/new', ensureAuthenticated, function (req, res, next) {
-    req.assert('url', res.locals.__('Needs to be a valid url')).isUrl();
+    req.assert('url', res.locals.__('Needs to be a valid url')).isURL();
 
     var errors = req.validationErrors();
     if (errors) {
