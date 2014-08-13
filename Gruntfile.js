@@ -42,7 +42,7 @@ module.exports = function(grunt) {
                 dest: 'public/js/site.js',
                 src: ['client/js/index.js'],
                 options: {
-                    alias: ['client/js/index.js:s7n']
+                    alias: ['./client/js/index.js:s7n']
                 }
             }
         },
