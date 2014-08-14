@@ -162,7 +162,6 @@ router.route('/')
     })
     .put(ensureAuthenticated, function (req, res, next) {
         var id = req.body._id;
-        console.log(req.body);
         if (!id){ return next(new Error("No id given!")); }
 
         Link.findOne({_id: id, creator: req.user._id})

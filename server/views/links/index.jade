@@ -6,12 +6,12 @@ block content
     a.close-reveal-modal &#215;
 
   script#modal-template(type="text/ractive")
-    {{#error}}
+    | {{#error}}
     .row
       .columns
         .alert-box.alert
-          {{error}}
-    {{/error}}
+          | {{error}}
+    | {{/error}}
 
     .row
       .columns
@@ -39,7 +39,7 @@ block content
   script#template(type="text/ractive")
     .row
       .columns.large-8.large-centered
-        {{#expanded}}
+        | {{#expanded}}
         form.new(on-submit="saveLink")
           .row
             .columns
@@ -57,27 +57,27 @@ block content
             .columns
               button= __("Save")
               button.secondary(on-click="cancel")= __("Cancel")
-        {{/expanded}}
-        {{^expanded}}
+        | {{/expanded}}
+        | {{^expanded}}
         form.new(on-submit="addLink")
           .row.collapse
             .columns.small-10
               input#url(type="text" name="url" placeholder=__("http://new.link.now") value="{{.link.url}}")
             .columns.small-2
               button.button.prefix=__("Fetch")
-        {{/expanded}}
+        | {{/expanded}}
     .row
       .columns
         ul.links
-          {{#links}}
+          | {{#links}}
           li.clearfix.link
             div
               h2.title
                 a(href="{{.url}}") {{.title}}
               .controls
-                {{#.private}}
+                | {{#.private}}
                 i.fa.fa-shield(title=__("Private"))
-                {{/.private}}
+                | {{/.private}}
                 a.share(title=__("Share") data-trans-share=__("share"))
                   i.fa.fa-share
                 a.edit(title=__("Edit") data-trans-edit=__("edit") on-click="edit")
@@ -94,10 +94,10 @@ block content
               .description {{.description}}
               .tags
                 i.fa.fa-tags
-                {{#tags}}
+                | {{#tags}}
                 a.tag(href="/tags/{{.}}") {{.}}
-                {{/tags}}
-          {{/links}}
+                | {{/tags}}
+          | {{/links}}
 
 block javascript
   script
