@@ -2,6 +2,39 @@ extends ../layout
 
 block content
   section#links-index
+  #modal.reveal-modal(data-reveal)
+    a.close-reveal-modal &#215;
+
+  script#modal-template(type="text/ractive")
+    {{#error}}
+    .row
+      .columns
+        .alert-box.alert
+          {{error}}
+    {{/error}}
+
+    .row
+      .columns
+        h2= __('Edit link')
+    form.edit(on-submit="updateLink")
+      .row
+        .columns
+          label(for="edit-title")= __("Title")
+          input#edit-title(value="{{.link.title}}" type="text" required)
+      .row
+        .columns
+          label(for="edit-description")= __("Description")
+          textarea#edit-description(value="{{.link.description}}")
+      .row
+        .columns
+          label(for="edit-tags")= __("Tags")
+          input#edit-tags(value="{{.link.tags}}" type="text")
+      .row
+        .columns
+          button= __("Save")
+          button.secondary(on-click="closeModal")= __("Cancel")
+    a.close-reveal-modal &#215;
+
 
   script#template(type="text/ractive")
     .row
@@ -47,7 +80,7 @@ block content
                 {{/.private}}
                 a.share(title=__("Share") data-trans-share=__("share"))
                   i.fa.fa-share
-                a.edit(title=__("Edit") data-trans-edit=__("edit"))
+                a.edit(title=__("Edit") data-trans-edit=__("edit") on-click="edit")
                   i.fa.fa-edit
                 a.delete(title=__("Delete"))
                   i.fa.fa-trash-o

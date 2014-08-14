@@ -18,9 +18,14 @@ var _ = require('underscore'),
 //libs
 function set_tags(tagstring) {
     if (tagstring) {
-        return _.map(tagstring.split(","), function(tag) {
-            return tag.trim();
-        });
+        if (_.isArray(tagstring)){
+            return tagstring;
+        }
+        else {
+            return _.map(tagstring.split(","), function(tag) {
+                return tag.trim();
+            });
+        }
     } else {
         return [];
     }
@@ -156,7 +161,10 @@ router.route('/')
         });
     })
     .put(ensureAuthenticated, function (req, res, next) {
-        var id = req.body.id;
+        var id = req.body._id;
+        console.log(req.body);
+        if (!id){ return next(new Error("No id given!")); }
+
         Link.findOne({_id: id, creator: req.user._id})
         .exec(function (err, link) {
             if (err) {
@@ -178,7 +186,7 @@ router.route('/')
             }
             link.save(function (err) {
                 if (err) {
-                    return;
+                    return next(err);
                 }
                 _.each(old_tags, function (tag) {
                     redis.zincrby('tags', -1, tag);
@@ -188,8 +196,8 @@ router.route('/')
                     redis.zincrby('tags', 1, tag);
                     redis.zincrby('tags_' + req.user._id, 1, tag);
                 });
+                return res.json(link);
             });
-            return res.redirect('/');
         });
     })
     .delete(ensureAuthenticated, function (req, res, next) {
