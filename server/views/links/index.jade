@@ -2,10 +2,31 @@ extends ../layout
 
 block content
   section#links-index
-  #modal.reveal-modal(data-reveal)
+  #edit-modal.reveal-modal(data-reveal)
+    a.close-reveal-modal &#215;
+  #share-modal.reveal-modal(data-reveal)
     a.close-reveal-modal &#215;
 
-  script#modal-template(type="text/ractive")
+  script#share-modal-template(type="text/ractive")
+    .row
+      .columns
+        h2= __('Share link')
+    form.share(on-submit="shareLink")
+      .row
+        .columns
+          label(for="share-to")= __("User(s)")
+          input#share-to(value="{{.link.to}}" type="text" required)
+      .row
+        .columns
+          label(for="share-description")= __("Message")
+          textarea#share-description(value="{{.link.description}}" type="text" required)
+      .row
+        .columns
+          button= __("Save")
+          button.secondary(type="reset" on-click="closeModal")= __("Cancel")
+    a.close-reveal-modal &#215;
+
+  script#edit-modal-template(type="text/ractive")
     | {{#error}}
     .row
       .columns
@@ -32,7 +53,7 @@ block content
       .row
         .columns
           button= __("Save")
-          button.secondary(on-click="closeModal")= __("Cancel")
+          button.secondary(type="reset" on-click="closeModal")= __("Cancel")
     a.close-reveal-modal &#215;
 
 
@@ -80,10 +101,10 @@ block content
                 i.fa.fa-shield.fa-fw(title=__("Private"))
                 | {{/.private}}
 
-                a.share(title=__("Share") data-trans-share=__("share"))
+                a.share(title=__("Share") on-click="toggleShareLink")
                   i.fa.fa-share-alt.fa-fw
 
-                a.edit(title=__("Edit") data-trans-edit=__("edit") on-click="edit")
+                a.edit(title=__("Edit") on-click="editLink")
                   i.fa.fa-edit.fa-fw
 
                 a.delete(title=__("Delete") on-click="toggleDelete")

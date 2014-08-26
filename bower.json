@@ -10,6 +10,7 @@
     "ractive-events-tap": "",
     "ractive-transitions-fade": "",
     "ractive-transitions-slide": "",
-    "underscore": ""
+    "underscore": "",
+    "select2": "~3.5.1"
   }
 }

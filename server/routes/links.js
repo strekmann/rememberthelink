@@ -392,7 +392,7 @@ router.route('/suggestions')
         });
     })
     .post(function (req, res, next) {
-        req.assert('url', res.locals.__('Needs to be a valid url')).isUrl();
+        req.assert('url', res.locals.__('Needs to be a valid url')).isURL();
 
         var errors = req.validationErrors();
         if (errors) {
@@ -402,7 +402,7 @@ router.route('/suggestions')
         }
         Suggestion.findOne({
             from: req.user._id,
-            to: req.body.id,
+            to: req.body.to,
             url: req.body.url
         })
         .exec(function (err, suggestion) {
@@ -410,14 +410,14 @@ router.route('/suggestions')
                 suggestion = new Suggestion();
             }
             suggestion.url = req.body.url;
-            suggestion.to = req.body.id;
+            suggestion.to = req.body.to;
             suggestion.from = req.user._id;
             suggestion.title = req.body.title;
             suggestion.description = req.body.description;
             suggestion.save(function (err) {
                 if (err) {
-                    return res.json(200, {
-                        error: res.locals.__('Could not save')
+                    return res.status(500).json({
+                        error: res.locals.__('Could not save: ' + err.message)
                     });
                 }
                 redis.zincrby('urls', 1, req.body.url);

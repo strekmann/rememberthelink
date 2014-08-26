@@ -43,12 +43,20 @@ var Links = Ractive.extend({
     },
 
     deleteLink: function(data){
-        console.log(data);
         return $.ajax({
             dataType: 'json',
             type: 'DELETE',
             url: '/',
             data: _.pick(data, '_id')
+        });
+    },
+
+    shareLink: function (data) {
+        return $.ajax({
+            dataType: 'json',
+            type: 'POST',
+            url: '/suggestions',
+            data: data
         });
     }
 });
@@ -63,8 +71,8 @@ module.exports.indexView = function (l) {
     });
 
     var modal = new Ractive({
-        el: '#modal',
-        template: '#modal-template',
+        el: '#edit-modal',
+        template: '#edit-modal-template',
         data: {
             print: function(obj){
                 return JSON.stringify(obj, null, 2);
@@ -72,10 +80,30 @@ module.exports.indexView = function (l) {
         }
     });
 
+    var sharemodal = new Ractive({
+        el: '#share-modal',
+        template: '#share-modal-template'
+    });
+
+    // Share modal section
+    sharemodal.on('closeModal', function(event){
+        event.original.preventDefault();
+        $('#sharemodal').foundation('reveal', 'close');
+    });
+
+    sharemodal.on('shareLink', function (event) {
+        event.original.preventDefault();
+
+        links.shareLink(event.context.link)
+        .then(function (data) {
+            console.log("ferdig");
+        });
+    });
+
     // Modal section
     modal.on('closeModal', function(event){
         event.original.preventDefault();
-        $('#modal').foundation('reveal', 'close');
+        $('#edit-modal').foundation('reveal', 'close');
     });
 
     modal.on('updateLink', function(event){
@@ -83,7 +111,7 @@ module.exports.indexView = function (l) {
         links.updateLink(event.context.link).then(
             function(link){
                 links.set(event.context.link.key, link);
-                $('#modal').foundation('reveal', 'close');
+                $('#edit-modal').foundation('reveal', 'close');
             },
             function(err){
                 modal.set('error', err.responseJSON.error);
@@ -107,13 +135,13 @@ module.exports.indexView = function (l) {
         }
     });
 
-    links.on('edit', function(event){
+    links.on('editLink', function(event){
         event.original.preventDefault();
         var link = _.clone(event.context);
         link.key = event.keypath;
         modal.set('link', link);
         modal.set('error', undefined);
-        $('#modal').foundation('reveal', 'open');
+        $('#edit-modal').foundation('reveal', 'open');
     });
 
     links.on('toggleDelete', function(event){
@@ -141,5 +169,52 @@ module.exports.indexView = function (l) {
                 links.toggle('expanded');
             });
         }
+    });
+
+    links.on('toggleShareLink', function(event){
+        event.original.preventDefault();
+        sharemodal.set('link', event.context);
+        $('#share-modal').foundation('reveal', 'open');
+        $('#share-to').select2({
+            width: '100%',
+            tags: $('#share-to').val().split(', '),
+            tokenSeparators: [",", " "],
+            minimumInputLength: 2,
+            initSelection: function (element, callback) {
+                var data = [];
+                $(element.val().split(", ")).each(function () {
+                    data.push({id: this, text: this});
+                });
+                callback(data);
+            },
+            createSearchChoice: function(term, data) {
+                if ($(data).filter(function() {
+                    return this.text.localeCompare(term) === 0;
+                }).length === 0) {
+                    return {
+                        id: term,
+                        text: term
+                    };
+                }
+            },
+            ajax: {
+                url: "/friends/followers",
+                dataType: "json",
+                quietMillis: 100,
+                data: function (term, page) {
+                    return {
+                        q: term
+                    };
+                },
+                results: function (data, page) {
+                    return {results: _.map(data.followers, function(follower) {
+                        return {id: follower._id, text: follower.name};
+                    })};
+                }
+            }
+        });
+        $('#share-to').on("change", function(e) {
+            sharemodal.set('.link.to', e.val);
+        });
     });
 };

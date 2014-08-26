@@ -66,6 +66,7 @@ module.exports = function(grunt) {
             css: {
                 src: [
                     'client/vendor/css/**/*.css',
+                    'bower_components/select2/select2.css',
                     '/tmp/styles.css'
                 ],
                 dest: 'public/css/site.css'
@@ -86,6 +87,7 @@ module.exports = function(grunt) {
                     'bower_components/ractive-decorators-sortable/Ractive-decorators-sortable.js',
                     'bower_components/ractive-transitions-fade/ractive-transitions-fade.js',
                     'bower_components/ractive-transitions-slide/ractive-transitions-slide.js',
+                    'bower_components/select2/select2.js',
                     'client/vendor/js/*.js'
                 ],
                 dest: 'public/js/vendor.js'
@@ -113,7 +115,13 @@ module.exports = function(grunt) {
                 expand: true,
                 cwd: 'client/img',
                 src: ['**'],
-                dest: 'public/img'
+                dest: 'public/img/'
+            },
+            select2: {
+                expand: true,
+                flatten: true,
+                src: ['bower_components/select2/*.png', 'bower_components/select2/*.gif'],
+                dest: 'public/css/'
             }
         },
         uglify: {
