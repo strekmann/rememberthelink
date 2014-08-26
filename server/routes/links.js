@@ -215,8 +215,16 @@ router.route('/')
         });
     });
 
-router.get('/title', function (req, res) {
-    request(req.query.url, function(err, response, body){
+router.get('/title', function (req, res, next) {
+    var url = req.query.url;
+
+    if (!url) { return next(new Error(res.locals.__('Url missing.'))); }
+
+    if (url.indexOf('http') !== 0) {
+        url = 'http://' + url;
+    }
+
+    request(url, function(err, response, body){
         if (!err && response.statusCode === 200) {
             var $ = cheerio.load(body);
             var title = $('html head title').text().trim() || "";
