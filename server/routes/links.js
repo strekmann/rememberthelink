@@ -392,6 +392,7 @@ router.route('/suggestions')
         });
     })
     .post(function (req, res, next) {
+        // TODO: Split "to" field and save in for loop
         req.assert('url', res.locals.__('Needs to be a valid url')).isURL();
 
         var errors = req.validationErrors();
