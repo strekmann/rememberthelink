@@ -40,6 +40,16 @@ var Links = Ractive.extend({
             url: '/',
             data: _.pick(data, '_id', 'title', 'description', 'tags')
         });
+    },
+
+    deleteLink: function(data){
+        console.log(data);
+        return $.ajax({
+            dataType: 'json',
+            type: 'DELETE',
+            url: '/',
+            data: _.pick(data, '_id')
+        });
     }
 });
 
@@ -98,6 +108,7 @@ module.exports.indexView = function (l) {
     });
 
     links.on('edit', function(event){
+        event.original.preventDefault();
         var link = _.clone(event.context);
         link.key = event.keypath;
         modal.set('link', link);
@@ -105,6 +116,20 @@ module.exports.indexView = function (l) {
         $('#modal').foundation('reveal', 'open');
     });
 
+    links.on('toggleDelete', function(event){
+        event.original.preventDefault();
+        links.toggle(event.keypath + '.confirmDelete');
+    });
+
+    links.on('deleteLink', function(event){
+        event.original.preventDefault();
+        var parts = event.keypath.split('.'),
+            index = parts.pop();
+
+        links.deleteLink(event.context).then(function(){
+            links.splice(parts.join('.'), index, 1);
+        });
+    });
 
     links.on('saveLink', function (event) {
         event.original.preventDefault();

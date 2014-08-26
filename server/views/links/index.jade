@@ -75,17 +75,27 @@ block content
               h2.title
                 a(href="{{.url}}") {{.title}}
               .controls
+                | {{^.confirmDelete}}
                 | {{#.private}}
                 i.fa.fa-shield(title=__("Private"))
                 | {{/.private}}
+
                 a.share(title=__("Share") data-trans-share=__("share"))
                   i.fa.fa-share
+
                 a.edit(title=__("Edit") data-trans-edit=__("edit") on-click="edit")
                   i.fa.fa-edit
-                a.delete(title=__("Delete"))
+
+                a.delete(title=__("Delete") on-click="toggleDelete")
                   i.fa.fa-trash-o
-                a.sure(style="display: none")= __('delete')
-                  | !
+                | {{/.confirmDelete}}
+
+                | {{#.confirmDelete}}
+                span= __('delete')
+                  | ?
+                a.sure(on-click="deleteLink")= __('yes')
+                a(on-click="toggleDelete")= __('no')
+                | {{/.confirmDelete}}
               .subtext
                 span.date(title="{{isodate(.created)}}") {{shortdate(.created)}}
                 | &nbsp;

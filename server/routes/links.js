@@ -200,26 +200,18 @@ router.route('/')
         });
     })
     .delete(ensureAuthenticated, function (req, res, next) {
-        Link.findOne({url: req.body.url, creator: req.user})
+        Link.findOneAndRemove({_id: req.body._id, creator: req.user})
         .exec(function (err, link) {
-            if (err) {
-                return res.json(200, {
-                    error: err.message
-                });
-            }
+            if (err) { return next(err); }
+
             var old_tags = link.tags;
             var url = link.url;
-            link.remove(function (err) {
-                if (err) {
-                    return;
-                }
-                redis.zincrby('urls', -1, url);
-                _.each(old_tags, function (tag) {
-                    redis.zincrby('tags', -1, tag);
-                    redis.zincrby('tags_' + req.user._id, -1, tag);
-                });
+            redis.zincrby('urls', -1, url);
+            _.each(old_tags, function (tag) {
+                redis.zincrby('tags', -1, tag);
+                redis.zincrby('tags_' + req.user._id, -1, tag);
             });
-            return res.json(200, {status: true});
+            return res.json({status: true});
         });
     });
 
