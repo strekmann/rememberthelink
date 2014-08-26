@@ -77,17 +77,17 @@ block content
               .controls
                 | {{^.confirmDelete}}
                 | {{#.private}}
-                i.fa.fa-shield(title=__("Private"))
+                i.fa.fa-shield.fa-fw(title=__("Private"))
                 | {{/.private}}
 
                 a.share(title=__("Share") data-trans-share=__("share"))
-                  i.fa.fa-share
+                  i.fa.fa-share-alt.fa-fw
 
                 a.edit(title=__("Edit") data-trans-edit=__("edit") on-click="edit")
-                  i.fa.fa-edit
+                  i.fa.fa-edit.fa-fw
 
                 a.delete(title=__("Delete") on-click="toggleDelete")
-                  i.fa.fa-trash-o
+                  i.fa.fa-trash-o.fa-fw
                 | {{/.confirmDelete}}
 
                 | {{#.confirmDelete}}
