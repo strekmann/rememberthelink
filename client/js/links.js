@@ -1,3 +1,63 @@
+var tagify = function () {
+    var options = {},
+        callback;
+
+    if (_.isObject(arguments[0])) {
+        options = arguments[0];
+    }
+
+    callback = arguments[arguments.length-1];
+
+    var selector = options.selector || '#tags',
+        url = options.url || '/tags';
+
+    $(selector).select2({
+        width: '100%',
+        tags: [],
+        tokenSeparators: [",", " "],
+        minimumInputLength: 2,
+        initSelection: function (element, callback) {
+            var data = [];
+            $(element.val().split(",")).each(function () {
+                var self = this,
+                    tag = this.trim();
+                data.push({id: tag, text: tag});
+            });
+            callback(data);
+        },
+        createSearchChoice: function(term, data) {
+            if ($(data).filter(function() {
+                return this.text.localeCompare(term) === 0;
+            }).length === 0) {
+                return {
+                    id: term,
+                    text: term
+                };
+            }
+        },
+        ajax: {
+            url: url,
+            dataType: "json",
+            quietMillis: 100,
+            data: function (term, page) {
+                return {
+                    q: term
+                };
+            },
+            results: function (data, page) {
+                return {results: _.map(data.tags, function(tag) {
+                    return {id: tag.text, text: tag.text};
+                })};
+            }
+        }
+    });
+    if (_.isFunction(callback)) {
+        $(selector).on("change", function(element) {
+            callback(element);
+        });
+    }
+};
+
 var Links = Ractive.extend({
     data: {
         links: [],
@@ -133,6 +193,9 @@ module.exports.indexView = function (l) {
             .then(function (data) {
                 links.set('link.title', data.title);
                 links.toggle('expanded');
+                tagify(function (element) {
+                    links.set('link.tags', element.val);
+                });
             })
             .fail(function(){
                 // Failed to fetch title
@@ -148,6 +211,9 @@ module.exports.indexView = function (l) {
         modal.set('link', link);
         modal.set('error', undefined);
         $('#edit-modal').foundation('reveal', 'open');
+        tagify({selector: '#edit-tags'}, function (element) {
+            modal.set('.link.tags', element.val);
+        });
     });
 
     links.on('toggleDelete', function(event){
