@@ -462,8 +462,39 @@ form.editform {
 }
 
 .select2-search-choice div {
-    padding: rem-calc(5px) 0;
+    line-height: rem-calc(30px);
 }
+.select2-container-multi .select2-search-choice-close,
 .select2-search-choice-close {
+    background: none;
     top: rem-calc(7px);
+    left: rem-calc(5px);
+    height: auto;
+    width: auto;
+    color: $alert-color;
+
+    &:hover {
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    &:before {
+        content: "\d7";
+        font-size: 1.5rem;
+    }
+}
+
+.select2-container-multi .select2-choices {
+    background: none;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.75);
+    font-size: 0.875rem;
+}
+
+.select2-container-multi .select2-choices .select2-search-choice {
+    border-radius: 0;
+    background: $secondary-color;
+    border: none;
+    box-shadow: none;
 }

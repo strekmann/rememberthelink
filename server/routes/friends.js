@@ -58,7 +58,7 @@ router.post('/add', function (req, res, next) {
             req.user.save();
             user.followers.push(req.user._id);
             user.save();
-            res.json(200, {'status': true});
+            res.json({'status': true});
         }
     });
 });
@@ -67,7 +67,7 @@ router.get('/followers', function (req, res, next) {
     .populate('followers', 'username name')
     .exec(function (err, user) {
         if (user) {
-            res.json(200, {'followers': user.followers});
+            res.json({'followers': user.followers});
         }
     });
 });
