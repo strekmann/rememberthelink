@@ -19,7 +19,7 @@ block content
       .row
         .columns
           label(for="share-description")= __("Message")
-          textarea#share-description(value="{{.link.description}}" type="text" required)
+          textarea#share-description(value="{{.link.description}}" type="text")
       .row
         .columns
           button= __("Save")

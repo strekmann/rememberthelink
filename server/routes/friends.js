@@ -64,7 +64,7 @@ router.post('/add', function (req, res, next) {
 });
 router.get('/followers', function (req, res, next) {
     User.findById(req.user._id)
-    .populate('followers')
+    .populate('followers', 'username name')
     .exec(function (err, user) {
         if (user) {
             res.json(200, {'followers': user.followers});

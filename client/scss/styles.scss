@@ -455,3 +455,15 @@ form.editform {
         font-family: "Helvetica Neue", Helvetica, sans-serif;
     }
 }
+
+// select2 quirks
+.select2-container {
+    margin: 0 0 1rem 0;
+}
+
+.select2-search-choice div {
+    padding: rem-calc(5px) 0;
+}
+.select2-search-choice-close {
+    top: rem-calc(7px);
+}

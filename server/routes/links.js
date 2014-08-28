@@ -407,40 +407,64 @@ router.route('/suggestions')
         });
     })
     .post(function (req, res, next) {
-        // TODO: Split "to" field and save in for loop
         req.assert('url', res.locals.__('Needs to be a valid url')).isURL();
+        req.assert('to', res.locals.__('Needs to be specified')).notEmpty();
 
         var errors = req.validationErrors();
+        var recipients;
+
         if (errors) {
             return res.json(200, {
                 errors: errors,
             });
         }
-        Suggestion.findOne({
-            from: req.user._id,
-            to: req.body.to,
-            url: req.body.url
-        })
-        .exec(function (err, suggestion) {
-            if (!suggestion) {
-                suggestion = new Suggestion();
-            }
-            suggestion.url = req.body.url;
-            suggestion.to = req.body.to;
-            suggestion.from = req.user._id;
-            suggestion.title = req.body.title;
-            suggestion.description = req.body.description;
-            suggestion.save(function (err) {
-                if (err) {
-                    return res.status(500).json({
-                        error: res.locals.__('Could not save: ' + err.message)
-                    });
-                }
-                redis.zincrby('urls', 1, req.body.url);
 
-                return res.json(200, {
-                   status: true
+        if (_.isString(req.body.to)) {
+            recipients = req.body.to.split(",");
+        }
+        else {
+            recipients = req.body.to;
+        }
+
+        async.eachLimit(recipients, 5, function (recipient, callback) {
+
+            if (!_.contains(req.user.followers, recipient)) {
+                callback();
+            }
+            else {
+                Suggestion.findOne({
+                    from: req.user._id,
+                    to: recipient,
+                    url: req.body.url
+                })
+                .exec(function (err, suggestion) {
+                    if (!suggestion) {
+                        suggestion = new Suggestion();
+                    }
+                    suggestion.url = req.body.url;
+                    suggestion.to = recipient;
+                    suggestion.from = req.user._id;
+                    suggestion.title = req.body.title;
+                    suggestion.description = req.body.description;
+                    suggestion.save(function (err) {
+                        if (err) {
+                            callback(err);
+                        }
+                        else {
+                            redis.zincrby('urls', 1, req.body.url);
+                            callback();
+                        }
+                    });
                 });
+            }
+        }, function (err) {
+            if (err) {
+                return res.status(500).json({
+                    error: res.locals.__('Could not save: ' + err.message)
+                });
+            }
+            return res.json(200, {
+                status: true
             });
         });
     });

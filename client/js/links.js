@@ -96,7 +96,8 @@ module.exports.indexView = function (l) {
 
         links.shareLink(event.context.link)
         .then(function (data) {
-            console.log("ferdig");
+            links.set('link', {});
+            $('#share-modal').foundation('reveal', 'close');
         });
     });
 
@@ -179,29 +180,13 @@ module.exports.indexView = function (l) {
     links.on('toggleShareLink', function(event){
         event.original.preventDefault();
         sharemodal.set('link', event.context);
+        sharemodal.set('link.to', undefined);
         $('#share-modal').foundation('reveal', 'open');
         $('#share-to').select2({
             width: '100%',
-            tags: $('#share-to').val().split(', '),
+            multiple: true,
             tokenSeparators: [",", " "],
             minimumInputLength: 2,
-            initSelection: function (element, callback) {
-                var data = [];
-                $(element.val().split(", ")).each(function () {
-                    data.push({id: this, text: this});
-                });
-                callback(data);
-            },
-            createSearchChoice: function(term, data) {
-                if ($(data).filter(function() {
-                    return this.text.localeCompare(term) === 0;
-                }).length === 0) {
-                    return {
-                        id: term,
-                        text: term
-                    };
-                }
-            },
             ajax: {
                 url: "/friends/followers",
                 dataType: "json",
@@ -221,5 +206,8 @@ module.exports.indexView = function (l) {
         $('#share-to').on("change", function(e) {
             sharemodal.set('.link.to', e.val);
         });
+        setTimeout(function () {
+            $('#s2id_share-to input').first().focus();
+        }, 500);
     });
 };
