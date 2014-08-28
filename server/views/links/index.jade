@@ -77,7 +77,7 @@ block content
           .row
             .columns
               button= __("Save")
-              button.secondary(on-click="cancel")= __("Cancel")
+              button.secondary(type="reset" on-click="cancelAddLink")= __("Cancel")
         | {{/expanded}}
         | {{^expanded}}
         form.new(on-submit="addLink")

@@ -119,7 +119,8 @@ module.exports.indexView = function (l) {
     });
 
     // Links section
-    links.on('cancel', function (event) {
+    links.on('cancelAddLink', function (event) {
+        event.original.preventDefault();
         links.set('link', {});
         links.toggle("expanded");
     });
@@ -130,6 +131,10 @@ module.exports.indexView = function (l) {
             links.getTitle(event.context)
             .then(function (data) {
                 links.set('link.title', data.title);
+                links.toggle('expanded');
+            })
+            .fail(function(){
+                // Failed to fetch title
                 links.toggle('expanded');
             });
         }

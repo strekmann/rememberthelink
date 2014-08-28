@@ -11,6 +11,7 @@ var _ = require('underscore'),
     Tag = require('../models').Tag,
     Suggestion = require('../models/links').Suggestion,
     localsettings = require('../settings'),
+    version = require('../../package').version,
     ensureAuthenticated = require('../lib/middleware').ensureAuthenticated;
 
 //libs
@@ -222,16 +223,32 @@ router.get('/title', function (req, res, next) {
         url = 'http://' + url;
     }
 
-    request(url, function(err, response, body){
-        if (!err && response.statusCode === 200) {
-            var $ = cheerio.load(body);
-            var title = $('html head title').text().trim() || "";
 
-            res.status(200).json({title: title});
+    request({
+        url: url,
+        gzip: true,
+        headers: {
+            'User-Agent': 'Rememberthelink/' + version
         }
-        else {
-            res.status(400).json({error: err.message});
+    }, function(err, response, body){
+
+        if (err) {
+            return res.status(400).json({error: err.message});
         }
+
+        if (!body) {
+            return res.status(400).json({error: res.locals.__('Could not fetch page')});
+        }
+
+        var $ = cheerio.load(body);
+        var title = $('html head title').text().trim();
+
+        // For weird pages ...
+        if (!title){
+            title = $('title').first().text().trim() || "";
+        }
+
+        res.status(200).json({title: title});
     });
 });
 
