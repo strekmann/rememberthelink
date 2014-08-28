@@ -9,15 +9,16 @@ Based on
 * node.js
 * express
 * mongoose
-* handlebars
 * passport
+* jade
+* ractive
 
 Howto
 -----
 
 * Clone this repository: ``git clone git://github.com/strekmann/node-boilerplate.git``
 * Change directory: ``cd node-boilerplate``
-* Install dependencies: ``npm install``
+* Install dependencies: ``make install``
 * Create a settings file, and remember to edit it: ``cp server/settings.example.js server/settings.js``
 * See that everything works on your side: ``make test``
 * Run: ``node cluster``
@@ -37,4 +38,5 @@ Please use the issues and pull requests at Github.
 
 Copyright and license
 ---------------------
-Copyright © 2013 Jørgen Bergquist and Sigurd Gartmann, released under the [MIT license](https://github.com/strekmann/node-boilerplate/blob/master/LICENSE).
+Copyright © 2013-2014 Jørgen Bergquist and Sigurd Gartmann, released under the
+[MIT license](https://github.com/strekmann/node-boilerplate/blob/master/LICENSE).
