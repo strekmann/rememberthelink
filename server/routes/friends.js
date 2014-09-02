@@ -22,22 +22,11 @@ router.get('/', function (req, res, next) {
             User.count().exec(function(err, count){
                 callback(err, count);
             });
-        },
-        users: function(callback){
-            if (req.query.username === undefined) {
-                return callback(null, []);
-            }
-
-            User.find({'username': req.query.username})
-            .exec(function (err, users) {
-                callback(err, users);
-            });
         }
     }, function(err, results){
         res.render('friends/index', {
             active_user: results.user,
-            user_count: results.count,
-            users: results.users
+            user_count: results.count
         });
     });
 });
