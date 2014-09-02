@@ -463,7 +463,7 @@ router.route('/suggestions')
                     error: res.locals.__('Could not save: ' + err.message)
                 });
             }
-            return res.json(200, {
+            return res.json({
                 status: true
             });
         });
