@@ -1,0 +1,53 @@
+extends ../layout.jade
+
+block content
+
+  section#friends
+
+  script#friends-template(type="text/ractive")
+    .row
+      .columns
+        h1= __("Find friends")
+        form(on-submit="findFriend")
+          .row.collapse
+            .columns.small-10
+              input(type="text" placeholder=__("username"))
+            .columns.small-2
+              button.postfix= __("Search")
+
+    .row
+      .columns
+        .text-center.usercount
+          span= user_count
+          |  
+          span= __("users to find")
+
+    .row
+      .columns
+        h2= __("You are following")
+        | {{#following}}
+        p
+          a(href="/profile/{{_id}}") {{.name}}
+        | {{else}}
+        p
+          em= __("None")
+        | {{/following}}
+
+    .row
+      .columns
+        h2= __("People following you")
+        | {{#followers}}
+        p
+          a(href="/profile/{{_id}}") {{.name}}
+        | {{else}}
+        p
+          em= __("None")
+        | {{/followers}}
+
+block javascript
+  script
+    | require('s7n').friends.search(
+    != JSON.stringify(active_user.following)
+    | ,
+    != JSON.stringify(active_user.followers)
+    | );

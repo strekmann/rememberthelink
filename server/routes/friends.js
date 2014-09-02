@@ -35,7 +35,7 @@ router.get('/', function (req, res, next) {
         }
     }, function(err, results){
         res.render('friends/index', {
-            user: results.user,
+            active_user: results.user,
             user_count: results.count,
             users: results.users
         });
