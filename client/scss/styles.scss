@@ -56,12 +56,18 @@ $heroBgColor: #f1f4f8;
     padding: .5em 1em;
     text-decoration: none;
     text-align: center;
+
+    &:hover {
+        @include boxShadow(inset 0px 1px 0px rgba(255,255,255, .5));
+        color: #fff;
+        text-decoration: none;
+    }
 }
 
-.fanzybutton:hover {
-    @include boxShadow(inset 0px 1px 0px rgba(255,255,255, .5));
-    color: #fff;
-    text-decoration: none;
+
+.error-text {
+    color: $alert-color;
+    font-style: italic;
 }
 
 .top-bar-section ul li > a:hover,
@@ -106,6 +112,9 @@ nav {
 
 .dark {
     color: #333;
+}
+.hover-alert:hover, .hover-alert:focus {
+    color: $alert-color;
 }
 
 .listair {
