@@ -306,11 +306,14 @@ module.exports.suggestions = function (l) {
         }
     });
 
+    var suggestion_count = require('s7n').suggestions;
+
     suggestions.on("acceptSuggestion", function (event) {
         event.original.preventDefault();
         suggestions.acceptSuggestion(event.context)
         .then(function (data) {
             suggestions.get('suggestions').splice(event.keypath.split(".").pop(), 1);
+            suggestion_count.subtract('suggestions', 1);
         });
     });
 
@@ -319,6 +322,7 @@ module.exports.suggestions = function (l) {
         suggestions.rejectSuggestion(event.context)
         .then(function (data) {
             suggestions.get('suggestions').splice(event.keypath.split(".").pop(), 1);
+            suggestion_count.subtract('suggestions', 1);
         });
     });
 };

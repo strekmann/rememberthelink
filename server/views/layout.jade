@@ -28,14 +28,7 @@ html(lang=lang dir=lang_dir)
         ul.right
           if active_user
             li
-              a(href="/suggestions")
-                if suggestion_count
-                  i.fa.fa-comment.fa-fw.wrap.fa-lg.has_suggestions
-                    span= suggestion_count
-                else
-                  i.fa.fa-comment.fa-fw.wrap.fa-lg
-                |  
-                = __("Suggestions")
+              a#suggestion-count(href="/suggestions")
             li
               a(href="/friends")
                 i.fa.fa-users.fa-fw.fa-lg
@@ -94,6 +87,15 @@ html(lang=lang dir=lang_dir)
               a(href="https://github.com/strekmann/rememberthelink/issues")= __("describe your issues at Github")
               | .
 
+    script#suggestion-count-template(type="text/ractive")
+      | {{#if suggestions}}
+      i.fa.fa-comment.fa-fw.wrap.fa-lg.has_suggestions
+        span {{suggestions}}
+      | {{else}}
+      i.fa.fa-comment.fa-fw.wrap.fa-lg
+      | {{/if}}
+      |  
+      = __("Suggestions")
     script(src="/js/vendor.js?"+stamp)
     script(src="/js/site.js?"+stamp)
 
@@ -113,5 +115,10 @@ html(lang=lang dir=lang_dir)
           scroll_added = false;
         }
       });
+
+    script
+      | require('s7n').suggestions.set('suggestions',
+      = suggestion_count
+      | );
 
     block javascript
