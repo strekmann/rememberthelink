@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+
+  section#links-suggestions
+
+  script#links-suggestions-template(type="text/ractive")
+    .row
+      .columns
+        h1= __("Suggested links from friends")
+
+        ul.links
+          | {{#suggestions}}
+          li.clearfix.link
+            div
+              h2.title
+                a(href="{{.url}}") {{.title}}
+              .controls
+                a.accept(title=__("Accept") on-click="acceptSuggestion")
+                  i.fa.fa-check.fa-fw
+                a.reject(title=__("Reject") on-click="rejectSuggestion")
+                  i.fa.fa-times.fa-fw
+              .subtext
+                span.date.s {{shortdate(.created)}}
+                i.fa.fa-link.fa-fw
+                a.url(href="{{.url}}") {{.url}}
+              .description
+                | {{.description}}
+          | {{else}}
+          li= __("No suggestions for you at the moment")
+          | {{/suggestions}}
+
+block javascript
+  script
+    | require('s7n').links.suggestions(
+    != JSON.stringify(suggestions)
+    | );

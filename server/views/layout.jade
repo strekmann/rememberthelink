@@ -28,9 +28,32 @@ html(lang=lang dir=lang_dir)
         ul.right
           if active_user
             li
-              a(href="/account")= __("Account")
+              a(href="/suggestions")
+                if suggestion_count
+                  i.fa.fa-comment.fa-fw.wrap.fa-lg.has_suggestions
+                    span= suggestion_count
+                else
+                  i.fa.fa-comment.fa-fw.wrap.fa-lg
+                |  
+                = __("Suggestions")
             li
-              a(href="/logout")= __("Logout")
+              a(href="/friends")
+                i.fa.fa-users.fa-fw.fa-lg
+                |  
+                = __("Friends")
+            li
+              a(href="/tags")
+                i.fa.fa-tag.fa-fw.fa-lg
+                |  
+                = __("Tags")
+            li
+              a(href="/account")
+                i.fa.fa-user.fa-fw.fa-lg
+                |  
+                = active_user.name
+            li
+              a(href="/logout")
+                i.fa.fa-sign-out.fa-fw.fa-lg
           else
             li
               a(href="/login")= __("Login")

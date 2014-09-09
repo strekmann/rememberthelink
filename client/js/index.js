@@ -1,4 +1,4 @@
-moment.lang($('html').attr('lang'));
+moment.locale($('html').attr('lang'));
 
 module.exports = {
     account: require('./account'),

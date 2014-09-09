@@ -31,6 +31,10 @@ $heroBgColor: #f1f4f8;
     display: block;
 }
 
+.s {
+    padding-right: 0.3em;
+}
+
 .button {
     -webkit-box-shadow: none;
        -moz-box-shadow: none;
@@ -287,13 +291,16 @@ form.editform {
 #links-index,
 #links-profile,
 #links-suggestions {
-    li.link {
-        padding-top: 1em;
-        padding-bottom: 1em;
-        border-bottom: 1px solid $borderColor;
+    ul.links {
+        margin-left: 0;
+        li.link {
+            padding-top: 1em;
+            padding-bottom: 1em;
+            border-bottom: 1px solid $borderColor;
 
-        &:last-child {
-            border-bottom: none;
+            &:last-child {
+                border-bottom: none;
+            }
         }
     }
 
@@ -338,6 +345,12 @@ form.editform {
                 &.sure {
                     color: $alert-color;
                 }
+            }
+            .accept {
+                color: $success-color;
+            }
+            .reject {
+                color: $alert-color;
             }
         }
     }
@@ -506,4 +519,22 @@ form.editform {
     background: $secondary-color;
     border: none;
     box-shadow: none;
+}
+
+i.fa.wrap {
+    position: relative;
+    span {
+        position: absolute;
+        color: white;
+        font-size: 0.7rem;
+        font-weight: bold;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+    }
+    &.has_suggestions {
+        color: $alert-color;
+    }
 }

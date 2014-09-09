@@ -118,6 +118,24 @@ var Links = Ractive.extend({
             url: '/suggestions',
             data: data
         });
+    },
+
+    acceptSuggestion: function (data) {
+        return $.ajax({
+            dataType: 'json',
+            type: 'PUT',
+            url: '/suggestions',
+            data: _.pick(data, '_id')
+        });
+    },
+
+    rejectSuggestion: function (data) {
+        return $.ajax({
+            dataType: 'json',
+            type: 'DELETE',
+            url: '/suggestions',
+            data: _.pick(data, '_id')
+        });
     }
 });
 
@@ -275,5 +293,32 @@ module.exports.indexView = function (l) {
         setTimeout(function () {
             $('#s2id_share-to input').first().focus();
         }, 500);
+    });
+};
+
+module.exports.suggestions = function (l) {
+
+    var suggestions = new Links({
+        el: '#links-suggestions',
+        template: '#links-suggestions-template',
+        data: {
+            suggestions: l
+        }
+    });
+
+    suggestions.on("acceptSuggestion", function (event) {
+        event.original.preventDefault();
+        suggestions.acceptSuggestion(event.context)
+        .then(function (data) {
+            suggestions.get('suggestions').splice(event.keypath.split(".").pop(), 1);
+        });
+    });
+
+    suggestions.on("rejectSuggestion", function (event) {
+        event.original.preventDefault();
+        suggestions.rejectSuggestion(event.context)
+        .then(function (data) {
+            suggestions.get('suggestions').splice(event.keypath.split(".").pop(), 1);
+        });
     });
 };

@@ -2,7 +2,8 @@ var express     = require('express'),
     path        = require('path'),
     moment      = require('moment'),
     settings    = require('./settings'),
-    app         = require('libby')(express, settings);
+    app         = require('libby')(express, settings),
+    Suggestion  = require('./models/links').Suggestion;
 
 // # Application setup
 // Add passport to application.
@@ -34,6 +35,17 @@ app.use(function(req, res, next){
         return moment(date).format('Do MMM');
     };
     next();
+});
+app.use(function (req, res, next) {
+    Suggestion.count({to: req.user._id}, function (err, suggestions) {
+        if (err) {
+            res.locals.suggestion_count = 0;
+        }
+        else {
+            res.locals.suggestion_count = suggestions;
+        }
+        next();
+    });
 });
 
 // ## Application routes

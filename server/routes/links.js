@@ -467,57 +467,32 @@ router.route('/suggestions')
                 status: true
             });
         });
-    });
-
-router.route('/suggestions/check')
-    .all(ensureAuthenticated)
+    })
     .delete(function (req, res, next) {
-        Suggestion.findOne({url: req.body.url, to: req.user._id})
-        .exec(function (err, link) {
-            if (err) {
-                return res.json(200, {
-                    error: err.message
-                });
-            }
-            var url = link.url;
-            link.remove(function (err) {
-                redis.zincrby('urls', -1, url);
+        Suggestion.findOne({_id: req.body._id, to: req.user._id})
+        .exec(function (err, suggestion) {
+            if (err) { return next(err); }
+            suggestion.remove(function (err) {
+                redis.zincrby('urls', -1, suggestion.url);
+                return res.json({status: true});
             });
-            return res.json(200, {status: true});
         });
     })
-    .post(function (req, res, next) {
-        req.assert('url', res.locals.__('Needs to be a valid url')).isUrl();
+    .put(function (req, res, next) {
+        Suggestion.findOne({_id: req.body._id, to: req.user._id})
+        .exec(function (err, suggestion) {
+            if (err) { return next(err); }
+            suggestion.remove(function (err) {
+                redis.zincrby('urls', 1, suggestion.url);
 
-        var errors = req.validationErrors();
-        if (errors) {
-            return res.json(200, {
-                errors: errors,
-            });
-        }
-
-        var link = new Link();
-        link.url = req.body.url;
-        link.title = req.body.title;
-        link.creator = req.user;
-        return link.save(function (err) {
-            if (err) {
-                return res.json(200, {
-                    error: err.message
+                var link = new Link();
+                link.url = suggestion.url;
+                link.title = suggestion.title;
+                link.creator = req.user;
+                link.save(function (err) {
+                    if (err) { return next(err); }
+                    return res.json({status: true});
                 });
-            }
-            _.each(link.tags, function (tag) {
-                redis.zincrby('tags', -1, tag);
-            });
-            Suggestion.findOne({url: req.body.url, to: req.user._id})
-            .exec(function (err, link) {
-                if (err) {
-                    return res.json(200, {
-                        error: err.message
-                    });
-                }
-                link.remove();
-                return res.json(200, {status: true});
             });
         });
     });
