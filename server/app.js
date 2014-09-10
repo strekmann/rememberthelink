@@ -37,15 +37,21 @@ app.use(function(req, res, next){
     next();
 });
 app.use(function (req, res, next) {
-    Suggestion.count({to: req.user._id}, function (err, suggestions) {
-        if (err) {
-            res.locals.suggestion_count = 0;
-        }
-        else {
-            res.locals.suggestion_count = suggestions;
-        }
+    if (req.user){
+        Suggestion.count({to: req.user._id}, function (err, suggestions) {
+            if (err) {
+                res.locals.suggestion_count = 0;
+            }
+            else {
+                res.locals.suggestion_count = suggestions;
+            }
+            next();
+        });
+    }
+    else {
+        res.locals.suggestion_count = 0;
         next();
-    });
+    }
 });
 
 // ## Application routes
