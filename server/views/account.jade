@@ -73,6 +73,15 @@ block content
             label.right Google ID
           #google_id.columns.large-10.small-9 {{user.google_id}}
 
+    .row
+      .columns
+        h2= __("Import/Export")
+
+        a.button.small(href="/bookmarks")= __("Export")
+
+        form(method="post" action="/bookmarks" enctype="multipart/form-data")
+          input(type="file" name="import")
+          button.small= __("Import")
 
 block javascript
   script

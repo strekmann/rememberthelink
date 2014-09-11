@@ -27,14 +27,15 @@
     "libby": "strekmann/libby",
     "moment": "2.x",
     "mongoose": "3.8.x",
+    "multer": "^0.1.4",
     "passport": "0.2.x",
     "passport-google-oauth": "0.1.x",
     "passport-local": "1.x",
     "redis": "0.10.x",
-    "underscore": "1.6.x",
-    "uslug": "1.0.x",
     "request": "^2.37.0",
-    "short-mongo-id": "sigurdga/short-mongo-id"
+    "short-mongo-id": "sigurdga/short-mongo-id",
+    "underscore": "1.6.x",
+    "uslug": "1.0.x"
   },
   "devDependencies": {
     "bower": "",
