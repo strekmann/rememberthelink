@@ -341,6 +341,13 @@ router.get('/tags', ensureAuthenticated, function (req, res, next) {
                     });
                 }
 
+                all = _.map(all, function(tag){
+                        tag.size = (Math.log(+tag.score) - Math.log(1))/(Math.log(+max+1) - Math.log(1)) + 1;
+                        tag.size *= tag.size;
+                        tag.size += "rem";
+                        return tag;
+                    });
+
                 res.render('links/all_tags', {
                     tags: all,
                     max: max

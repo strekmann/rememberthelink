@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  .row
+    .columns
+      h1= __("All your tags")
+
+      for tag in tags
+        span(style="font-size:" + tag.size)
+          a.tag(href="/tags/" + tag.text)= tag.text
