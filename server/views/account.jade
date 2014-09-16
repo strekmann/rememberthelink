@@ -25,7 +25,8 @@ block content
             .columns.large-2.small-3
               label.right ID
             .columns.large-10.small-9
-              #id {{user._id}}
+              #id 
+                a(href="/profile/{{user._id}}") {{user._id}}
 
           .row
             .columns.large-2.small-3

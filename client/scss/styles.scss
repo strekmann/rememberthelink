@@ -144,15 +144,16 @@ form.editform {
 .tags {
     i {
         color: #b5b5b5;
-        font-size: emCalc(12px);
+        font-size: rem-calc(12px);
     }
 
     .tag {
-        padding: emCalc(2px) emCalc(4px);
+        padding: rem-calc(2px) rem-calc(4px);
         background: #fafafa;
         border: 1px solid $borderColor;
-        font-size: emCalc(12px);
+        font-size: rem-calc(12px);
         font-weight: 200;
+        margin-left: rem-calc(5px);
 
         &:hover {
             text-decoration: none;
@@ -171,18 +172,18 @@ form.editform {
 }
 .select2-container-multi .select2-choices .select2-search-field input {
     padding: 0 5px;
-    font-size: emCalc(14px);
+    font-size: rem-calc(14px);
     margin: 0;
 }
 .select2-container-multi .select2-choices .select2-search-choice {
     padding: 0 5px 0 18px;
-    font-size: emCalc(14px);
+    font-size: rem-calc(14px);
     margin: 4px 0px 4px 5px;
 }
 
 // -- pages
 #index {
-    margin-top: emCalc(-30px);
+    margin-top: rem-calc(-30px);
 
     .hero {
         padding-top: 2em;
@@ -192,7 +193,7 @@ form.editform {
 
         .header {
             display: block;
-            font-size: emCalc(60px);
+            font-size: rem-calc(60px);
             font-weight: 400;
             color: #333;
             line-height: .8em;
@@ -201,7 +202,7 @@ form.editform {
         .description {
             display: block;
             font-weight: 100;
-            font-size: emCalc(60px);
+            font-size: rem-calc(60px);
             color: #b5b5b5;
             line-height: .8;
         }
@@ -230,7 +231,7 @@ form.editform {
     .popular {
         h2 {
             font-weight: 400;
-            font-size: emCalc(30px);
+            font-size: rem-calc(30px);
             color: #333;
             line-height: .8em;
         }
@@ -252,7 +253,7 @@ form.editform {
         .header {
             display: block;
             font-weight: 400;
-            font-size: emCalc(30px);
+            font-size: rem-calc(30px);
             color: #333;
         }
 
@@ -267,7 +268,7 @@ form.editform {
             margin-top: 1em;
         }
         a.fanzybutton {
-            width: emCalc(165px);
+            width: rem-calc(165px);
             cursor: move;
         }
     }
@@ -314,25 +315,25 @@ form.editform {
 
     .link {
         .title {
-            font-size: emCalc(20px);
+            font-size: rem-calc(20px);
             font-weight: normal;
             margin-top: 0;
             margin-bottom: 0;
         }
 
         .subtext {
-            font-size: emCalc(12px);
+            font-size: rem-calc(12px);
             font-weight: 200;
             color: #898989;
 
             i {
-                font-size: emCalc(12px);
+                font-size: rem-calc(12px);
             }
         }
 
         .controls {
             float: right;
-            margin: emCalc(5px);
+            margin: rem-calc(5px);
 
             a {
                 color: #898989;
@@ -355,16 +356,18 @@ form.editform {
         }
     }
 
-    .tags {
+    ul.tags {
+        margin-left: 0;
         li {
             line-height: 25px;
-            margin-bottom: 4px;
+            margin-bottom: rem-calc(4px);
         }
         .count {
             display: inline-block;
             background: $heroBgColor;
-            padding-left: 4px;
-            padding-right: 4px;
+            padding-left: rem-calc(4px);
+            padding-right: rem-calc(4px);
+            margin-right: rem-calc(4px);
             min-width: 25px;
             text-align: center;
         }

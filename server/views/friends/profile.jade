@@ -1,0 +1,60 @@
+extends ../layout
+
+block content
+  section#links-index
+    .row
+      .columns
+        h1= profile.name
+          small= profile.username
+
+    .row
+      .columns.large-9
+        .row
+          .columns
+            ul.links
+              for link in links
+                li.clearfix.link
+                  div
+                    h2.title
+                      a(href=link.url)= link.title
+                    .controls
+                      a.share(href="/new?url="+link.url title=__("Share"))
+                        i.fa.fa-share-alt.fa-fw
+                    .subtext
+                      i.fa.fa-link.fa-fw.s
+                      span.url= link.url
+                    .description= link.description
+                    .tags
+                      i.fa.fa-tags
+                      for tag in link.tags
+                        a.tag(href="/profile/" + profile._id + "/tags/" + tag)= tag
+
+      .columns.large-3
+        h4.dark= __("Top tags")
+        ul.tags
+          for tag in tags
+            li
+              span.count= tag.score
+              span.text
+                a(href="/profile/" + profile._id + "/tags/" + tag.text)= tag.text
+
+  script#share-modal-template(type="text/ractive")
+    .row
+      .columns
+        h2= __('Share link')
+    form.share(on-submit="shareLink")
+      .row
+        .columns
+          label(for="share-to")= __("User(s)")
+          input#share-to(value="{{.link.to}}" type="text" required)
+      .row
+        .columns
+          label(for="share-description")= __("Message")
+          textarea#share-description(value="{{.link.description}}" type="text")
+      .row
+        .columns
+          button= __("Save")
+          button.secondary(type="reset" on-click="closeModal")= __("Cancel")
+    a.close-reveal-modal &#215;
+
+

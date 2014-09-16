@@ -118,10 +118,9 @@ block content
                 a(on-click="toggleDelete")= __('no')
                 | {{/.confirmDelete}}
               .subtext
-                span.date(title="{{isodate(.created)}}") {{shortdate(.created)}}
-                | &nbsp;
-                i.fa.fa-link
-                  span.url {{.url}}
+                span.date.s(title="{{isodate(.created)}}") {{shortdate(.created)}}
+                i.fa.fa-link.fa.fa-fw.s
+                span.url {{.url}}
               .description {{.description}}
               .tags
                 i.fa.fa-tags
