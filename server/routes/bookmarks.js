@@ -52,15 +52,21 @@ router.route('/')
 
                     var l = {
                         url: link.attr('href'),
-                        date: moment(link.attr('add_date'), 'X').toDate(),
-                        tags: _.map(link.attr('tags').split(','), function (tag) {
-                            return tag.trim();
-                        }),
-                        'private': 1 === parseInt(link.attr('private'), 10),
                         title: link.text().trim(),
                         description: $('dd').text().trim(),
                         creator: req.user._id
                     };
+                    if (link.attr('add_date')) {
+                        l.date = moment(link.attr('add_date'), 'X').toDate();
+                    }
+                    if (link.attr('tags')) {
+                        l.tags = _.map(link.attr('tags').split(','), function (tag) {
+                            return tag.trim();
+                        });
+                    }
+                    if (link.attr('private')) {
+                        l.private = 1 === parseInt(link.attr('private'), 10);
+                    }
 
                     Link.update({creator: req.user._id, url: l.url}, l, {upsert: true}, function (err, affected) {
                         if (err) { return callback(err); }
@@ -79,7 +85,7 @@ router.route('/')
                 }
             }, function (err) {
                 if (err) { return next(err); }
-                res.json({added: added});
+                res.redirect('/');
             });
         });
 });
