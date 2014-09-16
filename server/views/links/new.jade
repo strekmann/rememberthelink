@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+  section#links-new
+
+  script#links-new-template(type="text/ractive")
+    .row
+      .columns
+        if link._id
+          h1= __("Edit link")
+        else
+          h1= __("Add new link")
+
+        form(on-submit="add-or-update")
+          if link._id
+            input(type="hidden" name="_id" value=link._id)
+          .row
+            .columns
+              label(for="url")= __("URL")
+              input#url(name="url" value="{{link.url}}" type="text" required readonly)
+          .row
+            .columns
+              label(for="title")= __("Title")
+              input#title(name="title" value="{{link.title}}" type="text" required)
+          .row
+            .columns
+              label(for="description")= __("Description")
+              textarea#description(name="description" value="{{link.description}}")
+          .row
+            .columns
+              label(for="tags")= __("Tags")
+              input#tags(type="text" name="tags" value="{{link.tags}}")
+          .row
+            .columns
+              button= __("Save")
+
+
+block javascript
+  script
+    | require('s7n').links.new_from_extensions(
+    != JSON.stringify(link)
+    | );

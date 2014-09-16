@@ -147,6 +147,7 @@ router.route('/')
         link.creator = req.user;
         link.save(function (err, link) {
             if (err) {
+                console.error(err);
                 return res.json(200, {
                     error: err.message
                 });
@@ -214,15 +215,10 @@ router.route('/')
         });
     });
 
-router.get('/title', function (req, res, next) {
-    var url = req.query.url;
-
-    if (!url) { return next(new Error(res.locals.__('Url missing.'))); }
-
+var fetch_title = function (url, callback) {
     if (url.indexOf('http') !== 0) {
         url = 'http://' + url;
     }
-
 
     request({
         url: url,
@@ -231,15 +227,12 @@ router.get('/title', function (req, res, next) {
             'User-Agent': 'Rememberthelink/' + version
         }
     }, function(err, response, body){
-
         if (err) {
-            return res.status(400).json({error: err.message});
+            return callback(err);
         }
-
         if (!body) {
-            return res.status(400).json({error: res.locals.__('Could not fetch page')});
+            return callback(new Error(res.locals.__("Could not fetch page")));
         }
-
         var $ = cheerio.load(body);
         var title = $('html head title').text().trim();
 
@@ -247,7 +240,19 @@ router.get('/title', function (req, res, next) {
         if (!title){
             title = $('title').first().text().trim() || "";
         }
+        callback(null, url, title);
+    });
+};
 
+router.get('/title', function (req, res, next) {
+    var url = req.query.url;
+
+    if (!url) { return next(new Error(res.locals.__('Url missing.'))); }
+
+    fetch_title(url, function (err, url, title) {
+        if (err) {
+            return res.status(400).json({error: err.message});
+        }
         res.status(200).json({title: title});
     });
 });
@@ -255,6 +260,11 @@ router.get('/title', function (req, res, next) {
 // will probably be replaced by ractive fun
 router.get('/new', ensureAuthenticated, function (req, res, next) {
     req.assert('url', res.locals.__('Needs to be a valid url')).isURL();
+
+    var url = req.query.url;
+    if (url.indexOf('http') !== 0) {
+        url = 'http://' + url;
+    }
 
     var errors = req.validationErrors();
     if (errors) {
@@ -264,28 +274,18 @@ router.get('/new', ensureAuthenticated, function (req, res, next) {
         });
     }
 
-    Link.findOne({url: req.query.url, creator: req.user._id}).exec(function (err, link) {
+    Link.findOne({url: url, creator: req.user._id}).exec(function (err, link) {
         if (link) {
-            res.redirect('/edit/' + link.id);
+            res.render('links/new', {link: link});
         }
-    });
-
-    request(req.query.url, function(error, response, body){
-        if (!error && response.statusCode === 200) {
-            var $ = cheerio.load(body);
-            var link = new Link();
-            link.url = req.query.url;
-            link.title = $('html head title').text().trim() || null;
-
-            return res.render('links/new', {
-                link: link
+        else {
+            fetch_title(url, function (err, url, title) {
+                if (err) {
+                    req.flash('error', 'Not found');
+                }
+                res.render('links/new', {link: {url: url, title: title, new: true}});
             });
         }
-        return res.render('links/new', {
-            errors: [{
-                msg: "url not found"
-            }]
-        });
     });
 });
 

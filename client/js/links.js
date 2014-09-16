@@ -89,7 +89,7 @@ var Links = Ractive.extend({
             dataType: 'json',
             type: 'POST',
             url: '/',
-            data: data.link
+            data: data
         });
     },
 
@@ -252,7 +252,7 @@ module.exports.indexView = function (l) {
     links.on('saveLink', function (event) {
         event.original.preventDefault();
         if (event.context.link && event.context.link.url && event.context.link.title) {
-            links.createLink(event.context)
+            links.createLink(event.context.link)
             .then(function (data) {
                 links.get('links').unshift(data);
                 links.set('link', {});
@@ -324,5 +324,36 @@ module.exports.suggestions = function (l) {
             suggestions.get('suggestions').splice(event.keypath.split(".").pop(), 1);
             suggestion_count.subtract('suggestions', 1);
         });
+    });
+};
+
+module.exports.new_from_extensions = function (l) {
+    var links = new Links({
+        el: '#links-new',
+        template: '#links-new-template',
+        data: {
+            link: l
+        }
+    });
+
+    links.on('add-or-update', function (event) {
+        event.original.preventDefault();
+
+        if (event.context.link._id) {
+            links.updateLink(event.context.link)
+            .then(function (data) {
+                history.go(-1);
+            });
+        }
+        else {
+            links.createLink(evente.context.link)
+            .then(function (data) {
+                history.go(-1);
+            });
+        }
+    });
+
+    tagify(function (element) {
+        links.set('link.tags', element.val);
     });
 };
