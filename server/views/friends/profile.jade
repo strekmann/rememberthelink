@@ -5,6 +5,7 @@ block content
     .row
       .columns
         h1= profile.name
+          |  
           small= profile.username
 
     .row
@@ -30,13 +31,14 @@ block content
                         a.tag(href="/profile/" + profile._id + "/tags/" + tag)= tag
 
       .columns.large-3
-        h4.dark= __("Top tags")
-        ul.tags
-          for tag in tags
-            li
-              span.count= tag.score
-              span.text
-                a(href="/profile/" + profile._id + "/tags/" + tag.text)= tag.text
+        if tags.length
+          h4.dark= __("Top tags")
+          ul.tags
+            for tag in tags
+              li
+                span.count= tag.score
+                span.text
+                  a(href="/profile/" + profile._id + "/tags/" + tag.text)= tag.text
 
   script#share-modal-template(type="text/ractive")
     .row
