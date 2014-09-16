@@ -60,7 +60,7 @@ block content
           .row.listair
             .columns.large-2.small-3
               label.right= __('Created')
-            #created.columns.large-10.small-9 {{user.created}}
+            #created.columns.large-10.small-9 {{longdate(user.created)}}
 
           .row.listair
             .columns.large-10.small-9.large-offset-2.small-offset-3
@@ -69,19 +69,23 @@ block content
         h3= __('Google data')
 
         .row.listair
-          .columns.large-3.small-3
+          .columns.large-2.small-3
             label.right Google ID
-          #google_id.columns.large-10.small-9 {{user.google_id}}
+          #google_id.columns.small-9 {{user.google_id}}
 
     .row
       .columns
-        h2= __("Import/Export")
-
-        a.button.small(href="/bookmarks")= __("Export")
-
-        form(method="post" action="/bookmarks" enctype="multipart/form-data")
-          input(type="file" name="import")
-          button.small= __("Import")
+        .row
+          .columns.medium-6
+            h2= __("Import")
+            p= __("Import bookmarks from a HTML bookmarks file.")
+            form(method="post" action="/bookmarks" enctype="multipart/form-data")
+              input(type="file" name="import")
+              button.small= __("Import")
+          .columns.medium-6
+            h2= __("Export")
+            p= __("Export your bookmarks as a HTML bookmarks file.")
+            a.small.button(href="/bookmarks")= __("Export")
 
 block javascript
   script

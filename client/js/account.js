@@ -7,7 +7,10 @@ var Account = Ractive.extend({
     data: {
         user: {},
         info: [],
-        error: []
+        error: [],
+        longdate: function(date){
+            return moment(date).format('LLL');
+        }
     },
 
     updateUser: function(user){
