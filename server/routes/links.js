@@ -358,7 +358,7 @@ router.get('/tags', ensureAuthenticated, function (req, res, next) {
 });
 router.get('/tags/*', ensureAuthenticated, function (req, res, next) {
     var query = [{creator: req.user._id}];
-    var params = "" + req.params;
+    var params = req.params[0];
     _.each(params.split("/"), function (tag) {
         query.push({'tags':tag});
     });
