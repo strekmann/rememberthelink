@@ -330,7 +330,7 @@ router.get('/edit/:id', ensureAuthenticated, function (req, res, next) {
 
 // think again!
 router.get('/tags', ensureAuthenticated, function (req, res, next) {
-    redis.zrevrangebyscore('tags_' + req.user._id, "inf", 1, "withscores", function (err, tags) {
+    redis.zrevrangebyscore('tags_' + req.user._id, "+inf", 1, "withscores", function (err, tags) {
 
         var all =[];
         for (var i = 0; i < tags.length; i += 2) {
