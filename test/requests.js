@@ -18,7 +18,7 @@ describe("Requests", function(){
                 .expect(302)
                 .end(function(err, res){
                     if (err) { return done(err); }
-                    res.text.should.equal('Moved Temporarily. Redirecting to /login');
+                    expect(res.text).to.equal('Moved Temporarily. Redirecting to /login');
                     done();
                 });
         });
