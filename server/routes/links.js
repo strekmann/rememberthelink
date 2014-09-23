@@ -98,20 +98,41 @@ router.route('/')
         } else {
             var page = parseInt(req.query.page, 10) || 0;
             var per_page = 50;
-            Link.find({creator: req.user._id}, {}, {skip: per_page * page, limit: per_page})
-            .populate('creator')
-            .sort('-created')
-            .exec(function (err, links) {
-                if (err) {
-                    next(err);
+            async.parallel({
+                tags: function(callback){
+                    var id = 'tags_' + req.user._id;
+                    redis.zrevrangebyscore(id, "+inf", 1, "withscores", "limit", 0, 20, function (err, tags_list) {
+                        var tags = [];
+                        for (var i = 0; i < tags_list.length; i += 2) {
+                            tags.push({'text': tags_list[i], 'score': tags_list[i+1]});
+                        }
+
+                        callback(err, tags);
+                    });
+                },
+                links: function(callback){
+                    Link.find({creator: req.user._id}, {}, {skip: per_page * page, limit: per_page})
+                    .populate('creator')
+                    .sort('-created')
+                    .exec(function (err, links) {
+                        if (err) {
+                            return callback(err);
+                        }
+                        _.each(links, function(link) {
+                            link.joined_tags = link.tags.join(", ");
+                        });
+
+                        callback(null, links);
+                    });
                 }
-                _.each(links, function(link) {
-                    link.joined_tags = link.tags.join(", ");
-                });
+            }, function(err, data){
+                if (err){ return next(err); }
+
                 res.format({
                     json: function () {
                         res.json(200, {
-                            links: links
+                            links: data.links,
+                            tags: data.tags
                         });
                     },
                     html: function () {
@@ -120,12 +141,14 @@ router.route('/')
                         if (page > 0) {
                             previous = page - 1;
                         }
-                        if (links.length === per_page) {
+                        if (data.links.length === per_page) {
                             next = page + 1;
                         }
+                        console.log(data.tags);
                         res.render('links/index', {
-                            links: links,
-                            show_buttons: links.length === 0,
+                            links: data.links,
+                            tags: data.tags,
+                            show_buttons: data.links.length === 0,
                             next: next,
                             previous: previous
                         });
@@ -335,7 +358,7 @@ router.get('/tags', ensureAuthenticated, function (req, res, next) {
                         }
                     });
                 }
-                res.json(200, {
+                res.json({
                     tags: tags
                 });
             },
@@ -372,22 +395,40 @@ router.get('/tags/*', ensureAuthenticated, function (req, res, next) {
     });
     var page = parseInt(req.query.page, 10) || 0;
     var per_page = 50;
-    Link.find({$and: query}, {}, {skip: per_page * page, limit: per_page})
-    .populate('creator')
-    .sort('-created')
-    .exec(function (err, links) {
-        if (err) {
-            return res.json(200, {
-                error: 'No links'
+
+    async.parallel({
+        tags: function(callback){
+            var id = 'tags_' + req.user._id;
+            redis.zrevrangebyscore(id, "+inf", 1, "withscores", "limit", 0, 20, function (err, tags_list) {
+                var tags = [];
+                for (var i = 0; i < tags_list.length; i += 2) {
+                    tags.push({'text': tags_list[i], 'score': tags_list[i+1]});
+                }
+
+                callback(err, tags);
+            });
+        },
+        links: function(callback){
+            Link.find({$and: query}, {}, {skip: per_page * page, limit: per_page})
+            .populate('creator')
+            .sort('-created')
+            .exec(function (err, links) {
+                if (err) {
+                    return callback(err);
+                }
+                _.each(links, function(link) {
+                    link.joined_tags = link.tags.join(", ");
+                });
+
+                callback(null, links);
             });
         }
-        _.each(links, function(link) {
-            link.joined_tags = link.tags.join(", ");
-        });
+    }, function(err, data){
         res.format({
             json: function () {
                 res.json(200, {
-                    links: links
+                    links: data.links,
+                    tags: data.tags
                 });
             },
             html: function () {
@@ -396,11 +437,12 @@ router.get('/tags/*', ensureAuthenticated, function (req, res, next) {
                 if (page > 0) {
                     previous = page - 1;
                 }
-                if (links.length === per_page) {
+                if (data.links.length === per_page) {
                     next = page + 1;
                 }
                 res.render('links/index', {
-                    links: links,
+                    links: data.links,
+                    tags: data.tags,
                     next: next,
                     previous: previous
                 });

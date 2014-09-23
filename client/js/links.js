@@ -98,7 +98,7 @@ var Links = Ractive.extend({
             dataType: 'json',
             type: 'PUT',
             url: '/',
-            data: _.pick(data, '_id', 'title', 'description', 'tags')
+            data: _.pick(data, '_id', 'title', 'description', 'tags', 'private')
         });
     },
 

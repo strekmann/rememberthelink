@@ -32,6 +32,10 @@ block content
               input#tags(type="text" name="tags" value="{{link.tags}}")
           .row
             .columns
+              input#private(type="checkbox" checked="{{link.private}}")
+              label(for="private")= __("Private")
+          .row
+            .columns
               button= __("Save")
 
 
