@@ -51,6 +51,9 @@ block content
         p
           em= __("None")
         | {{/followers}}
+        p= __("Get more people to follow you by giving them your key:")
+          = " "
+          b= active_user._id
 
 block javascript
   script

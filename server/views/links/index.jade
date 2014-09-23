@@ -52,6 +52,10 @@ block content
           input#edit-tags(value="{{.link.tags}}" type="text")
       .row
         .columns
+          input#edit-private(type="checkbox" checked="{{.link.private}}")
+          label(for="edit-private")= __("Private")
+      .row
+        .columns
           button= __("Save")
           button.secondary(type="reset" on-click="closeModal")= __("Cancel")
     a.close-reveal-modal &#215;
@@ -76,6 +80,10 @@ block content
               input#tags(type="text" name="tags" placeholder=__("Tags") value="{{.link.tags}}")
           .row
             .columns
+              input#new-private(type="checkbox" checked="{{.link.private}}")
+              label(for="new-private")= __("Private")
+          .row
+            .columns
               button= __("Save")
               button.secondary(type="reset" on-click="cancelAddLink")= __("Cancel")
         | {{/expanded}}
@@ -89,45 +97,56 @@ block content
         | {{/expanded}}
     .row
       .columns
-        ul.links
-          | {{#links}}
-          li.clearfix.link
-            div
-              h2.title
-                a(href="{{.url}}") {{.title}}
-              .controls
-                | {{^.confirmDelete}}
-                | {{#.private}}
-                i.fa.fa-shield.fa-fw(title=__("Private"))
-                | {{/.private}}
+        .row
+          .columns.large-9.medium-8
+            ul.links
+              | {{#links}}
+              li.clearfix.link
+                div
+                  h2.title
+                    a(href="{{.url}}") {{.title}}
+                  .controls
+                    | {{^.confirmDelete}}
+                    | {{#.private}}
+                    i.fa.fa-shield.fa-fw(title=__("Private"))
+                    | {{/.private}}
 
-                a.share(title=__("Share") on-click="toggleShareLink")
-                  i.fa.fa-share-alt.fa-fw
+                    a.share(title=__("Share") on-click="toggleShareLink")
+                      i.fa.fa-share-alt.fa-fw
 
-                a.edit(title=__("Edit") on-click="editLink")
-                  i.fa.fa-edit.fa-fw
+                    a.edit(title=__("Edit") on-click="editLink")
+                      i.fa.fa-edit.fa-fw
 
-                a.delete(title=__("Delete") on-click="toggleDelete")
-                  i.fa.fa-trash-o.fa-fw
-                | {{/.confirmDelete}}
+                    a.delete(title=__("Delete") on-click="toggleDelete")
+                      i.fa.fa-trash-o.fa-fw
+                    | {{/.confirmDelete}}
 
-                | {{#.confirmDelete}}
-                span= __('delete')
-                  | ?
-                a.sure(on-click="deleteLink")= __('yes')
-                a(on-click="toggleDelete")= __('no')
-                | {{/.confirmDelete}}
-              .subtext
-                span.date.s(title="{{isodate(.created)}}") {{shortdate(.created)}}
-                i.fa.fa-link.fa.fa-fw.s
-                span.url {{.url}}
-              .description {{.description}}
-              .tags
-                i.fa.fa-tags
-                | {{#tags}}
-                a.tag(href="/tags/{{.}}") {{.}}
-                | {{/tags}}
-          | {{/links}}
+                    | {{#.confirmDelete}}
+                    span= __('delete')
+                      | ?
+                    a.sure(on-click="deleteLink")= __('yes')
+                    a(on-click="toggleDelete")= __('no')
+                    | {{/.confirmDelete}}
+                  .subtext
+                    span.date.s(title="{{isodate(.created)}}") {{shortdate(.created)}}
+                    i.fa.fa-link.fa.fa-fw.s
+                    span.url {{.url}}
+                  .description {{.description}}
+                  .tags
+                    i.fa.fa-tags
+                    | {{#tags}}
+                    a.tag(href="/tags/{{.}}") {{.}}
+                    | {{/tags}}
+              | {{/links}}
+          .columns.large-3.medium-4
+            if tags.length
+              h4.dark= __("Top tags")
+              ul.tags
+                for tag in tags
+                  li
+                    span.count= tag.score
+                    span.text
+                      a(href="/tags/" + tag.text)= tag.text
 
 block javascript
   script
