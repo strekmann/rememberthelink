@@ -5,6 +5,8 @@ var express = require('express'),
     fs = require('fs'),
     _ = require('underscore'),
     cheerio = require('cheerio'),
+    settings = require('../settings'),
+    redis_prefix = settings.redis.prefix || 'rtl',
     redis = require('../lib/redisclient'),
     Link = require('../models/links').Link,
     ensureAuthenticated = require('../lib/middleware').ensureAuthenticated;
@@ -72,10 +74,12 @@ router.route('/')
                         if (err) { return callback(err); }
                         added += affected;
 
-                        _.each(l.tags, function (tag) {
-                            redis.zincrby('tags', 1, tag);
-                            redis.zincrby('tags_' + req.user._id, 1, tag);
-                        });
+                        if (!l.private) {
+                            _.each(l.tags, function (tag) {
+                                redis.zincrby(redis_prefix + '_tags', 1, tag);
+                                redis.zincrby(redis_prefix + '_tags_' + req.user._id, 1, tag);
+                            });
+                        }
                         return callback();
                     });
 

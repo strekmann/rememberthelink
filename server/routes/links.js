@@ -10,7 +10,8 @@ var _ = require('underscore'),
     Link = require('../models/links').Link,
     Tag = require('../models').Tag,
     Suggestion = require('../models/links').Suggestion,
-    localsettings = require('../settings'),
+    settings = require('../settings'),
+    redis_prefix = settings.redis.prefix || 'rtl',
     version = require('../../package').version,
     ensureAuthenticated = require('../lib/middleware').ensureAuthenticated;
 
@@ -65,28 +66,28 @@ router.route('/')
         if (!req.isAuthenticated()) {
             async.parallel({
                 tag_count: function(callback) {
-                    redis.zcard('tags', function (err, tag_count) {
+                    redis.zcard(redis_prefix + '_tags', function (err, tag_count) {
                         callback(err, tag_count);
                     });
                 },
                 url_count: function(callback) {
-                    redis.zcard('urls', function (err, url_count) {
+                    redis.zcard(redis_prefix + '_urls', function (err, url_count) {
                         callback(err, url_count);
                     });
                 },
                 tags: function(callback) {
-                    redis.zrevrange('tags', 0, 9, function (err, tags) {
+                    redis.zrevrange(redis_prefix + '_tags', 0, 9, function (err, tags) {
                         callback(err, tags);
                     });
                 },
                 urls: function(callback) {
-                    redis.zrevrange('urls', 0, 9, function (err, urls) {
+                    redis.zrevrange(redis_prefix + '_urls', 0, 9, function (err, urls) {
                         callback(err, urls);
                     });
                 }
             }, function (err, results) {
                 return res.render('index', {
-                    url: localsettings.uri,
+                    url: settings.uri,
                     urls: results.urls || [],
                     tags: results.tags || [],
                     url_count: results.url_count,
@@ -152,11 +153,13 @@ router.route('/')
                     error: err.message
                 });
             }
-            redis.zincrby('urls', 1, link.url);
-            _.each(link.tags, function (tag) {
-                redis.zincrby('tags', 1, tag);
-                redis.zincrby('tags_' + req.user._id, 1, tag);
-            });
+            if (!link.private) {
+                redis.zincrby('urls', 1, link.url);
+                _.each(link.tags, function (tag) {
+                    redis.zincrby(redis_prefix + '_tags', 1, tag);
+                    redis.zincrby(redis_prefix + '_tags_' + req.user._id, 1, tag);
+                });
+            }
             res.status(200).json(link);
         });
     })
@@ -175,6 +178,7 @@ router.route('/')
                 });
             }
             var old_tags = link.tags;
+            var old_private = link.private;
             link.title = req.body.title;
             link.description = req.body.description;
             link.tags = set_tags(req.body.tags);
@@ -187,14 +191,18 @@ router.route('/')
                 if (err) {
                     return next(err);
                 }
-                _.each(old_tags, function (tag) {
-                    redis.zincrby('tags', -1, tag);
-                    redis.zincrby('tags_' + req.user._id, -1, tag);
-                });
-                _.each(link.tags, function (tag) {
-                    redis.zincrby('tags', 1, tag);
-                    redis.zincrby('tags_' + req.user._id, 1, tag);
-                });
+                if (!old_private) {
+                    _.each(old_tags, function (tag) {
+                        redis.zincrby(redis_prefix + '_tags', -1, tag);
+                        redis.zincrby(redis_prefix + '_tags_' + req.user._id, -1, tag);
+                    });
+                }
+                if (!link.private) {
+                    _.each(link.tags, function (tag) {
+                        redis.zincrby(redis_prefix + '_tags', 1, tag);
+                        redis.zincrby(redis_prefix + '_tags_' + req.user._id, 1, tag);
+                    });
+                }
                 return res.json(link);
             });
         });
@@ -204,13 +212,13 @@ router.route('/')
         .exec(function (err, link) {
             if (err) { return next(err); }
 
-            var old_tags = link.tags;
-            var url = link.url;
-            redis.zincrby('urls', -1, url);
-            _.each(old_tags, function (tag) {
-                redis.zincrby('tags', -1, tag);
-                redis.zincrby('tags_' + req.user._id, -1, tag);
-            });
+            if (!link.private) {
+                redis.zincrby(redis_prefix + '_urls', -1, link.url);
+                _.each(link.tags, function (tag) {
+                    redis.zincrby(redis_prefix + '_tags', -1, tag);
+                    redis.zincrby(redis_prefix + '_tags_' + req.user._id, -1, tag);
+                });
+            }
             return res.json({status: true});
         });
     });
@@ -307,7 +315,7 @@ router.get('/edit/:id', ensureAuthenticated, function (req, res, next) {
 
 // think again!
 router.get('/tags', ensureAuthenticated, function (req, res, next) {
-    redis.zrevrangebyscore('tags_' + req.user._id, "inf", 1, "withscores", function (err, tags) {
+    redis.zrevrangebyscore(redis_prefix + '_tags_' + req.user._id, "+inf", 1, "withscores", function (err, tags) {
 
         var all =[];
         for (var i = 0; i < tags.length; i += 2) {
@@ -454,13 +462,7 @@ router.route('/suggestions')
                     suggestion.title = req.body.title;
                     suggestion.description = req.body.description;
                     suggestion.save(function (err) {
-                        if (err) {
-                            callback(err);
-                        }
-                        else {
-                            redis.zincrby('urls', 1, req.body.url);
-                            callback();
-                        }
+                        callback(err);
                     });
                 });
             }
@@ -480,7 +482,6 @@ router.route('/suggestions')
         .exec(function (err, suggestion) {
             if (err) { return next(err); }
             suggestion.remove(function (err) {
-                redis.zincrby('urls', -1, suggestion.url);
                 return res.json({status: true});
             });
         });
@@ -490,7 +491,7 @@ router.route('/suggestions')
         .exec(function (err, suggestion) {
             if (err) { return next(err); }
             suggestion.remove(function (err) {
-                redis.zincrby('urls', 1, suggestion.url);
+                redis.zincrby(redis_prefix + '_urls', 1, suggestion.url);
 
                 var link = new Link();
                 link.url = suggestion.url;
@@ -539,9 +540,9 @@ router.route('/import')
                                     dblink.tags,
                                     function (tag, callback) {
                                         tag = tag.trim();
-                                        if (tag.length > 0) {
-                                            redis.zincrby('tags', 1, tag);
-                                            redis.zincrby('tags_' + req.user._id, 1, tag);
+                                        if (tag.length > 0 && !priv) {
+                                            redis.zincrby(redis_prefix + '_tags', 1, tag);
+                                            redis.zincrby(redis_prefix + '_tags_' + req.user._id, 1, tag);
                                         }
                                         callback(null);
                                     },

@@ -3,6 +3,8 @@ var _ = require('underscore'),
     router = express.Router(),
     redis = require('../lib/redisclient'),
     async = require('async'),
+    settings = require('../settings'),
+    redis_prefix = settings.redis.prefix || 'rtl',
     User = require('../models').User,
     Link = require('../models/links').Link,
     ensureAuthenticated = require('../lib/middleware').ensureAuthenticated;
@@ -58,7 +60,7 @@ router.get('/:id', function (req, res, next) {
         },
 
         function(result, callback) { // fetch tags
-            var id = 'tags_' + result.profile._id;
+            var id = redis_prefix + '_tags_' + result.profile._id;
             redis.zrevrangebyscore(id, 10, 1, "withscores", function (err, tags_list) {
                 var tags = [];
                 for (var i = 0; i < tags_list.length; i += 2) {

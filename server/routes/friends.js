@@ -1,7 +1,6 @@
 var _ = require('underscore'),
     express = require('express'),
     router = express.Router(),
-    redis = require('../lib/redisclient'),
     async = require('async'),
     User = require('../models').User,
     Link = require('../models/links').Link,
