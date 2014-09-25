@@ -1,4 +1,5 @@
 var User = require('../models').User,
+    shortid = require('short-mongo-id'),
     passport = require('passport'),
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
@@ -35,8 +36,7 @@ module.exports = function(app){
                     }
                     else {
                         user = new User({
-                            _id: profile._json.family_name + "." + profile.id,
-                            username: profile._json.family_name + "." + profile.id,
+                            _id: shortid(),
                             name: profile.displayName,
                             email: profile._json.email,
                             google_id: profile.id

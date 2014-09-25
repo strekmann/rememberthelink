@@ -11,8 +11,8 @@ block content
         table
           thead
             tr
-              th Username
               th Name
+              th Username
               th Joined
               th Links
               th Active
@@ -22,9 +22,9 @@ block content
             for user in users
               tr(data-id=user._id)
                 td
-                  a(href="/profile/"+user._id)= user.username
-                td= user.name
-                td= longdate(user.joined)
+                  a(href="/profile/"+user._id)= user.name
+                td= user.username
+                td= longdate(user.created)
                 td= user.link_count
                 td
                   input.is_active(type="checkbox" checked=(user.is_active ? "checked" : undefined))
