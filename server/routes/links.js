@@ -397,7 +397,7 @@ router.get('/tags/*', ensureAuthenticated, function (req, res, next) {
 
     async.parallel({
         tags: function(callback){
-            var id = redis_refix + '_tags_' + req.user._id;
+            var id = redis_prefix + '_tags_' + req.user._id;
             redis.zrevrangebyscore(id, "+inf", 1, "withscores", "limit", 0, 20, function (err, tags_list) {
                 var tags = [];
                 for (var i = 0; i < tags_list.length; i += 2) {
