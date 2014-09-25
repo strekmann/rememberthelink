@@ -100,7 +100,7 @@ router.route('/')
             var per_page = 50;
             async.parallel({
                 tags: function(callback){
-                    var id = 'tags_' + req.user._id;
+                    var id = redis_prefix + '_tags_' + req.user._id;
                     redis.zrevrangebyscore(id, "+inf", 1, "withscores", "limit", 0, 20, function (err, tags_list) {
                         var tags = [];
                         for (var i = 0; i < tags_list.length; i += 2) {
@@ -144,7 +144,6 @@ router.route('/')
                         if (data.links.length === per_page) {
                             next = page + 1;
                         }
-                        console.log(data.tags);
                         res.render('links/index', {
                             links: data.links,
                             tags: data.tags,
@@ -398,7 +397,7 @@ router.get('/tags/*', ensureAuthenticated, function (req, res, next) {
 
     async.parallel({
         tags: function(callback){
-            var id = 'tags_' + req.user._id;
+            var id = redis_refix + '_tags_' + req.user._id;
             redis.zrevrangebyscore(id, "+inf", 1, "withscores", "limit", 0, 20, function (err, tags_list) {
                 var tags = [];
                 for (var i = 0; i < tags_list.length; i += 2) {
@@ -613,7 +612,7 @@ router.route('/import')
                 }
             }, function (err) {
                 if (err) {
-                    console.log(err);
+                    console.error(err);
                 }
                 return res.json(200, {status: true, saved: affected, bookmarks: wanted});
             });

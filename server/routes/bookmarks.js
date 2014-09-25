@@ -62,9 +62,9 @@ router.route('/')
                         l.date = moment(link.attr('add_date'), 'X').toDate();
                     }
                     if (link.attr('tags')) {
-                        l.tags = _.map(link.attr('tags').split(','), function (tag) {
+                        l.tags = _.compact(_.map(link.attr('tags').split(','), function (tag) {
                             return tag.trim();
-                        });
+                        }));
                     }
                     if (link.attr('private')) {
                         l.private = 1 === parseInt(link.attr('private'), 10);
