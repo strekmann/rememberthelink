@@ -59,7 +59,7 @@ router.route('/')
                         creator: req.user._id
                     };
                     if (link.attr('add_date')) {
-                        l.date = moment(link.attr('add_date'), 'X').toDate();
+                        l.created = moment(link.attr('add_date'), 'X').toDate();
                     }
                     if (link.attr('tags')) {
                         l.tags = _.compact(_.map(link.attr('tags').split(','), function (tag) {
