@@ -4,5 +4,6 @@
 /setup/mongo
 .sass-cache
 /public
+/data
 *.mo
 

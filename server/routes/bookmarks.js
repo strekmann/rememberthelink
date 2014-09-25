@@ -6,8 +6,8 @@ var express = require('express'),
     _ = require('underscore'),
     cheerio = require('cheerio'),
     settings = require('../settings'),
-    redis_prefix = settings.redis.prefix || 'rtl',
     redis = require('../lib/redisclient'),
+    redis_prefix = require('../../package').name,
     Link = require('../models/links').Link,
     ensureAuthenticated = require('../lib/middleware').ensureAuthenticated;
 

@@ -11,7 +11,7 @@ var _ = require('underscore'),
     Tag = require('../models').Tag,
     Suggestion = require('../models/links').Suggestion,
     settings = require('../settings'),
-    redis_prefix = settings.redis.prefix || 'rtl',
+    redis_prefix = require('../../package').name,
     version = require('../../package').version,
     ensureAuthenticated = require('../lib/middleware').ensureAuthenticated;
 
