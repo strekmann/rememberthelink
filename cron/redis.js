@@ -6,7 +6,7 @@ var async = require('async'),
     redis = require('../server/lib/redisclient'),
     Link = require('../server/models/links').Link,
     settings = require('../server/settings'),
-    prefix = settings.redis.prefix || "rtl";
+    prefix = require('../package').name;
 
 mongoose.connect(settings.mongo.servers.join(','), {replSet: {rs_name: settings.mongo.replset}});
 

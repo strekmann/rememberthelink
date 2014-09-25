@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+  section#user-list
+    .row
+      .columns
+        h1= __("All users")
+          = " "
+          small (#{users.length})
+
+        table
+          thead
+            tr
+              th Username
+              th Name
+              th Joined
+              th Links
+              th Active
+              th Admin
+
+          tbody
+            for user in users
+              tr(data-id=user._id)
+                td
+                  a(href="/profile/"+user._id)= user.username
+                td= user.name
+                td= longdate(user.joined)
+                td= user.link_count
+                td
+                  input.is_active(type="checkbox" checked=(user.is_active ? "checked" : undefined))
+                td
+                  input.is_admin(type="checkbox" checked=(user.is_admin ? "checked" : undefined))
+
+    .row
+      .columns.text-center
+        a(href="?page="+previous)= __("Previous")
+        | &emsp;
+        a(href="?page="+next)= __("Next")
+
+block javascript
+  script
+    | require('s7n').admin.user_list()
