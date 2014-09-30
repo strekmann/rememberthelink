@@ -1,42 +1,64 @@
-Node Boilerplate
-================
+Remember the link [![Build Status](https://travis-ci.org/strekmann/rememberthelink.png)](https://travis-ci.org/strekmann/rememberthelink)
+=================
 
-This is a boilerplate inteded to get you fast up to speed when developing node.js web applications.
+Rememberthelink is a web tool where you can save, tag and share the links you
+find interesting, important or otherwise want to remember.
 
-Based on
---------
+Do you [rememberthelink](http://rememberthelink.com)?
+-----------------------------------------------------
 
-* node.js
-* express
-* mongoose
-* passport
-* jade
-* ractive
+Often hard to remember the links when you need it? This is another project
+helping you to remember the important links you see.
 
-Howto
------
+How is this project different?
+------------------------------
 
-* Clone this repository: ``git clone git://github.com/strekmann/node-boilerplate.git``
-* Change directory: ``cd node-boilerplate``
-* Install dependencies: ``make install``
-* Create a settings file, and remember to edit it: ``cp server/settings.example.js server/settings.js``
-* See that everything works on your side: ``make test``
-* Run: ``node cluster``
-* Open browser at localhost:3000
+We do our development in public on
+[Github](https://github.com/strekmann/rememberthelink), you can install
+Rememberthelink on your own server, and we make sure our export and import
+scripts are always tested.
 
-Developers howto
-----------------
+We will admit we started this project because we weren't too happy about
+similar tools we knew about. And we did it to learn Node.js better.
 
-* Make everything: ``make``
-* Compile sass on file changes: ``make watch``
-* Restart cluster on file changes: ``nodemon cluster``
+How to get started
+------------------
 
-Bugs? Contributions?
---------------------
+Head over to [rememberthelink](http://rememberthelink.com) to test the running
+production code. This service is intended to be free and stable.
 
-Please use the issues and pull requests at Github.
+If you want to run the code yourself, you can clone this repository, fetch
+dependencies, copy the example settings and modify them, build static files,
+and run `node cluster.js`:
 
-Copyright and license
----------------------
-Copyright © 2013-2014 Jørgen Bergquist and Sigurd Gartmann, released under the
-[MIT license](https://github.com/strekmann/node-boilerplate/blob/master/LICENSE).
+    git clone https://github.com/strekmann/rememberthelink
+    cd rememberthelink
+    npm install
+    cp server/settings.example.js server/settings.js  # remember to modify this
+    make
+    node cluster.js
+
+How to contribute
+-----------------
+We are very happy for pull requests, issues created and other contributions. We
+also welcome anonymous contributions. At this point we are very happy to get
+new translations.
+
+Dependencies
+------------
+
+This is a Node.js project and relies on express, mongoose, redis, i18n, and a
+lot more specified in the [packages.json](./packages.json).
+Rememberthelink is based on our own node-boilerplate, which we intend to keep
+updated as this project evolves.
+
+Contributors
+------------
+
+- Jørgen Bergquist (developer)
+- Sigurd Gartmann (developer)
+
+License
+-------
+
+[AGPL](./LICENSE)
