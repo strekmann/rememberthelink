@@ -346,7 +346,7 @@ module.exports.new_from_extensions = function (l) {
             });
         }
         else {
-            links.createLink(evente.context.link)
+            links.createLink(event.context.link)
             .then(function (data) {
                 history.go(-1);
             });
