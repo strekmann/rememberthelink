@@ -3,6 +3,7 @@
 var shortid = require('short-mongo-id'),
     mongoose = require('mongoose'),
     User = require('../server/models').User,
+    Link = require('../server/models/links').Link,
     _ = require('underscore'),
     async = require('async'),
     settings = require('../server/settings');
@@ -47,7 +48,11 @@ async.series([
                         if (err){ return done(err); }
 
                         user.remove(function(err){
-                            done(err);
+
+                            // update user links
+                            Link.update({creator: user._id}, {$set: {creator: newUser._id}}, {multi: true}, function(err){
+                                done(err);
+                            });
                         });
                     });
 
