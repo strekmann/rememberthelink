@@ -32,14 +32,6 @@ function set_tags(tagstring) {
 
 }
 
-function set_private(_private) {
-    if(typeof _private !== 'undefined'){
-        return true;
-    } else {
-        return false;
-    }
-}
-
 function clean_link(link) {
     var new_link = {};
     new_link.url = link.url;
@@ -162,7 +154,7 @@ router.route('/')
         link.title = req.body.title;
         link.description = req.body.description;
         link.tags = set_tags(req.body.tags);
-        if (req.body.private) {
+        if (req.body.private === "true") {
             link.private = true;
         } else {
             link.private = false;
@@ -204,7 +196,7 @@ router.route('/')
             link.title = req.body.title;
             link.description = req.body.description;
             link.tags = set_tags(req.body.tags);
-            if (req.body.private) {
+            if (req.body.private === "true") {
                 link.private = true;
             } else {
                 link.private = false;
