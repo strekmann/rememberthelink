@@ -353,6 +353,11 @@ module.exports.new_from_extensions = function (l) {
         }
     });
 
+    links.on('cancel', function(event){
+        event.original.preventDefault();
+        history.go(-1);
+    });
+
     tagify(function (element) {
         links.set('link.tags', element.val);
     });
