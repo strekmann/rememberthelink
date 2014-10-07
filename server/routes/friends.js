@@ -102,4 +102,30 @@ router.get('/followers', function (req, res, next) {
     });
 });
 
+router.get('/add/:id', function(req, res, next){
+    User.findById(req.params.id)
+    .exec(function(err, user){
+        if (user && !_.contains(req.user.following, user._id)){
+            async.parallel({
+                following: function (callback) {
+                    req.user.following.addToSet(user._id);
+                    req.user.save(function (err) {
+                        callback(err);
+                    });
+                },
+                followers: function (callback) {
+                    user.followers.addToSet(req.user._id);
+                    user.save(function (err) {
+                        callback(err);
+                    });
+                }},
+            function (err) {
+                res.redirect('/friends');
+            });
+        } else {
+            res.redirect('/friends');
+        }
+    });
+});
+
 module.exports = router;

@@ -3,13 +3,17 @@ extends ../layout
 block content
   section#links-index
     .row
-      .columns
+      .columns.medium-9
+        if active_user && active_user.following.indexOf(profile._id) == -1
+          a#add-user.right(href="/friends/add/"+profile._id title=__("Follow this user") style="margin-top:2rem;")
+            i.fa.fa-plus
+            i.fa.fa-user
         h1= profile.name
-          |  
+          = " "
           small= profile.username
 
     .row
-      .columns.large-9
+      .columns.medium-9
         .row
           .columns
             ul.links
@@ -30,7 +34,7 @@ block content
                       for tag in link.tags
                         a.tag(href="/profile/" + profile._id + "/tags/" + tag)= tag
 
-      .columns.large-3
+      .columns.medium-3
         if tags.length
           h4.dark= __("Top tags")
           ul.tags

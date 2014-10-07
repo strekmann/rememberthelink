@@ -26,7 +26,7 @@ router.get('/:id', function (req, res, next) {
                 if ( profile === null) {
                     return callback({
                         status: 404,
-                        error: res.__("User not found")
+                        error: res.locals.__("User not found")
                     });
                 }
 
@@ -96,7 +96,7 @@ router.get('/:id/tags/*', function (req, res, next) {
                 if ( profile === null) {
                     return callback({
                         status: 404,
-                        error: res.__("User not found")
+                        error: res.locals.__("User not found")
                     });
                 }
 
