@@ -210,6 +210,7 @@ module.exports.indexView = function (l) {
             links.getTitle(event.context)
             .then(function (data) {
                 links.set('link.title', data.title);
+                links.set('link.url', data.url);
                 links.toggle('expanded');
                 tagify(function (element) {
                     links.set('link.tags', element.val);

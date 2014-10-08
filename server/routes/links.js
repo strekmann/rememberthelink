@@ -275,7 +275,7 @@ router.get('/title', function (req, res, next) {
         if (err) {
             return res.status(400).json({error: err.message});
         }
-        res.status(200).json({title: title});
+        res.status(200).json({title: title, url: url});
     });
 });
 
