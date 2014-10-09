@@ -11,7 +11,8 @@ var http = require('http'),
 if (numCPU < 2) { numCPU = 2; }
 
 // We only need 2 workers in development mode.
-if (env === 'development') { numCPU = 2; }
+//if (env === 'development') { numCPU = 2; }
+if (true) { numCPU = 2; }
 
 if (cluster.isMaster){
     for (i; i<numCPU; i++){

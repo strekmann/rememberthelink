@@ -1,6 +1,6 @@
 #! /bin/sh
 ### BEGIN INIT INFO
-# Provides:             boilerplate
+# Provides:             rememberthelink
 # Required-Start:       $syslog $remote_fs
 # Required-Stop:        $syslog $remote_fs
 # Should-Start:         $local_fs
@@ -11,9 +11,9 @@
 # Description:          Strekmann boilerplate
 ### END INIT INFO
 
-NAME=boilerplate
-DESC=boilerplate
-PORT=12345
+NAME=rememberthelink
+DESC=rememberthelink
+PORT=3214
 
 # ========
 
