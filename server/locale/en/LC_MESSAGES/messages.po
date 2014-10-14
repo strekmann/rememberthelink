@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-05-23 23:32+0000\n"
+"POT-Creation-Date: 2014-10-14 21:27+0000\n"
 "PO-Revision-Date: 2014-05-21 10:35+0100\n"
 "Last-Translator: bergquis <jorgen.bergquist@ntnu.no>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,11 +24,11 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: server/views/layout.jade:33
+#: server/views/layout.jade:33 server/views/layout.jade:52
 msgid "Login"
 msgstr ""
 
-#: server/views/login.jade:9
+#: server/views/login.jade:9 server/views/login.jade:10
 msgid "Login with Google"
 msgstr ""
 
@@ -36,34 +36,315 @@ msgstr ""
 msgid "User data"
 msgstr ""
 
-#: server/views/account.jade:32
+#: server/views/account.jade:32 server/views/account.jade:33
 msgid "Username"
 msgstr ""
 
-#: server/views/account.jade:38
+#: server/views/account.jade:38 server/views/account.jade:39
 msgid "Name"
 msgstr ""
 
-#: server/views/account.jade:44
+#: server/views/account.jade:44 server/views/account.jade:45
 msgid "E-mail"
 msgstr ""
 
-#: server/views/account.jade:50
+#: server/views/account.jade:50 server/views/account.jade:51
 msgid "Active"
 msgstr ""
 
-#: server/views/account.jade:56
+#: server/views/account.jade:56 server/views/account.jade:57
 msgid "Admin"
 msgstr ""
 
-#: server/views/account.jade:62
+#: server/views/account.jade:62 server/views/account.jade:63
 msgid "Created"
 msgstr ""
 
-#: server/views/account.jade:69
+#: server/views/account.jade:69 server/views/account.jade:70
 msgid "Google data"
 msgstr ""
 
-#: server/views/account.jade:67
+#: server/views/account.jade:67 server/views/account.jade:68
+#: server/views/friends/profile.jade:62 server/views/links/index.jade:25
+#: server/views/links/index.jade:59 server/views/links/index.jade:87
+#: server/views/links/new.jade:39
 msgid "Save"
+msgstr ""
+
+#: server/views/account.jade:81 server/views/account.jade:85
+msgid "Import"
+msgstr ""
+
+#: server/views/account.jade:82
+msgid "Import bookmarks from a HTML bookmarks file."
+msgstr ""
+
+#: server/views/account.jade:87 server/views/account.jade:89
+msgid "Export"
+msgstr ""
+
+#: server/views/account.jade:88
+msgid "Export your bookmarks as a HTML bookmarks file."
+msgstr ""
+
+#: server/views/admin/user_list.jade:7
+msgid "All users"
+msgstr ""
+
+#: server/views/admin/user_list.jade:36
+msgid "Previous"
+msgstr ""
+
+#: server/views/admin/user_list.jade:38
+msgid "Next"
+msgstr ""
+
+#: server/views/friends/index.jade:10
+msgid "Find friends"
+msgstr ""
+
+#: server/views/friends/index.jade:14
+msgid "username"
+msgstr ""
+
+#: server/views/friends/index.jade:16 server/views/index.jade:18
+msgid "Add"
+msgstr ""
+
+#: server/views/friends/index.jade:27
+msgid "users to find"
+msgstr ""
+
+#: server/views/friends/index.jade:32
+msgid "You are following"
+msgstr ""
+
+#: server/views/friends/index.jade:41 server/views/friends/index.jade:52
+msgid "None"
+msgstr ""
+
+#: server/views/friends/index.jade:46
+msgid "People following you"
+msgstr ""
+
+#: server/views/friends/index.jade:54
+msgid "Get more people to follow you by giving them your key:"
+msgstr ""
+
+#: server/views/friends/profile.jade:8
+msgid "Follow this user"
+msgstr ""
+
+#: server/views/friends/profile.jade:26 server/views/index.jade:22
+#: server/views/links/index.jade:114
+msgid "Share"
+msgstr ""
+
+#: server/views/friends/profile.jade:39 server/views/links/index.jade:143
+msgid "Top tags"
+msgstr ""
+
+#: server/views/friends/profile.jade:50 server/views/links/index.jade:13
+msgid "Share link"
+msgstr ""
+
+#: server/views/friends/profile.jade:54 server/views/links/index.jade:17
+msgid "User(s)"
+msgstr ""
+
+#: server/views/friends/profile.jade:58 server/views/links/index.jade:21
+msgid "Message"
+msgstr ""
+
+#: server/views/friends/profile.jade:63 server/views/links/index.jade:26
+#: server/views/links/index.jade:60 server/views/links/index.jade:88
+#: server/views/links/new.jade:40
+msgid "Cancel"
+msgstr ""
+
+#: server/views/index.jade:9
+msgid "a place to store and share links"
+msgstr ""
+
+#: server/views/index.jade:20
+msgid "Tag"
+msgstr ""
+
+#: server/views/index.jade:25
+msgid ""
+"Rememberthelink is a web tool where you can save, tag and share the links "
+"you find interesting, important or otherwise want to remember."
+msgstr ""
+
+#: server/views/index.jade:26
+msgid ""
+"We do our development in public on %s, you can install Rememberthelink on "
+"your own server, and we make sure our export and import scripts are always "
+"tested."
+msgstr ""
+
+#: server/views/index.jade:27
+msgid ""
+"We will admit we started this project because we were a bit unhappy about "
+"similar tools we knew about. And we did it to learn Node.js better."
+msgstr ""
+
+#: server/views/index.jade:30
+msgid "Popular tags"
+msgstr ""
+
+#: server/views/index.jade:34
+msgid "Total number of tags"
+msgstr ""
+
+#: server/views/index.jade:38
+msgid "Popular urls"
+msgstr ""
+
+#: server/views/index.jade:43
+msgid "Total number of urls"
+msgstr ""
+
+#: server/views/layout.jade:22
+msgid "Remember the link"
+msgstr ""
+
+#: server/views/layout.jade:36
+msgid "Friends"
+msgstr ""
+
+#: server/views/layout.jade:41 server/views/links/index.jade:51
+#: server/views/links/index.jade:80 server/views/links/new.jade:31
+msgid "Tags"
+msgstr ""
+
+#: server/views/layout.jade:63
+msgid "Bookmarklet"
+msgstr ""
+
+#: server/views/layout.jade:64
+msgid "drag this button to you toolbar"
+msgstr ""
+
+#: server/views/layout.jade:65
+msgid "Remember"
+msgstr ""
+
+#: server/views/layout.jade:67
+msgid "Chrome extension"
+msgstr ""
+
+#: server/views/layout.jade:68
+msgid "Download from google.com"
+msgstr ""
+
+#: server/views/layout.jade:69
+msgid "Go to the webstore page"
+msgstr ""
+
+#: server/views/layout.jade:71
+msgid "Firefox extension"
+msgstr ""
+
+#: server/views/layout.jade:72
+msgid "Download from mozilla.org"
+msgstr ""
+
+#: server/views/layout.jade:73
+msgid "Go to the addon page"
+msgstr ""
+
+#: server/views/layout.jade:83
+msgid "Thoughts, suggestions or complaints?"
+msgstr ""
+
+#: server/views/layout.jade:85
+msgid "Send us an email"
+msgstr ""
+
+#: server/views/layout.jade:87
+msgid "describe your issues at Github"
+msgstr ""
+
+#: server/views/layout.jade:98
+msgid "Suggestions"
+msgstr ""
+
+#: server/views/links/all_tags.jade:6
+msgid "All your tags"
+msgstr ""
+
+#: server/views/links/index.jade:39 server/views/links/new.jade:10
+msgid "Edit link"
+msgstr ""
+
+#: server/views/links/index.jade:43 server/views/links/index.jade:74
+#: server/views/links/new.jade:23
+msgid "Title"
+msgstr ""
+
+#: server/views/links/index.jade:47 server/views/links/index.jade:77
+#: server/views/links/new.jade:27
+msgid "Description"
+msgstr ""
+
+#: server/views/links/index.jade:56 server/views/links/index.jade:84
+#: server/views/links/index.jade:111 server/views/links/new.jade:36
+msgid "Private"
+msgstr ""
+
+#: server/views/links/index.jade:71 server/views/links/index.jade:94
+msgid "http://new.link.now"
+msgstr ""
+
+#: server/views/links/index.jade:96
+msgid "Fetch"
+msgstr ""
+
+#: server/views/links/index.jade:117
+msgid "Edit"
+msgstr ""
+
+#: server/views/links/index.jade:120
+msgid "Delete"
+msgstr ""
+
+#: server/views/links/index.jade:125
+msgid "delete"
+msgstr ""
+
+#: server/views/links/index.jade:127
+msgid "yes"
+msgstr ""
+
+#: server/views/links/index.jade:128
+msgid "no"
+msgstr ""
+
+#: server/views/links/new.jade:12
+msgid "Add new link"
+msgstr ""
+
+#: server/views/links/new.jade:19
+msgid "URL"
+msgstr ""
+
+#: server/views/links/suggestions.jade:10
+msgid "Suggested links from friends"
+msgstr ""
+
+#: server/views/links/suggestions.jade:19
+msgid "Accept"
+msgstr ""
+
+#: server/views/links/suggestions.jade:21
+msgid "Reject"
+msgstr ""
+
+#: server/views/links/suggestions.jade:30
+msgid "No suggestions for you at the moment"
+msgstr ""
+
+#: server/views/login.jade:15
+msgid "Login with Facebook"
 msgstr ""
