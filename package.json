@@ -24,7 +24,7 @@
     "hiredis": "",
     "i18n-abide": "",
     "jade": "^1.5.0",
-    "libby": "strekmann/libby",
+    "libby": "^2.1.0",
     "moment": "2.x",
     "mongoose": "3.8.x",
     "multer": "^0.1.4",
