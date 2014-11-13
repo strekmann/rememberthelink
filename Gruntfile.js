@@ -80,7 +80,7 @@ module.exports = function(grunt) {
                     'bower_components/jquery/dist/jquery.js',
                     'bower_components/foundation/js/foundation.js',
                     'bower_components/moment/moment.js',
-                    'bower_components/moment/min/langs.js',
+                    'bower_components/moment/locale/nb.js',
                     'bower_components/marked/lib/marked.js',
                     'bower_components/ractive/ractive.js',
                     'bower_components/ractive-events-tap/ractive-events-tap.js',
