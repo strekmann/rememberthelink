@@ -1,5 +1,5 @@
 upstream rememberthelink {
-        server 127.0.0.1:3214 fail_timeout=0;
+        server 127.0.0.1:15004 fail_timeout=0;
 }
 
 server {
@@ -14,8 +14,8 @@ server {
         #listen [::]:443;
 
         ssl on;
-	ssl_certificate /etc/nginx/ssl/rememberthelink.com/server.crt;
-        ssl_certificate_key /etc/nginx/ssl/rememberthelink.com/server.key;
+	ssl_certificate /srv/ssl/rememberthelink.com/server.crt;
+        ssl_certificate_key /srv/ssl/rememberthelink.com/server.key;
 	ssl_protocols           TLSv1 TLSv1.1 TLSv1.2;
 
         server_name www.rememberthelink.com;
@@ -27,8 +27,8 @@ server {
         #listen [::]:443;
 
         ssl on;
-	ssl_certificate /etc/nginx/ssl/rememberthelink.com/server.crt;
-        ssl_certificate_key /etc/nginx/ssl/rememberthelink.com/server.key;
+	ssl_certificate /srv/ssl/rememberthelink.com/server.crt;
+        ssl_certificate_key /srv/ssl/rememberthelink.com/server.key;
 	ssl_protocols           TLSv1 TLSv1.1 TLSv1.2;
 
         server_name rememberthelink.com;

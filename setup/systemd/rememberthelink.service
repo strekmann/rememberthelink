@@ -1,0 +1,12 @@
+[Service]
+ExecStart=/usr/bin/node /srv/rememberthelink/rememberthelink/cluster.js
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=rememberthelink
+User=www-data
+Group=www-data
+Environment=NODE_ENV=production PORT=15004
+
+[Install]
+WantedBy=multi-user.target
