@@ -1,13 +1,19 @@
 REPORTER = spec
 
 build:
+	@./node_modules/.bin/gulp build
 	@./node_modules/.bin/grunt
 
 production:
+	@./node_modules/.bin/gulp build
 	@./node_modules/.bin/grunt prod
 
 watch:
+	@./node_modules/.bin/gulp
 	@./node_modules/.bin/grunt watch
+
+run:
+	@nodemon
 
 hint:
 	@./node_modules/.bin/grunt hint
@@ -35,6 +41,6 @@ doc:
 	./node_modules/.bin/groc
 
 clean:
-	rm -r ./node_modules ./bower_components ./public
+	rm -r ./node_modules ./bower_components ./dist/public
 
 .PHONY: build production watch test test-w hint locales install clean

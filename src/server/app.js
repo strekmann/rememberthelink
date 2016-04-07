@@ -74,7 +74,7 @@ app.use('/admin', require('./routes/admin'));
 app.use('/bookmarks', require('./routes/bookmarks'));
 
 // Static file middleware serving static files.
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', '..', 'dist', 'public')));
 
 // Internal server error - 500 status
 app.use(function(err, req, res, next){

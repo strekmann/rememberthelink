@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         jshint: {
-            files: ['client/js/**/*.js', 'server/**/*.js', 'test/*.js'],
+            files: ['src/client/js/**/*.js', 'src/server/**/*.js', 'test/*.js'],
             options: {
                 curly: true,
                 eqeqeq: true,
@@ -10,7 +10,7 @@ module.exports = function(grunt) {
                 latedef: true,
                 noarg: true,
                 trailing: true,
-                ignores: ['public/**/*.js']
+                ignores: ['dist/**/*.js']
             },
             client: {
                 options: {
@@ -20,7 +20,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    src: ['client/js/**/*.js']
+                    src: ['src/client/js/**/*.js']
                 }
             },
             server: {
@@ -31,7 +31,7 @@ module.exports = function(grunt) {
                 src: [
                         'Gruntfile.js',
                         'cluster.js',
-                        'server/**/*.js',
+                        'src/server/**/*.js',
                         'test/*.js'
                     ]
                 }
@@ -39,10 +39,10 @@ module.exports = function(grunt) {
         },
         browserify: {
             build: {
-                dest: 'public/js/site.js',
-                src: ['client/js/index.js'],
+                dest: 'dist/public/js/site.js',
+                src: ['src/client/js/index.js'],
                 options: {
-                    alias: ['./client/js/index.js:s7n']
+                    alias: ['./src/client/js/index.js:s7n']
                 }
             }
         },
@@ -65,11 +65,11 @@ module.exports = function(grunt) {
         concat: {
             css: {
                 src: [
-                    'client/vendor/css/**/*.css',
+                    'src/client/vendor/css/**/*.css',
                     'bower_components/select2/select2.css',
                     '/tmp/styles.css'
                 ],
-                dest: 'public/css/site.css'
+                dest: 'dist/public/css/site.css'
             },
             vendor: {
                 options: {
@@ -88,9 +88,9 @@ module.exports = function(grunt) {
                     'bower_components/ractive-transitions-fade/ractive-transitions-fade.js',
                     'bower_components/ractive-transitions-slide/ractive-transitions-slide.js',
                     'bower_components/select2/select2.js',
-                    'client/vendor/js/*.js'
+                    'src/client/vendor/js/*.js'
                 ],
-                dest: 'public/js/vendor.js'
+                dest: 'dist/public/js/vendor.js'
             }
         },
         copy: {
@@ -99,7 +99,7 @@ module.exports = function(grunt) {
                 flatten: true,
                 filter: 'isFile',
                 src: ['bower_components/modernizr/modernizr.js'],
-                dest: 'public/js/'
+                dest: 'dist/public/js/'
             },
             font: {
                 expand: true,
@@ -107,21 +107,21 @@ module.exports = function(grunt) {
                 filter: 'isFile',
                 src: [
                     'bower_components/font-awesome/fonts/*',
-                    'client/fonts/*'
+                    'src/client/fonts/*'
                 ],
-                dest: 'public/fonts/'
+                dest: 'dist/public/fonts/'
             },
             img: {
                 expand: true,
-                cwd: 'client/img',
+                cwd: 'src/client/img',
                 src: ['**'],
-                dest: 'public/img/'
+                dest: 'dist/public/img/'
             },
             select2: {
                 expand: true,
                 flatten: true,
                 src: ['bower_components/select2/*.png', 'bower_components/select2/*.gif'],
-                dest: 'public/css/'
+                dest: 'dist/public/css/'
             }
         },
         uglify: {
@@ -131,37 +131,37 @@ module.exports = function(grunt) {
             },
             vendor: {
                 files: {
-                    'public/js/vendor.js': ['public/js/vendor.js']
+                    'dist/public/js/vendor.js': ['public/js/vendor.js']
                 }
             },
             client: {
                 files: {
-                    'public/js/site.js': ['public/js/site.js']
+                    'dist/public/js/site.js': ['dist/public/js/site.js']
                 }
             }
         },
         watch: {
             clientjs: {
-                files: ['client/js/**/*.js'],
+                files: ['src/client/js/**/*.js'],
                 tasks: ['jshint:client', 'browserify']
             },
             server: {
-                files: ['Gruntfile.js', 'cluster.js', 'server/**/*.js', 'test/**/*.js'],
+                files: ['Gruntfile.js', 'cluster.js', 'src/server/**/*.js', 'test/**/*.js'],
                 tasks: ['jshint:server']
             },
             scss: {
-                files: ['client/scss/**/*.scss'],
+                files: ['src/client/scss/**/*.scss'],
                 tasks: ['sass', 'concat:css']
             }
         },
         abideExtract: {
             js: {
-                src: 'server/**/*.js',
-                dest: 'server/locale/templates/LC_MESSAGES/messages.pot'
+                src: 'src/server/**/*.js',
+                dest: 'src/server/locale/templates/LC_MESSAGES/messages.pot'
             },
             jade: {
-                src: 'server/views/**/*.jade',
-                dest: 'server/locale/templates/LC_MESSAGES/messages.pot',
+                src: 'src/server/views/**/*.jade',
+                dest: 'src/server/locale/templates/LC_MESSAGES/messages.pot',
                 options: {
                     language: 'jade',
                     keyword: '__'
@@ -171,17 +171,17 @@ module.exports = function(grunt) {
         abideMerge: {
             messages: {
                 options: {
-                    template: 'server/locale/templates/LC_MESSAGES/messages.pot',
-                    localeDir: 'server/locale'
+                    template: 'src/server/locale/templates/LC_MESSAGES/messages.pot',
+                    localeDir: 'src/server/locale'
                 }
             }
         },
         abideCompile: {
             json: {
-                dest: 'public/js/',
+                dest: 'dist/public/js/',
                 options: {
                     type: 'json',
-                    localeDir: 'server/locale'
+                    localeDir: 'src/server/locale'
                 }
             }
         }
@@ -196,7 +196,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-i18n-abide');
 
-    grunt.registerTask('default', ['jshint', 'sass', 'concat', 'copy', 'browserify', 'abideCompile']);
+    grunt.registerTask('default', ['copy', 'browserify', 'abideCompile']);
     grunt.registerTask('prod', ['default', 'uglify']);
     grunt.registerTask('hint', ['jshint']);
     grunt.registerTask('locales', ['abideExtract', 'abideMerge']);

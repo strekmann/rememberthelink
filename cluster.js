@@ -30,8 +30,8 @@ if (cluster.isMaster){
 } else {
     // -- database
     var mongoose = require('mongoose'),
-        settings = require('./server/settings'),
-        app = require('./server/app');
+        settings = require('./src/server/settings'),
+            app = require('./src/server/app');
 
     app.db = mongoose.connect(settings.mongo.servers.join(','), {replSet: {rs_name: settings.mongo.replset}});
     app.stamp = stamp;

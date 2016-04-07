@@ -1,9 +1,9 @@
 /node_modules
 /bower_components
-/server/settings.js
+settings.js
 /setup/mongo
 .sass-cache
-/public
+/dist
 /data
 *.mo
 

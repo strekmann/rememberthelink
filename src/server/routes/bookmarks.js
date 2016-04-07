@@ -7,7 +7,7 @@ var express = require('express'),
     cheerio = require('cheerio'),
     settings = require('../settings'),
     redis = require('../lib/redisclient'),
-    redis_prefix = require('../../package').name,
+    redis_prefix = require('../../../package').name,
     Link = require('../models/links').Link,
     ensureAuthenticated = require('../lib/middleware').ensureAuthenticated;
 
