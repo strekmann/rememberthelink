@@ -10,6 +10,8 @@ router.use('/graphql', graphql);
 
 mongoose.connect('mongodb://localhost/rememberthelink');
 
-let server = router.listen(3001, 'localhost');
+let server = router.listen(3001, 'localhost', function(){
+    console.log('GraphQL server running on port 3001');
+});
 
 export default server;

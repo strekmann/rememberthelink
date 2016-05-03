@@ -42,39 +42,39 @@ import {
 import { User } from './server/models';
 
 /**
+ * Model DTOs used to check for object type in relay
+ */
+class UserDTO { constructor(obj) { for (let k of Object.keys(obj)) { this[k] = obj[k]; } } }
+
+/**
  * We get the node interface and field from the Relay library.
  *
  * The first method defines the way we resolve an ID to its object.
  * The second defines the way we resolve an object to its GraphQL type.
  */
 var {nodeInterface, nodeField} = nodeDefinitions(
-  (globalId) => {
-      const b = Buffer.from(globalId, "base64");
-      console.log(globalId, b.toString(), "Glob");
-      const c = Buffer.from("User:100015l56", "ascii");
-      console.log("TO", c.toString("base64"));
-    var {type, id} = fromGlobalId(globalId);
-    console.log("SJEKK", type, id);
-    if (type === 'User') {
-        console.log("user", id);
-      return User.findById(id).exec();
-    } else if (type === 'Widget') {
-      return getWidget(id);
-    } else {
-      return null;
+    (globalId) => {
+        var {type, id} = fromGlobalId(globalId);
+        if (type === 'User') {
+            return User.findById(id).exec().then((user) => {
+                return new UserDTO(user.toObject());
+            });
+        } else if (type === 'Widget') {
+            return getWidget(id);
+        } else {
+            return null;
+        }
+    },
+    (obj) => {
+        console.log(obj);
+        if (obj instanceof UserDTO) {
+            return userType;
+        } else if (obj instanceof Widget)  {
+            return widgetType;
+        } else {
+            return null;
+        }
     }
-  },
-  (obj) => {
-    console.log("OJB", obj, arguments);
-    if (obj.model.modelName === 'User') {
-    console.log("TYPæe", "User");
-      return userType;
-    } else if (obj instanceof Widget)  {
-      return widgetType;
-    } else {
-      return null;
-    }
-  }
 );
 
 /**
@@ -136,7 +136,7 @@ var queryType = new GraphQLObjectType({
     // Add your own root fields here
     viewer: {
       type: userType,
-      resolve: () => User.findById('100015l56').exec(),
+      resolve: () => User.findOne({username: 'lusk'}).exec(),
     },
   }),
 });
