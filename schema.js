@@ -141,15 +141,35 @@ var queryType = new GraphQLObjectType({
   }),
 });
 
+
+let mutationUserUpateEmail = mutationWithClientMutationId({
+    name: 'UpdateUserEmail',
+    inputFields: {
+        userid: { type: new GraphQLNonNull(GraphQLID) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+    },
+    outputFields: {
+        user: {
+            type: userType,
+            resolve: (payload) => payload,
+        },
+    },
+    mutateAndGetPayload: ({ userid, email }, context) => {
+        let id = fromGlobalId(userid).id;
+        return User.findByIdAndUpdate(id, { email: email }, { new: true }).exec()
+    }
+});
+
 /**
  * This is the type that will be the root of our mutations,
  * and the entry point into performing writes in our schema.
  */
 var mutationType = new GraphQLObjectType({
-  name: 'Mutation',
-  fields: () => ({
-    // Add your own mutations here
-  })
+    name: 'Mutation',
+    fields: () => ({
+        // Add your own mutations here
+        userUpdateEmail: mutationUserUpateEmail,
+    })
 });
 
 /**
@@ -159,5 +179,5 @@ var mutationType = new GraphQLObjectType({
 export var Schema = new GraphQLSchema({
   query: queryType,
   // Uncomment the following after adding some mutation fields:
-  // mutation: mutationType
+  mutation: mutationType
 });

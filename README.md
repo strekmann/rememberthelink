@@ -1,3 +1,25 @@
+Stuff
+-----
+
+mutation UpdateEmail($input: UpdateUserEmailInput!) {
+  userUpdateEmail(input: $input) {
+    clientMutationId,
+    user {
+      name,
+      email
+    }
+  }
+}
+
+{
+  "input": {
+    "clientMutationId": "abcde",
+    "userid": "VXNlcjoxMDAwdE5XYTQ=",
+    "email": "snask@ntnu.no"
+  }
+}
+
+
 Remember the link [![Build Status](https://travis-ci.org/strekmann/rememberthelink.png)](https://travis-ci.org/strekmann/rememberthelink)
 =================
 
