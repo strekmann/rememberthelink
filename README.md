@@ -1,6 +1,6 @@
 Stuff
 -----
-
+```
 mutation UpdateEmail($input: UpdateUserEmailInput!) {
   userUpdateEmail(input: $input) {
     clientMutationId,
@@ -18,7 +18,7 @@ mutation UpdateEmail($input: UpdateUserEmailInput!) {
     "email": "snask@ntnu.no"
   }
 }
-
+```
 
 Remember the link [![Build Status](https://travis-ci.org/strekmann/rememberthelink.png)](https://travis-ci.org/strekmann/rememberthelink)
 =================
