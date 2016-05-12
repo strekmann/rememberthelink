@@ -30,6 +30,7 @@
     "i18n-abide": "",
     "jade": "^1.5.0",
     "libby": "^2.1.0",
+    "lodash": "^4.12.0",
     "moment": "2.x",
     "mongoose": "^4.4.14",
     "multer": "^0.1.4",

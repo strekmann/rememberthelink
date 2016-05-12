@@ -39,6 +39,7 @@ import {
   getWidgets,
 } from './database';
 
+import _ from 'lodash';
 import { User } from './server/models';
 
 /**
@@ -146,7 +147,8 @@ let mutationUserUpateEmail = mutationWithClientMutationId({
     name: 'UpdateUserEmail',
     inputFields: {
         userid: { type: new GraphQLNonNull(GraphQLID) },
-        email: { type: new GraphQLNonNull(GraphQLString) },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
     },
     outputFields: {
         user: {
@@ -154,9 +156,10 @@ let mutationUserUpateEmail = mutationWithClientMutationId({
             resolve: (payload) => payload,
         },
     },
-    mutateAndGetPayload: ({ userid, email }, context) => {
-        let id = fromGlobalId(userid).id;
-        return User.findByIdAndUpdate(id, { email: email }, { new: true }).exec()
+    mutateAndGetPayload: (input) => {
+        let id = fromGlobalId(input.userid).id;
+        let update = _.omit(input, ['clientMutationId', 'userid']);
+        return User.findByIdAndUpdate(id, update, { new: true }).exec();
     }
 });
 
