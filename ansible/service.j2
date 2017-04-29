@@ -1,0 +1,16 @@
+[Service]
+ExecStart={{ deploy_helper.current_path }}/{{ server_script }}
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier={{ project_name }}
+User={{ project_user }}
+Group={{ project_user }}
+Environment=NODE_ENV=production
+Environment=PORT={{ 13000 + project_number }}
+
+[Install]
+WantedBy=multi-user.target
+
+[Unit]
+After=network.target mongodb.service

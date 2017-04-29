@@ -1,0 +1,12 @@
+server {
+    listen 80;
+    listen   [::]:80;
+    server_name {{ server_name }} www.{{server_name}};
+    location ~ /.well-known {
+        root {{ deploy_helper.shared_path }};
+        allow all;
+    }
+    location / {
+        rewrite ^/(.*)$ https://{{ server_name }}/$1 redirect;
+    }
+}

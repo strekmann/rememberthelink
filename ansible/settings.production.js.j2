@@ -1,0 +1,27 @@
+module.exports = {
+    uri: 'https://rememberthelink.com/',
+    sessionSecret: '{{ sessionSecret }}',
+    trust_proxy: false,
+    auth: {
+        google: {
+            clientId: '{{ auth.google.clientId }}',
+            clientSecret: '{{ auth.google.clientSecret}}',
+            callbackURL: '{{ auth.google.callbackURL }}'
+        },
+        facebook: {
+            clientId: '{{ auth.facebook.clientId}}',
+            clientSecret: '{{ auth.facebook.clientSecret}}',
+            callbackURL: '{{ auth.facebook.callbackURL }}'
+        },
+    },
+    redis: {
+        host: '127.0.0.1',
+        port: 6379
+    },
+    mongo: {
+        servers: ['mongodb://localhost/{{ project_name }}'],
+        replset: null
+    },
+    locales: ['en', 'nb'],
+    defaultLocale: 'en',
+};

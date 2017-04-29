@@ -1,0 +1,5 @@
+server_name: rememberthelink.com
+project_number: 12
+project_name: rememberthelink
+project_home: /srv/{{ project_name }}
+project_user: "{{ project_name }}"

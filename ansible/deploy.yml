@@ -1,0 +1,169 @@
+- name: Set common release name across all hosts
+  hosts: localhost
+  tasks:
+    - shell: "date -u +%Y%m%d%H%M%S"
+      register: release_timestamp
+
+- name: Make sure Yarn has installed the latest build version
+  hosts: localhost
+  tasks:
+    - command: yarn
+      args:
+          chdir: ..
+
+- name: Initialize deploy root on web server
+  hosts: web
+  remote_user: "{{ project_user }}"
+  tasks:
+      - name: Initialize deploy root
+        deploy_helper:
+            path: "{{ project_home }}"
+            release: "{{ hostvars['localhost']['release_timestamp']['stdout'] }}"
+
+- name: Initialize deploy root on vagrant build vm
+  hosts: vagrant
+  become: true
+  tasks:
+      - name: Initialize deploy root
+        deploy_helper:
+            path: "{{ project_home }}"
+            release: "{{ hostvars['localhost']['release_timestamp']['stdout'] }}"
+
+- name: Build node project in virtual environment
+  hosts: vagrant
+  become: true
+  vars:
+      - cache_dir: /cache
+  tasks:
+      - name: Install https transport for apt
+        apt:
+            name: apt-transport-https
+            state: present
+
+      - name: Setup nodesource repository
+        apt_repository:
+            repo: "deb http://deb.nodesource.com/node_6.x jessie main"
+            state: present
+
+      - name: Add nodesource key
+        apt_key:
+            url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+            state: present
+
+      - name: Setup Yarn repository
+        apt_repository:
+            repo: "deb https://dl.yarnpkg.com/debian/ stable main"
+            state: present
+
+      - name: Add Yarn key
+        apt_key:
+            url: https://dl.yarnpkg.com/debian/pubkey.gpg
+            state: present
+
+      - name: Install dependencies
+        apt:
+            name: "{{ item }}"
+            state: present
+            update_cache: yes
+        with_items:
+            - build-essential
+            - nodejs
+            - rsync
+            - yarn
+
+      - name: Create release directory  # Not necessary if we checkout with git
+        file:
+          path: "{{ deploy_helper.new_release_path }}"
+          state: directory
+          mode: 0755
+        remote_user: "{{ project_user }}"
+
+      - name: Add "unfinished file" for deploy_helper
+        file:
+            path: "{{ deploy_helper.new_release_path }}/{{ deploy_helper.unfinished_filename }}"
+            state: touch
+
+      - name: Copy npm requirements
+        copy:
+            src: "../{{ item }}"
+            dest: "{{ deploy_helper.new_release_path }}/"
+        with_items:
+            - package.json
+            - yarn.lock
+
+      - name: Install requirements
+        command: yarn install --no-progress --silent --production --cache-folder={{ cache_dir }}
+        args:
+          chdir: "{{ deploy_helper.new_release_path }}"
+
+      - name: Sync back build
+        synchronize:
+            mode: pull
+            src: "{{ deploy_helper.new_release_path }}/"
+            dest: ../dist
+            rsync_opts: "--delete-excluded"
+
+
+- name: Build project on localhost
+  hosts: localhost
+  tasks:
+      - name: Build project
+        command: yarn run build-project
+        args:
+          chdir: ..
+        tags:
+            - build
+
+
+- name: Deploy to remote server
+  hosts: web
+  remote_user: "{{ project_user }}"
+  tasks:
+      - name: Synchronize dist
+        synchronize:
+            src: ../dist/
+            dest: "{{ deploy_helper.new_release_path }}/"
+
+      - name: Add production config
+        template:
+            src: settings.production.js.j2
+            dest: "{{ deploy_helper.new_release_path }}/server/settings.js"
+
+      - name: Copy systemd config
+        remote_user: root
+        template:
+            src: service.j2
+            dest: /etc/systemd/system/{{ project_name }}.service
+            owner: root
+            mode: 644
+        notify:
+            - reload systemd daemon
+            - reload systemd service
+
+      - name: Finalize the deploy, removing the unfinished file and switching the symlink
+        deploy_helper:
+            path: "{{ project_home }}"
+            release: "{{ deploy_helper.new_release }}"
+            state: finalize
+        notify:
+            - reload systemd service
+
+  handlers:
+      - name: reload systemd daemon
+        command: systemctl daemon-reload
+        remote_user: root
+
+      - name: reload systemd service
+        service:
+            name: "{{ project_name }}"
+            state: restarted
+            enabled: true
+        remote_user: root
+
+- name: Final check
+  hosts: localhost
+  tasks:
+      - name: Check that web service is up
+        uri:
+            url: https://{{ server_name }}
+

@@ -1,15 +1,15 @@
 {
   "name": "node-boilerplate",
   "dependencies": {
-    "font-awesome": "",
-    "foundation": "",
-    "marked": "",
-    "moment": "",
-    "ractive": "",
+    "font-awesome": "~4.7.0",
+    "foundation": "~5.5.3",
+    "marked": "~0.3.6",
+    "moment": "~2.18.1",
+    "ractive": "~0.7.3",
     "ractive-decorators-sortable": "ractivejs/ractive-decorators-sortable",
-    "ractive-transitions-fade": "",
-    "ractive-transitions-slide": "",
-    "underscore": "",
-    "select2": "~3.5.1"
+    "ractive-transitions-fade": "~0.2.1",
+    "ractive-transitions-slide": "~0.2.1",
+    "underscore": "~1.8.3",
+    "select2": "~3.5.4"
   }
 }

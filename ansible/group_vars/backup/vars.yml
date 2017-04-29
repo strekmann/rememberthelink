@@ -1,0 +1,1 @@
+backup_home: /srv/backup/{{ project_name }}

@@ -1,0 +1,17 @@
+server_script: cluster.js
+web_server_user: www-data
+backup_host: darni.strekmann.no
+backup_user: backup-{{ project_user }}
+backup_uri: ssh://{{ backup_user }}@{{ backup_host }}:2022
+dhparam_path: /etc/ssl/certs/dhparam.pem
+admin_email: "{{ vault.adminEmail }}"
+sessionSecret: "{{ vault.sessionSecret }}"
+auth:
+    facebook:
+        clientId: "{{ vault.auth.facebook.clientId }}"
+        clientSecret: "{{ vault.auth.facebook.clientSecret }}"
+        callbackURL: "{{ vault.auth.facebook.callbackURL }}"
+    google:
+        clientId: "{{ vault.auth.google.clientId }}"
+        clientSecret: "{{ vault.auth.google.clientSecret }}"
+        callbackURL: "{{ vault.auth.google.callbackURL }}"
