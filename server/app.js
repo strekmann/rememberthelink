@@ -1,7 +1,7 @@
 var express     = require('express'),
     path        = require('path'),
     moment      = require('moment'),
-    multer      = require('multer'),
+    //multer      = require('multer'),
     settings    = require('./settings'),
     app         = require('libby')(express, settings),
     Suggestion  = require('./models/links').Suggestion;
@@ -22,7 +22,7 @@ app.set('view engine', 'jade');
 // Initialize passport
 app.use(app.passport.initialize());
 app.use(app.passport.session());
-app.use(multer());
+//app.use(multer());
 
 // Make some variables always available in templates.
 app.use(function(req, res, next){

@@ -13,8 +13,8 @@ var UserSchema = new mongoose.Schema({
     created: {type: Date, required: true, 'default': Date.now},
     google_id: {type: String},
     facebook_id: {type: String},
-    following: [UserSchema],
-    followers: [UserSchema]
+    following: [{type: String, ref: UserSchema}],
+    followers: [{type: String, ref: UserSchema}]
 });
 
 var User = mongoose.model('User', UserSchema);
