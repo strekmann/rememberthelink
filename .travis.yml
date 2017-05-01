@@ -1,6 +1,8 @@
 language: node_js
+dist: trusty
 node_js:
-  - "0.10"
+  - "6"
+  - "7"
 services:
   - mongodb
   - redis-server
