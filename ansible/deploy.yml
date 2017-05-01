@@ -163,6 +163,10 @@
 - name: Final check
   hosts: localhost
   tasks:
+      - wait_for:
+          port: "{{ 13000 + project_number }}"
+          state: started
+
       - name: Check that web service is up
         uri:
             url: https://{{ server_name }}
