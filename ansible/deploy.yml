@@ -140,6 +140,13 @@
             - reload systemd daemon
             - reload systemd service
 
+      - name: Set up cron job for tag population in Redis
+        cron:
+            job: "/usr/bin/node {{ deploy_helper.new_release_path }}/cron/redis.js"
+            name: Redis cleanup for {{ project_name }}
+            minute: 59
+            hour: 4
+
       - name: Finalize the deploy, removing the unfinished file and switching the symlink
         deploy_helper:
             path: "{{ project_home }}"

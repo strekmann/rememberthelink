@@ -20,7 +20,7 @@
     "build-project": "npm run install-frontend && npm run build-frontend && npm run copy",
     "build-frontend": "grunt prod",
     "install-frontend": "bower install",
-    "copy": "cp -r public server cluster.js package.json dist",
+    "copy": "cp -r public server cron cluster.js package.json dist",
     "deploy": "ansible-playbook -i ansible/inventory --ask-vault-pass ansible/deploy.yml",
     "setup": "ansible-playbook -i ansible/inventory --ask-vault-pass ansible/setup.yml",
     "vm": "vagrant up && vagrant reload --provision"
