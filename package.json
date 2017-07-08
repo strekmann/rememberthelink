@@ -21,8 +21,8 @@
     "build-frontend": "grunt prod",
     "install-frontend": "bower install",
     "copy": "cp -r public server cron cluster.js package.json dist",
-    "deploy": "ansible-playbook -i ansible/inventory --ask-vault-pass ansible/deploy.yml",
-    "setup": "ansible-playbook -i ansible/inventory --ask-vault-pass ansible/setup.yml",
+    "deploy": "ansible-playbook -i ansible/inventory --ask-vault-pass ansible/deploy.yaml",
+    "setup": "ansible-playbook -i ansible/inventory --ask-vault-pass ansible/setup.yaml",
     "vm": "vagrant up && vagrant reload --provision"
   },
   "dependencies": {
