@@ -1,6 +1,6 @@
 ---
 - name: Install apt dependencies and harden security
-  hosts: web
+  hosts: remote
   remote_user: root
   tasks:
       - name: Disable password login
@@ -13,21 +13,6 @@
         notify:
             - reload sshd
 
-      - name: Setup nodesource repository
-        apt_repository:
-            repo: "deb http://deb.nodesource.com/node_6.x jessie main"
-            state: present
-
-      - name: Add nodesource key
-        apt_key:
-            url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-            state: present
-
-      - name: Setup backports repository
-        apt_repository:
-            repo: "deb http://ftp.debian.org/debian jessie-backports main"
-            state: present
-
       - name: Upgrade packages
         apt:
             upgrade: full
@@ -39,27 +24,14 @@
             name: "{{ item }}"
             state: present
         with_items:
+            - borgbackup
+            - certbot
             - fail2ban
             - mailutils
-            - mongodb
-            - nginx
-            - nodejs
             - postfix
-            - redis-server
             - rsync
             - unattended-upgrades
             - ufw
-        tags:
-            - mongo
-
-      - name: Install packages from from backports
-        apt:
-            name: "{{ item }}"
-            default_release: jessie-backports
-            state: present
-        with_items:
-            - borgbackup
-            - certbot
 
       - name: Open up http ports in firewall
         ufw:
@@ -71,6 +43,13 @@
             - 80
             - 443
             - 2022
+
+      - name: Open up for prometheus monitoring
+        ufw:
+            rule: allow
+            port: 9100
+            proto: tcp
+            src: "{{ monitor_server }}/32"
 
       - name: Set mailname
         template:
@@ -92,25 +71,6 @@
         notify:
             - rebuild mail aliases
 
-  handlers:
-      - name: reload sshd
-        service:
-            name: sshd
-            state: reloaded
-
-      - name: rebuild mail aliases
-        command: /usr/bin/newaliases
-
-      - name: restart postfix
-        service:
-            name: postfix
-            state: restarted
-
-
-- name: Setup Unattended upgrades
-  hosts: web
-  remote_user: root
-  tasks:
       - name: set up Unattended upgrades to use minimal steps
         lineinfile:
             state: present
@@ -139,6 +99,51 @@
             line: Unattended-Upgrade::Automatic-Reboot-Time "05:00";
             regexp: "^/{0,2}Unattended-Upgrade::Automatic-Reboot-Time "
 
+  handlers:
+      - name: reload sshd
+        service:
+            name: sshd
+            state: reloaded
+
+      - name: rebuild mail aliases
+        command: /usr/bin/newaliases
+
+      - name: restart postfix
+        service:
+            name: postfix
+            state: restarted
+
+- name: Install and set up project dependencies
+  hosts: web
+  remote_user: root
+  tasks:
+      - name: Add nodesource key
+        apt_key:
+            url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+            state: present
+
+      - name: Setup nodesource repository
+        apt_repository:
+            repo: "deb http://deb.nodesource.com/node_6.x {{ debian_version }} main"
+            state: present
+
+      - name: Upgrade packages
+        apt:
+            upgrade: full
+            update_cache: yes
+            autoremove: yes
+
+      - name: Install apt dependencies
+        apt:
+            name: "{{ item }}"
+            state: present
+        with_items:
+            - mongodb
+            - nginx
+            - nodejs
+            - redis-server
+        tags:
+            - mongo
 
 - name: Setup project user
   hosts: web
@@ -165,7 +170,6 @@
         user:
             name: "{{ web_server_user }}"
             groups: "{{ project_user }}"
-
 
 - name: Setup http server
   hosts: web
@@ -219,7 +223,7 @@
             creates: "{{ dhparam_path }}"
 
       - name: Run certbot
-        command: certbot certonly --webroot --text --non-interactive --expand --agree-tos --email {{ admin_email }} --webroot-path {{ deploy_helper.shared_path }} --domain {{ server_name }} --domain www.{{ server_name }}
+        command: certbot certonly --webroot --text --non-interactive --quiet --expand --agree-tos --email {{ admin_email }} --webroot-path {{ deploy_helper.shared_path }} --domain {{ server_name }} --domain www.{{ server_name }}
         args:
             creates: /etc/letsencrypt/live/{{ server_name }}/fullchain.pem
 
@@ -240,6 +244,15 @@
         notify:
             - reload nginx
 
+      - name: Set cron mailto
+        cronvar:
+            name: MAILTO
+            value: "{{ admin_email }}"
+            state: present
+            user: root
+        tags:
+            - cron
+
       - name: Add cron job for certificate renewal
         cron:
             job: certbot renew --post-hook "systemctl reload nginx"
@@ -259,6 +272,13 @@
   hosts: backup
   remote_user: root
   tasks:
+      - name: Make sure /srv/backup exists
+        file:
+            path: /srv/backup
+            state: directory
+        tags:
+            - backup
+
       - name: Create group for backup user
         group:
             name: backup-{{ project_user }}
@@ -354,7 +374,7 @@
 
       - name: Add cron job for backup of mongo database
         cron:
-            job: mongodump -d {{ project_name }} -o {{ project_home }}/{{ project_name }}-dump 1>/dev/null && BORG_PASSPHRASE= borg create {{ backup_uri }}/./{{ project_name }}-{{ ansible_hostname }}-mongo::{{ project_name }}-mongo-{hostname}-{now:\%Y-\%m-\%d} {{ project_home }}/{{ project_name }}-dump && rm -r {{ project_home }}/{{ project_name }}-dump
+            job: mongodump --quiet --db={{ project_name }} --out={{ project_home }}/{{ project_name }}-dump && BORG_PASSPHRASE= borg create {{ backup_uri }}/./{{ project_name }}-{{ ansible_hostname }}-mongo::{{ project_name }}-mongo-{hostname}-{now:\%Y-\%m-\%d} {{ project_home }}/{{ project_name }}-dump && rm -r {{ project_home }}/{{ project_name }}-dump
             name: Backing up database
             minute: "{{ 10 + project_number }}"
             hour: 1
@@ -365,7 +385,7 @@
 
       - name: Add cron job for backup of shared files
         cron:
-            job: BORG_PASSPHRASE= borg create -s {{ backup_uri }}/./{{ project_name }}-{{ ansible_hostname }}-shared::{{ project_name }}-shared-{hostname}-{now:\%Y-\%m-\%d} {{ deploy_helper.shared_path }}
+            job: BORG_PASSPHRASE= borg create --exclude '/**/lost+found' {{ backup_uri }}/./{{ project_name }}-{{ ansible_hostname }}-shared::{{ project_name }}-shared-{hostname}-{now:\%Y-\%m-\%d} {{ deploy_helper.shared_path }}
             name: Backing up shared files
             minute: "{{ 10 + project_number }}"
             hour: 2

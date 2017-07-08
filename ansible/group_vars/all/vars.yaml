@@ -1,5 +1,10 @@
-server_name: rememberthelink.com
+---
 project_number: 12
 project_name: rememberthelink
 project_home: /srv/{{ project_name }}
 project_user: "{{ project_name }}"
+server_name: rememberthelink.com
+server_port: "{{ 13000 + project_number }}"
+admin_email: "{{ vault.admin_email }}"
+debian_version: stretch
+monitor_server: 188.113.118.180

@@ -1,8 +1,9 @@
 server_script: cluster.js
 web_server_user: www-data
-backup_host: darni.strekmann.no
+backup_host: vifta.strekmann.no
+backup_port: 2024
 backup_user: backup-{{ project_user }}
-backup_uri: ssh://{{ backup_user }}@{{ backup_host }}:2022
+backup_uri: ssh://{{ backup_user }}@{{ backup_host }}:{{ backup_port }}
 dhparam_path: /etc/ssl/certs/dhparam.pem
 admin_email: "{{ vault.adminEmail }}"
 sessionSecret: "{{ vault.sessionSecret }}"

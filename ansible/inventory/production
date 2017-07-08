@@ -1,5 +1,9 @@
 [web]
-darni.strekmann.no:2022
+gavin.strekmann.no:2022
 
 [backup]
-darni.strekmann.no:2022
+vifta.strekmann.no:2022
+
+[remote:children]
+web
+backup
