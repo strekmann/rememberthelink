@@ -36,7 +36,7 @@
     "jade": "^1.11.0",
     "libby": "^2.1.0",
     "moment": "^2.18.1",
-    "mongoose": "^4.9.3",
+    "mongoose": "^5.7.5",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
@@ -48,7 +48,7 @@
     "uslug": "^1.0.4"
   },
   "devDependencies": {
-    "bower": "^1.8.0",
+    "bower": "^1.8.8",
     "browserify": "^14.3.0",
     "chai": "^3.4.1",
     "grunt-browserify": "^5.0.0",
